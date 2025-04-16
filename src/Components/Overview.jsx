@@ -121,7 +121,7 @@ const Overview = () => {
                 <p className='font-medium text-[20px]'>OverView</p>
                 <button className='py-2 px-4 border border-black/30 rounded-md'>Live rates</button>
             </div>
-            <div className='px-8 flex'>
+            <div className='px-8 pt-4 flex'>
                 <div className='w-full border-r-2 pr-3 border-black/50'>
                     <div className='flex items-center justify-between'>
                         <p className='flex items-center gap-1'>
