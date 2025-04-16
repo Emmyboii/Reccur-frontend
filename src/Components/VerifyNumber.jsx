@@ -26,7 +26,7 @@ const VerifyNumber = () => {
                 <p className={location.pathname === '/verifynumber' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
                 <p className={location.pathname === '/verifyaddress' ? 'bg-gray-300 h-1 w-5 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
                 <p className={location.pathname === '/verifyidentity' ? 'bg-gray-300 h-1 w-5 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
-                <p className={location.pathname === '/uploaddocument' ? 'bg-gray-300 h-1 w-5 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
+                <p className={location.pathname === '/uploadDocument' ? 'bg-gray-300 h-1 w-5 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
             </div>
             {verify ? (
                 <div className='text-black/70'>

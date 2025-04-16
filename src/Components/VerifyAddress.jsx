@@ -60,7 +60,7 @@ const VerifyAddress = () => {
                 <p className={location.pathname === '/verifynumber' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
                 <p className={location.pathname === '/verifyaddress' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
                 <p className={location.pathname === '/verifyidentity' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
-                <p className={location.pathname === '/uploaddocument' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
+                <p className={location.pathname === '/uploadDocument' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
             </div>
             <div className='mt-12 flex flex-col gap-4 text-black/70'>
                 <div>
@@ -94,7 +94,7 @@ const VerifyAddress = () => {
                     </div>
                 </div>
                 <div>
-                    <label htmlFor="code">State / Province</label>
+                    <label htmlFor="code">City</label>
                     <select className='border-[1.5px] mt-1 border-black/20 rounded-md w-full p-2 outline-none'>
                         <option value="nigeria">Lekki</option>
                         <option value="nigeria">Lekki</option>

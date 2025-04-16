@@ -10,17 +10,46 @@ import { MdOutlineSettings } from "react-icons/md";
 const Sidebar = () => {
     const location = useLocation()
 
+    const verified = JSON.parse(localStorage.getItem('detailsVerified'))
 
     return (
         <div className='bg-[#411c87] text-white w-[20%] h-screen py-8 px-5 flex flex-col gap-5'>
-            <h1 className='font-semibold ml-7 text-[20px]'>reccur</h1>
-            <div className='flex flex-col gap-2'>
-                <Link to='/'>
-                    <p className={location.pathname === '/' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                        <RiHome6Line className='text-[20px]' />
-                        Home
-                    </p>
+            {verified ? (
+                <Link to='/home'>
+                    <h1 className='font-semibold ml-7 text-[20px]'>reccur</h1>
                 </Link>
+            ) : (
+                <Link to='/'>
+                    <h1 className='font-semibold ml-7 text-[20px]'>reccur</h1>
+                </Link>
+            )}
+            <div className='flex flex-col gap-2'>
+                {verified ? (
+                    <Link to='/home'>
+                        <p className={location.pathname.startsWith('/home') ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
+                            <RiHome6Line className='text-[20px]' />
+                            Home
+                        </p>
+                    </Link>
+                ) : (
+                    <Link to='/'>
+                        <p className={location.pathname.startsWith('/') &&
+                            location.pathname !== '/beneficiaries' &&
+                            location.pathname !== '/beneficiaries' &&
+                            location.pathname !== '/invoices' &&
+                            location.pathname !== '/transactions' &&
+                            location.pathname !== '/settings' ? 
+                            'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2'
+                            :
+                            'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'
+                        }
+                        >
+                            <RiHome6Line className='text-[20px]' />
+                            Home
+                        </p>
+                    </Link>
+                )}
+
                 <Link to='/beneficiaries'>
                     <p className={location.pathname === '/beneficiaries' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                         <GoPeople className='text-[20px]' />
