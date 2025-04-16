@@ -8,7 +8,7 @@ import { Context } from '../Context/Context';
 const CreateAcctBar = () => {
     const navigate = useNavigate();
 
-    const { acctBar, handleAcctBar } = useContext(Context)
+    const { acctBar, handleAcctBar, setChecked } = useContext(Context)
 
     const customStyles = {
         indicatorSeparator: () => ({
@@ -115,11 +115,12 @@ const CreateAcctBar = () => {
                     <button
                         className='p-3 rounded-lg bg-[#411c87] text-white w-[70%]'
                         onClick={() => {
+                            setChecked(true)
                             window.scrollTo(0, 0)
                             navigate('/home/overview')
                         }}
                     >
-                        Continue
+                        Create Account
                     </button>
                 </div>
             </div>

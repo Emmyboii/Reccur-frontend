@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { CiSearch } from "react-icons/ci";
 import { IoMdNotificationsOutline, IoMdAddCircle } from "react-icons/io";
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
@@ -7,14 +7,21 @@ import { Context } from '../Context/Context';
 
 const CreateAcct = () => {
 
-    const [checked, setChecked] = useState(false)
-    const [checked2, setChecked2] = useState(false)
-    const [checked3, setChecked3] = useState(false)
-    const [checked4, setChecked4] = useState(false)
-    const [checked5, setChecked5] = useState(false)
-    const [checked6, setChecked6] = useState(false)
-
-    const { handleAcctBar, acctBar } = useContext(Context)
+    const {
+        handleAcctBar,
+        acctBar,
+        checked,
+        checked2,
+        setChecked2,
+        checked3,
+        setChecked3,
+        checked4,
+        setChecked4,
+        checked5,
+        setChecked5,
+        checked6,
+        setChecked6
+    } = useContext(Context)
 
     return (
         <div>
@@ -52,7 +59,7 @@ const CreateAcct = () => {
                     <div className='flex flex-col gap-4'>
                         <div
                             className={`flex items-center gap-2 cursor-pointer ${checked ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
-                            onClick={() => setChecked(!checked)}
+                            onClick={!checked ? handleAcctBar : null}
                         >
                             {checked ? (
                                 <FaCheckCircle className='mt-1 text-[#542d9d]' />
