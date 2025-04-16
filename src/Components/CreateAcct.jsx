@@ -24,7 +24,7 @@ const CreateAcct = () => {
     } = useContext(Context)
 
     return (
-        <div>
+        <div className='my-5'>
             <div
                 className={`w-[80%] h-screen absolute ${acctBar ? 'bg-black/30' : 'hidden'}`}
                 onClick={handleAcctBar}

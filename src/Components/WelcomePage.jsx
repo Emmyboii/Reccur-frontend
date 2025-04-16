@@ -7,7 +7,7 @@ const WelcomePage = () => {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <div className='my-5'>
             <div className='flex items-center justify-between px-8 py-5'>
                 <div>
                     <p className='text-[20px] font-semibold'>Home</p>
