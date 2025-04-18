@@ -25,7 +25,7 @@ const UploadDocument = () => {
   }
 
   return (
-    <div className='flex flex-col px-[250px] py-[30px]'>
+    <div className='flex flex-col max-w-[540px] px-4 mx-auto py-[30px]'>
       <div>
         <h1 className='text-[30px] text-center'>Upload your Documents</h1>
         <p className='text-black/60 text-center'>

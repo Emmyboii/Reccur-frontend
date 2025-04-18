@@ -36,13 +36,10 @@ const ConvertCurrency = () => {
         }),
         control: (base) => ({
             ...base,
-            backgroundColor: '#f9f9f9',
-            borderColor: '#4e22a0',
             padding: '4px',
             boxShadow: 'none',
-            '&:hover': {
-                borderColor: '#4e22a0',
-            },
+            borderRadius: '6px',
+            borderWidth: '1.5px'
         }),
         menu: (base) => ({
             ...base,
@@ -74,10 +71,10 @@ const ConvertCurrency = () => {
                     <h1 className='text-[19px] font-medium'>Convert currency</h1>
                     <p>Easily exchange funds between your accounts in different currencies.</p>
                 </div>
-                    <FaTimes
-                        className='cursor-pointer mt-1'
-                        onClick={handleConvertBar}
-                    />
+                <FaTimes
+                    className='cursor-pointer mt-1'
+                    onClick={handleConvertBar}
+                />
             </div>
             <div className='mt-7'>
                 <div>

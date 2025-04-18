@@ -28,13 +28,10 @@ const AcctDetailsBar = () => {
         }),
         control: (base) => ({
             ...base,
-            backgroundColor: '#f9f9f9',
-            borderColor: '#4e22a0',
             padding: '4px',
+            borderRadius: '6px',
             boxShadow: 'none',
-            '&:hover': {
-                borderColor: '#4e22a0',
-            },
+            borderWidth: '1.5px'
         }),
         menu: (base) => ({
             ...base,

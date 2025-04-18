@@ -1,6 +1,6 @@
 import React from 'react'
-import { IoSearch } from "react-icons/io5";
 import { useLocation, useNavigate } from 'react-router-dom';
+import Search from '../Components/Images/search.png'
 
 const VerifyIdentity = () => {
     const navigate = useNavigate();
@@ -52,7 +52,7 @@ const VerifyIdentity = () => {
                             <option value="nigeria">Nigeria</option>
                             <option value="nigeria">Nigeria</option>
                         </select>
-                        <IoSearch className='ml-[-25px] text-[20px] text-gray-300' />
+                        <img className='ml-[-28px]' src={Search} alt="" />
                     </div>
                 </div>
                 <div>

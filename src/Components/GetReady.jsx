@@ -2,8 +2,8 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { FiUser } from "react-icons/fi";
 import { PiMapPinAreaDuotone } from "react-icons/pi";
-import { RiBankCardLine } from "react-icons/ri";
 import { IoMdInformationCircleOutline } from "react-icons/io";
+import ID from '../Components/Images/IDNum.png'
 
 const GetReady = () => {
     const navigate = useNavigate();
@@ -39,7 +39,7 @@ const GetReady = () => {
                     </div>
                 </div>
                 <div className='flex gap-2'>
-                    <RiBankCardLine className='text-[30px]' />
+                    <img className='h-5 mt-2' src={ID} alt="" />
                     <div>
                         <p className='font-semibold text-[19px]'>Your Taxpayer Identification Number</p>
                         <p>

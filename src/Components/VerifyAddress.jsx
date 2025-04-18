@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IoSearch } from "react-icons/io5";
 import { RiUpload2Fill } from "react-icons/ri";
 import { FaTimes } from "react-icons/fa";
 import Select from 'react-select';
+import Search from '../Components/Images/search.png'
+import Upload from '../Components/Images/upload.png'
 
 const VerifyAddress = () => {
     const navigate = useNavigate();
@@ -129,7 +130,7 @@ const VerifyAddress = () => {
                             isSearchable={false}
                             className='w-full outline-none appearance-none'
                         />
-                        <IoSearch className='ml-[-25px] text-[20px] text-gray-300' />
+                        <img className='ml-[-29px] z-50' src={Search} alt="" />
                     </div>
                 </div>
                 <div>
@@ -143,7 +144,7 @@ const VerifyAddress = () => {
                             <option value="nigeria">Lagos</option>
                             <option value="nigeria">Lagos</option>
                         </select>
-                        <IoSearch className='ml-[-25px] text-[20px] text-gray-300' />
+                        <img className='ml-[-29px] z-50' src={Search} alt="" />
                     </div>
                 </div>
                 <div>
@@ -193,7 +194,7 @@ const VerifyAddress = () => {
                         <label htmlFor="upload">
                             <div className='border-[1.5px] cursor-pointer border-black/20 rounded-md w-full p-2 outline-none flex gap-2 items-center justify-center'>
                                 <div className='flex gap-2 items-center'>
-                                    <RiUpload2Fill className='text-[21px]' />
+                                    <img src={Upload} alt="" />
                                     {document ? (
                                         <p>{document}</p>
                                     ) : (
@@ -207,7 +208,6 @@ const VerifyAddress = () => {
                                 name=""
                                 id="upload"
                                 onChange={handleDocumentChange}
-                                placeholder='564866'
                                 hidden
                             />
                         </label>

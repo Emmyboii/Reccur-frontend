@@ -18,7 +18,7 @@ const ConfirmConversion = () => {
                 <div className='flex gap-3'>
                     <div>
                         <p className='text-[22px] font-semibold mb-2'>Confirm Conversion</p>
-                        <p>Funds will be available in your NGN account immediately after the conversion.</p>
+                        <p className='text-black/60'>Funds will be available in your NGN account immediately after the conversion.</p>
                     </div>
                     <FaTimes
                         className='cursor-pointer mt-1'

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import { CiSearch } from "react-icons/ci";
-import { IoMdNotificationsOutline, IoMdAddCircle } from "react-icons/io";
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
 import CreateAcctBar from './CreateAcctBar';
 import { Context } from '../Context/Context';
+import Search from '../Components/Images/search.png'
+import Bell from '../Components/Images/bell.png'
+import Add from '../Components/Images/AddBtn.png'
 
 const CreateAcct = () => {
 
@@ -24,25 +25,25 @@ const CreateAcct = () => {
     } = useContext(Context)
 
     return (
-        <div className='my-5'>
+        <div>
             <div
                 className={`w-[80%] h-screen absolute ${acctBar ? 'bg-black/30' : 'hidden'}`}
                 onClick={handleAcctBar}
             ></div>
             <div className='flex items-center justify-between px-8 py-5'>
                 <div>
-                    <p className='text-[20px] font-semibold'>Home</p>
+                    <p className='text-[20px] font-medium'>Home</p>
                     <p className='text-[18px]'>Welcome back, Cooper!</p>
                 </div>
                 <div className='flex items-center gap-4'>
-                    <CiSearch className='text-[20px]' />
-                    <IoMdNotificationsOutline className='text-[20px]' />
-                    <IoMdAddCircle className='text-[30px] text-[#411c87]' />
+                    <img src={Search} alt="" />
+                    <img src={Bell} alt="" />
+                    <img className='w-8' src={Add} alt="" />
                 </div>
             </div>
             <div className='flex flex-col items-center gap-9 mt-[60px] bg-[#f3f0f6] mx-8 py-10 rounded-md border-2 border-black/70 border-dashed'>
                 <div>
-                    <p className='text-center font-semibold text-[18px]'>We are here to help you get paid for your work.</p>
+                    <p className='text-center font-medium text-[18px]'>We are here to help you get paid for your work.</p>
                     <p className='text-center mt-1'>Get started by creating your first bank account for any supported country <br /> (e.g., USA, Canada, UK)</p>
                 </div>
                 <button
@@ -53,8 +54,8 @@ const CreateAcct = () => {
                 </button>
             </div>
             <div className='mt-[25px] mx-8'>
-                <h1 className='font-semibold text-[20px]'>Congratulations on taking the first step!</h1>
-                <p>Complete these simple steps to get started using reccur.</p>
+                <h1 className='font-medium text-[20px]'>Congratulations on taking the first step!</h1>
+                <p className='text-black/70'>Complete these simple steps to get started using reccur.</p>
                 <div className='flex justify-between w-[80%] mt-4'>
                     <div className='flex flex-col gap-4'>
                         <div

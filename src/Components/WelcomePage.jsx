@@ -1,7 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import { CiSearch } from "react-icons/ci";
-import { IoMdNotificationsOutline, IoMdAddCircle } from "react-icons/io";
+import Search from '../Components/Images/search.png'
+import Bell from '../Components/Images/bell.png'
+import Add from '../Components/Images/AddBtn.png'
 
 const WelcomePage = () => {
     const navigate = useNavigate();
@@ -14,9 +15,9 @@ const WelcomePage = () => {
                     <p className='text-[18px]'>Welcome, Cooper!</p>
                 </div>
                 <div className='flex items-center gap-4'>
-                    <CiSearch className='text-[20px]' />
-                    <IoMdNotificationsOutline className='text-[20px]' />
-                    <IoMdAddCircle className='text-[30px] text-[#411c87]' />
+                    <img src={Search} alt="" />
+                    <img src={Bell} alt="" />
+                    <img className='w-8' src={Add} alt="" />
                 </div>
             </div>
             <div className='flex flex-col items-center gap-9 mt-[60px] bg-[#f3f0f6] mx-8 py-10 rounded-md border-2 border-black/70 border-dashed'>

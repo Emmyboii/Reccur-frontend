@@ -16,13 +16,10 @@ const CreateAcctBar = () => {
         }),
         control: (base) => ({
             ...base,
-            backgroundColor: '#f9f9f9',
-            borderColor: '#4e22a0',
+            borderWidth: '1.5px',
             padding: '4px',
             boxShadow: 'none',
-            '&:hover': {
-                borderColor: '#4e22a0',
-            },
+            borderRadius: '10px'
         }),
         menu: (base) => ({
             ...base,
@@ -81,11 +78,11 @@ const CreateAcctBar = () => {
     };
 
     return (
-        <div className={`fixed top-0 h-screen bg-white px-5 duration-700 ${acctBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white p-5 duration-700 ${acctBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-2'>
                 <div>
                     <h1 className='text-[19px] font-medium'>Create Account</h1>
-                    <p>Open a bank account in your preferred country and start receiving payments effortlessly.</p>
+                    <p className='text-black/60'>Open a bank account in your preferred country and start receiving payments effortlessly.</p>
                 </div>
                 <FaTimes
                     className='cursor-pointer mt-1'

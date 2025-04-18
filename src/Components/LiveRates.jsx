@@ -42,14 +42,10 @@ const LiveRates = () => {
         }),
         control: (base) => ({
             ...base,
-            backgroundColor: '#f9f9f9',
-            borderColor: '#4e22a0',
-            padding: '1px',
+            padding: '4px',
+            borderRadius: '6px',
             boxShadow: 'none',
-            '&:hover': {
-                borderColor: '#4e22a0',
-            },
-            borderRadius: '10px'
+            borderWidth: '1.5px'
         }),
         menu: (base) => ({
             ...base,

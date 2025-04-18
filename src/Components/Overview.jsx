@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react'
 import Select from 'react-select';
-import { IoMdNotificationsOutline, IoMdAddCircle, IoIosInformationCircleOutline, IoIosSearch } from "react-icons/io";
-import { CiSearch } from "react-icons/ci";
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
-import { FaBuildingColumns } from "react-icons/fa6";
 import { LuArrowLeftRight } from "react-icons/lu";
 import { GoArrowUpRight } from "react-icons/go";
 import { Context } from '../Context/Context';
@@ -13,6 +10,16 @@ import ConvertCurrency from './ConvertCurrency';
 import SendBar from './SendBar';
 import LiveRates from './LiveRates';
 import { AiTwotoneFileText } from 'react-icons/ai';
+import Search from '../Components/Images/search.png'
+import Bell from '../Components/Images/bell.png'
+import Add from '../Components/Images/AddBtn.png'
+import Warn from '../Components/Images/info-circle.png'
+import Bank from '../Components/Images/bank.png'
+import GreenLine from '../Components/Images/greenLine.png'
+import RedLine from '../Components/Images/redLine.png'
+import Increase from '../Components/Images/Increase.png'
+import GreenVector from '../Components/Images/GreenVector.png'
+import RedVector from '../Components/Images/RedVector.png'
 
 const Overview = () => {
 
@@ -37,7 +44,7 @@ const Overview = () => {
         handleLiveRates,
         liveRatesBar
     } = useContext(Context)
-    const [filterOption, setFilterOption] = useState('activities')
+    const [filterOption, setFilterOption] = useState('transactions')
 
     const handleFilterChange = (e) => {
         setFilterOption(e.target.value)
@@ -47,7 +54,7 @@ const Overview = () => {
         {
             value: '',
             label: (
-                <p>This Week</p>
+                <p className='text-[14px]'>This week</p>
             )
         }
     ]
@@ -55,7 +62,7 @@ const Overview = () => {
         {
             value: '',
             label: (
-                <p>This Week</p>
+                <p className='text-[14px]'>This week</p>
             )
         }
     ]
@@ -86,13 +93,9 @@ const Overview = () => {
         }),
         control: (base) => ({
             ...base,
-            backgroundColor: '#f9f9f9',
             borderWidth: '1.5px',
             padding: '4px',
             boxShadow: 'none',
-            '&:hover': {
-                borderColor: '#4e22a0',
-            },
             borderRadius: '10px'
         }),
         menu: (base) => ({
@@ -103,7 +106,6 @@ const Overview = () => {
             ...base,
             backgroundColor: state.isFocused ? '#4e22a0' : 'white',
             color: state.isFocused ? 'white' : 'black',
-            padding: 10,
             cursor: 'pointer',
         }),
     }
@@ -116,7 +118,7 @@ const Overview = () => {
             Amount: '-$500',
             Currency: (
                 <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[15px] mt-1' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                     <p>USD</p>
                 </div>
             ),
@@ -131,7 +133,7 @@ const Overview = () => {
             Amount: '+$1,200',
             Currency: (
                 <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[15px] mt-1' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                     <p>NGN</p>
                 </div>
             ),
@@ -147,12 +149,12 @@ const Overview = () => {
             ConvertedTo: '$29',
             Currency1: (
                 <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[15px] mt-1' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                 </div>
             ),
             Currency2: (
                 <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[15px] mt-1' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                 </div>
             ),
             Sender: 'Samantha',
@@ -167,12 +169,12 @@ const Overview = () => {
             ConvertedTo: '$29',
             Currency1: (
                 <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[15px] mt-1' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                 </div>
             ),
             Currency2: (
                 <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[15px] mt-1' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                 </div>
             ),
             Sender: 'Samantha',
@@ -187,12 +189,12 @@ const Overview = () => {
             ConvertedTo: '$29',
             Currency1: (
                 <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[15px] mt-1' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                 </div>
             ),
             Currency2: (
                 <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[15px] mt-1' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                 </div>
             ),
             Sender: 'Samantha',
@@ -224,16 +226,16 @@ const Overview = () => {
             <div className='flex items-center justify-between px-8 py-5'>
                 <div>
                     <p className='text-[20px] font-semibold'>Home</p>
-                    <p className='text-[18px]'>Welcome back, Cooper!</p>
+                    <p className='text-[18px] text-black/60'>Welcome back, Cooper!</p>
                 </div>
                 <div className='flex items-center gap-4'>
-                    <CiSearch className='text-[20px]' />
-                    <IoMdNotificationsOutline className='text-[20px]' />
-                    <IoMdAddCircle className='text-[30px] text-[#411c87]' />
+                    <img src={Search} alt="" />
+                    <img src={Bell} alt="" />
+                    <img className='w-8' src={Add} alt="" />
                 </div>
             </div>
             <div className='flex justify-between items-center px-8 py-2'>
-                <p className='font-medium text-[20px]'>OverView</p>
+                <p className='font-medium text-[19px]'>Overview</p>
                 <button
                     onClick={handleLiveRates}
                     className='py-2 px-4 border border-black/30 rounded-md'
@@ -241,11 +243,11 @@ const Overview = () => {
                     Live rates
                 </button>
             </div>
-            <div className='px-8 pt-4 flex'>
-                <div className='w-full border-r-2 pr-3 border-black/50'>
+            <div className='px-7 pt-4 flex'>
+                <div className='w-full border-r-2 pr-5 border-black/50'>
                     <div className='flex items-center justify-between'>
-                        <p className='flex items-center gap-1'>
-                            Total Balance <IoIosInformationCircleOutline className='mt-1' />
+                        <p className='flex items-center gap-1 text-[15px] text-black/50'>
+                            Total balance <img src={Warn} alt="" />
                         </p>
                         <Select
                             styles={customStyles}
@@ -257,14 +259,16 @@ const Overview = () => {
                     </div>
                     <div>
                         <p className='text-[36px] font-semibold'>$0</p>
-                        <p className='bg-green-200 border-2 border-green-500 w-20 py-1 rounded-md text-green-500 text-center'>+25%</p>
+                        <p className='bg-green-200 border-2 flex items-center gap-1 justify-center border-green-500 w-20 py-1 rounded-md text-green-500 text-center'>
+                            +25% <img src={Increase} alt="" />
+                        </p>
                     </div>
                     <div className='flex gap-2 mt-5 text-center text-black/60'>
                         <p
-                            className='border border-black/40 p-2 rounded-md w-full flex items-center gap-2 cursor-pointer hover:bg-black/20 active:scale-95 duration-500 transition-all'
+                            className='border border-black/40 p-1 rounded-md w-full flex items-center gap-1 cursor-pointer hover:bg-black/20 active:scale-95 duration-500 transition-all'
                             onClick={handleAcctDetailsBar}
                         >
-                            <FaBuildingColumns /><span className='font-semibold'>Details</span>
+                            <img className='w-[18px]' src={Bank} alt="" /><span className='font-semibold'>Details</span>
                         </p>
                         <p
                             className='border border-black/40 p-2 rounded-md w-full flex items-center gap-2 cursor-pointer hover:bg-black/20 active:scale-95 duration-500 transition-all'
@@ -280,10 +284,10 @@ const Overview = () => {
                         </p>
                     </div>
                 </div>
-                <div className='w-full ml-3 border-r-2 pr-3 border-black/50'>
+                <div className='w-full ml-5 border-r-2 pr-5 border-black/50'>
                     <div className='flex items-center justify-between'>
-                        <p className='flex items-center gap-1'>
-                            Total Balance <IoIosInformationCircleOutline className='mt-1' />
+                        <p className='flex items-center gap-1 text-[15px] text-black/50'>
+                            Total money recieved
                         </p>
                         <Select
                             styles={customStyles}
@@ -295,12 +299,17 @@ const Overview = () => {
                     </div>
                     <div>
                         <p className='text-[36px] font-semibold'>$0</p>
+                        {filterOption === 'transactions' ? (
+                            <img className='ml-3' src={GreenLine} alt="" />
+                        ) : (
+                            <img src={GreenVector} alt="" />
+                        )}
                     </div>
                 </div>
-                <div className='w-full ml-3'>
+                <div className='w-full ml-5'>
                     <div className='flex items-center justify-between'>
-                        <p className='flex items-center gap-1'>
-                            Total Balance <IoIosInformationCircleOutline className='mt-1' />
+                        <p className='flex items-center gap-1 text-[15px] text-black/50'>
+                            Total money sent
                         </p>
                         <Select
                             styles={customStyles}
@@ -312,6 +321,11 @@ const Overview = () => {
                     </div>
                     <div>
                         <p className='text-[36px] font-semibold'>$0</p>
+                        {filterOption === 'transactions' ? (
+                            <img src={RedLine} alt="" />
+                        ) : (
+                            <img src={RedVector} alt="" />
+                        )}
                     </div>
                 </div>
             </div>
@@ -392,7 +406,7 @@ const Overview = () => {
                 </div>
             </div>
             {filterOption === 'transactions' ? (
-                <div className='mt-[30px] px-8 pb-8 text-black/50'>
+                <div className='mt-[30px] px-8 pb-8 text-black/70'>
                     <div className='flex items-center justify-between'>
                         <div>
                             <p className='text-[22px] font-semibold text-black'>Transactions</p>
@@ -404,20 +418,20 @@ const Overview = () => {
                         </select>
                     </div>
                     <div className='mt-[30px]'>
-                        <p className='flex items-center gap-4'><IoIosSearch className='text-[23px] mt-1' /> Search transactions by invoice, date, name or email... </p>
+                        <p className='flex items-center gap-4'><img src={Search} alt="" /> Search transactions by invoice, date, name or email... </p>
                         <div className='mt-[20px] '>
-                            <div className='grid grid-cols-9 gap-5 border-t border-b border-black/50 py-2 text-[14px] font-medium text-left'>
+                            <div className='grid grid-cols-9 gap-5 border-t border-b text-black/50 border-black/50 py-2 text-[14px] font-medium text-left'>
                                 <div className='flex gap-2 items-center min-w-0'>
                                     <input className='mt-1' type="checkbox" />
                                     <p>Invoice</p>
                                 </div>
                                 <div className='flex gap-2 items-center min-w-0'>
                                     <p className='truncate'>Payment date</p>
-                                    <IoArrowDownSharp className='mt-1' />
+                                    <IoArrowDownSharp className='mt-1 text-[20px]' />
                                 </div>
                                 <div className='flex gap-2 items-center min-w-0'>
                                     <p className='truncate'>Type</p>
-                                    <IoArrowDownSharp className='mt-1' />
+                                    <IoArrowDownSharp className='mt-1 text-[16px]' />
                                 </div>
                                 <div className='flex items-center justify-end col-span-2 min-w-0'>
                                     <p className='truncate'>Amount</p>
@@ -463,12 +477,12 @@ const Overview = () => {
                                                 {transact.Currency}
                                             </div>
                                         ) : (
-                                            <p className='truncate flex gap-1'>{transact.Currency1} -- {transact.Currency2}</p>
+                                            <p className='truncate flex gap-1'>{transact.Currency1}—{transact.Currency2}</p>
                                         )}
                                     </div>
 
                                     <div className='min-w-0'>
-                                        <p className='truncate'>{transact.Sender} / {transact.Recipient}</p>
+                                        <p className='truncate'>{transact.Sender} {transact.Recipient}</p>
                                     </div>
 
                                     <div className='min-w-0'>
