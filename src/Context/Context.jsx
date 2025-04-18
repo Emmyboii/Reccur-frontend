@@ -5,6 +5,11 @@ export const Context = createContext(null);
 const ContextProvider = (props) => {
 
     const [acctBar, setAcctBar] = useState(false)
+    const [acctDetailsBar, setAcctDetailsBar] = useState(false)
+    const [convertBar, setConvertBar] = useState(false)
+    const [liveRatesBar, setLiveRatesBar] = useState(false)
+    const [confirmConversion, setConfirmConversion] = useState(false)
+    const [sendBar, setSendBar] = useState(false)
     const [checked, setChecked] = useState(false)
     const [checked2, setChecked2] = useState(false)
     const [checked3, setChecked3] = useState(false)
@@ -14,6 +19,21 @@ const ContextProvider = (props) => {
 
     const handleAcctBar = () => {
         setAcctBar(!acctBar)
+    }
+    const handleAcctDetailsBar = () => {
+        setAcctDetailsBar(!acctDetailsBar)
+    }
+    const handleConvertBar = () => {
+        setConvertBar(!convertBar)
+    }
+    const handleSendBar = () => {
+        setSendBar(!sendBar)
+    }
+    const handleConversion = () => {
+        setConfirmConversion(!confirmConversion)
+    }
+    const handleLiveRates = () => {
+        setLiveRatesBar(!liveRatesBar)
     }
 
     const contextValue = {
@@ -31,6 +51,16 @@ const ContextProvider = (props) => {
         setChecked5,
         checked6,
         setChecked6,
+        handleAcctDetailsBar,
+        acctDetailsBar,
+        handleSendBar,
+        sendBar,
+        handleConvertBar,
+        convertBar,
+        handleConversion,
+        confirmConversion,
+        liveRatesBar,
+        handleLiveRates
     }
     return (
         <Context.Provider value={contextValue}>
