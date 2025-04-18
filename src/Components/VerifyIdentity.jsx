@@ -6,7 +6,7 @@ const VerifyIdentity = () => {
     const navigate = useNavigate();
     const location = useLocation()
     return (
-        <div className='flex flex-col px-[250px] py-[30px]'>
+        <div className='flex flex-col max-w-[560px] mx-auto py-[30px]'>
             <div>
                 <h1 className='text-[30px] text-center'>Verify Your Identity</h1>
                 <p className='text-black/60 text-center'>

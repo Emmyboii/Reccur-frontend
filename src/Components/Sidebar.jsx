@@ -18,18 +18,18 @@ const Sidebar = () => {
             <div>
                 {verified ? (
                     <Link to='/home'>
-                        <h1 className='font-semibold ml-7 text-[20px]'>reccur</h1>
+                        <h1 className='font-semibold ml-7 text-[23px]'>reccur</h1>
                     </Link>
                 ) : (
                     <Link to='/'>
-                        <h1 className='font-semibold ml-7 text-[20px]'>reccur</h1>
+                        <h1 className='font-semibold ml-7 text-[23px]'>reccur</h1>
                     </Link>
                 )}
                 <div className='flex flex-col gap-2 mt-5'>
                     {verified ? (
                         <Link to='/home'>
                             <p className={location.pathname.startsWith('/home') ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                                <RiHome6Line className='text-[20px]' />
+                                <RiHome6Line className='text-[24px]' />
                                 Home
                             </p>
                         </Link>
@@ -46,7 +46,7 @@ const Sidebar = () => {
                                 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'
                             }
                             >
-                                <RiHome6Line className='text-[20px]' />
+                                <RiHome6Line className='text-[24px]' />
                                 Home
                             </p>
                         </Link>
@@ -54,31 +54,31 @@ const Sidebar = () => {
 
                     <Link to='/beneficiaries'>
                         <p className={location.pathname === '/beneficiaries' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                            <GoPeople className='text-[20px]' />
+                            <GoPeople className='text-[24px]' />
                             Beneficiaries
                         </p>
                     </Link>
                     <Link to='/invoices'>
                         <p className={location.pathname === '/invoices' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                            <TbAlignBoxLeftStretch className='text-[20px]' />
+                            <TbAlignBoxLeftStretch className='text-[24px]' />
                             Invoices
                         </p>
                     </Link>
                     <Link to='/transactions'>
                         <p className={location.pathname === '/transactions' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                            <BsTransparency className='text-[20px]' />
+                            <BsTransparency className='text-[24px]' />
                             Transactions
                         </p>
                     </Link>
                     <Link to='settings'>
                         <p className={location.pathname === '/settings' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                            <MdOutlineSettings className='text-[20px]' />
+                            <MdOutlineSettings className='text-[24px]' />
                             Settings
                         </p>
                     </Link>
                 </div>
             </div>
-            <div className='flex items-center gap-[70px] cursor-pointer'>
+            <div className='flex items-center justify-between cursor-pointer'>
                 <div className='flex items-center gap-2'>
                     <FaRegUserCircle className='text-[21px]' />
                     <p>Cooper Bator</p>

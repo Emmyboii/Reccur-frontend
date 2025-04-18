@@ -9,7 +9,7 @@ const VerifyNumber = () => {
     const [verify, setVerify] = useState(false)
 
     return (
-        <div className='flex flex-col px-[250px] py-[30px]'>
+        <div className='flex flex-col max-w-[540px] p-[40px] mx-auto'>
             <div>
                 <h1 className='text-[30px] text-center'>Verify Your Number</h1>
                 {verify ? (
@@ -39,7 +39,7 @@ const VerifyNumber = () => {
                             id=""
                         />
                     </div>
-                    <div className='flex gap-2 mt-4'>
+                    <div className='flex gap-2 mt-7'>
                         <button
                             className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
                             onClick={() => {
@@ -74,11 +74,11 @@ const VerifyNumber = () => {
                             />
                             <div className='flex gap-1 items-center ml-[-96%]'>
                                 NG +(234)
-                                <IoIosArrowDown />
+                                <IoIosArrowDown className='mt-[2px]' />
                             </div>
                         </div>
                     </div>
-                    <div className='flex gap-2 mt-4'>
+                    <div className='flex gap-2 mt-7'>
                         <button
                             className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
                             onClick={() => {

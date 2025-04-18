@@ -81,7 +81,7 @@ const CreateAcctBar = () => {
     };
 
     return (
-        <div className={`fixed top-0 h-screen bg-white py-8 px-5 duration-700 ${acctBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white px-5 duration-700 ${acctBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-2'>
                 <div>
                     <h1 className='text-[19px] font-medium'>Create Account</h1>
@@ -118,6 +118,7 @@ const CreateAcctBar = () => {
                             setChecked(true)
                             window.scrollTo(0, 0)
                             navigate('/home/overview')
+                            handleAcctBar()
                         }}
                     >
                         Create Account

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { IoSearch } from "react-icons/io5";
 import { RiUpload2Fill } from "react-icons/ri";
 import { FaTimes } from "react-icons/fa";
+import Select from 'react-select';
 
 const VerifyAddress = () => {
     const navigate = useNavigate();
@@ -27,6 +28,60 @@ const VerifyAddress = () => {
         }, 100);
     };
 
+    const options = [
+        {
+            value: 'usa',
+            label: (
+                <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                        <img className='w-7' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                        <p>USA</p>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            value: 'ngn',
+            label: (
+                <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
+                        <img className='w-7' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                        <p>Nigeria</p>
+                    </div>
+                </div>
+            ),
+        },
+    ]
+
+    const customStyles = {
+        indicatorSeparator: () => ({
+            display: 'none',
+        }),
+        control: (base) => ({
+            ...base,
+            padding: '1px',
+            boxShadow: 'none',
+            borderRadius: '6px',
+            borderWidth: '1.5px'
+        }),
+        menu: (base) => ({
+            ...base,
+            // zIndex: 999,
+        }),
+        option: (base, state) => ({
+            ...base,
+            backgroundColor: state.isFocused ? '#4e22a0' : 'white',
+            color: state.isFocused ? 'white' : 'black',
+            padding: 10,
+            cursor: 'pointer',
+        }),
+    };
+    const [convert, setConvert] = useState(options[0])
+
+    const handleConvert = (option) => {
+        setConvert(option)
+    }
+
     const handleDocumentChange = (e) => {
         const selected = e.target.files[0];
         if (selected) {
@@ -49,7 +104,7 @@ const VerifyAddress = () => {
     }, [progress]);
 
     return (
-        <div className='flex flex-col px-[250px] py-[30px]'>
+        <div className='flex flex-col max-w-[560px] mx-auto  py-[30px]'>
             <div>
                 <h1 className='text-[30px] text-center'>Verify Your Home Address</h1>
                 <p className='text-black/60 text-center'>
@@ -62,20 +117,18 @@ const VerifyAddress = () => {
                 <p className={location.pathname === '/verifyidentity' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
                 <p className={location.pathname === '/uploadDocument' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
             </div>
-            <div className='mt-12 flex flex-col gap-4 text-black/70'>
+            <div className='mt-12 flex flex-col gap-6 text-black/70'>
                 <div>
                     <label htmlFor="code">Country of Residence</label>
                     <div className='flex items-center mt-1'>
-                        <select className='select border-[1.5px] border-black/20 rounded-md w-full p-2 outline-none'>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="nigeria">Nigeria</option>
-                            <option value="nigeria">Nigeria</option>
-                        </select>
+                        <Select
+                            styles={customStyles}
+                            options={options}
+                            value={convert}
+                            onChange={handleConvert}
+                            isSearchable={false}
+                            className='w-full outline-none appearance-none'
+                        />
                         <IoSearch className='ml-[-25px] text-[20px] text-gray-300' />
                     </div>
                 </div>
