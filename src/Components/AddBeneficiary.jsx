@@ -4,24 +4,33 @@ import Search from '../Components/Images/search.png'
 import Bell from '../Components/Images/bell.png'
 import Add from '../Components/Images/AddBtn.png'
 import BeneficiaryBar from './BeneficiaryBar';
+import BeneficiaryInfo from './BeneficiaryInfo';
+import ViewDetailsBar from './ViewDetailsBar';
+import EditProfileBar from './EditProfileBar';
+import DeleteProfile from './DeleteProfile';
 
-const Beneficiary = () => {
+const AddBeneficiary = () => {
 
     const {
         handleBeneficiaryBar,
         beneficiaryBar,
+        beneficiaryAdded,
+        viewDetails,
+        handleViewDetails,
+        profileEdit,
+        handleProfileEdit
     } = useContext(Context)
 
     return (
         <div>
             <div
-                className={`w-[80%] h-screen absolute ${beneficiaryBar ? 'bg-black/30' : 'hidden'}`}
-                onClick={handleBeneficiaryBar}
+                className={`w-[80%] h-screen absolute ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
+                onClick={beneficiaryBar ? handleBeneficiaryBar : viewDetails ? handleViewDetails : profileEdit ? handleProfileEdit : null}
             ></div>
             <div className='flex items-center justify-between px-8 py-5'>
                 <div>
-                    <p className='text-[20px] font-medium'>Beneficiaries</p>
-                    <p className='text-[18px] text-black/60'>View and manage your beneficiaries here.</p>
+                    <p className='text-[28px] font-semibold'>Beneficiaries</p>
+                    <p className='text-[16px] text-black/60'>View and manage your beneficiaries here.</p>
                 </div>
                 <div className='flex items-center gap-4'>
                     <img src={Search} alt="" />
@@ -29,7 +38,7 @@ const Beneficiary = () => {
                     <img className='w-8' src={Add} alt="" />
                 </div>
             </div>
-            <div className='flex flex-col items-center gap-9 mt-[60px] bg-[#fbf9fd] mx-8 py-10 rounded-md border-2 border-black/70 border-dashed'>
+            <div className={beneficiaryAdded ? 'hidden' : 'flex flex-col items-center gap-9 mt-[60px] bg-[#fbf9fd] mx-8 py-10 rounded-md border-2 border-black/70 border-dashed'}>
                 <div className='max-w-[500px]'>
                     <p className='text-center font-medium text-[21px]'>Manage your beneficiaries</p>
                     <p className='text-center mt-1'>Manage your beneficiaries in one place. Save and organize their details to enable seamless payments and keep track of your transfer history with ease.</p>
@@ -42,8 +51,14 @@ const Beneficiary = () => {
                 </button>
             </div>
             <BeneficiaryBar />
+            <ViewDetailsBar />
+            <EditProfileBar />
+            <DeleteProfile />
+            <div className={beneficiaryAdded ? 'block' : 'hidden'}>
+                <BeneficiaryInfo />
+            </div>
         </div>
     )
 }
 
-export default Beneficiary
+export default AddBeneficiary

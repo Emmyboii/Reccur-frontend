@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { FaTimes } from 'react-icons/fa'
+import close from '../Components/Images/x-close.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import { RiUser6Line } from "react-icons/ri";
@@ -12,7 +12,7 @@ import Philippines from '../Components/Images/Philippines.png';
 import India from '../Components/Images/India.png';
 
 const BeneficiaryBar = () => {
-    const { handleBeneficiaryBar, beneficiaryBar } = useContext(Context)
+    const { handleBeneficiaryBar, beneficiaryBar, handleAddedBeneficiaries } = useContext(Context)
     const [method, setMethod] = useState('bank')
 
     const country = [
@@ -108,7 +108,7 @@ const BeneficiaryBar = () => {
             ),
         },
         {
-            value: 'usa',
+            value: 'usdt',
             label: (
                 <div className="flex items-center gap-2 text-black/60">
                     <p>USDT</p>
@@ -116,10 +116,26 @@ const BeneficiaryBar = () => {
             ),
         },
         {
-            value: 'ngn',
+            value: 'usdc',
             label: (
                 <div className="flex items-center gap-2 text-black/60">
-                    <p>NGN</p>
+                    <p>USDC</p>
+                </div>
+            ),
+        },
+        {
+            value: 'BTC',
+            label: (
+                <div className="flex items-center gap-2 text-black/60">
+                    <p>BTC</p>
+                </div>
+            ),
+        },
+        {
+            value: 'SOL',
+            label: (
+                <div className="flex items-center gap-2 text-black/60">
+                    <p>SOL</p>
                 </div>
             ),
         },
@@ -174,13 +190,13 @@ const BeneficiaryBar = () => {
 
     return (
         <div className={`fixed top-0 h-screen bg-white p-10 px- duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
-            <div className='flex gap-2'>
+            <div className='flex justify-between'>
                 <div>
                     <h1 className='text-[19px] font-medium'>Add beneficiary</h1>
                     <p>No emails will be sent to your beneficiary when you add them here - that is, unless you tell us to.</p>
                 </div>
-                <FaTimes
-                    className='cursor-pointer mt-1'
+                <img
+                    className='size-5 mt-1' src={close} alt=""
                     onClick={handleBeneficiaryBar}
                 />
             </div>
@@ -281,7 +297,8 @@ const BeneficiaryBar = () => {
                                 className='p-3 rounded-lg bg-[#491f97] text-white w-[70%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
-                                    // handleConversion()
+                                    handleAddedBeneficiaries()
+                                    handleBeneficiaryBar()
                                 }}
                             >
                                 Save Information
@@ -352,7 +369,8 @@ const BeneficiaryBar = () => {
                                 className='p-3 rounded-lg bg-[#491f97] text-white w-[70%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
-                                    // handleConversion()
+                                    handleAddedBeneficiaries()
+                                    handleBeneficiaryBar()
                                 }}
                             >
                                 Save Information

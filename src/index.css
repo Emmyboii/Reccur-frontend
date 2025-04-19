@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Uncut+Sans:wdth,wght@75..125,100..900&display=swap');
+
+body {
+  font-family: 'Uncut Sans Variable', sans-serif;
+}
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -11,7 +16,9 @@ input::-webkit-inner-spin-button {
 
 /* index.css or a global CSS file */
 .select {
-  -webkit-appearance: none; /* Safari/Chrome */
-  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none;
+  /* Safari/Chrome */
+  -moz-appearance: none;
+  /* Firefox */
   background: none;
 }

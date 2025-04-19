@@ -225,8 +225,8 @@ const Overview = () => {
             ></div>
             <div className='flex items-center justify-between px-8 py-5'>
                 <div>
-                    <p className='text-[20px] font-semibold'>Home</p>
-                    <p className='text-[18px] text-black/60'>Welcome back, Cooper!</p>
+                    <p className='text-[28px] font-semibold'>Home</p>
+                    <p className='text-[16px] text-black/60'>Welcome back, Cooper!</p>
                 </div>
                 <div className='flex items-center gap-4'>
                     <img src={Search} alt="" />

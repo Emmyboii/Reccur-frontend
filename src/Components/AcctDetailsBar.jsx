@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { FaTimes } from 'react-icons/fa'
+import close from '../Components/Images/x-close.png';
 import { Context } from '../Context/Context';
 import Select from 'react-select';
 import { LuArrowLeftRight } from 'react-icons/lu';
@@ -110,9 +110,8 @@ const AcctDetailsBar = () => {
                         </div>
                     </div>
                 </div>
-
-                <FaTimes
-                    className='cursor-pointer mt-6 text-[20px]'
+                <img
+                    className='size-5 mt-1' src={close} alt=""
                     onClick={handleAcctDetailsBar}
                 />
             </div>

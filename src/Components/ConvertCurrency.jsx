@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Context } from '../Context/Context'
-import { FaTimes } from 'react-icons/fa'
+import close from '../Components/Images/x-close.png';
 import Select from 'react-select';
 import Bank from '../Components/Images/bank.png';
 
@@ -71,8 +71,8 @@ const ConvertCurrency = () => {
                     <h1 className='text-[19px] font-medium'>Convert currency</h1>
                     <p>Easily exchange funds between your accounts in different currencies.</p>
                 </div>
-                <FaTimes
-                    className='cursor-pointer mt-1'
+                <img
+                    className='size-5 mt-1' src={close} alt=""
                     onClick={handleConvertBar}
                 />
             </div>

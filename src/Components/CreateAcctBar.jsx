@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
 import { BsCurrencyDollar } from 'react-icons/bs'
-import { FaTimes } from 'react-icons/fa'
+import close from '../Components/Images/x-close.png';
 import { Context } from '../Context/Context';
 
 const CreateAcctBar = () => {
@@ -84,8 +84,8 @@ const CreateAcctBar = () => {
                     <h1 className='text-[19px] font-medium'>Create Account</h1>
                     <p className='text-black/60'>Open a bank account in your preferred country and start receiving payments effortlessly.</p>
                 </div>
-                <FaTimes
-                    className='cursor-pointer mt-1'
+                <img
+                    className='size-5 mt-1' src={close} alt=""
                     onClick={handleAcctBar}
                 />
             </div>

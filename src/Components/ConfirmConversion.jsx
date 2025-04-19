@@ -1,6 +1,6 @@
 import React, { useContext, useRef } from 'react'
 import { Context } from '../Context/Context'
-import { FaTimes } from 'react-icons/fa'
+import close from '../Components/Images/x-close.png';
 
 const ConfirmConversion = () => {
     const { handleConversion, confirmConversion, handleAcctDetailsBar, handleConvertBar } = useContext(Context)
@@ -20,8 +20,8 @@ const ConfirmConversion = () => {
                         <p className='text-[22px] font-semibold mb-2'>Confirm Conversion</p>
                         <p className='text-black/60'>Funds will be available in your NGN account immediately after the conversion.</p>
                     </div>
-                    <FaTimes
-                        className='cursor-pointer mt-1'
+                    <img
+                        className='size-5 mt-1 cursor-pointer' src={close} alt=""
                         onClick={handleConversion}
                     />
                 </div>

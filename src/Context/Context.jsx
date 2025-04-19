@@ -10,7 +10,11 @@ const ContextProvider = (props) => {
     const [liveRatesBar, setLiveRatesBar] = useState(false)
     const [confirmConversion, setConfirmConversion] = useState(false)
     const [sendBar, setSendBar] = useState(false)
+    const [viewDetails, setViewDetails] = useState(false)
+    const [profileEdit, setProfileEdit] = useState(false)
+    const [deleteProfile, setDeleteProfile] = useState(false)
     const [beneficiaryBar, setBeneficiaryBar] = useState(false)
+    const [beneficiaryAdded, setBeneficiaryAdded] = useState(false)
     const [checked, setChecked] = useState(false)
     const [checked2, setChecked2] = useState(false)
     const [checked3, setChecked3] = useState(false)
@@ -30,8 +34,20 @@ const ContextProvider = (props) => {
     const handleSendBar = () => {
         setSendBar(!sendBar)
     }
+    const handleViewDetails = () => {
+        setViewDetails(!viewDetails)
+    }
+    const handleProfileEdit = () => {
+        setProfileEdit(!profileEdit)
+    }
+    const handleDeleteProfile = () => {
+        setDeleteProfile(!deleteProfile)
+    }
     const handleBeneficiaryBar = () => {
         setBeneficiaryBar(!beneficiaryBar)
+    }
+    const handleAddedBeneficiaries = () => {
+        setBeneficiaryAdded(!beneficiaryAdded)
     }
     const handleConversion = () => {
         setConfirmConversion(!confirmConversion)
@@ -66,7 +82,15 @@ const ContextProvider = (props) => {
         liveRatesBar,
         handleLiveRates,
         handleBeneficiaryBar,
-        beneficiaryBar
+        beneficiaryBar,
+        handleAddedBeneficiaries,
+        beneficiaryAdded,
+        handleViewDetails,
+        viewDetails,
+        profileEdit,
+        handleProfileEdit,
+        deleteProfile,
+        handleDeleteProfile
     }
     return (
         <Context.Provider value={contextValue}>

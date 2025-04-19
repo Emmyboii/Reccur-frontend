@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { FaTimes } from 'react-icons/fa'
+import close from '../Components/Images/x-close.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import { LuArrowLeftRight } from 'react-icons/lu';
@@ -72,8 +72,8 @@ const LiveRates = () => {
                     <h1 className='text-[19px] font-medium'>Live Market Rates</h1>
                     <p>Check real-time exchange rates before converting your funds.</p>
                 </div>
-                <FaTimes
-                    className='cursor-pointer mt-1'
+                <img
+                    className='size-5 mt-1' src={close} alt=""
                     onClick={handleLiveRates}
                 />
             </div>
