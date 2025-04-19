@@ -3,7 +3,6 @@ import { FaTimes } from 'react-icons/fa'
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import { RiUser6Line } from "react-icons/ri";
-import { AiTwotoneQuestionCircle } from "react-icons/ai";
 import Bank from '../Components/Images/bank.png';
 import SouthAfrica from '../Components/Images/SouthAfrica.png';
 import UK from '../Components/Images/UK.png';
