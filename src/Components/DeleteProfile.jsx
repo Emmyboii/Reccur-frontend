@@ -4,16 +4,16 @@ import close from '../Components/Images/x-close.png';
 
 const DeleteProfile = () => {
     const { deleteProfile, handleDeleteProfile } = useContext(Context)
-    const ConversionModel = useRef()
+    const DeleteModel = useRef()
 
     const closeRef = (e) => {
-        if (ConversionModel.current === e.target) {
+        if (DeleteModel.current === e.target) {
             handleDeleteProfile()
         }
     }
 
     return (
-        <div onClick={closeRef} ref={ConversionModel} className={`fixed flex items-center justify-center z-50 inset-0 bg-opacity-30 bg-black/40 ${deleteProfile ? 'block' : 'hidden'}`}>
+        <div onClick={closeRef} ref={DeleteModel} className={`fixed flex items-center justify-center z-50 inset-0 bg-opacity-30 bg-black/40 ${deleteProfile ? 'block' : 'hidden'}`}>
             <div className='bg-white w-[30%] shadow-lg rounded-xl flex flex-col justify-center py-5 px-7'>
                 <div className='flex gap-3'>
                     <div>
