@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Context } from '../Context/Context'
 import { FaTimes } from 'react-icons/fa'
 import Select from 'react-select';
-import { FaBuildingColumns } from 'react-icons/fa6';
+import Bank from '../Components/Images/bank.png';
 
 const ConvertCurrency = () => {
 
@@ -12,7 +12,7 @@ const ConvertCurrency = () => {
             value: 'placeholder',
             label: (
                 <div className="flex items-center gap-2">
-                    <FaBuildingColumns /> Select the account to be debited
+                    <img src={Bank} alt="" /> Select the account to be debited
                 </div>
             ),
             isDisabled: true
@@ -23,7 +23,7 @@ const ConvertCurrency = () => {
             value: 'placeholder',
             label: (
                 <div className="flex items-center gap-2">
-                    <FaBuildingColumns /> Select the account to be credited
+                    <img src={Bank} alt="" /> Select the account to be credited
                 </div>
             ),
             isDisabled: true

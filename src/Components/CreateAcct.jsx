@@ -41,10 +41,10 @@ const CreateAcct = () => {
                     <img className='w-8' src={Add} alt="" />
                 </div>
             </div>
-            <div className='flex flex-col items-center gap-9 mt-[60px] bg-[#f3f0f6] mx-8 py-10 rounded-md border-2 border-black/70 border-dashed'>
-                <div>
+            <div className='flex flex-col items-center gap-9 mt-[60px] bg-[#fbf9fd] mx-8 py-10 rounded-md border-2 border-black/70 border-dashed'>
+                <div className='max-w-[500px]'>
                     <p className='text-center font-medium text-[18px]'>We are here to help you get paid for your work.</p>
-                    <p className='text-center mt-1'>Get started by creating your first bank account for any supported country <br /> (e.g., USA, Canada, UK)</p>
+                    <p className='text-center mt-1'>Get started by creating your first bank account for any supported country (e.g., USA, Canada, UK)</p>
                 </div>
                 <button
                     className="bg-[#411c87] text-white p-3 rounded-lg"

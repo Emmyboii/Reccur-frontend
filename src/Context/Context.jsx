@@ -10,6 +10,7 @@ const ContextProvider = (props) => {
     const [liveRatesBar, setLiveRatesBar] = useState(false)
     const [confirmConversion, setConfirmConversion] = useState(false)
     const [sendBar, setSendBar] = useState(false)
+    const [beneficiaryBar, setBeneficiaryBar] = useState(false)
     const [checked, setChecked] = useState(false)
     const [checked2, setChecked2] = useState(false)
     const [checked3, setChecked3] = useState(false)
@@ -28,6 +29,9 @@ const ContextProvider = (props) => {
     }
     const handleSendBar = () => {
         setSendBar(!sendBar)
+    }
+    const handleBeneficiaryBar = () => {
+        setBeneficiaryBar(!beneficiaryBar)
     }
     const handleConversion = () => {
         setConfirmConversion(!confirmConversion)
@@ -60,7 +64,9 @@ const ContextProvider = (props) => {
         handleConversion,
         confirmConversion,
         liveRatesBar,
-        handleLiveRates
+        handleLiveRates,
+        handleBeneficiaryBar,
+        beneficiaryBar
     }
     return (
         <Context.Provider value={contextValue}>

@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "./Components/Sidebar";
 import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";
+import Beneficiary from "./Pages/Beneficiary";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <div className="w-[80%]">
         <Dashboard />
         <Home />
+        <Beneficiary />
       </div>
     </div>
   );

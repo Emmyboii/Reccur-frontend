@@ -1,0 +1,49 @@
+import React, { useContext } from 'react'
+import { Context } from '../Context/Context';
+import Search from '../Components/Images/search.png'
+import Bell from '../Components/Images/bell.png'
+import Add from '../Components/Images/AddBtn.png'
+import BeneficiaryBar from './BeneficiaryBar';
+
+const Beneficiary = () => {
+
+    const {
+        handleBeneficiaryBar,
+        beneficiaryBar,
+    } = useContext(Context)
+
+    return (
+        <div>
+            <div
+                className={`w-[80%] h-screen absolute ${beneficiaryBar ? 'bg-black/30' : 'hidden'}`}
+                onClick={handleBeneficiaryBar}
+            ></div>
+            <div className='flex items-center justify-between px-8 py-5'>
+                <div>
+                    <p className='text-[20px] font-medium'>Beneficiaries</p>
+                    <p className='text-[18px] text-black/60'>View and manage your beneficiaries here.</p>
+                </div>
+                <div className='flex items-center gap-4'>
+                    <img src={Search} alt="" />
+                    <img src={Bell} alt="" />
+                    <img className='w-8' src={Add} alt="" />
+                </div>
+            </div>
+            <div className='flex flex-col items-center gap-9 mt-[60px] bg-[#fbf9fd] mx-8 py-10 rounded-md border-2 border-black/70 border-dashed'>
+                <div className='max-w-[500px]'>
+                    <p className='text-center font-medium text-[21px]'>Manage your beneficiaries</p>
+                    <p className='text-center mt-1'>Manage your beneficiaries in one place. Save and organize their details to enable seamless payments and keep track of your transfer history with ease.</p>
+                </div>
+                <button
+                    className="bg-white border-[1.4px] border-black/10 text-black/70 p-3 rounded-lg"
+                    onClick={handleBeneficiaryBar}
+                >
+                    Add your first beneficiary
+                </button>
+            </div>
+            <BeneficiaryBar />
+        </div>
+    )
+}
+
+export default Beneficiary

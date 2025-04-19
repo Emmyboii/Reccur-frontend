@@ -1,39 +1,27 @@
 import React, { useContext, useState } from 'react'
-import { FaTimes, FaToggleOff, FaToggleOn } from 'react-icons/fa'
+import { FaTimes } from 'react-icons/fa'
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import { RiUser6Line } from "react-icons/ri";
 import { AiTwotoneQuestionCircle } from "react-icons/ai";
 import Bank from '../Components/Images/bank.png';
+import SouthAfrica from '../Components/Images/SouthAfrica.png';
+import UK from '../Components/Images/UK.png';
+import Mexico from '../Components/Images/Mexico.png';
+import France from '../Components/Images/France.png';
+import Philippines from '../Components/Images/Philippines.png';
+import India from '../Components/Images/India.png';
 
-const SendBar = () => {
-
-    const { handleSendBar, sendBar } = useContext(Context)
+const BeneficiaryBar = () => {
+    const { handleBeneficiaryBar, beneficiaryBar } = useContext(Context)
     const [method, setMethod] = useState('bank')
-    const [toggle, setToggle] = useState(false)
 
-    const options = [
-        {
-            value: 'sourceAcct',
-            label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                        <p>USD</p>
-                        <p>-8938798456</p>
-                    </div>
-                </div>
-            ),
-        },
-    ]
     const country = [
         {
             value: 'select',
             label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <p>Select Country</p>
-                    </div>
+                <div className="flex items-center gap-2 text-black/50">
+                    <p>Select Country</p>
                 </div>
             ),
             isDisabled: true
@@ -41,52 +29,110 @@ const SendBar = () => {
         {
             value: 'usa',
             label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                        <p>USA</p>
-                    </div>
+                <div className="flex items-center gap-2 text-black/50">
+                    <img className='w-[20px] h-[15px] rounded-[2px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                    <p>USA</p>
+                </div>
+            ),
+        },
+        {
+            value: 'sa',
+            label: (
+                <div className="flex items-center gap-2 text-black/50">
+                    <img src={SouthAfrica} alt="" />
+                    <p>South Africa</p>
                 </div>
             ),
         },
         {
             value: 'ngn',
             label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <img className='w-5' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                        <p>NGN</p>
-                    </div>
+                <div className="flex items-center gap-2 text-black/50">
+                    <img className='w-[20px] h-[15px] rounded-[2px]' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                    <p>NGN</p>
+                </div>
+            ),
+        },
+        {
+            value: 'UK',
+            label: (
+                <div className="flex items-center gap- text-black/50">
+                    <img src={UK} alt="" />
+                    <p>United Kingdom</p>
+                </div>
+            ),
+        },
+        {
+            value: 'Mexico',
+            label: (
+                <div className="flex items-center gap-2 text-black/50">
+                    <img src={Mexico} alt="" />
+                    <p>Mexico</p>
+                </div>
+            ),
+        },
+        {
+            value: 'France',
+            label: (
+                <div className="flex items-center gap-2 text-black/50">
+                    <img src={France} alt="" />
+                    <p>France</p>
+                </div>
+            ),
+        },
+        {
+            value: 'Philippines',
+            label: (
+                <div className="flex items-center gap-2 text-black/50">
+                    <img src={Philippines} alt="" />
+                    <p>Philippines</p>
+                </div>
+            ),
+        },
+        {
+            value: 'India',
+            label: (
+                <div className="flex items-center gap-2 text-black/50">
+                    <img src={India} alt="" />
+                    <p>India</p>
                 </div>
             ),
         },
     ]
     const CryptocurrencyType = [
         {
+            value: 'type',
+            label: (
+                <div className="flex items-center gap-2 text-black/60">
+                    <p>Cryptocurrency Type</p>
+                </div>
+            ),
+        },
+        {
             value: 'usa',
             label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <p>USDT</p>
-                    </div>
+                <div className="flex items-center gap-2 text-black/60">
+                    <p>USDT</p>
                 </div>
             ),
         },
         {
             value: 'ngn',
             label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <p>NGN</p>
-                    </div>
+                <div className="flex items-center gap-2 text-black/60">
+                    <p>NGN</p>
                 </div>
             ),
         },
     ]
     const NetworkType = [
         {
+            value: 'type',
+            label: <p className='text-black/60'>Network Type</p>
+        },
+        {
             value: 'trc',
-            label: 'TRC 20'
+            label: <p className='text-black/60'>TRC 20</p>
         }
     ]
     const customStyles = {
@@ -113,14 +159,10 @@ const SendBar = () => {
         }),
     };
 
-    const [sourceAcct, setSourceAcct] = useState(options[0])
     const [countries, setCountries] = useState(country[0])
     const [crypto, setCrypto] = useState(CryptocurrencyType[0])
     const [networkType, setNetworkType] = useState(NetworkType[0])
 
-    const handleSourceAcctChange = (Option) => {
-        setSourceAcct(Option)
-    }
     const handleCountries = (Option) => {
         setCountries(Option)
     }
@@ -132,15 +174,15 @@ const SendBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white py-8 px-5 duration-700 text-black z-50 overflow-auto ${sendBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white p-10 px- duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-2'>
                 <div>
-                    <h1 className='text-[19px] font-medium'>Send Money</h1>
-                    <p>Easily send funds to anyone, anywhere, in just a few steps.</p>
+                    <h1 className='text-[19px] font-medium'>Add beneficiary</h1>
+                    <p>No emails will be sent to your beneficiary when you add them here - that is, unless you tell us to.</p>
                 </div>
                 <FaTimes
                     className='cursor-pointer mt-1'
-                    onClick={handleSendBar}
+                    onClick={handleBeneficiaryBar}
                 />
             </div>
             <div className='mt-7 flex gap-4 border-b-black/30 border-b'>
@@ -153,31 +195,18 @@ const SendBar = () => {
             </div>
             {method === 'bank' ?
                 (
-                    <div className='mt-7'>
-                        <div>
-                            <label className='text-black/50' htmlFor="code">Source Account</label>
-                            <div className='mt-1'>
-                                <Select
-                                    styles={customStyles}
-                                    options={options}
-                                    value={sourceAcct}
-                                    onChange={handleSourceAcctChange}
-                                    isSearchable={false}
-                                    className='rounded-m w-full outline-none'
-                                />
-                            </div>
-                        </div>
+                    <div className='mt-7 text-black/60'>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Full Name</label>
+                            <label className='text-black/60' htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
                                     className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
-                                    value={'Samantha Tino'}
                                     id=""
+                                    placeholder='Beneficiary’s full name'
                                 />
-                                <RiUser6Line className='ml-[-444px] text-[20px]' />
+                                <RiUser6Line className='ml-[-404px] text-[20px]' />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -201,7 +230,7 @@ const SendBar = () => {
                                     type="number"
                                     name=""
                                     id=""
-                                    placeholder='Enter account number'
+                                    placeholder='Account number'
                                 />
                             </div>
                         </div>
@@ -213,9 +242,9 @@ const SendBar = () => {
                                     type="text"
                                     name=""
                                     id=""
-                                    placeholder='Enter bank name'
+                                    placeholder='Bank name'
                                 />
-                                <img className='ml-[-440px]' src={Bank} alt="" />
+                                <img className='ml-[-400px]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -226,7 +255,7 @@ const SendBar = () => {
                                     type="number"
                                     name=""
                                     id=""
-                                    placeholder='Enter routing number'
+                                    placeholder='Routing number'
                                 />
                             </div>
                         </div>
@@ -242,30 +271,10 @@ const SendBar = () => {
                                 />
                             </div>
                         </div>
-                        <div className='mt-5'>
-                            <label htmlFor="amount">Amount</label>
-                            <div className='flex items-center gap-2'>
-                                <div className='flex items-center w-full'>
-                                    <input className='border-2 border-black/30 p-2 pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id="" />
-                                    <p className='ml-[-380px] text-black/50'>$</p>
-                                </div>
-                                <button className='p-2 px-3 bg-[#a582e6] text-white rounded-md'>Max</button>
-                            </div>
-                        </div>
-                        <div className='mt-7'>
-                            <div className='flex gap-3 items-center text-black/70'>
-                                {toggle ? (
-                                    <FaToggleOn className='text-[33px] text-[#491f97]' onClick={() => setToggle(false)} />
-                                ) : (
-                                    <FaToggleOff className='text-[33px] text-[#491f97]' onClick={() => setToggle(true)} />
-                                )}
-                                <p>Convert to client's currency</p>
-                            </div>
-                        </div>
-                        <div className='flex gap-2 mt-12'>
+                        <div className='flex gap-2 mt-10'>
                             <button
                                 className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
-                                onClick={handleSendBar}
+                                onClick={handleBeneficiaryBar}
                             >
                                 Cancel
                             </button>
@@ -276,36 +285,23 @@ const SendBar = () => {
                                     // handleConversion()
                                 }}
                             >
-                                Convert Currency
+                                Save Information
                             </button>
                         </div>
                     </div>
                 ) : (
                     <div className='mt-7'>
-                        <div>
-                            <label className='text-black/50' htmlFor="code">Source Account</label>
-                            <div className='mt-1'>
-                                <Select
-                                    styles={customStyles}
-                                    options={options}
-                                    value={sourceAcct}
-                                    onChange={handleSourceAcctChange}
-                                    isSearchable={false}
-                                    className='rounded-m w-full outline-none'
-                                />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Full Name</label>
+                        <div className='mt-5 text-black/60'>
+                            <label className='text-black/60' htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[40px] rounded-md'
+                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-2 w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
-                                    value={'Samantha Tino'}
                                     id=""
+                                    placeholder='Beneficiary’s full name'
                                 />
-                                <RiUser6Line className='ml-[-444px] text-[20px]' />
+                                <RiUser6Line className='ml-[-404px] text-[20px]' />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -325,11 +321,11 @@ const SendBar = () => {
                             <label className='text-black/50' htmlFor="fullName">Wallet address</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
-                                    value={'T9yv72q1J6xYtX9GJ2FWUQa3tV3pK5XG7'}
+                                    placeholder='Wallet address'
                                 />
                             </div>
                         </div>
@@ -346,18 +342,10 @@ const SendBar = () => {
                                 />
                             </div>
                         </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="amount">Amount</label>
-                            <div className='flex items-center w-full'>
-                                <input className='border-2 border-black/30 p-2 pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id="" />
-                                <AiTwotoneQuestionCircle className='ml-[-30px]' />
-                                <p className='ml-[-425px] text-black/50'>$</p>
-                            </div>
-                        </div>
                         <div className='flex gap-2 mt-12'>
                             <button
                                 className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
-                                onClick={handleSendBar}
+                                onClick={handleBeneficiaryBar}
                             >
                                 Cancel
                             </button>
@@ -368,7 +356,7 @@ const SendBar = () => {
                                     // handleConversion()
                                 }}
                             >
-                                Convert Currency
+                                Save Information
                             </button>
                         </div>
                     </div>
@@ -376,4 +364,5 @@ const SendBar = () => {
         </div>
     )
 }
-export default SendBar
+
+export default BeneficiaryBar
