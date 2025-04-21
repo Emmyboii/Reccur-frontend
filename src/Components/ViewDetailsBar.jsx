@@ -50,7 +50,7 @@ const ViewDetailsBar = () => {
                     <p className='text-black/60'><span className='text-[#491f97]'>sam@tino.com •</span> Biffco Enterprises Ltd.</p>
                 </div>
                 <img
-                    className='size-5 mt-1' src={close} alt=""
+                    className='size-5 mt-1 cursor-pointer' src={close} alt=""
                     onClick={handleViewDetails}
                 />
             </div>

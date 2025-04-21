@@ -232,6 +232,7 @@ const BeneficiaryInfo = () => {
                         </div>
                     </div>
                 })}
+                <p className='text-[#78757A] mt-4'>1 Payer</p>
             </div>
         </div>
     )

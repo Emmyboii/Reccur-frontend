@@ -11,16 +11,21 @@ const ContextProvider = (props) => {
     const [confirmConversion, setConfirmConversion] = useState(false)
     const [sendBar, setSendBar] = useState(false)
     const [viewDetails, setViewDetails] = useState(false)
+    const [viewInvoice, setViewInvoice] = useState(false)
     const [profileEdit, setProfileEdit] = useState(false)
     const [deleteProfile, setDeleteProfile] = useState(false)
+    const [deleteInvoice, setDeleteInvoice] = useState(false)
     const [beneficiaryBar, setBeneficiaryBar] = useState(false)
     const [beneficiaryAdded, setBeneficiaryAdded] = useState(false)
+    const [createInvoice, setCreateInvoice] = useState(false)
+    const [invoiceAdded, setInvoiceAdded] = useState(false)
     const [checked, setChecked] = useState(false)
     const [checked2, setChecked2] = useState(false)
     const [checked3, setChecked3] = useState(false)
     const [checked4, setChecked4] = useState(false)
     const [checked5, setChecked5] = useState(false)
     const [checked6, setChecked6] = useState(false)
+    const [selectedInvoice, setSelectedInvoice] = useState(null)
 
     const handleAcctBar = () => {
         setAcctBar(!acctBar)
@@ -37,11 +42,17 @@ const ContextProvider = (props) => {
     const handleViewDetails = () => {
         setViewDetails(!viewDetails)
     }
+    const handleViewInvoice = () => {
+        setViewInvoice(!viewInvoice)
+    }
     const handleProfileEdit = () => {
         setProfileEdit(!profileEdit)
     }
     const handleDeleteProfile = () => {
         setDeleteProfile(!deleteProfile)
+    }
+    const handleDeleteInvoice = () => {
+        setDeleteInvoice(!deleteInvoice)
     }
     const handleBeneficiaryBar = () => {
         setBeneficiaryBar(!beneficiaryBar)
@@ -49,12 +60,19 @@ const ContextProvider = (props) => {
     const handleAddedBeneficiaries = () => {
         setBeneficiaryAdded(!beneficiaryAdded)
     }
+    const handleAddedInvoice = () => {
+        setInvoiceAdded(!invoiceAdded)
+    }
+    const handleCreateInvoice = () => {
+        setCreateInvoice(!createInvoice)
+    }
     const handleConversion = () => {
         setConfirmConversion(!confirmConversion)
     }
     const handleLiveRates = () => {
         setLiveRatesBar(!liveRatesBar)
     }
+    
 
     const contextValue = {
         acctBar,
@@ -85,12 +103,22 @@ const ContextProvider = (props) => {
         beneficiaryBar,
         handleAddedBeneficiaries,
         beneficiaryAdded,
+        handleAddedInvoice,
+        invoiceAdded,
         handleViewDetails,
         viewDetails,
         profileEdit,
         handleProfileEdit,
         deleteProfile,
-        handleDeleteProfile
+        handleDeleteProfile,
+        deleteInvoice,
+        handleDeleteInvoice,
+        createInvoice,
+        handleCreateInvoice,
+        handleViewInvoice,
+        viewInvoice,
+        selectedInvoice,
+        setSelectedInvoice
     }
     return (
         <Context.Provider value={contextValue}>

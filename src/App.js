@@ -3,6 +3,7 @@ import Sidebar from "./Components/Sidebar";
 import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";
 import Beneficiary from "./Pages/Beneficiary";
+import Invoice from "./Pages/Invoice";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Dashboard />
         <Home />
         <Beneficiary />
+        <Invoice />
       </div>
     </div>
   );
