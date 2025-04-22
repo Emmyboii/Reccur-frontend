@@ -4,6 +4,9 @@ import Dashboard from "./Pages/Dashboard";
 import Home from "./Pages/Home";
 import Beneficiary from "./Pages/Beneficiary";
 import Invoice from "./Pages/Invoice";
+import Transaction from "./Pages/Transaction";
+import Settings from "./Pages/Settings";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
@@ -14,6 +17,10 @@ function App() {
         <Home />
         <Beneficiary />
         <Invoice />
+        <Transaction />
+        <Routes>
+          <Route path="/settings" element={<Settings />} />
+        </Routes>
       </div>
     </div>
   );

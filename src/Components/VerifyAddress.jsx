@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { RiUpload2Fill } from "react-icons/ri";
 import { FaTimes } from "react-icons/fa";
 import Select from 'react-select';
 import Search from '../Components/Images/search.png'
@@ -67,7 +66,6 @@ const VerifyAddress = () => {
         }),
         menu: (base) => ({
             ...base,
-            // zIndex: 999,
         }),
         option: (base, state) => ({
             ...base,

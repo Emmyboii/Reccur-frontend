@@ -24,7 +24,7 @@ const AddBeneficiary = () => {
     return (
         <div>
             <div
-                className={`w-[80%] h-screen absolute ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
+                className={`w-[80%] h-[200%] absolute ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
                 onClick={beneficiaryBar ? handleBeneficiaryBar : viewDetails ? handleViewDetails : profileEdit ? handleProfileEdit : null}
             ></div>
             <div className='flex items-center justify-between px-8 py-5'>

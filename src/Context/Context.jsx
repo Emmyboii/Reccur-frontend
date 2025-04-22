@@ -12,6 +12,7 @@ const ContextProvider = (props) => {
     const [sendBar, setSendBar] = useState(false)
     const [viewDetails, setViewDetails] = useState(false)
     const [viewInvoice, setViewInvoice] = useState(false)
+    const [viewTransactionDetails, setViewTransactionDetails] = useState(false)
     const [profileEdit, setProfileEdit] = useState(false)
     const [deleteProfile, setDeleteProfile] = useState(false)
     const [deleteInvoice, setDeleteInvoice] = useState(false)
@@ -25,7 +26,10 @@ const ContextProvider = (props) => {
     const [checked4, setChecked4] = useState(false)
     const [checked5, setChecked5] = useState(false)
     const [checked6, setChecked6] = useState(false)
+    const [noDelete, setNoDelete] = useState(false)
+    const [deleted, setDeleted] = useState(false)
     const [selectedInvoice, setSelectedInvoice] = useState(null)
+    const [selectedTransactionDetails, setSelectedTransactionDetails] = useState(null)
 
     const handleAcctBar = () => {
         setAcctBar(!acctBar)
@@ -44,6 +48,9 @@ const ContextProvider = (props) => {
     }
     const handleViewInvoice = () => {
         setViewInvoice(!viewInvoice)
+    }
+    const handleViewTransactionDetails = () => {
+        setViewTransactionDetails(!viewTransactionDetails)
     }
     const handleProfileEdit = () => {
         setProfileEdit(!profileEdit)
@@ -72,7 +79,18 @@ const ContextProvider = (props) => {
     const handleLiveRates = () => {
         setLiveRatesBar(!liveRatesBar)
     }
-    
+    const handleNoDelete = () => {
+        setNoDelete(true)
+        setTimeout(() => {
+            if (!noDelete) {
+                setNoDelete(false)
+            }
+        }, 3000);
+    }
+    const handleDeleted = () => {
+        setDeleted(!deleted)
+    }
+
 
     const contextValue = {
         acctBar,
@@ -118,7 +136,16 @@ const ContextProvider = (props) => {
         handleViewInvoice,
         viewInvoice,
         selectedInvoice,
-        setSelectedInvoice
+        setSelectedInvoice,
+        viewTransactionDetails,
+        handleViewTransactionDetails,
+        selectedTransactionDetails,
+        setSelectedTransactionDetails,
+        handleNoDelete,
+        handleDeleted,
+        noDelete,
+        deleted,
+        setDeleted
     }
     return (
         <Context.Provider value={contextValue}>

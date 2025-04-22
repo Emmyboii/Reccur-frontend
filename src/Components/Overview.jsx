@@ -110,7 +110,7 @@ const Overview = () => {
         }),
     }
 
-    const Transctions = [
+    const Transactions = [
         {
             Invoice: '#RC787024',
             Date: '27 July, 2022',
@@ -220,7 +220,7 @@ const Overview = () => {
     return (
         <div>
             <div
-                className={`w-[80%] min-h-full absolute z-10 ${acctDetailsBar || sendBar || convertBar || liveRatesBar ? 'bg-black/20' : 'hidden'}`}
+                className={`w-[80%] h-[200%] absolute z-10 ${acctDetailsBar || sendBar || convertBar || liveRatesBar ? 'bg-black/20' : 'hidden'}`}
                 onClick={acctDetailsBar ? handleAcctDetailsBar : convertBar ? handleConvertBar : sendBar ? handleSendBar : liveRatesBar ? handleLiveRates : null}
             ></div>
             <div className='flex items-center justify-between px-8 py-5'>
@@ -418,11 +418,11 @@ const Overview = () => {
                         </select>
                     </div>
                     <div className='mt-[30px]'>
-                        <p className='flex items-center gap-4'><img src={Search} alt="" /> Search transactions by invoice, date, name or email... </p>
+                        <p className='flex items-center gap-4 text-[#667085]'><img src={Search} alt="" /> Search transactions by invoice, date, name or email... </p>
                         <div className='mt-[20px] '>
-                            <div className='grid grid-cols-9 gap-5 border-t border-b text-black/50 border-black/50 py-2 text-[14px] font-medium text-left'>
+                            <div className='grid grid-cols-9 gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-medium text-left'>
                                 <div className='flex gap-2 items-center min-w-0'>
-                                    <input className='mt-1' type="checkbox" />
+                                    <input className='mt-1 size-5 rounded-md' type="checkbox" />
                                     <p>Invoice</p>
                                 </div>
                                 <div className='flex gap-2 items-center min-w-0'>
@@ -450,10 +450,10 @@ const Overview = () => {
                                 </div>
                             </div>
 
-                            {Transctions.map((transact, index) => (
-                                <div key={index} className='grid grid-cols-9 gap-5 border-b border-black/10 py-2 text-[14px] text-left items-center'>
+                            {Transactions.map((transact, index) => (
+                                <div key={index} className='grid grid-cols-9 gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
                                     <div className='flex gap-2 items-center min-w-0'>
-                                        <input className='mt-1' type="checkbox" />
+                                        <input className='mt-1 size-5 rounded-md' type="checkbox" />
                                         <p className='truncate'>{transact.Invoice}</p>
                                     </div>
 
