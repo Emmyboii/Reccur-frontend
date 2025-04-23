@@ -99,6 +99,7 @@ const ContextProvider = (props) => {
     const contextValue = {
         handleSideBar,
         sideBar,
+        setSideBar,
         acctBar,
         handleAcctBar,
         checked,

@@ -1,38 +1,65 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
 import { RiHome6Line } from "react-icons/ri";
 import Avatar from '../Components/Images/Avatar.png'
 import Logo from '../Components/Images/Logomark.png';
+import close from '../Components/Images/close.png';
 import Beneficiary from '../Components/Images/beneficiary.png';
 import Transaction from '../Components/Images/transaction.png';
 import Invoice from '../Components/Images/Invoice.png';
 import Settings from '../Components/Images/Settings.png';
+import { Context } from '../Context/Context';
 
 const Sidebar = () => {
     const location = useLocation()
 
     const verified = JSON.parse(localStorage.getItem('detailsVerified'))
 
+    const { handleSideBar, sideBar, setSideBar } = useContext(Context)
+    const [isLgScreen, setIsLgScreen] = useState(window.innerWidth > 1024);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsLgScreen(window.innerWidth > 1024);
+        };
+
+        if (isLgScreen) {
+            setSideBar(false)
+        }
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [setSideBar, isLgScreen]);
+
     return (
-        <div className='bg-[#431594] text-white w-[300px] h-screen py-8 px-5 lg:flex hidden flex-col justify-between gap-5'>
+        <div className={`bg-[#431594] text-white sp:w-[300px] w-full h-screen top-0 left-0 py-8 px-5 z-50 gap-5 ${sideBar ? 'fixed flex lg:hidden flex-col justify-between' : 'lg:flex relative hidden lg:flex-col lg:justify-between'}`}>
             <div>
-                {verified ? (
-                    <Link to='/home'>
-                        <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
-                            <img src={Logo} alt="" className='mt-2 w-7 h-7' />
-                            reccur
-                        </h1>
-                    </Link>
-                ) : (
-                    <Link to='/'>
-                        <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
-                            <img src={Logo} alt="" className='mt-2 w-7 h-7' />
-                            reccur
-                        </h1>
-                    </Link>
-                )}
+                <div className='flex items-center justify-between'>
+                    {verified ? (
+                        <Link to='/home'>
+                            <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
+                                <img src={Logo} alt="" className='mt-2 w-7 h-7' />
+                                reccur
+                            </h1>
+                        </Link>
+                    ) : (
+                        <Link to='/'>
+                            <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
+                                <img src={Logo} alt="" className='mt-2 w-7 h-7' />
+                                reccur
+                            </h1>
+                        </Link>
+                    )}
+                    <img
+                        onClick={handleSideBar}
+                        src={close}
+                        alt=""
+                        className='cursor-pointer lg:hidden'
+                    />
+                </div>
+
                 <div className='flex flex-col gap-2 mt-5'>
                     {verified ? (
                         <Link to='/home'>
