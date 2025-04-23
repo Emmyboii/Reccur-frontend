@@ -18,12 +18,14 @@ const Sidebar = () => {
     const verified = JSON.parse(localStorage.getItem('detailsVerified'))
 
     const { handleSideBar, sideBar, setSideBar, setTransactionType } = useContext(Context)
-    
+
     const [isLgScreen, setIsLgScreen] = useState(window.innerWidth > 1024);
+    const [isMdScreen, setIsMdScreen] = useState(window.innerWidth <= 1024);
 
     useEffect(() => {
         const handleResize = () => {
             setIsLgScreen(window.innerWidth > 1024);
+            setIsMdScreen(window.innerWidth <= 1024);
         };
 
         if (isLgScreen) {
@@ -39,14 +41,14 @@ const Sidebar = () => {
             <div>
                 <div className='flex items-center justify-between'>
                     {verified ? (
-                        <Link onClick={handleSideBar} to='/home'>
+                        <Link onClick={isMdScreen ? handleSideBar : undefined} to='/home'>
                             <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
                                 <img src={Logo} alt="" className='mt-2 w-7 h-7' />
                                 reccur
                             </h1>
                         </Link>
                     ) : (
-                        <Link to='/'>
+                        <Link onClick={isMdScreen ? handleSideBar : undefined} to='/'>
                             <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
                                 <img src={Logo} alt="" className='mt-2 w-7 h-7' />
                                 reccur
@@ -63,14 +65,14 @@ const Sidebar = () => {
 
                 <div className='flex flex-col gap-2 mt-5'>
                     {verified ? (
-                        <Link onClick={handleSideBar} to='/home'>
+                        <Link onClick={isMdScreen ? handleSideBar : undefined} to='/home'>
                             <p className={location.pathname.startsWith('/home') ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                                 <RiHome6Line className='text-[24px]' />
                                 Home
                             </p>
                         </Link>
                     ) : (
-                        <Link onClick={handleSideBar} to='/'>
+                        <Link onClick={isMdScreen ? handleSideBar : undefined} to='/'>
                             <p className={location.pathname.startsWith('/') &&
                                 location.pathname !== '/beneficiaries' &&
                                 location.pathname !== '/beneficiaries' &&
@@ -88,25 +90,25 @@ const Sidebar = () => {
                         </Link>
                     )}
 
-                    <Link onClick={handleSideBar} to='/beneficiaries'>
+                    <Link onClick={isMdScreen ? handleSideBar : undefined} to='/beneficiaries'>
                         <p className={location.pathname === '/beneficiaries' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Beneficiary} alt="" />
                             Beneficiaries
                         </p>
                     </Link>
-                    <Link onClick={handleSideBar} to='/invoices'>
+                    <Link onClick={isMdScreen ? handleSideBar : undefined} to='/invoices'>
                         <p className={location.pathname === '/invoices' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Invoice} alt="" />
                             Invoices
                         </p>
                     </Link>
-                    <Link onClick={handleSideBar} to='/transactions'>
+                    <Link onClick={isMdScreen ? handleSideBar : undefined} to='/transactions'>
                         <p className={location.pathname === '/transactions' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Transaction} alt="" />
                             Transactions
                         </p>
                     </Link>
-                    <Link onClick={handleSideBar} to='/settings'>
+                    <Link onClick={isMdScreen ? handleSideBar : undefined} to='/settings'>
                         <p className={location.pathname === '/settings' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Settings} alt="" />
                             Settings
@@ -116,17 +118,17 @@ const Sidebar = () => {
             </div>
             <div className='flex items-center justify-between'>
                 <Link
-                onClick={()=>setTransactionType('account')}
-                to='/settings'>
-                    <div onClick={handleSideBar} className='flex items-center cursor-pointer gap-2'>
+                    onClick={() => setTransactionType('account')}
+                    to='/settings'>
+                    <div onClick={isMdScreen ? handleSideBar : undefined} className='flex items-center cursor-pointer gap-2'>
                         <img src={Avatar} alt='' />
                         <p>Cooper Bator</p>
                     </div>
                 </Link>
                 <Link
-                onClick={()=>setTransactionType('account')}
-                to='/settings'>
-                    <BsThreeDots onClick={handleSideBar} className='text-[20px] cursor-pointer' />
+                    onClick={() => setTransactionType('account')}
+                    to='/settings'>
+                    <BsThreeDots onClick={isMdScreen ? handleSideBar : undefined} className='text-[20px] cursor-pointer' />
                 </Link>
             </div>
         </div>

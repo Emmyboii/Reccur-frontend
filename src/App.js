@@ -18,7 +18,7 @@ function App() {
       <Sidebar />
       <div className="lg:w-[80%] w-full">
         <div
-          className={`w-full h-[200%] text-[#1D1C1F] z-40 absolute ${sideBar ? 'bg-black/20' : 'hidden'}`}
+          className={`w-full h-[200%] lg:hidden text-[#1D1C1F] z-40 absolute ${sideBar ? 'bg-black/20' : 'hidden'}`}
           onClick={handleSideBar}
         ></div>
         <NavBar />
