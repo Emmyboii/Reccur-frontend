@@ -34,7 +34,7 @@ const Sidebar = () => {
     }, [setSideBar, isLgScreen]);
 
     return (
-        <div className={`bg-[#431594] text-white sp:w-[300px] w-full h-screen top-0 left-0 py-8 px-5 z-50 gap-5 ${sideBar ? 'fixed flex lg:hidden flex-col justify-between' : 'lg:flex relative hidden lg:flex-col lg:justify-between'}`}>
+        <div className={`bg-[#431594] text-white sp:w-[300px] w-full h-screen top-0 left-0 py-8 px-5 z-50 gap-5 ${sideBar ? 'fixed flex lg:hidden flex-col justify-between' : 'lg:flex sticky hidden lg:flex-col lg:justify-between'}`}>
             <div>
                 <div className='flex items-center justify-between'>
                     {verified ? (
