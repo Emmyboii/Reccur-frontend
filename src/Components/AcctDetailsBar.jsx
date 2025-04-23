@@ -51,7 +51,7 @@ const AcctDetailsBar = () => {
             value: 'ngn',
             label: (
                 <div className="flex items-center gap-2">
-                    <img className='w-5' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                    <img className='w-6 h-4' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                     NGN
                 </div>
             )
@@ -60,7 +60,7 @@ const AcctDetailsBar = () => {
             value: 'usd',
             label: (
                 <div className="flex items-center gap-2">
-                    <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                    <img className='w-6 h-4' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                     USD
                 </div>
             ),
@@ -82,7 +82,7 @@ const AcctDetailsBar = () => {
     };
 
     return (
-        <div className={`fixed top-0 h-screen bg-white py-8 px-5 duration-700 z-50 text-black ${acctDetailsBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 z-50 text-[#1D1C1F] ${acctDetailsBar ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
                     <div className='mt-1 flex items-center gap-2'>
@@ -94,16 +94,16 @@ const AcctDetailsBar = () => {
                             isSearchable={false}
                             className='rounded-m outline-none'
                         />
-                        {output && <p className="mt-1 text-black/70">{output} Balance</p>}
+                        {output && <p className="mt-1 text-[14px]">{output} Balance</p>}
                     </div>
                     <div className='mt-[13px]'>
-                        <p className='text-[46px] font-semibold'>#{balance}</p>
+                        <p className='text-[36px] font-semibold'>#{balance}</p>
                         <div className='flex gap-4 text-white mt-[12px]'>
-                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0 ? 'bg-[#542d9d]' : 'bg-[#bea3ee] cursor-not-allowed'}`}>
+                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
                                 <GoArrowUpRight className='mt-1' />
                                 Send
                             </button>
-                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0 ? 'bg-[#542d9d]' : 'bg-[#bea3ee] cursor-not-allowed'}`}>
+                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
                                 <LuArrowLeftRight className='mt-1' />
                                 Recieve
                             </button>
@@ -111,13 +111,13 @@ const AcctDetailsBar = () => {
                     </div>
                 </div>
                 <img
-                    className='size-5 mt-1' src={close} alt=""
+                    className='size-5 mt-1 cursor-pointer' src={close} alt=""
                     onClick={handleAcctDetailsBar}
                 />
             </div>
             <div className='mt-[25px]'>
                 <div className='flex justify-between items-center'>
-                    <p className='text-[21px] font-semibold'>Bank Account Details</p>
+                    <p className='text-[18px] font-medium'>Bank Account Details</p>
                     <p
                         onClick={handleCopy}
                         className='flex items-center gap-2 text-[#542d9d] font-semibold cursor-pointer'
@@ -127,23 +127,23 @@ const AcctDetailsBar = () => {
                     </p>
                 </div>
                 <div>
-                    <p className='pr-[120px]'>
+                    <p className='pr-[120px] text-[#525154] text-[14px]'>
                         {textToCopy}
                     </p>
                 </div>
             </div>
             <div className='mt-[20px]'>
-                <p className='text-black/30'>Bank Information</p>
-                <p className='text-[18px] font-semibold'>Union Bank</p>
-                <p>1801 Main St., Ikeja City, MO 64108</p>
+                <p className='text-[#B5B3BA]'>Bank Information</p>
+                <p className='text-[16px] font-medium'>Union Bank</p>
+                <p className='text-[14pxx] text-[#525154]'>1801 Main St., Ikeja City, MO 64108</p>
             </div>
             <div className='mt-[10px]'>
-                <p className='text-black/30'>Beneficiary Name</p>
-                <p className='text-[18px] font-semibold'>Cooper Bator</p>
+                <p className='text-[#B5B3BA]'>Beneficiary Name</p>
+                <p className='text-[16px] font-medium'>Cooper Bator</p>
             </div>
             <div className='mt-[10px]'>
-                <p className='text-black/30'>Account Number</p>
-                <p className='text-[18px] font-semibold'>4324456678</p>
+                <p className='text-[#B5B3BA]'>Account Number</p>
+                <p className='text-[16px] font-medium'>4324456678</p>
             </div>
         </div>
     )

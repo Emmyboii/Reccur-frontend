@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import close from '../Components/Images/x-close.png';
+import user from '../Components/Images/user.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import { RiUser6Line } from "react-icons/ri";
@@ -19,7 +20,7 @@ const EditProfileBar = () => {
         {
             value: 'select',
             label: (
-                <div className="flex items-center gap-2 text-black/50">
+                <div className="flex items-center gap-2 ">
                     <p>Select Country</p>
                 </div>
             ),
@@ -28,7 +29,7 @@ const EditProfileBar = () => {
         {
             value: 'usa',
             label: (
-                <div className="flex items-center gap-2 text-black/50">
+                <div className="flex items-center gap-2 ">
                     <img className='w-[20px] h-[15px] rounded-[2px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                     <p>USA</p>
                 </div>
@@ -37,7 +38,7 @@ const EditProfileBar = () => {
         {
             value: 'sa',
             label: (
-                <div className="flex items-center gap-2 text-black/50">
+                <div className="flex items-center gap-2 ">
                     <img src={SouthAfrica} alt="" />
                     <p>South Africa</p>
                 </div>
@@ -46,7 +47,7 @@ const EditProfileBar = () => {
         {
             value: 'ngn',
             label: (
-                <div className="flex items-center gap-2 text-black/50">
+                <div className="flex items-center gap-2 ">
                     <img className='w-[20px] h-[15px] rounded-[2px]' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                     <p>NGN</p>
                 </div>
@@ -55,7 +56,7 @@ const EditProfileBar = () => {
         {
             value: 'UK',
             label: (
-                <div className="flex items-center gap- text-black/50">
+                <div className="flex items-center gap-2 ">
                     <img src={UK} alt="" />
                     <p>United Kingdom</p>
                 </div>
@@ -64,7 +65,7 @@ const EditProfileBar = () => {
         {
             value: 'Mexico',
             label: (
-                <div className="flex items-center gap-2 text-black/50">
+                <div className="flex items-center gap-2 ">
                     <img src={Mexico} alt="" />
                     <p>Mexico</p>
                 </div>
@@ -73,7 +74,7 @@ const EditProfileBar = () => {
         {
             value: 'France',
             label: (
-                <div className="flex items-center gap-2 text-black/50">
+                <div className="flex items-center gap-2 ">
                     <img src={France} alt="" />
                     <p>France</p>
                 </div>
@@ -82,7 +83,7 @@ const EditProfileBar = () => {
         {
             value: 'Philippines',
             label: (
-                <div className="flex items-center gap-2 text-black/50">
+                <div className="flex items-center gap-2 ">
                     <img src={Philippines} alt="" />
                     <p>Philippines</p>
                 </div>
@@ -91,7 +92,7 @@ const EditProfileBar = () => {
         {
             value: 'India',
             label: (
-                <div className="flex items-center gap-2 text-black/50">
+                <div className="flex items-center gap-2 ">
                     <img src={India} alt="" />
                     <p>India</p>
                 </div>
@@ -102,7 +103,7 @@ const EditProfileBar = () => {
         {
             value: 'type',
             label: (
-                <div className="flex items-center gap-2 text-black/60">
+                <div className="flex items-center gap-2 ">
                     <p>Cryptocurrency Type</p>
                 </div>
             ),
@@ -110,7 +111,7 @@ const EditProfileBar = () => {
         {
             value: 'usdt',
             label: (
-                <div className="flex items-center gap-2 text-black/60">
+                <div className="flex items-center gap-2 ">
                     <p>USDT</p>
                 </div>
             ),
@@ -118,7 +119,7 @@ const EditProfileBar = () => {
         {
             value: 'usdc',
             label: (
-                <div className="flex items-center gap-2 text-black/60">
+                <div className="flex items-center gap-2 ">
                     <p>USDC</p>
                 </div>
             ),
@@ -126,7 +127,7 @@ const EditProfileBar = () => {
         {
             value: 'BTC',
             label: (
-                <div className="flex items-center gap-2 text-black/60">
+                <div className="flex items-center gap-2 ">
                     <p>BTC</p>
                 </div>
             ),
@@ -134,7 +135,7 @@ const EditProfileBar = () => {
         {
             value: 'SOL',
             label: (
-                <div className="flex items-center gap-2 text-black/60">
+                <div className="flex items-center gap-2 ">
                     <p>SOL</p>
                 </div>
             ),
@@ -143,11 +144,11 @@ const EditProfileBar = () => {
     const NetworkType = [
         {
             value: 'type',
-            label: <p className='text-black/60'>Network Type</p>
+            label: <p className=''>Network Type</p>
         },
         {
             value: 'trc',
-            label: <p className='text-black/60'>TRC 20</p>
+            label: <p className=''>TRC 20</p>
         }
     ]
     const customStyles = {
@@ -189,42 +190,42 @@ const EditProfileBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white p-10 px- duration-700 text-black z-50 overflow-auto ${profileEdit ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 overflow-auto ${profileEdit ? 'sm:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex items-center justify-between'>
                 <div>
-                    <h1 className='text-[19px] font-medium'>Edit beneficiary</h1>
+                    <h1 className='text-[20px] font-medium'>Edit beneficiary</h1>
                 </div>
                 <img
-                    className='size-5 mt-1' src={close} alt=""
+                    className='size-5 mt-1 cursor-pointer' src={close} alt=""
                     onClick={handleProfileEdit}
                 />
             </div>
             <div className='mt-7 flex gap-4 border-b-black/30 border-b'>
                 <p
                     onClick={() => setMethod('bank')}
-                    className={method === 'bank' ? 'cursor-pointer text-[#491597] border-b-[#491597] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Bank transfer</p>
+                    className={method === 'bank' ? 'cursor-pointer text-[#531CB3] border-b-[#531CB3] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Bank transfer</p>
                 <p
                     onClick={() => setMethod('crypto')}
-                    className={method === 'crypto' ? 'cursor-pointer text-[#491597] border-b-[#491597] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Crytocurrency</p>
+                    className={method === 'crypto' ? 'cursor-pointer text-[#531CB3] border-b-[#531CB3] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Crytocurrency</p>
             </div>
             {method === 'bank' ?
                 (
-                    <div className='mt-7 text-black/60'>
+                    <div className='mt-7 text-[#525154] text-[14px] font-medium'>
                         <div className='mt-5'>
-                            <label className='text-black/60' htmlFor="fullName">Full Name</label>
+                            <label htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[40px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[50px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <RiUser6Line className='ml-[-404px] text-[20px]' />
+                                <img className='lg:ml-[-400px] sm:ml-[-450px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="code">Beneficiary's Country</label>
+                            <label htmlFor="code">Beneficiary's Country</label>
                             <div className='mt-1'>
                                 <Select
                                     styles={customStyles}
@@ -237,10 +238,10 @@ const EditProfileBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Beneficiary's account number</label>
+                            <label htmlFor="fullName">Beneficiary's account number</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="number"
                                     name=""
                                     id=""
@@ -249,23 +250,23 @@ const EditProfileBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Bank name</label>
+                            <label htmlFor="fullName">Bank name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[47px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[47px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Bank name'
                                 />
-                                <img className='ml-[-400px]' src={Bank} alt="" />
+                                <img className='lg:ml-[-400px] sm:ml-[-450px] ml-[-97.5%]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Routing number</label>
+                            <label htmlFor="fullName">Routing number</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="number"
                                     name=""
                                     id=""
@@ -274,10 +275,10 @@ const EditProfileBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Swift code</label>
+                            <label htmlFor="fullName">Swift code</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="number"
                                     name=""
                                     id=""
@@ -293,7 +294,7 @@ const EditProfileBar = () => {
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#491f97] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     handleProfileEdit()
@@ -304,22 +305,22 @@ const EditProfileBar = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className='mt-7'>
-                        <div className='mt-5 text-black/60'>
-                            <label className='text-black/60' htmlFor="fullName">Full Name</label>
+                    <div className='mt-7 text-[#525154]'>
+                        <div className='mt-5'>
+                            <label htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-2 w-full pl-[40px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[50px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <RiUser6Line className='ml-[-404px] text-[20px]' />
+                                <img className='lg:ml-[-400px] sm:ml-[-450px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="code">Cryptocurrency type</label>
+                            <label htmlFor="code">Cryptocurrency type</label>
                             <div className='mt-1'>
                                 <Select
                                     styles={customStyles}
@@ -332,10 +333,10 @@ const EditProfileBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Wallet address</label>
+                            <label htmlFor="fullName">Wallet address</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
@@ -344,7 +345,7 @@ const EditProfileBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="code">Cryptocurrency type</label>
+                            <label htmlFor="code">Cryptocurrency type</label>
                             <div className='mt-1'>
                                 <Select
                                     styles={customStyles}
@@ -364,7 +365,7 @@ const EditProfileBar = () => {
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#491f97] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     handleProfileEdit()

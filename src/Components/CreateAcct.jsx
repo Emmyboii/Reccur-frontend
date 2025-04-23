@@ -30,33 +30,33 @@ const CreateAcct = () => {
                 className={`w-[80%] h-[200%] absolute ${acctBar ? 'bg-black/30' : 'hidden'}`}
                 onClick={handleAcctBar}
             ></div>
-            <div className='flex items-center justify-between px-8 py-5'>
+            <div className='flex items-center justify-between md:p-10 py-10 px-4'>
                 <div>
                     <p className='text-[28px] font-semibold'>Home</p>
-                    <p className='text-[16px] text-black/60'>Welcome back, Cooper!</p>
+                    <p className='text-[16px] font-normal text-[#525154]'>Welcome back, Cooper!</p>
                 </div>
-                <div className='flex items-center gap-4'>
-                    <img src={Search} alt="" />
-                    <img src={Bell} alt="" />
-                    <img className='w-8' src={Add} alt="" />
+                <div className='flex md:items-center items-start gap-4'>
+                    <img className='md:block hidden' src={Search} alt="" />
+                    <img className='md:block hidden' src={Bell} alt="" />
+                    <img className='sp:w-8 w-[30px]' src={Add} alt="" />
                 </div>
             </div>
-            <div className='flex flex-col items-center gap-9 mt-[60px] bg-[#fbf9fd] mx-8 py-10 rounded-md border-2 border-black/70 border-dashed'>
+            <div className='flex flex-col items-center gap-9 mt-[60px] bg-[#fbf9fd] md:p-10 mx-4 py-10 px-2 rounded-md border-2 border-black/70 border-dashed'>
                 <div className='max-w-[500px]'>
-                    <p className='text-center font-medium text-[18px]'>We are here to help you get paid for your work.</p>
-                    <p className='text-center mt-1'>Get started by creating your first bank account for any supported country (e.g., USA, Canada, UK)</p>
+                    <p className='text-center font-medium text-[19px] text-[#1D1C1F]'>We are here to help you get paid for your work.</p>
+                    <p className='text-center mt-1 text-[14px] font-normal text-[#525154]'>Get started by creating your first bank account for any supported country (e.g., USA, Canada, UK)</p>
                 </div>
                 <button
-                    className="bg-[#411c87] text-white p-3 rounded-lg"
+                    className="bg-[#531CB3] text-white p-3 text-[14px] rounded-lg"
                     onClick={handleAcctBar}
                 >
                     Create your first bank account
                 </button>
             </div>
-            <div className='mt-[25px] mx-8'>
-                <h1 className='font-medium text-[20px]'>Congratulations on taking the first step!</h1>
-                <p className='text-black/70'>Complete these simple steps to get started using reccur.</p>
-                <div className='flex justify-between w-[80%] mt-4'>
+            <div className='mt-[25px] pb-10 px-4'>
+                <h1 className='font-medium text-[18px] text-[#1D1C1F]'>Congratulations on taking the first step!</h1>
+                <p className='text-[#525154] text-[14px]'>Complete these simple steps to get started using reccur.</p>
+                <div className='flex sm:flex-row flex-col text-[14px] justify-between gap-4 w-[80%] mt-4'>
                     <div className='flex flex-col gap-4'>
                         <div
                             className={`flex items-center gap-2 cursor-pointer ${checked ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}

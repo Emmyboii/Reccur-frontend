@@ -16,16 +16,16 @@ const NotificationSettings = (props) => {
     const [toggleNotificationFromReccur, setToggleNotificationFromReccur] = useState(false)
 
     return (
-        <div className={TransactionType === 'Notifications' ? 'flex flex-col gap-10 w-[848px]' : 'hidden'}>
-            <div className='flex justify-between'>
+        <div className={TransactionType === 'Notifications' ? 'flex flex-col gap-10 lg:w-[80%]' : 'hidden'}>
+            <div className='flex items-start justify-between'>
                 <div className='flex flex-col gap-1'>
                     <p className='text-[18px] font-medium text-[#1D1C1F]'>Notification settings</p>
                     <p className='text-[14px] font-normal text-[#525154]'>Choose how and where you would like us to notify you.</p>
                 </div>
-                <button className='text-[#531CB3] text-[14px] font-medium bg-[#E8E1F5] px-4 py-[10px] rounded-lg'>Save changes</button>
+                <button className='text-[#531CB3] text-[14px] font-medium bg-[#E8E1F5] sa:px-4 px-[5px] sp:block hidden py-[10px] rounded-lg'>Save changes</button>
             </div>
-            <div className='flex gap-5'>
-                <div className='w-[30%] flex flex-col gap-1'>
+            <div className='flex md:flex-row flex-col gap-5'>
+                <div className='md:w-[30%] flex flex-col gap-1'>
                     <div className='text-[14px] font-medium text-[#1D1C1F] flex items-center gap-1'>
                         <p>Notifications</p>
                     </div>
@@ -33,13 +33,13 @@ const NotificationSettings = (props) => {
                         We will still send you important updates about your account outside of your notification settinfs.
                     </p>
                 </div>
-                <div className='flex flex-col rounded-lg border text-[#1D1C1F] text-[14px] font-normal border-[#F3F0F7] justify-between w-[60%]'>
-                    <div className='flex gap-[70px] p-4 border-b border-b-[#F3F0F7]'>
+                <div className='flex flex-col rounded-lg border text-[#1D1C1F] text-[14px] font-normal border-[#F3F0F7] justify-between md:w-[60%]'>
+                    <div className='flex sd:gap-[70px] gap-5 p-4 border-b border-b-[#F3F0F7]'>
                         <p className='flex-1'>Notifications</p>
                         <p>Email</p>
                         <p>In-app</p>
                     </div>
-                    <div className='flex gap-[70px] p-4 border-b border-b-[#F3F0F7]'>
+                    <div className='flex items-start sd:gap-[70px] gap-5 p-4 border-b border-b-[#F3F0F7]'>
                         <p className='flex-1'>When your account is credited</p>
                         {toggleCredited1 ? (
                             <img
@@ -74,7 +74,7 @@ const NotificationSettings = (props) => {
                             />
                         )}
                     </div>
-                    <div className='flex gap-[70px] p-4 border-b border-b-[#F3F0F7]'>
+                    <div className='flex items-start sd:gap-[70px] gap-5 p-4 border-b border-b-[#F3F0F7]'>
                         <p className='flex-1'>When your account is debited</p>
                         {toggleDebited1 ? (
                             <img
@@ -107,7 +107,7 @@ const NotificationSettings = (props) => {
                             />
                         )}
                     </div>
-                    <div className='flex gap-[70px] p-4 border-b border-b-[#F3F0F7]'>
+                    <div className='flex items-start sd:gap-[70px] gap-5 p-4 border-b border-b-[#F3F0F7]'>
                         <p className='flex-1'>Another notification</p>
                         {toggleAnotherNotification1 ? (
                             <img
@@ -140,7 +140,7 @@ const NotificationSettings = (props) => {
                             />
                         )}
                     </div>
-                    <div className='flex gap-[70px] p-4 border-b border-b-[#F3F0F7]'>
+                    <div className='flex items-start sd:gap-[70px] gap-5 p-4 border-b border-b-[#F3F0F7]'>
                         <p className='flex-1'>New notification setting</p>
                         {toggleNewNotification1 ? (
                             <img
@@ -173,7 +173,7 @@ const NotificationSettings = (props) => {
                             />
                         )}
                     </div>
-                    <div className='flex gap-[70px] p-4 border-b border-b-[#F3F0F7]'>
+                    <div className='flex items-start sd:gap-[70px] gap-5 p-4 border-b border-b-[#F3F0F7]'>
                         <p className='flex-1'>Notifications from reccur</p>
                         {toggleNotificationFromReccur ? (
                             <img
@@ -210,6 +210,7 @@ const NotificationSettings = (props) => {
                     </div>
                 </div>
             </div>
+            <button className='text-[#531CB3] text-[14px] font-medium bg-[#E8E1F5] px-4 py-[10px] rounded-lg'>Save changes</button>
         </div>
     )
 }

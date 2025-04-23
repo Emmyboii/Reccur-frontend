@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react'
 import Select from 'react-select';
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
-import { LuArrowLeftRight } from "react-icons/lu";
-import { GoArrowUpRight } from "react-icons/go";
 import { Context } from '../Context/Context';
 import { IoArrowDownSharp } from "react-icons/io5";
 import AcctDetailsBar from './AcctDetailsBar';
@@ -14,6 +12,8 @@ import Search from '../Components/Images/search.png'
 import Bell from '../Components/Images/bell.png'
 import Add from '../Components/Images/AddBtn.png'
 import Warn from '../Components/Images/info-circle.png'
+import arrow from '../Components/Images/arrowUp.png'
+import switchs from '../Components/Images/switch-horizontal.png'
 import Bank from '../Components/Images/bank.png'
 import GreenLine from '../Components/Images/greenLine.png'
 import RedLine from '../Components/Images/redLine.png'
@@ -72,7 +72,7 @@ const Overview = () => {
             value: 'usd',
             label: (
                 <div className="flex items-center gap-2">
-                    <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                    <img className='w-[20px] h-4 rounded-sm' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                     USD
                 </div>
             ),
@@ -81,7 +81,7 @@ const Overview = () => {
             value: 'ngn',
             label: (
                 <div className="flex items-center gap-2">
-                    <img className='w-5' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                    <img className='w-[20px] h-4 rounded-sm' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                     NGN
                 </div>
             )
@@ -94,13 +94,16 @@ const Overview = () => {
         control: (base) => ({
             ...base,
             borderWidth: '1.5px',
-            padding: '4px',
             boxShadow: 'none',
-            borderRadius: '10px'
+            borderRadius: '10px',
         }),
         menu: (base) => ({
             ...base,
             zIndex: 999,
+        }),
+        dropdownIndicator: (provided) => ({
+            ...provided,
+            padding: '0 4px', // adjust this value to reduce the space
         }),
         option: (base, state) => ({
             ...base,
@@ -220,33 +223,33 @@ const Overview = () => {
     return (
         <div>
             <div
-                className={`w-[80%] h-[200%] absolute z-10 ${acctDetailsBar || sendBar || convertBar || liveRatesBar ? 'bg-black/20' : 'hidden'}`}
+                className={`w-[80%] h-[200%] absolute z-30 ${acctDetailsBar || sendBar || convertBar || liveRatesBar ? 'bg-black/20' : 'hidden'}`}
                 onClick={acctDetailsBar ? handleAcctDetailsBar : convertBar ? handleConvertBar : sendBar ? handleSendBar : liveRatesBar ? handleLiveRates : null}
             ></div>
-            <div className='flex items-center justify-between px-8 py-5'>
+            <div className='flex items-center justify-between text-[#1D1C1F] md:px-8 px-4 py-8'>
                 <div>
                     <p className='text-[28px] font-semibold'>Home</p>
-                    <p className='text-[16px] text-black/60'>Welcome back, Cooper!</p>
+                    <p className='text-[16px] font-normal text-[#525154]'>Welcome back, Cooper!</p>
                 </div>
-                <div className='flex items-center gap-4'>
-                    <img src={Search} alt="" />
-                    <img src={Bell} alt="" />
-                    <img className='w-8' src={Add} alt="" />
+                <div className='flex md:items-center items-start gap-4'>
+                    <img className='md:block hidden' src={Search} alt="" />
+                    <img className='md:block hidden' src={Bell} alt="" />
+                    <img className='sp:w-8 w-[30px]' src={Add} alt="" />
                 </div>
             </div>
-            <div className='flex justify-between items-center px-8 py-2'>
-                <p className='font-medium text-[19px]'>Overview</p>
+            <div className='flex justify-between items-center md:px-8 px-4 py-2'>
+                <p className='font-medium text-[18px]'>Overview</p>
                 <button
                     onClick={handleLiveRates}
-                    className='py-2 px-4 border border-black/30 rounded-md'
+                    className='py-[10px] px-4 border text-[14px] border-black/30 rounded-lg'
                 >
                     Live rates
                 </button>
             </div>
-            <div className='px-7 pt-4 flex'>
-                <div className='w-full border-r-2 pr-5 border-black/50'>
+            <div className='px-5 pt-4 flex md:flex-row flex-col md:gap-0 gap-7'>
+                <div className='w-full md:border-r-2 md:pr-4 border-black/50'>
                     <div className='flex items-center justify-between'>
-                        <p className='flex items-center gap-1 text-[15px] text-black/50'>
+                        <p className='flex items-center gap-1 text-[14px] text-[#78757A]'>
                             Total balance <img src={Warn} alt="" />
                         </p>
                         <Select
@@ -263,30 +266,30 @@ const Overview = () => {
                             +25% <img src={Increase} alt="" />
                         </p>
                     </div>
-                    <div className='flex gap-2 mt-5 text-center text-black/60'>
-                        <p
-                            className='border border-black/40 p-1 rounded-md w-full flex items-center gap-1 cursor-pointer hover:bg-black/20 active:scale-95 duration-500 transition-all'
+                    <div className='flex md:gap-1 gap-4 w-full mt-5 items-center text-[#78757A]'>
+                        <div
+                            className='border border-black/40 py-2 rounded-md w-full flex items-center justify-center gap-1 cursor-pointer text-[13px] text-[#525154] font-medium hover:bg-black/20 active:scale-95 duration-500 transition-all'
                             onClick={handleAcctDetailsBar}
                         >
-                            <img className='w-[18px]' src={Bank} alt="" /><span className='font-semibold'>Details</span>
-                        </p>
-                        <p
-                            className='border border-black/40 p-2 rounded-md w-full flex items-center gap-2 cursor-pointer hover:bg-black/20 active:scale-95 duration-500 transition-all'
+                            <img className='w-[15px]' src={Bank} alt="" /><p className='font-semibold'>Details</p>
+                        </div>
+                        <div
+                            className='border border-black/40 py-2 rounded-md w-full flex items-center justify-center gap-1 cursor-pointer text-[13px] text-[#525154] font-medium hover:bg-black/20 active:scale-95 duration-500 transition-all'
                             onClick={handleConvertBar}
                         >
-                            <LuArrowLeftRight className='mt-1' /><span className='font-semibold'>Convert</span>
-                        </p>
-                        <p
-                            className='border border-black/40 p-2 rounded-md w-full flex items-center gap-2 cursor-pointer hover:bg-black/20 active:scale-95 duration-500 transition-all'
+                            <img className='w-[15px]' src={switchs} alt="" /><p className='font-semibold'>Convert</p>
+                        </div>
+                        <div
+                            className='border border-black/40 py-2 rounded-md w-full flex items-center justify-center gap-1 cursor-pointer text-[13px] text-[#525154] font-medium hover:bg-black/20 active:scale-95 duration-500 transition-all'
                             onClick={handleSendBar}
                         >
-                            <GoArrowUpRight className='mt-1' /> <span className='font-semibold'>Send</span>
-                        </p>
+                            <img className='w-[14px]' src={arrow} alt="" /><p className='font-semibold'>Send</p>
+                        </div>
                     </div>
                 </div>
-                <div className='w-full ml-5 border-r-2 pr-5 border-black/50'>
+                <div className='w-full md:ml-5 md:border-r-2 md:pr-4 border-black/50'>
                     <div className='flex items-center justify-between'>
-                        <p className='flex items-center gap-1 text-[15px] text-black/50'>
+                        <p className='flex items-center gap-1 text-[14px] text-[#78757A]'>
                             Total money recieved
                         </p>
                         <Select
@@ -306,9 +309,9 @@ const Overview = () => {
                         )}
                     </div>
                 </div>
-                <div className='w-full ml-5'>
+                <div className='w-full md:ml-5'>
                     <div className='flex items-center justify-between'>
-                        <p className='flex items-center gap-1 text-[15px] text-black/50'>
+                        <p className='flex items-center gap-1 text-[14px] text-[#78757A]'>
                             Total money sent
                         </p>
                         <Select
@@ -330,9 +333,9 @@ const Overview = () => {
                 </div>
             </div>
             <div className='mt-[45px] mx-8'>
-                <h1 className='font-semibold text-[20px]'>Congratulations on taking the first step!</h1>
-                <p>Complete these simple steps to get started using reccur.</p>
-                <div className='flex justify-between w-[80%] mt-4'>
+                <h1 className='font-medium text-[18px]'>Congratulations on taking the first step!</h1>
+                <p className='text-[14px] font-normal text-[#525154]'>Complete these simple steps to get started using reccur.</p>
+                <div className='flex sm:flex-row flex-col text-[14px] justify-between gap-4 w-[80%] mt-4'>
                     <div className='flex flex-col gap-4'>
                         <div
                             className={`flex items-center gap-2 cursor-pointer ${checked ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
@@ -407,39 +410,39 @@ const Overview = () => {
             </div>
             {filterOption === 'transactions' ? (
                 <div className='mt-[30px] px-8 pb-8 text-black/70'>
-                    <div className='flex items-center justify-between'>
+                    <div className='sm:flex items-center justify-between'>
                         <div>
-                            <p className='text-[22px] font-semibold text-black'>Transactions</p>
-                            <p>Track and manage all your payments, transfers, and conversions in one place.</p>
+                            <p className='text-[18px] font-medium'>Transactions</p>
+                            <p className='text-[14px] font-normal text-[#525154]'>Track and manage all your payments, transfers, and conversions in one place.</p>
                         </div>
-                        <select value={filterOption} onChange={handleFilterChange} className='appearance-none outline-none bg-white p-2 border border-black/50 rounded-lg cursor-pointer' name="" id="">
+                        <select value={filterOption} onChange={handleFilterChange} className='appearance-none mt-2 outline-none bg-white px-4 py-[10px] border border-black/50 rounded-lg cursor-pointer' name="" id="">
                             <option value="activities">All Activities</option>
                             <option value="transactions">All Transactions</option>
                         </select>
                     </div>
                     <div className='mt-[30px]'>
-                        <p className='flex items-center gap-4 text-[#667085]'><img src={Search} alt="" /> Search transactions by invoice, date, name or email... </p>
+                        <p className='flex items-center text-[14px] font-normal gap-4 text-[#667085]'><img src={Search} alt="" /> Search transactions by invoice, date, name or email... </p>
                         <div className='mt-[20px] '>
-                            <div className='grid grid-cols-9 gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-medium text-left'>
+                            <div className='grid lg:grid-cols-9 sm:grid-cols-6 grid-cols-4 gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-normal text-left'>
                                 <div className='flex gap-2 items-center min-w-0'>
-                                    <input className='mt-1 size-5 rounded-md' type="checkbox" />
+                                    <input className='mt-1 size-4 rounded-md' type="checkbox" />
                                     <p>Invoice</p>
                                 </div>
-                                <div className='flex gap-2 items-center min-w-0'>
+                                <div className='lg:flex gap-2 items-center min-w-0 hidden'>
                                     <p className='truncate'>Payment date</p>
                                     <IoArrowDownSharp className='mt-1 text-[20px]' />
                                 </div>
-                                <div className='flex gap-2 items-center min-w-0'>
+                                <div className='sm:flex gap-2 items-center min-w-0 hidden'>
                                     <p className='truncate'>Type</p>
                                     <IoArrowDownSharp className='mt-1 text-[16px]' />
                                 </div>
-                                <div className='flex items-center justify-end col-span-2 min-w-0'>
+                                <div className='flex items-center justify-end sm:col-span-2 min-w-0'>
                                     <p className='truncate'>Amount</p>
                                 </div>
-                                <div className='min-w-0'>
+                                <div className='min-w-0 lg:block hidden'>
                                     <p className='truncate'>Currency</p>
                                 </div>
-                                <div className='flex items-center min-w-0'>
+                                <div className='lg:flex items-center min-w-0 hidden'>
                                     <p className='truncate'>Sender/Recipient</p>
                                 </div>
                                 <div className='flex items-center min-w-0'>
@@ -451,27 +454,27 @@ const Overview = () => {
                             </div>
 
                             {Transactions.map((transact, index) => (
-                                <div key={index} className='grid grid-cols-9 gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
+                                <div key={index} className='grid lg:grid-cols-9 sm:grid-cols-6 grid-cols-4 gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
                                     <div className='flex gap-2 items-center min-w-0'>
-                                        <input className='mt-1 size-5 rounded-md' type="checkbox" />
+                                        <input className='mt-1 size-5 rounded-2xl' type="checkbox" />
                                         <p className='truncate'>{transact.Invoice}</p>
                                     </div>
 
-                                    <div className='min-w-0'>
+                                    <div className='min-w-0 lg:block hidden'>
                                         <p className='truncate'>{transact.Date}</p>
                                     </div>
 
-                                    <div className='min-w-0'>
+                                    <div className='min-w-0 sm:block hidden'>
                                         <p className='truncate'>{transact.Type}</p>
                                     </div>
 
-                                    <div className='col-span-2 min-w-0 text-right'>
+                                    <div className='sm:col-span-2 min-w-0 text-right'>
                                         <p className='truncate'>
                                             {transact.Amount ? transact.Amount : `${transact.ConvertedFrom} ➔ ${transact.ConvertedTo}`}
                                         </p>
                                     </div>
 
-                                    <div className='min-w-0'>
+                                    <div className='min-w-0 lg:block hidden'>
                                         {transact.Currency ? (
                                             <div className='flex items-center gap-1 truncate'>
                                                 {transact.Currency}
@@ -481,7 +484,7 @@ const Overview = () => {
                                         )}
                                     </div>
 
-                                    <div className='min-w-0'>
+                                    <div className='min-w-0 lg:block hidden'>
                                         <p className='truncate'>{transact.Sender} {transact.Recipient}</p>
                                     </div>
 
@@ -496,7 +499,7 @@ const Overview = () => {
                                     </div>
 
                                     <div className='min-w-0'>
-                                        <p className='text-[#542d9d] cursor-pointer truncate'>View Details</p>
+                                        <p className='text-[#431594] font-medium cursor-pointer truncate'>View Details</p>
                                     </div>
                                 </div>
                             ))}
@@ -504,43 +507,43 @@ const Overview = () => {
                     </div>
                 </div>
             ) : (
-                <div className='mt-[30px] px-8 pb-8 text-black/50'>
-                    <div className='flex items-center justify-between'>
+                <div className='mt-[30px] md:px-8 px-[14px] pb-8 text-black/50'>
+                    <div className='md:flex items-center justify-between'>
                         <div>
                             <p className='text-[22px] font-semibold text-black'>Activites</p>
                             <p>Stay up to date on recent activities in your account.</p>
                         </div>
-                        <select value={filterOption} onChange={handleFilterChange} className='appearance-none outline-none bg-white p-2 border border-black/50 rounded-lg cursor-pointer' name="" id="">
+                        <select value={filterOption} onChange={handleFilterChange} className='appearance-none md:mt-0 mt-2 outline-none bg-white p-2 border border-black/50 rounded-lg cursor-pointer' name="" id="">
                             <option value="activities">All Activities</option>
                             <option value="transactions">All Transactions</option>
                         </select>
                     </div>
-                    <div className='mt-[30px] flex flex-col gap-7 text-[18px] text-black'>
-                        <div className='flex justify-between'>
-                            <p className='flex items-center gap-2'>
-                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[20px]' />
-                                Your invoice <span className='text-[#542d9d]'>#RC0001</span> for Samantha Tino has been paid.
+                    <div className='mt-[30px] flex flex-col gap-7 text-[14px] text-[#1D1C1F] font-medium'>
+                        <div className='flex md:flex-row flex-col md:gap-0 gap-2 justify-between'>
+                            <p className='flex items-center gap-'>
+                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[18px]' />
+                                Your invoice <span className='text-[#542d9d] px-[3px]'>#RC0001</span> for Samantha Tino has been paid.
                             </p>
                             <p className='text-black/50'>8/30/2022, 12:46 am</p>
                         </div>
-                        <div className='flex justify-between'>
-                            <p className='flex items-center gap-2'>
-                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[20px]' />
-                                Your invoice <span className='text-[#542d9d]'>#RC0001</span> for Samantha Tino has been paid.
+                        <div className='flex md:flex-row flex-col md:gap-0 gap-2 justify-between'>
+                            <p className='flex items-center gap-'>
+                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[18px]' />
+                                Your invoice <span className='text-[#542d9d] px-[3px]'>#RC0001</span> for Samantha Tino has been paid.
                             </p>
                             <p className='text-black/50'>8/30/2022, 12:46 am</p>
                         </div>
-                        <div className='flex justify-between'>
-                            <p className='flex items-center gap-2'>
-                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[20px]' />
-                                <span className='text-[#542d9d]'>$5000</span> has been deposited into your account.
+                        <div className='flex md:flex-row flex-col md:gap-0 gap-2 justify-between'>
+                            <p className='flex items-center gap-'>
+                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[18px]' />
+                                <span className='text-[#542d9d] px-[3px]'>$5000</span> has been deposited into your account.
                             </p>
                             <p className='text-black/50'>8/30/2022, 12:46 am</p>
                         </div>
-                        <div className='flex justify-between'>
-                            <p className='flex items-center gap-2'>
-                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[20px]' />
-                                Your invoice <span className='text-[#542d9d]'>#RC0001</span> for Samantha Tino has been paid.
+                        <div className='flex md:flex-row flex-col md:gap-0 gap-2 justify-between'>
+                            <p className='flex items-center gap-'>
+                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[18px]' />
+                                Your invoice <span className='text-[#542d9d] px-[3px]'>#RC0001</span> for Samantha Tino has been paid.
                             </p>
                             <p className='text-black/50'>8/30/2022, 12:46 am</p>
                         </div>

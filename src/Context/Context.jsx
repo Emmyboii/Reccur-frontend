@@ -4,6 +4,7 @@ export const Context = createContext(null);
 
 const ContextProvider = (props) => {
 
+    const [sideBar, setSideBar] = useState(false)
     const [acctBar, setAcctBar] = useState(false)
     const [acctDetailsBar, setAcctDetailsBar] = useState(false)
     const [convertBar, setConvertBar] = useState(false)
@@ -31,6 +32,9 @@ const ContextProvider = (props) => {
     const [selectedInvoice, setSelectedInvoice] = useState(null)
     const [selectedTransactionDetails, setSelectedTransactionDetails] = useState(null)
 
+    const handleSideBar = () => {
+        setSideBar(!sideBar)
+    }
     const handleAcctBar = () => {
         setAcctBar(!acctBar)
     }
@@ -93,6 +97,8 @@ const ContextProvider = (props) => {
 
 
     const contextValue = {
+        handleSideBar,
+        sideBar,
         acctBar,
         handleAcctBar,
         checked,

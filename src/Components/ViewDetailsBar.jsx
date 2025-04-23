@@ -7,7 +7,7 @@ const ViewDetailsBar = () => {
 
     const { handleViewDetails, viewDetails, handleDeleteProfile, handleProfileEdit } = useContext(Context)
 
-    const [Transaction, setTransaction] = useState(1)
+    const [Transaction, setTransaction] = useState(0)
 
     const Payment = [
         {
@@ -43,11 +43,11 @@ const ViewDetailsBar = () => {
     ]
 
     return (
-        <div className={`fixed top-0 h-screen bg-white p-10 px- duration-700 text-black z-30 overflow-auto ${viewDetails ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-30 overflow-auto ${viewDetails ? 'sm:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-2 justify-between'>
                 <div>
-                    <h1 className='text-[19px] font-medium text-black/80'>Samantha Tino</h1>
-                    <p className='text-black/60'><span className='text-[#491f97]'>sam@tino.com •</span> Biffco Enterprises Ltd.</p>
+                    <h1 className='text-[20px] font-medium text-[#1D1C1F]'>Samantha Tino</h1>
+                    <p className='text-[#525154]'><span className='text-[#531CB3]'>sam@tino.com •</span> Biffco Enterprises Ltd.</p>
                 </div>
                 <img
                     className='size-5 mt-1 cursor-pointer' src={close} alt=""
@@ -59,7 +59,7 @@ const ViewDetailsBar = () => {
                     onClick={() => {
                         handleDeleteProfile()
                     }}
-                    className='p-2 px-4 border-[1.5px] rounded-lg'
+                    className='p-2 px-4 text-[14px] border-[1.5px] rounded-lg'
                 >
                     Delete Profile
                 </button>
@@ -67,7 +67,7 @@ const ViewDetailsBar = () => {
                     onClick={() => {
                         handleProfileEdit()
                     }}
-                    className='p-2 px-4 bg-[#E8E1F5] text-[#531CB3] border rounded-lg'
+                    className='p-2 px-4 text-[14px] bg-[#E8E1F5] text-[#531CB3] border rounded-lg'
                 >
                     Edit Profile
                 </button>
@@ -75,7 +75,7 @@ const ViewDetailsBar = () => {
                     onClick={() => {
                         handleViewDetails()
                     }}
-                    className='p-2 px-4 bg-[#531CB3] text-white border rounded-lg'
+                    className='p-2 px-4 text-[14px] bg-[#531CB3] text-white border rounded-lg'
                 >
                     Send Money
                 </button>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Search from '../Components/Images/search.png'
 import { IoArrowDownSharp } from 'react-icons/io5'
 import menus from '../Components/Images/menu.png';
@@ -10,6 +10,17 @@ const BeneficiaryInfo = () => {
     const [menu, setMenu] = useState(null)
 
     const { handleViewDetails, handleProfileEdit, handleDeleteProfile } = useContext(Context)
+
+    const [isSmScreen, setIsSmScreen] = useState(window.innerWidth < 450);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmScreen(window.innerWidth < 450);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const Beneficiary = [
         {
@@ -132,27 +143,25 @@ const BeneficiaryInfo = () => {
                 </p>
             </div>
             <div className='py-10'>
-                <p className='flex items-center gap-4'><img src={Search} alt="" />Search for beneficiary, by name, email or business</p>
-                <div className='grid grid-cols-5 gap-5 border-t-[1.5px] border-b-[1.5px] px-2 text-black/50 border-black/10 mt-3 py-4 text-[14px] font-medium text-left'>
-                    <div className='flex gap-5 items-center min-w-0'>
-                        <input className='mt-1 size-4' type="checkbox" />
-                        <div className='flex items-center gap-1'>
-                            <p>Beneficiary name</p>
-                            <IoArrowDownSharp className='mt-1 text-[16px]' />
-                        </div>
+                <p className='flex items-center gap-4 text-[14px] text-[#78757A] font-normal'><img src={Search} alt="" />Search for beneficiary, by name, email or business</p>
+                <div className='sm:grid md:grid-cols-5 sm:grid-cols-4 flex justify-between gap-5 border-t-[1.5px] border-b-[1.5px] px-2 text-[#78757A] border-black/10 mt-3 py-4 text-[14px] font-medium text-left'>
+                    <div className='flex items-center min-w-0'>
+                        <input className='mt-1 mr-5 size-4' type="checkbox" />
+                        <p className='truncate'>Beneficiary name</p>
+                        <IoArrowDownSharp className='mt-1 xl:text-[16px] lg:text-[25px]' />
                     </div>
                     <div className='flex gap-2 items-center justify- min-w-0'>
                         <p className='truncate'>Account type</p>
                         <IoArrowDownSharp className='mt-1 text-[16px]' />
                     </div>
-                    <div className='flex gap-2 items-center justify- min-w-0'>
+                    <div className='sm:flex hidden gap-2 items-center justify- min-w-0'>
                         <p className='truncate'>Country</p>
                         <IoArrowDownSharp className='mt-1 text-[16px]' />
                     </div>
-                    <div className='flex items-center justify- min-w-0'>
+                    <div className='md:flex hidden items-center justify- min-w-0'>
                         <p className='truncate'>Address</p>
                     </div>
-                    <div className='min-w-0 flex items-center justify-end gap-5'>
+                    <div className='min-w-0 sp:flex items-center justify-end hidden gap-5'>
                         <p className='truncate'>Account number</p>
                         <div className='cursor-pointer mt-[-10px] invisible'>
                             <p className='font-semibold text-[18px] text-black/60'>...</p>
@@ -162,7 +171,8 @@ const BeneficiaryInfo = () => {
                 {Beneficiary.map((Ben, i) => {
                     return <div
                         key={i}
-                        className='grid grid-cols-5 gap-5 hover:bg-[#F3F0F7] cursor-pointer border-b-[1.5px] text-black/50 border-black/10 py-4 px-2 text-[14px] font-medium text-left'
+                        onClick={isSmScreen ? () => handleViewDetails(i) : undefined}
+                        className='sm:grid md:grid-cols-5 sm:grid-cols-4 flex justify-between gap-5 hover:bg-[#F3F0F7] cursor-pointer border-b-[1.5px] text-[#525154] border-black/10 py-4 px-2 text-[14px] font-normal text-left'
                     >
                         <div className='flex gap-5 items-center min-w-0'>
                             <input className='mt-1 size-4 cursor-pointer' type="checkbox" />
@@ -172,21 +182,21 @@ const BeneficiaryInfo = () => {
                         <div className='min-w-0'>
                             <p className='truncate'>{Ben.AccountType}</p>
                         </div>
-                        <div className='min-w-0'>
+                        <div className='min-w-0 sm:block hidden'>
                             {Ben.Country !== '' ? (
                                 <p className='truncate'>{Ben.Country}</p>
                             ) : (
                                 <p>—</p>
                             )}
                         </div>
-                        <div className='min-w-0'>
+                        <div className='min-w-0 md:block hidden'>
                             {Ben.Address !== '' ? (
                                 <p className='truncate'>{Ben.Address}</p>
                             ) : (
                                 <p>—</p>
                             )}
                         </div>
-                        <div className='min-w-0 flex justify-end items-center gap-5 relative'>
+                        <div className='min-w-0 sp:flex hidden justify-end items-center gap-5 relative'>
                             {Ben.AccountNumber !== '' ? (
                                 <p className='truncate'>{Ben.AccountNumber}</p>
                             ) : (
@@ -232,7 +242,7 @@ const BeneficiaryInfo = () => {
                         </div>
                     </div>
                 })}
-                <p className='text-[#78757A] mt-4'>1 Payer</p>
+                <p className='text-[#78757A] mt-4'>1 Beneficiary</p>
             </div>
         </div>
     )

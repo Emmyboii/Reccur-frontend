@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 import close from '../Components/Images/x-close.png';
+import user from '../Components/Images/user.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
-import { RiUser6Line } from "react-icons/ri";
 import Bank from '../Components/Images/bank.png';
 import SouthAfrica from '../Components/Images/SouthAfrica.png';
 import UK from '../Components/Images/UK.png';
@@ -55,7 +55,7 @@ const BeneficiaryBar = () => {
         {
             value: 'UK',
             label: (
-                <div className="flex items-center gap- text-black/50">
+                <div className="flex items-center gap-2 text-black/50">
                     <img src={UK} alt="" />
                     <p>United Kingdom</p>
                 </div>
@@ -156,10 +156,14 @@ const BeneficiaryBar = () => {
         }),
         control: (base) => ({
             ...base,
-            padding: '4px',
+            paddingTop: '3px',
+            paddingBottom: '3px',
+            paddingLeft: '7px',
+            paddingRight: '7px',
             borderRadius: '6px',
             boxShadow: 'none',
-            borderWidth: '1.5px'
+            borderWidth: '1.5px',
+            color: '#525154'
         }),
         menu: (base) => ({
             ...base,
@@ -189,14 +193,14 @@ const BeneficiaryBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white p-10 px- duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
-                    <h1 className='text-[19px] font-medium'>Add beneficiary</h1>
-                    <p>No emails will be sent to your beneficiary when you add them here - that is, unless you tell us to.</p>
+                    <h1 className='text-[28px] font-semibold'>Add beneficiary</h1>
+                    <p className='text-[14px] font-normal text-[#525154]'>No emails will be sent to your beneficiary when you add them here - that is, unless you tell us to.</p>
                 </div>
                 <img
-                    className='size-5 mt-1' src={close} alt=""
+                    className='size-5 mt-1 cursor-pointer' src={close} alt=""
                     onClick={handleBeneficiaryBar}
                 />
             </div>
@@ -210,22 +214,22 @@ const BeneficiaryBar = () => {
             </div>
             {method === 'bank' ?
                 (
-                    <div className='mt-7 text-black/60'>
+                    <div className='mt-7 text-[#525154] text-[14px] font-medium'>
                         <div className='mt-5'>
-                            <label className='text-black/60' htmlFor="fullName">Full Name</label>
+                            <label htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[40px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <RiUser6Line className='ml-[-404px] text-[20px]' />
+                                <img className='lg:ml-[-400px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="code">Beneficiary's Country</label>
+                            <label htmlFor="code">Beneficiary's Country</label>
                             <div className='mt-1'>
                                 <Select
                                     styles={customStyles}
@@ -238,10 +242,10 @@ const BeneficiaryBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Beneficiary's account number</label>
+                            <label htmlFor="fullName">Beneficiary's account number</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name=""
                                     id=""
@@ -250,23 +254,23 @@ const BeneficiaryBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Bank name</label>
+                            <label htmlFor="fullName">Bank name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[47px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[47px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Bank name'
                                 />
-                                <img className='ml-[-400px]' src={Bank} alt="" />
+                                <img className='lg:ml-[-400px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Routing number</label>
+                            <label htmlFor="fullName">Routing number</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name=""
                                     id=""
@@ -275,10 +279,10 @@ const BeneficiaryBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Swift code</label>
+                            <label htmlFor="fullName">Swift code</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name=""
                                     id=""
@@ -286,7 +290,7 @@ const BeneficiaryBar = () => {
                                 />
                             </div>
                         </div>
-                        <div className='flex gap-2 mt-10'>
+                        <div className='flex gap-4 mt-10'>
                             <button
                                 className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
                                 onClick={handleBeneficiaryBar}
@@ -294,7 +298,7 @@ const BeneficiaryBar = () => {
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#491f97] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     handleAddedBeneficiaries()
@@ -311,13 +315,13 @@ const BeneficiaryBar = () => {
                             <label className='text-black/60' htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-2 w-full pl-[40px] rounded-md'
+                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <RiUser6Line className='ml-[-404px] text-[20px]' />
+                                <img className='lg:ml-[-400px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -337,7 +341,7 @@ const BeneficiaryBar = () => {
                             <label className='text-black/50' htmlFor="fullName">Wallet address</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
@@ -358,7 +362,7 @@ const BeneficiaryBar = () => {
                                 />
                             </div>
                         </div>
-                        <div className='flex gap-2 mt-12'>
+                        <div className='flex gap-4 mt-12'>
                             <button
                                 className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
                                 onClick={handleBeneficiaryBar}
@@ -366,7 +370,7 @@ const BeneficiaryBar = () => {
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#491f97] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     handleAddedBeneficiaries()

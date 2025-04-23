@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react'
-import { FaToggleOff, FaToggleOn } from 'react-icons/fa'
+import OffToggle from '../Components/Images/OffToggle.png';
+import OnToggle from '../Components/Images/OnToggle.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
-import { RiUser6Line } from "react-icons/ri";
 import { AiTwotoneQuestionCircle } from "react-icons/ai";
 import Bank from '../Components/Images/bank.png';
 import close from '../Components/Images/x-close.png';
+import user from '../Components/Images/user.png';
 
 const SendBar = () => {
 
@@ -44,7 +45,7 @@ const SendBar = () => {
             label: (
                 <div className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
-                        <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                        <img className='w-[20px] h-4 rounded-sm' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                         <p>USA</p>
                     </div>
                 </div>
@@ -55,7 +56,7 @@ const SendBar = () => {
             label: (
                 <div className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
-                        <img className='w-5' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                        <img className='w-[20px] h-4 rounded-sm' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                         <p>NGN</p>
                     </div>
                 </div>
@@ -111,9 +112,13 @@ const SendBar = () => {
         control: (base) => ({
             ...base,
             padding: '4px',
-            borderRadius: '6px',
+            borderRadius: '8px',
             boxShadow: 'none',
             borderWidth: '1.5px'
+        }),
+        singleValue: (base) => ({
+            ...base,
+            color: '#78757A',
         }),
         menu: (base) => ({
             ...base,
@@ -147,14 +152,14 @@ const SendBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white py-8 px-5 duration-700 text-black z-50 overflow-auto ${sendBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
-            <div className='flex gap-2'>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${sendBar ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+            <div className='flex justify-between gap-5'>
                 <div>
-                    <h1 className='text-[19px] font-medium'>Send Money</h1>
-                    <p>Easily send funds to anyone, anywhere, in just a few steps.</p>
+                    <h1 className='text-[20px] font-medium'>Send Money</h1>
+                    <p className='text-[14px] font-normal text-[#525154]'>Easily send funds to anyone, anywhere, in just a few steps.</p>
                 </div>
                 <img
-                    className='size-5 mt-1' src={close} alt=""
+                    className='size-5 mt-1 cursor-pointer' src={close} alt=""
                     onClick={handleSendBar}
                 />
             </div>
@@ -168,7 +173,7 @@ const SendBar = () => {
             </div>
             {method === 'bank' ?
                 (
-                    <div className='mt-7'>
+                    <div className='mt-7 text-[14px] font-normal text-[#525154]'>
                         <div>
                             <label className='text-black/50' htmlFor="code">Source Account</label>
                             <div className='mt-1'>
@@ -186,13 +191,13 @@ const SendBar = () => {
                             <label className='text-black/50' htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[40px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <RiUser6Line className='ml-[-444px] text-[20px]' />
+                                <img className='lg:ml-[-405px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -212,7 +217,7 @@ const SendBar = () => {
                             <label className='text-black/50' htmlFor="fullName">Beneficiary's account number</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="number"
                                     name=""
                                     id=""
@@ -230,14 +235,14 @@ const SendBar = () => {
                                     id=""
                                     placeholder='Enter bank name'
                                 />
-                                <img className='ml-[-440px]' src={Bank} alt="" />
+                                <img className='lg:ml-[-405px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
                             <label className='text-black/50' htmlFor="fullName">Routing number</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="number"
                                     name=""
                                     id=""
@@ -249,7 +254,7 @@ const SendBar = () => {
                             <label className='text-black/50' htmlFor="fullName">Swift code</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="number"
                                     name=""
                                     id=""
@@ -261,20 +266,31 @@ const SendBar = () => {
                             <label htmlFor="amount">Amount</label>
                             <div className='flex items-center gap-2'>
                                 <div className='flex items-center w-full'>
-                                    <input className='border-2 border-black/30 p-2 pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id="" />
-                                    <p className='ml-[-380px] text-black/50'>$</p>
+                                    <input className='border-[1.5px] border-black/20 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
+                                    <p className='xl:ml-[-340px] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] ml-[-97.5%] text-[20px] text-[#525154]'>$</p>
                                 </div>
-                                <button className='p-2 px-3 bg-[#a582e6] text-white rounded-md'>Max</button>
+                                <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
                             </div>
                         </div>
                         <div className='mt-7'>
                             <div className='flex gap-3 items-center text-black/70'>
                                 {toggle ? (
-                                    <FaToggleOn className='text-[33px] text-[#491f97]' onClick={() => setToggle(false)} />
+                                    <img
+                                        className='cursor-pointer'
+                                        src={OnToggle}
+                                        alt=""
+                                        onClick={() => setToggle(false)}
+                                    />
+
                                 ) : (
-                                    <FaToggleOff className='text-[33px] text-[#491f97]' onClick={() => setToggle(true)} />
+                                    <img
+                                        className='cursor-pointer'
+                                        src={OffToggle}
+                                        alt=""
+                                        onClick={() => setToggle(true)}
+                                    />
                                 )}
-                                <p>Convert to client's currency</p>
+                                <p className='text-[16px] font-medium text-[#525154]'>Convert to client's currency</p>
                             </div>
                         </div>
                         <div className='flex gap-2 mt-12'>
@@ -285,18 +301,18 @@ const SendBar = () => {
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#491f97] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     // handleConversion()
                                 }}
                             >
-                                Convert Currency
+                                Send money
                             </button>
                         </div>
                     </div>
                 ) : (
-                    <div className='mt-7'>
+                    <div className='mt-7 text-[14px] font-normal text-[#525154]'>
                         <div>
                             <label className='text-black/50' htmlFor="code">Source Account</label>
                             <div className='mt-1'>
@@ -314,13 +330,13 @@ const SendBar = () => {
                             <label className='text-black/50' htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[40px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <RiUser6Line className='ml-[-444px] text-[20px]' />
+                                <img className='lg:ml-[-405px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -340,7 +356,7 @@ const SendBar = () => {
                             <label className='text-black/50' htmlFor="fullName">Wallet address</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[8px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] px-[14px] w-full  rounded-md'
                                     type="text"
                                     name=""
                                     id=""
@@ -364,9 +380,9 @@ const SendBar = () => {
                         <div className='mt-5'>
                             <label className='text-black/50' htmlFor="amount">Amount</label>
                             <div className='flex items-center w-full'>
-                                <input className='border-2 border-black/30 p-2 pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id="" />
+                                <input className='border-[1.5px] border-black/20 py-[10px] pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id="" />
                                 <AiTwotoneQuestionCircle className='ml-[-30px]' />
-                                <p className='ml-[-425px] text-black/50'>$</p>
+                                <p className='lg:ml-[-390px] md:ml-[-435px] sm:ml-[-326px] ml-[-94.5%] text-[20px] text-[#525154]'>$</p>
                             </div>
                         </div>
                         <div className='flex gap-2 mt-12'>
@@ -377,13 +393,13 @@ const SendBar = () => {
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#491f97] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     // handleConversion()
                                 }}
                             >
-                                Convert Currency
+                                Send Money
                             </button>
                         </div>
                     </div>

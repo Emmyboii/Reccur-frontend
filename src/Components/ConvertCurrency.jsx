@@ -11,7 +11,7 @@ const ConvertCurrency = () => {
         {
             value: 'placeholder',
             label: (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 text-[16px]">
                     <img src={Bank} alt="" /> Select the account to be debited
                 </div>
             ),
@@ -22,7 +22,7 @@ const ConvertCurrency = () => {
         {
             value: 'placeholder',
             label: (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 text-[16px]">
                     <img src={Bank} alt="" /> Select the account to be credited
                 </div>
             ),
@@ -39,7 +39,11 @@ const ConvertCurrency = () => {
             padding: '4px',
             boxShadow: 'none',
             borderRadius: '6px',
-            borderWidth: '1.5px'
+            borderWidth: '1.5px',
+        }),
+        singleValue: (base) => ({
+            ...base,
+            color: '#78757A',
         }),
         menu: (base) => ({
             ...base,
@@ -65,18 +69,18 @@ const ConvertCurrency = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white py-8 px-5 duration-700 text-black z-50 ${convertBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
-            <div className='flex gap-2'>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 ${convertBar ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+            <div className='flex gap-5 justify-between'>
                 <div>
-                    <h1 className='text-[19px] font-medium'>Convert currency</h1>
-                    <p>Easily exchange funds between your accounts in different currencies.</p>
+                    <h1 className='text-[20px] font-medium'>Convert currency</h1>
+                    <p className='text-[14px] font-normal text-[#525154]'>Easily exchange funds between your accounts in different currencies.</p>
                 </div>
                 <img
-                    className='size-5 mt-1' src={close} alt=""
+                    className='size-5 mt-1 cursor-pointer' src={close} alt=""
                     onClick={handleConvertBar}
                 />
             </div>
-            <div className='mt-7'>
+            <div className='mt-7 text-[#525154]'>
                 <div>
                     <label htmlFor="code">Source Account</label>
                     <div className='mt-1'>
@@ -107,12 +111,11 @@ const ConvertCurrency = () => {
                     <label htmlFor="amount">Amount</label>
                     <div className='flex items-center gap-2'>
                         <div className='flex items-center w-full'>
-                            <input className='border-2 border-black/30 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
-                            <p className='ml-[-380px]'>$</p>
+                            <input className='border-[1.5px] border-black/30 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
+                            <p className='xl:ml-[-345px] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] ml-[-97.5%] text-[20px] text-[#525154]'>$</p>
                         </div>
-                        <button className='p-2 px-3 bg-[#a582e6] text-white rounded-md'>Max</button>
+                        <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
                     </div>
-
                 </div>
                 <div className='flex gap-2 mt-12'>
                     <button
@@ -122,7 +125,7 @@ const ConvertCurrency = () => {
                         Cancel
                     </button>
                     <button
-                        className='p-3 rounded-lg bg-[#491f97] text-white w-[70%]'
+                        className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
                         onClick={() => {
                             window.scrollTo(0, 0)
                             handleConversion()

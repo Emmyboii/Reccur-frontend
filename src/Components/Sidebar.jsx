@@ -16,7 +16,7 @@ const Sidebar = () => {
     const verified = JSON.parse(localStorage.getItem('detailsVerified'))
 
     return (
-        <div className='bg-[#411c87] text-white w-[20%] h-screen py-8 px-5 flex flex-col justify-between gap-5'>
+        <div className='bg-[#431594] text-white w-[300px] h-screen py-8 px-5 lg:flex hidden flex-col justify-between gap-5'>
             <div>
                 {verified ? (
                     <Link to='/home'>

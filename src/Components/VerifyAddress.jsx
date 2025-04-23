@@ -34,7 +34,7 @@ const VerifyAddress = () => {
             label: (
                 <div className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
-                        <img className='w-7' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                        <img className='w-[20px] h-4 rounded-sm' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                         <p>USA</p>
                     </div>
                 </div>
@@ -45,7 +45,7 @@ const VerifyAddress = () => {
             label: (
                 <div className="flex items-center gap-2">
                     <div className="flex items-center gap-2">
-                        <img className='w-7' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                        <img className='w-[20px] h-4 rounded-sm' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                         <p>Nigeria</p>
                     </div>
                 </div>
@@ -59,13 +59,17 @@ const VerifyAddress = () => {
         }),
         control: (base) => ({
             ...base,
-            padding: '1px',
+            paddingTop: '10px',
+            paddingBottom: '10px',
+            paddingRight: '14px',
+            paddingLeft: '14px',
             boxShadow: 'none',
-            borderRadius: '6px',
+            borderRadius: '8px',
             borderWidth: '1.5px'
         }),
         menu: (base) => ({
             ...base,
+            zIndex: 9999
         }),
         option: (base, state) => ({
             ...base,
@@ -73,6 +77,10 @@ const VerifyAddress = () => {
             color: state.isFocused ? 'white' : 'black',
             padding: 10,
             cursor: 'pointer',
+        }),
+        dropdownIndicator: (provided) => ({
+            ...provided,
+            display: 'none'
         }),
     };
     const [convert, setConvert] = useState(options[0])
@@ -103,10 +111,10 @@ const VerifyAddress = () => {
     }, [progress]);
 
     return (
-        <div className='flex flex-col max-w-[560px] mx-auto  py-[30px]'>
+        <div className='flex flex-col max-w-[560px] mx-auto md:p-10 py-10 px-4'>
             <div>
-                <h1 className='text-[30px] text-center'>Verify Your Home Address</h1>
-                <p className='text-black/60 text-center'>
+                <h1 className='text-[28px] font-medium text-[#1D1C1F] text-center'>Verify Your Home Address</h1>
+                <p className='text-[#525154] text-[14px] font-normal text-center'>
                     Enter your home address to verify your account
                 </p>
             </div>
@@ -116,7 +124,7 @@ const VerifyAddress = () => {
                 <p className={location.pathname === '/verifyidentity' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
                 <p className={location.pathname === '/uploadDocument' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
             </div>
-            <div className='mt-12 flex flex-col gap-6 text-black/70'>
+            <div className='mt-12 flex flex-col gap-6 text-[#525154] font-medium text-[14px]'>
                 <div>
                     <label htmlFor="code">Country of Residence</label>
                     <div className='flex items-center mt-1'>
@@ -128,13 +136,13 @@ const VerifyAddress = () => {
                             isSearchable={false}
                             className='w-full outline-none appearance-none'
                         />
-                        <img className='ml-[-29px] z-50' src={Search} alt="" />
+                        <img className='ml-[-29px] z-20' src={Search} alt="" />
                     </div>
                 </div>
                 <div>
                     <label htmlFor="code">State / Province</label>
                     <div className='flex items-center mt-1'>
-                        <select className='select border-[1.5px] border-black/20 rounded-md w-full p-2 outline-none'>
+                        <select className='select border-[1.5px] border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'>
                             <option value="nigeria">Lagos</option>
                             <option value="nigeria">Lagos</option>
                             <option value="nigeria">Lagos</option>
@@ -142,12 +150,12 @@ const VerifyAddress = () => {
                             <option value="nigeria">Lagos</option>
                             <option value="nigeria">Lagos</option>
                         </select>
-                        <img className='ml-[-29px] z-50' src={Search} alt="" />
+                        <img className='ml-[-29px] z-20' src={Search} alt="" />
                     </div>
                 </div>
                 <div>
                     <label htmlFor="code">City</label>
-                    <select className='border-[1.5px] mt-1 border-black/20 rounded-md w-full p-2 outline-none'>
+                    <select className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[14px] px-[14px] outline-none'>
                         <option value="nigeria">Lekki</option>
                         <option value="nigeria">Lekki</option>
                         <option value="nigeria">Lekki</option>
@@ -159,7 +167,7 @@ const VerifyAddress = () => {
                 <div>
                     <label htmlFor="code">Street Line 1</label>
                     <input
-                        className='border-[1.5px] mt-1 border-black/20 rounded-md w-full p-2 outline-none'
+                        className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
                         type="number"
                         name=""
                         id=""
@@ -169,7 +177,7 @@ const VerifyAddress = () => {
                 <div>
                     <label htmlFor="code">Street Line 2</label>
                     <input
-                        className='border-[1.5px] mt-1 border-black/20 rounded-md w-full p-2 outline-none'
+                        className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
                         type="number"
                         name=""
                         id=""
@@ -179,7 +187,7 @@ const VerifyAddress = () => {
                 <div>
                     <label htmlFor="code">Zip / postal code</label>
                     <input
-                        className='border-[1.5px] mt-1 border-black/20 rounded-md w-full p-2 outline-none'
+                        className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
                         type="number"
                         name=""
                         id=""
@@ -190,7 +198,7 @@ const VerifyAddress = () => {
                     <label htmlFor="code">Upload your utility bill</label>
                     <div className='mt-1 relative'>
                         <label htmlFor="upload">
-                            <div className='border-[1.5px] cursor-pointer border-black/20 rounded-md w-full p-2 outline-none flex gap-2 items-center justify-center'>
+                            <div className='border-[1.5px] cursor-pointer border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none flex gap-2 items-center justify-center'>
                                 <div className='flex gap-2 items-center'>
                                     <img src={Upload} alt="" />
                                     {document ? (
@@ -241,7 +249,7 @@ const VerifyAddress = () => {
                         Previous
                     </button>
                     <button
-                        className='p-3 rounded-lg bg-[#411c87] text-white w-[70%]'
+                        className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
                         onClick={() => {
                             navigate('/verifyidentity')
                             window.scrollTo(0, 0)

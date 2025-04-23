@@ -25,10 +25,10 @@ const UploadDocument = () => {
   }
 
   return (
-    <div className='flex flex-col max-w-[540px] px-4 mx-auto py-[30px]'>
+    <div className='flex flex-col max-w-[540px] px-4 mx-auto md:p-10 py-10'>
       <div>
-        <h1 className='text-[30px] text-center'>Upload your Documents</h1>
-        <p className='text-black/60 text-center'>
+        <h1 className='text-[28px] font-medium text-[#1D1C1F] text-center'>Upload your Documents</h1>
+        <p className='text-[#525154] text-[14px] font-normal  text-center'>
           Help us verify your identity by uploading the required documents. This ensures your
           account stays secure and fully compliant.
         </p>
@@ -39,10 +39,10 @@ const UploadDocument = () => {
         <p className={location.pathname === '/verifyidentity' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
         <p className={location.pathname === '/uploadDocument' ? 'bg-[#411c87] h-1 w-20 rounded-md' : 'bg-gray-300 h-1 w-5 rounded-md'}></p>
       </div>
-      <div className='mt-8 flex flex-col gap-4 text-black/70'>
+      <div className='mt-8 flex flex-col gap-6 text-[#525154] font-medium text-[14px]'>
         <div>
           <label htmlFor="code">Select Document</label>
-          <select className='border-[1.5px] mt-1 border-black/20 rounded-md w-full p-2 outline-none'>
+          <select className='border-[1.5px] mt-1 border-black/20 rounded-lg w-full py-[10px] px-[14px] outline-none'>
             <option value="nigeria">Passport</option>
             <option value="nigeria">Lekki</option>
             <option value="nigeria">Lekki</option>
@@ -59,7 +59,7 @@ const UploadDocument = () => {
                   <img
                     src={URL.createObjectURL(frontDoc)}
                     alt=''
-                    className='w-full h-[150px] rounded-md cursor-pointer object-cover'
+                    className='w-full h-[140px] rounded-md cursor-pointer object-cover'
                   />
                 ) : (
                   <FaRegImage className='text-[25px] text-black/40' />
@@ -73,7 +73,7 @@ const UploadDocument = () => {
                 hidden
               />
             </label>
-            <p className='text-[#411c87]'>Upload Front</p>
+            <p className='text-[#531CB3]'>Upload Front</p>
           </div>
           <div className='w-full'>
             <label htmlFor="backdoc">
@@ -82,7 +82,7 @@ const UploadDocument = () => {
                   <img
                     src={URL.createObjectURL(backDoc)}
                     alt=''
-                    className='w-full h-[150px] rounded-md cursor-pointer object-cover'
+                    className='w-full h-[140px] rounded-md cursor-pointer object-cover'
                   />
                 ) : (
                   <FaRegImage className='text-[25px] text-black/40' />
@@ -96,13 +96,13 @@ const UploadDocument = () => {
                 hidden
               />
             </label>
-            <p className='text-[#411c87]'>Upload Back</p>
+            <p className='text-[#531CB3]'>Upload Back</p>
           </div>
         </div>
       </div>
       <div className='flex gap-2 mt-10'>
         <button
-          className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
+          className='p-3 rounded-lg w-[30%] text-[#525154] border-[1.5px] border-black/10'
           onClick={() => {
             navigate(-1)
             window.scrollTo(0, 0)
@@ -111,7 +111,7 @@ const UploadDocument = () => {
           Previous
         </button>
         <button
-          className='p-3 rounded-lg bg-[#411c87] text-white w-[70%]'
+          className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
           onClick={() => {
             navigate('/home')
             setVerified(!verified)

@@ -42,12 +42,12 @@ const AdvancedSettings = (props) => {
     }
 
     return (
-        <div className={TransactionType === 'Advanced' ? 'flex flex-col gap-10 w-[848px]' : 'hidden'}>
+        <div className={TransactionType === 'Advanced' ? 'flex flex-col gap-10 lg:w-[80%]' : 'hidden'}>
             <div className='flex flex-col gap-1'>
                 <p className='text-[18px] font-medium text-[#1D1C1F]'>Advanced settings</p>
             </div>
-            <div className='flex gap-5'>
-                <div className='w-[40%]'>
+            <div className='flex md:flex-row flex-col md:gap-5 gap-8'>
+                <div className='md:w-[40%]'>
                     <p className='text-[14px] font-medium text-[#1D1C1F] mb-1'>Danger zone</p>
                     <p className='text-[14px] font-normal text-[#525154]'>
                         Deleting your account will delete all of your client information and invoices,
@@ -55,7 +55,7 @@ const AdvancedSettings = (props) => {
                     </p>
                 </div>
                 {onDelete ? (
-                    <div className='w-[70%]'>
+                    <div className='md:w-[70%]'>
                         {count === 0 ? (
                             <p className='text-[#1D1C1F] text-[14px] font-normal'>Your account has been deleted.</p>
                         ) : (
@@ -69,7 +69,7 @@ const AdvancedSettings = (props) => {
                         </span>
                     </div>
                 ) : (
-                    <div className='flex flex-col gap-4 w-[70%]'>
+                    <div className='flex flex-col gap-4 md:w-[70%]'>
                         <p className='text-[14px] font-normal text-[#1D1C1F]'>
                             Uh... Enter the email address (ma***.com) associated with your account to continue.
                         </p>
@@ -82,7 +82,7 @@ const AdvancedSettings = (props) => {
                         />
                         <button
                             onClick={() => setOnDelete(true)}
-                            className='text-white rounded-lg py-[10px] mt-3 w-[30%] text-[14px] font-medium px-4 bg-[#EF4444]'
+                            className='text-white rounded-lg py-[10px] mt-3 md:w-[40%] sp:w-[50%] w-[65%] text-[14px] font-medium px-4 bg-[#EF4444]'
                         >
                             Delete your account
                         </button>

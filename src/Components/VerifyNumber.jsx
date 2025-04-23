@@ -9,15 +9,15 @@ const VerifyNumber = () => {
     const [verify, setVerify] = useState(false)
 
     return (
-        <div className='flex flex-col max-w-[540px] p-[40px] mx-auto'>
+        <div className='flex flex-col max-w-[540px] md:p-10 py-10 px-4 mx-auto'>
             <div>
-                <h1 className='text-[30px] text-center'>Verify Your Number</h1>
+                <h1 className='text-[28px] font-medium text-[#1D1C1F] text-center'>Verify Your Number</h1>
                 {verify ? (
-                    <p className='text-black/60 text-center'>
+                    <p className='text-[#525154] text-[14px] font-normal text-center'>
                         Enter the 6 digit code sent to (+234) 900000000
                     </p>
                 ) : (
-                    <p className='text-black/60 text-center'>
+                    <p className='text-[#525154] text-[14px] font-normal text-center'>
                         We'll send a single-use verification code to your phone.
                     </p>
                 )}
@@ -62,7 +62,7 @@ const VerifyNumber = () => {
                 </div>
             ) : (
                 <div>
-                    <div className='mt-12 text-black/70'>
+                    <div className='mt-12 text-[#525154] text-[14px] font-normal'>
                         <label htmlFor="number">Phone Number</label>
                         <div className='flex mt-1'>
                             <input
@@ -78,7 +78,7 @@ const VerifyNumber = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='flex gap-2 mt-7'>
+                    <div className='flex gap-2 mt-8'>
                         <button
                             className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
                             onClick={() => {
@@ -89,7 +89,7 @@ const VerifyNumber = () => {
                             Cancel
                         </button>
                         <button
-                            className='p-3 rounded-lg bg-[#411c87] text-white w-[70%]'
+                            className='p-[10px] px-4 rounded-lg bg-[#531CB3] text-white w-[70%]'
                             onClick={() => {
                                 setVerify(!verify)
                                 window.scrollTo(0, 0)

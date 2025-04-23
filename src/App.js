@@ -6,21 +6,20 @@ import Beneficiary from "./Pages/Beneficiary";
 import Invoice from "./Pages/Invoice";
 import Transaction from "./Pages/Transaction";
 import Settings from "./Pages/Settings";
-import { Route, Routes } from "react-router-dom";
+import NavBar from "./Components/NavBar";
 
 function App() {
   return (
-    <div className="flex">
+    <div className="flex w-full">
       <Sidebar />
-      <div className="w-[80%]">
+      <div className="lg:w-[80%] w-full">
+        <NavBar />
         <Dashboard />
         <Home />
         <Beneficiary />
         <Invoice />
         <Transaction />
-        <Routes>
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
+        <Settings />
       </div>
     </div>
   );

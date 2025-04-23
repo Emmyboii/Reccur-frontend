@@ -24,27 +24,27 @@ const AddBeneficiary = () => {
     return (
         <div>
             <div
-                className={`w-[80%] h-[200%] absolute ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
+                className={`w-[80%] h-[200%] text-[#1D1C1F] absolute ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
                 onClick={beneficiaryBar ? handleBeneficiaryBar : viewDetails ? handleViewDetails : profileEdit ? handleProfileEdit : null}
             ></div>
-            <div className='flex items-center justify-between px-8 py-5'>
+            <div className='flex items-start justify-between md:p-10 py-10 px-4'>
                 <div>
                     <p className='text-[28px] font-semibold'>Beneficiaries</p>
-                    <p className='text-[16px] text-black/60'>View and manage your beneficiaries here.</p>
+                    <p className='text-[16px] font-normal text-[#525154]'>View and manage your beneficiaries here.</p>
                 </div>
-                <div className='flex items-center gap-4'>
-                    <img src={Search} alt="" />
-                    <img src={Bell} alt="" />
-                    <img className='w-8' src={Add} alt="" />
-                </div>
+                <div className='flex md:items-center items-start gap-4'>
+                        <img className='md:block hidden' src={Search} alt="" />
+                        <img className='md:block hidden' src={Bell} alt="" />
+                        <img className='sp:w-8 w-[30px]' src={Add} alt="" />
+                    </div>
             </div>
-            <div className={beneficiaryAdded ? 'hidden' : 'flex flex-col items-center gap-9 mt-[60px] bg-[#F9F7FC] mx-8 py-10 rounded-md border-2 border-black/50 border-dashed'}>
+            <div className={beneficiaryAdded ? 'hidden' : 'flex flex-col items-center gap-9 my-[60px] bg-[#F9F7FC] mx-8 sm:p-[64px] py-16 rounded-md border-2 border-black/50 border-dashed'}>
                 <div className='max-w-[500px]'>
-                    <p className='text-center font-medium text-[21px]'>Manage your beneficiaries</p>
-                    <p className='text-center mt-1'>Manage your beneficiaries in one place. Save and organize their details to enable seamless payments and keep track of your transfer history with ease.</p>
+                    <p className='text-center font-medium text-[20px]'>Manage your beneficiaries</p>
+                    <p className='text-center text-[14px] font-normal text-[#525154] mt-1'>Manage your beneficiaries in one place. Save and organize their details to enable seamless payments and keep track of your transfer history with ease.</p>
                 </div>
                 <button
-                    className="bg-white border-[1.4px] border-black/10 text-black/70 p-3 rounded-lg"
+                    className="bg-white border-[1.4px] text-[14px] font-medium text-[#525154] border-black/10 text-black/70 p-3 rounded-lg"
                     onClick={handleBeneficiaryBar}
                 >
                     Add your first beneficiary

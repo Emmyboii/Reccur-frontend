@@ -19,7 +19,11 @@ const CreateAcctBar = () => {
             borderWidth: '1.5px',
             padding: '4px',
             boxShadow: 'none',
-            borderRadius: '10px'
+            borderRadius: '10px',
+        }),
+        singleValue: (base) => ({
+            ...base,
+            color: '#78757A',
         }),
         menu: (base) => ({
             ...base,
@@ -39,7 +43,7 @@ const CreateAcctBar = () => {
             value: 'placeholder',
             label: (
                 <div className="flex items-center gap-2">
-                    <BsCurrencyDollar /> Choose Currency
+                    <BsCurrencyDollar className='size-5' /> Choose Currency
                 </div>
             ),
             isDisabled: true
@@ -48,7 +52,7 @@ const CreateAcctBar = () => {
             value: 'usd',
             label: (
                 <div className="flex items-center gap-2">
-                    <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+                    <img className='w-[20px] h-4 rounded-sm' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
                     USD
                 </div>
             ),
@@ -57,7 +61,7 @@ const CreateAcctBar = () => {
             value: 'ngn',
             label: (
                 <div className="flex items-center gap-2">
-                    <img className='w-5' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+                    <img className='w-[20px] h-4 rounded-sm' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
                     NGN
                 </div>
             )
@@ -78,18 +82,18 @@ const CreateAcctBar = () => {
     };
 
     return (
-        <div className={`fixed top-0 h-screen bg-white p-5 duration-700 ${acctBar ? 'w-[40%] right-0' : 'right-[-100%] w-[40%]'}`}>
-            <div className='flex gap-2'>
+        <div className={`fixed lg:top-0 top-[60px] h-screen bg-white z-50 lg:p-10 py-8 px-4 duration-700 ${acctBar ? 'sm:w-[50%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+            <div className='flex justify-between gap-2'>
                 <div>
-                    <h1 className='text-[19px] font-medium'>Create Account</h1>
-                    <p className='text-black/60'>Open a bank account in your preferred country and start receiving payments effortlessly.</p>
+                    <h1 className='text-[20px] font-medium text-[#1D1C1F]'>Create Account</h1>
+                    <p className='text-[#525154] text-[14px]'>Open a bank account in your preferred country and start receiving payments effortlessly.</p>
                 </div>
                 <img
-                    className='size-5 mt-1' src={close} alt=""
+                    className='size-5 mt-1 cursor-pointer' src={close} alt=""
                     onClick={handleAcctBar}
                 />
             </div>
-            <div className='mt-7'>
+            <div className='mt-7 font-medium text-[14px]'>
                 <label htmlFor="code">Currency</label>
                 <div className='mt-1'>
                     <Select
@@ -110,7 +114,7 @@ const CreateAcctBar = () => {
                         Cancel
                     </button>
                     <button
-                        className='p-3 rounded-lg bg-[#411c87] text-white w-[70%]'
+                        className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
                         onClick={() => {
                             setChecked(true)
                             window.scrollTo(0, 0)

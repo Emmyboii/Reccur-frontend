@@ -8,11 +8,12 @@ const Beneficiary = () => {
     const {
         viewDetails,
         profileEdit,
-        deleteProfile
+        deleteProfile,
+        beneficiaryBar
     } = useContext(Context)
 
     useEffect(() => {
-        if (viewDetails || profileEdit || deleteProfile) {
+        if (viewDetails || profileEdit || deleteProfile || beneficiaryBar) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'auto';
@@ -21,7 +22,7 @@ const Beneficiary = () => {
         return () => {
             document.body.style.overflow = 'auto';
         };
-    }, [viewDetails, profileEdit, deleteProfile])
+    }, [viewDetails, profileEdit, deleteProfile, beneficiaryBar])
 
     return (
         <div>

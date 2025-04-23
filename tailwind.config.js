@@ -4,7 +4,18 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        uncut: ['"Uncut Sans VF"', 'sans-serif'],
+      },
+      screens: {
+        'sp': '450px',
+        'sd': '500px',
+        'sa': '550px'
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }
