@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import Search from '../Components/Images/search.png'
 import Bell from '../Components/Images/bell.png'
 import Add from '../Components/Images/AddBtn.png'
@@ -15,9 +15,7 @@ import { Context } from '../Context/Context'
 
 const UserSettings = () => {
 
-    const [TransactionType, setTransactionType] = useState('account')
-
-    const { noDelete, handleNoDelete, handleDeleted, deleted } = useContext(Context)
+    const { noDelete, TransactionType, setTransactionType, handleNoDelete, handleDeleted, deleted } = useContext(Context)
 
     return (
 
@@ -37,8 +35,8 @@ const UserSettings = () => {
                     <p
                         onClick={() => setTransactionType('account')}
                         className={`snap-start py-3 cursor-pointer font-medium ${TransactionType === 'account'
-                                ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
-                                : ''
+                            ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
+                            : ''
                             }`}
                     >
                         Account
@@ -46,8 +44,8 @@ const UserSettings = () => {
                     <p
                         onClick={() => setTransactionType('password')}
                         className={`snap-start py-3 cursor-pointer font-medium ${TransactionType === 'password'
-                                ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
-                                : ''
+                            ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
+                            : ''
                             }`}
                     >
                         Password
@@ -55,8 +53,8 @@ const UserSettings = () => {
                     <p
                         onClick={() => setTransactionType('KYC')}
                         className={`snap-start py-3 cursor-pointer font-medium ${TransactionType === 'KYC'
-                                ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
-                                : ''
+                            ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
+                            : ''
                             }`}
                     >
                         KYC
@@ -64,8 +62,8 @@ const UserSettings = () => {
                     <p
                         onClick={() => setTransactionType('Invoice')}
                         className={`snap-start py-3 cursor-pointer font-medium ${TransactionType === 'Invoice'
-                                ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
-                                : ''
+                            ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
+                            : ''
                             }`}
                     >
                         Invoice
@@ -73,8 +71,8 @@ const UserSettings = () => {
                     <p
                         onClick={() => setTransactionType('Notifications')}
                         className={`snap-start py-3 cursor-pointer font-medium ${TransactionType === 'Notifications'
-                                ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
-                                : ''
+                            ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
+                            : ''
                             }`}
                     >
                         Notifications
@@ -82,8 +80,8 @@ const UserSettings = () => {
                     <p
                         onClick={() => setTransactionType('Advanced')}
                         className={`snap-start py-3 cursor-pointer font-medium ${TransactionType === 'Advanced'
-                                ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
-                                : ''
+                            ? 'text-[#491f97] border-b-[#491f97] border-b-2 transition-colors duration-700'
+                            : ''
                             }`}
                     >
                         Advanced

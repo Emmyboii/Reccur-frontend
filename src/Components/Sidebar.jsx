@@ -17,7 +17,8 @@ const Sidebar = () => {
 
     const verified = JSON.parse(localStorage.getItem('detailsVerified'))
 
-    const { handleSideBar, sideBar, setSideBar } = useContext(Context)
+    const { handleSideBar, sideBar, setSideBar, setTransactionType } = useContext(Context)
+    
     const [isLgScreen, setIsLgScreen] = useState(window.innerWidth > 1024);
 
     useEffect(() => {
@@ -38,7 +39,7 @@ const Sidebar = () => {
             <div>
                 <div className='flex items-center justify-between'>
                     {verified ? (
-                        <Link to='/home'>
+                        <Link onClick={handleSideBar} to='/home'>
                             <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
                                 <img src={Logo} alt="" className='mt-2 w-7 h-7' />
                                 reccur
@@ -62,14 +63,14 @@ const Sidebar = () => {
 
                 <div className='flex flex-col gap-2 mt-5'>
                     {verified ? (
-                        <Link to='/home'>
+                        <Link onClick={handleSideBar} to='/home'>
                             <p className={location.pathname.startsWith('/home') ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                                 <RiHome6Line className='text-[24px]' />
                                 Home
                             </p>
                         </Link>
                     ) : (
-                        <Link to='/'>
+                        <Link onClick={handleSideBar} to='/'>
                             <p className={location.pathname.startsWith('/') &&
                                 location.pathname !== '/beneficiaries' &&
                                 location.pathname !== '/beneficiaries' &&
@@ -87,25 +88,25 @@ const Sidebar = () => {
                         </Link>
                     )}
 
-                    <Link to='/beneficiaries'>
+                    <Link onClick={handleSideBar} to='/beneficiaries'>
                         <p className={location.pathname === '/beneficiaries' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Beneficiary} alt="" />
                             Beneficiaries
                         </p>
                     </Link>
-                    <Link to='/invoices'>
+                    <Link onClick={handleSideBar} to='/invoices'>
                         <p className={location.pathname === '/invoices' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Invoice} alt="" />
                             Invoices
                         </p>
                     </Link>
-                    <Link to='/transactions'>
+                    <Link onClick={handleSideBar} to='/transactions'>
                         <p className={location.pathname === '/transactions' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Transaction} alt="" />
                             Transactions
                         </p>
                     </Link>
-                    <Link to='settings'>
+                    <Link onClick={handleSideBar} to='/settings'>
                         <p className={location.pathname === '/settings' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Settings} alt="" />
                             Settings
@@ -113,12 +114,20 @@ const Sidebar = () => {
                     </Link>
                 </div>
             </div>
-            <div className='flex items-center justify-between cursor-pointer'>
-                <div className='flex items-center gap-2'>
-                    <img src={Avatar} alt='' />
-                    <p>Cooper Bator</p>
-                </div>
-                <BsThreeDots className='text-[20px]' />
+            <div className='flex items-center justify-between'>
+                <Link
+                onClick={()=>setTransactionType('account')}
+                to='/settings'>
+                    <div onClick={handleSideBar} className='flex items-center cursor-pointer gap-2'>
+                        <img src={Avatar} alt='' />
+                        <p>Cooper Bator</p>
+                    </div>
+                </Link>
+                <Link
+                onClick={()=>setTransactionType('account')}
+                to='/settings'>
+                    <BsThreeDots onClick={handleSideBar} className='text-[20px] cursor-pointer' />
+                </Link>
             </div>
         </div>
     )

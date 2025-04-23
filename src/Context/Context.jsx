@@ -31,6 +31,7 @@ const ContextProvider = (props) => {
     const [deleted, setDeleted] = useState(false)
     const [selectedInvoice, setSelectedInvoice] = useState(null)
     const [selectedTransactionDetails, setSelectedTransactionDetails] = useState(null)
+    const [TransactionType, setTransactionType] = useState('account')
 
     const handleSideBar = () => {
         setSideBar(!sideBar)
@@ -152,7 +153,9 @@ const ContextProvider = (props) => {
         handleDeleted,
         noDelete,
         deleted,
-        setDeleted
+        setDeleted,
+        setTransactionType,
+        TransactionType
     }
     return (
         <Context.Provider value={contextValue}>
