@@ -210,7 +210,7 @@ const BeneficiaryBar = () => {
                     className={method === 'bank' ? 'cursor-pointer text-[#491597] border-b-[#491597] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Bank transfer</p>
                 <p
                     onClick={() => setMethod('crypto')}
-                    className={method === 'crypto' ? 'cursor-pointer text-[#491597] border-b-[#491597] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Crytocurrency</p>
+                    className={method === 'crypto' ? 'cursor-pointer text-[#491597] border-b-[#491597] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Cryptocurrency</p>
             </div>
             {method === 'bank' ?
                 (
@@ -225,7 +225,7 @@ const BeneficiaryBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -263,7 +263,7 @@ const BeneficiaryBar = () => {
                                     id=""
                                     placeholder='Bank name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={Bank} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97%]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -292,7 +292,7 @@ const BeneficiaryBar = () => {
                         </div>
                         <div className='flex gap-4 mt-10'>
                             <button
-                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                                 onClick={handleBeneficiaryBar}
                             >
                                 Cancel
@@ -321,7 +321,7 @@ const BeneficiaryBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -364,7 +364,7 @@ const BeneficiaryBar = () => {
                         </div>
                         <div className='flex gap-4 mt-12'>
                             <button
-                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                                 onClick={handleBeneficiaryBar}
                             >
                                 Cancel

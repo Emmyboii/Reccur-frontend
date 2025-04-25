@@ -83,13 +83,13 @@ const CreateInvoiceBar = () => {
                     <label className='text-[#525154] text-[14px]' htmlFor="fullName">Due date</label>
                     <div className='flex items-center'>
                         <input
-                            className='border-[1.5px] border-[#D2D0D6] mt-[6px] outline-none py-[10px] w-full pl-[47px] rounded-md'
+                            className='border-[1.5px] border-[#D2D0D6] mt-[6px] outline-none py-[10px] w-full pl-[42px] rounded-md'
                             type="text"
                             name=""
                             id=""
                             placeholder='Select date'
                         />
-                        <img className='xl:ml-[-400px] 2xl:ml-[-99%] lg:ml-[-395px] mt-1 md:ml-[-445px] sm:ml-[-340px] ml-[-97.5%] size-5' src={Date} alt="" />
+                        <img className='xl:ml-[-400px] 2xl:ml-[-99%] lg:ml-[-395px] mt-1 md:ml-[-445px] sm:ml-[-340px] ml-[-96%] size-5' src={Date} alt="" />
                     </div>
                 </div>
                 {addItem.map((item, index) => (
@@ -130,7 +130,7 @@ const CreateInvoiceBar = () => {
                                             id=""
                                             placeholder='Unit Price'
                                         />
-                                        <p className='lg:ml-[-160px] 2xl:ml-[-97.5%] md:ml-[-185px] sm:ml-[-130px] ml-[-94%] mt-[7px] text-[#78757A] text-[16px]'>$</p>
+                                        <p className='lg:ml-[-160px] 2xl:ml-[-97%] md:ml-[-185px] sm:ml-[-130px] ml-[-93%] mt-[7px] text-[#78757A] text-[16px]'>$</p>
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +147,7 @@ const CreateInvoiceBar = () => {
                                     id=""
                                     placeholder='Amount'
                                 />
-                                <p className='xl:ml-[-355px] 2xl:ml-[-98.5%] lg:ml-[-350px] md:ml-[-400px] sm:ml-[-295px] ml-[-97.5%] text-[#78757A] mt-[7px] text-[16px]'>$</p>
+                                <p className='xl:ml-[-355px] 2xl:ml-[-98.5%] lg:ml-[-350px] md:ml-[-400px] sm:ml-[-295px] ml-[-95.5%] text-[#78757A] mt-[7px] text-[16px]'>$</p>
                             </div>
                         </div>
                         <div className='flex items-center gap-2'>
@@ -182,7 +182,7 @@ const CreateInvoiceBar = () => {
                 </div>
                 <div className='flex gap-3 mt-10'>
                     <button
-                        className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                        className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                         onClick={handleCreateInvoice}
                     >
                         Cancel

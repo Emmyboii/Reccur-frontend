@@ -24,7 +24,7 @@ const AddBeneficiary = () => {
     return (
         <div>
             <div
-                className={`w-[80%] h-[200%] text-[#1D1C1F] absolute ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
+                className={`w-full h-[200%] text-[#1D1C1F] absolute ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
                 onClick={beneficiaryBar ? handleBeneficiaryBar : viewDetails ? handleViewDetails : profileEdit ? handleProfileEdit : null}
             ></div>
             <div className='flex items-start justify-between md:p-10 py-10 px-4'>

@@ -171,7 +171,7 @@ const LiveRates = () => {
                         />
                         <div
                             onClick={() => setToggle(!toggle)}
-                            className="flex items-center gap-2 xl:ml-[-360px] 2xl:ml-[-99%] lg:ml-[-355px] md:ml-[-405px] sm:ml-[-300px] ml-[-97.5%] cursor-pointer"
+                            className="flex items-center gap-2 xl:ml-[-360px] 2xl:ml-[-99%] lg:ml-[-355px] md:ml-[-405px] sm:ml-[-300px] sp:ml-[-97%] ml-[-93%] cursor-pointer"
                         >
                             NGN <IoIosArrowDown className={toggle ? 'rotate-180' : 'rotate-0'} />
                         </div>
@@ -190,7 +190,7 @@ const LiveRates = () => {
                         />
                         <div
                             onClick={() => setToggle2(!toggle2)}
-                            className="flex items-center gap-2 xl:ml-[-360px] 2xl:ml-[-99%] lg:ml-[-355px] md:ml-[-405px] sm:ml-[-300px] ml-[-97.5%] cursor-pointer"
+                            className="flex items-center gap-2 xl:ml-[-360px] 2xl:ml-[-99%] lg:ml-[-355px] md:ml-[-405px] sm:ml-[-300px] sp:ml-[-97%] ml-[-93%] cursor-pointer"
                         >
                             USA <IoIosArrowDown className={toggle2 ? 'rotate-180' : 'rotate-0'} />
                         </div>

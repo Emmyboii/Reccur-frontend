@@ -206,7 +206,7 @@ const EditProfileBar = () => {
                     className={method === 'bank' ? 'cursor-pointer text-[#531CB3] border-b-[#531CB3] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Bank transfer</p>
                 <p
                     onClick={() => setMethod('crypto')}
-                    className={method === 'crypto' ? 'cursor-pointer text-[#531CB3] border-b-[#531CB3] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Crytocurrency</p>
+                    className={method === 'crypto' ? 'cursor-pointer text-[#531CB3] border-b-[#531CB3] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Cryptocurrency</p>
             </div>
             {method === 'bank' ?
                 (
@@ -215,13 +215,13 @@ const EditProfileBar = () => {
                             <label htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[50px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -253,13 +253,13 @@ const EditProfileBar = () => {
                             <label htmlFor="fullName">Bank name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[47px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Bank name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97.5%]' src={Bank} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97%]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -288,7 +288,7 @@ const EditProfileBar = () => {
                         </div>
                         <div className='flex gap-2 mt-10'>
                             <button
-                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                                 onClick={handleProfileEdit}
                             >
                                 Cancel
@@ -310,13 +310,13 @@ const EditProfileBar = () => {
                             <label htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[50px] rounded-md'
+                                    className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -359,7 +359,7 @@ const EditProfileBar = () => {
                         </div>
                         <div className='flex gap-2 mt-12'>
                             <button
-                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                                 onClick={handleProfileEdit}
                             >
                                 Cancel

@@ -14,13 +14,13 @@ const DeleteInvoice = () => {
 
     return (
         <div onClick={closeRef} ref={DeleteModel} className={`fixed flex items-center justify-center z-50 inset-0 bg-opacity-30 bg-black/40 ${deleteInvoice ? 'block' : 'hidden'}`}>
-            <div className='bg-white w-[30%] ml-[200px] shadow-lg rounded-xl flex flex-col justify-center py-5 px-7'>
+            <div className='bg-white w-[360px] 2xl:w-[20%] lg:ml-[200px] mx-3 shadow-lg rounded-xl flex flex-col justify-center py-5 px-7'>
                 <div className='flex justify-between gap-3'>
                     <div>
                         <p className='text-[18px] text-[#1D1C1F] font-medium mb-2'>Delete invoice?</p>
                         <p className='text-[#525154]'>This will permanently delete Samantha Tino from your invoice list.</p>
                     </div>
-                    <img
+                    <img  
                         className='size-5 mt-1 cursor-pointer' src={close} alt=""
                         onClick={handleDeleteInvoice}
                     />

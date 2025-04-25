@@ -169,7 +169,7 @@ const SendBar = () => {
                     className={method === 'bank' ? 'cursor-pointer text-[#491597] border-b-[#491597] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Bank transfer</p>
                 <p
                     onClick={() => setMethod('crypto')}
-                    className={method === 'crypto' ? 'cursor-pointer text-[#491597] border-b-[#491597] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Crytocurrency</p>
+                    className={method === 'crypto' ? 'cursor-pointer text-[#491597] border-b-[#491597] border-b-2 pb-2 duration-700 transition-all' : 'cursor-pointer pb-2 duration-700 transition-all'}>Cryptocurrency</p>
             </div>
             {method === 'bank' ?
                 (
@@ -197,7 +197,7 @@ const SendBar = () => {
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] sp:ml-[-97%] ml-[-93%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -235,7 +235,7 @@ const SendBar = () => {
                                     id=""
                                     placeholder='Enter bank name'
                                 />
-                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={Bank} alt="" />
+                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] sp:ml-[-97%] ml-[-93%]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -267,7 +267,7 @@ const SendBar = () => {
                             <div className='flex items-center gap-2'>
                                 <div className='flex items-center w-full'>
                                     <input className='border-[1.5px] border-black/20 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
-                                    <p className='xl:ml-[-340px] 2xl:ml-[-99%] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] ml-[-97.5%] text-[20px] text-[#525154]'>$</p>
+                                    <p className='xl:ml-[-340px] 2xl:ml-[-99%] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] sp:ml-[-97%] ml-[-93%] text-[20px] text-[#525154]'>$</p>
                                 </div>
                                 <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
                             </div>
@@ -295,7 +295,7 @@ const SendBar = () => {
                         </div>
                         <div className='flex gap-2 mt-12'>
                             <button
-                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                                 onClick={handleSendBar}
                             >
                                 Cancel
@@ -336,7 +336,7 @@ const SendBar = () => {
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] sp:ml-[-97%] ml-[-93%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -382,12 +382,12 @@ const SendBar = () => {
                             <div className='flex items-center w-full'>
                                 <input className='border-[1.5px] border-black/20 py-[10px] pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id="" />
                                 <AiTwotoneQuestionCircle className='ml-[-30px]' />
-                                <p className='lg:ml-[-390px] 2xl:ml-[-97.5%] md:ml-[-435px] sm:ml-[-326px] ml-[-94.5%] text-[20px] text-[#525154]'>$</p>
+                                <p className='lg:ml-[-390px] 2xl:ml-[-97%] sp:ml-[-97%] ml-[-93%] md:ml-[-435px] sm:ml-[-326px] text-[20px] text-[#525154]'>$</p>
                             </div>
                         </div>
                         <div className='flex gap-2 mt-12'>
                             <button
-                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                                 onClick={handleSendBar}
                             >
                                 Cancel

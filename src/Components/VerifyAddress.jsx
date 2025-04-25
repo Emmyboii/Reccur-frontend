@@ -240,7 +240,7 @@ const VerifyAddress = () => {
                 </div>
                 <div className='flex gap-2 mt-4'>
                     <button
-                        className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                        className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                         onClick={() => {
                             navigate(-1)
                             window.scrollTo(0, 0)

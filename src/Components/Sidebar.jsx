@@ -44,14 +44,14 @@ const Sidebar = () => {
                         <Link onClick={isMdScreen ? handleSideBar : undefined} to='/home'>
                             <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
                                 <img src={Logo} alt="" className='mt-2 w-7 h-7' />
-                                reccur
+                                <p>reccur</p>
                             </h1>
                         </Link>
                     ) : (
                         <Link onClick={isMdScreen ? handleSideBar : undefined} to='/'>
                             <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
                                 <img src={Logo} alt="" className='mt-2 w-7 h-7' />
-                                reccur
+                                <p>reccur</p>
                             </h1>
                         </Link>
                     )}
@@ -66,14 +66,14 @@ const Sidebar = () => {
                 <div className='flex flex-col gap-2 mt-5'>
                     {verified ? (
                         <Link onClick={isMdScreen ? handleSideBar : undefined} to='/home'>
-                            <p className={location.pathname.startsWith('/home') ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
+                            <div className={location.pathname.startsWith('/home') ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                                 <RiHome6Line className='text-[24px]' />
-                                Home
-                            </p>
+                                <p>Home</p>
+                            </div>
                         </Link>
                     ) : (
                         <Link onClick={isMdScreen ? handleSideBar : undefined} to='/'>
-                            <p className={location.pathname.startsWith('/') &&
+                            <div className={location.pathname.startsWith('/') &&
                                 location.pathname !== '/beneficiaries' &&
                                 location.pathname !== '/beneficiaries' &&
                                 location.pathname !== '/invoices' &&
@@ -85,34 +85,34 @@ const Sidebar = () => {
                             }
                             >
                                 <RiHome6Line className='text-[24px]' />
-                                Home
-                            </p>
+                                <p>Home</p>
+                            </div>
                         </Link>
                     )}
 
                     <Link onClick={isMdScreen ? handleSideBar : undefined} to='/beneficiaries'>
-                        <p className={location.pathname === '/beneficiaries' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
+                        <div className={location.pathname === '/beneficiaries' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Beneficiary} alt="" />
-                            Beneficiaries
-                        </p>
+                            <p>Beneficiaries</p>
+                        </div>
                     </Link>
                     <Link onClick={isMdScreen ? handleSideBar : undefined} to='/invoices'>
-                        <p className={location.pathname === '/invoices' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
+                        <div className={location.pathname === '/invoices' ? 'bg-[#4e22a0] flex items-center gap-3 cursor-pointer rounded-md p-2' : 'flex items-center gap-3 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Invoice} alt="" />
-                            Invoices
-                        </p>
+                            <p>Invoices</p>
+                        </div>
                     </Link>
                     <Link onClick={isMdScreen ? handleSideBar : undefined} to='/transactions'>
-                        <p className={location.pathname === '/transactions' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
+                        <div className={location.pathname === '/transactions' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Transaction} alt="" />
-                            Transactions
-                        </p>
+                            <p>Transactions</p>
+                        </div>
                     </Link>
                     <Link onClick={isMdScreen ? handleSideBar : undefined} to='/settings'>
-                        <p className={location.pathname === '/settings' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
+                        <div className={location.pathname === '/settings' ? 'bg-[#4e22a0] flex items-center gap-3 cursor-pointer rounded-md p-2' : 'flex items-center gap-3 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Settings} alt="" />
-                            Settings
-                        </p>
+                            <p>Settings</p>
+                        </div>
                     </Link>
                 </div>
             </div>

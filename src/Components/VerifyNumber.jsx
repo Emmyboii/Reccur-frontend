@@ -41,7 +41,7 @@ const VerifyNumber = () => {
                     </div>
                     <div className='flex gap-2 mt-7'>
                         <button
-                            className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                            className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                             onClick={() => {
                                 setVerify(!verify)
                                 window.scrollTo(0, 0)
@@ -80,7 +80,7 @@ const VerifyNumber = () => {
                     </div>
                     <div className='flex gap-2 mt-8'>
                         <button
-                            className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                            className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                             onClick={() => {
                                 navigate(-1)
                                 window.scrollTo(0, 0)

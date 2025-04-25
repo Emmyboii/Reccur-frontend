@@ -27,7 +27,7 @@ const CreateAcct = () => {
     return (
         <div>
             <div
-                className={`w-[80%] h-[200%] absolute ${acctBar ? 'bg-black/30' : 'hidden'}`}
+                className={`w-full h-[200%] absolute ${acctBar ? 'bg-black/30' : 'hidden'}`}
                 onClick={handleAcctBar}
             ></div>
             <div className='flex items-center justify-between md:p-10 py-10 px-4 w-full'>

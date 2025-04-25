@@ -109,7 +109,12 @@ const CreatedInvoices = () => {
             {Invoices.map((invoice, i) => {
                 return <div
                     key={i}
-                    onClick={isSmScreen ? () => handleViewInvoice(i) : undefined}
+                    onClick={isSmScreen ? () => {
+                        handleViewInvoice(i)
+                        setSelectedInvoice(invoice)
+                    }
+                        : undefined
+                    }
                     className='sm:grid md:grid-cols-5 sm:grid-cols-4 flex justify-between gap-5 hover:bg-[#F3F0F7] cursor-pointer border-b-[1.5px] text-[#525154] border-black/10 py-[14px] px-2 text-[14px] font-medium text-left'
                 >
                     <div className='flex gap-5 items-center min-w-0'>
@@ -138,14 +143,14 @@ const CreatedInvoices = () => {
                             <img src={menus} alt="" />
                         </div>
                         {menu === i && (
-                            <div className='bg-white z-10 flex flex-col py-2 px- right-[-2px] absolute top-[37px] shadow-md rounded-md'>
+                            <div className='bg-white z-10 flex flex-col py-2 right-[-2px] absolute top-[37px] shadow-md rounded-md'>
                                 <p
                                     onClick={() => {
                                         setSelectedInvoice(invoice)
                                         handleViewInvoice()
                                         setMenu(menu === i ? null : i)
                                     }}
-                                    className='cursor-pointer hover:bg-[#F9F7FC] px-4 py-1'
+                                    className='cursor-pointer hover:bg-[#F9F7FC] px-2 py-1'
                                 >
                                     View invoice
                                 </p>
@@ -154,7 +159,7 @@ const CreatedInvoices = () => {
                                         handleDeleteInvoice()
                                         setMenu(menu === i ? null : i)
                                     }}
-                                    className='cursor-pointer hover:bg-[#F9F7FC] px-4 py-1'
+                                    className='cursor-pointer hover:bg-[#F9F7FC] px-2 py-1'
                                 >
                                     Delete invoice
                                 </p>

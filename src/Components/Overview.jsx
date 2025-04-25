@@ -220,7 +220,7 @@ const Overview = () => {
     return (
         <div>
             <div
-                className={`w-[80%] h-[200%] absolute z-30 ${acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails ? 'bg-black/20' : 'hidden'}`}
+                className={`w-full h-[200%] absolute z-30 ${acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails ? 'bg-black/20' : 'hidden'}`}
                 onClick={acctDetailsBar ? handleAcctDetailsBar : convertBar ? handleConvertBar : sendBar ? handleSendBar : liveRatesBar ? handleLiveRates : overViewTransactionDetails ? handleOverViewTransactionDetails : null}
             ></div>
             <div className='flex items-center justify-between text-[#1D1C1F] md:p-10 px-4 py-8'>
@@ -243,7 +243,7 @@ const Overview = () => {
                     Live rates
                 </button>
             </div>
-            <div className='px-10 pt-4 flex md:flex-row flex-col md:gap-0 gap-7'>
+            <div className='md:px-10 px-4 pt-4 flex md:flex-row flex-col md:gap-0 gap-7'>
                 <div className='w-full md:border-r-2 md:pr-4 border-black/50'>
                     <div className='flex items-center justify-between'>
                         <p className='flex items-center gap-1 text-[14px] text-[#78757A]'>
@@ -299,7 +299,7 @@ const Overview = () => {
                     </div>
                     <div>
                         <p className='text-[36px] font-semibold'>$0</p>
-                        <img className='ml-3 w-full xl:w-[50%]' src={GreenLine} alt="" />
+                        <img className='ml-3 md:w-full w-[70%] xl:w-[50%]' src={GreenLine} alt="" />
                     </div>
                 </div>
                 <div className='w-full md:ml-5'>
@@ -317,11 +317,11 @@ const Overview = () => {
                     </div>
                     <div>
                         <p className='text-[36px] font-semibold'>$0</p>
-                        <img className='w-full xl:w-[50%]' src={RedLine} alt="" />
+                        <img className='md:w-full w-[70%] xl:w-[50%]' src={RedLine} alt="" />
                     </div>
                 </div>
             </div>
-            <div className='mt-[45px] mx-10'>
+            <div className='mt-[45px] md:mx-10 mx-4'>
                 <h1 className='font-medium text-[18px]'>Congratulations on taking the first step!</h1>
                 <p className='text-[14px] font-normal text-[#525154]'>Complete these simple steps to get started using reccur.</p>
                 <div className='flex sm:flex-row flex-col text-[14px] justify-between gap-4 w-[80%] mt-4'>
@@ -397,42 +397,45 @@ const Overview = () => {
                     </div>
                 </div>
             </div>
-            <div className='mt-[30px] px-10 pb-8 text-black/70'>
+            <div className='mt-[30px] md:px-10 px-4 pb-8 text-black/70'>
                 <div className='sm:flex items-center justify-between'>
-                    <div>
+                    <div className='mb-5 sm:mb-0'>
                         <p className='text-[18px] font-medium'>Transactions</p>
                         <p className='text-[14px] font-normal text-[#525154]'>Track and manage all your payments, transfers, and conversions in one place.</p>
                     </div>
-                    <Link to='/transactions' className='appearance-none mt-2 outline-none bg-white px-4 py-[10px] border border-black/50 rounded-lg' name="" id="">
-                        <p>All Transactions</p>
+                    <Link to='/transactions'>
+                        <span className='mt-4 bg-white px-4 py-[10px] border border-black/50 rounded-lg'>
+                            All Transactions
+                        </span>
                     </Link>
+
                 </div>
                 <div className='mt-[30px]'>
                     <p className='flex items-center text-[14px] font-normal gap-4 text-[#667085]'><img src={Search} alt="" /> Search transactions by invoice, date, name or email... </p>
                     <div className='mt-[20px] '>
-                        <div className='grid lg:grid-cols-9 sm:grid-cols-6 grid-cols-4 gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-normal text-left'>
+                        <div className='sp:grid md:grid-cols-8 sm:grid-cols-6 sp:grid-cols-5 flex justify-between gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-medium text-left'>
                             <div className='flex gap-2 items-center min-w-0'>
                                 <input className='mt-1 size-4 rounded-md' type="checkbox" />
                                 <p>Invoice</p>
                             </div>
-                            <div className='lg:flex gap-2 items-center min-w-0 hidden'>
+                            <div className='md:flex hidden gap-2 items-center min-w-0'>
                                 <p className='truncate'>Payment date</p>
                                 <IoArrowDownSharp className='mt-1 text-[20px]' />
                             </div>
-                            <div className='sm:flex gap-2 items-center min-w-0 hidden'>
+                            <div className='flex gap-2 items-center justify-center min-w-0'>
                                 <p className='truncate'>Type</p>
                                 <IoArrowDownSharp className='mt-1 text-[16px]' />
                             </div>
-                            <div className='flex items-center justify-end sm:col-span-2 min-w-0'>
+                            <div className='sp:flex hidden items-center justify-end min-w-0'>
                                 <p className='truncate'>Amount</p>
                             </div>
-                            <div className='min-w-0 lg:block hidden'>
+                            <div className='min-w-0 md:block hidden'>
                                 <p className='truncate'>Currency</p>
                             </div>
-                            <div className='lg:flex items-center min-w-0 hidden'>
+                            <div className='sm:flex hidden items-center min-w-0'>
                                 <p className='truncate'>Sender/Recipient</p>
                             </div>
-                            <div className='flex items-center min-w-0'>
+                            <div className='sp:flex hidden items-center min-w-0'>
                                 <p className='truncate'>Status</p>
                             </div>
                             <div className='flex items-center min-w-0 invisible'>
@@ -441,27 +444,27 @@ const Overview = () => {
                         </div>
 
                         {Transactions.map((transact, index) => (
-                            <div key={index} className='grid lg:grid-cols-9 sm:grid-cols-6 grid-cols-4 gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
+                            <div key={index} className='sp:grid md:grid-cols-8 sm:grid-cols-6 sp:grid-cols-5 flex justify-between gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
                                 <div className='flex gap-2 items-center min-w-0'>
-                                    <input className='mt-1 size-5 rounded-2xl' type="checkbox" />
+                                    <input className='mt-1 size-5 rounded-lg' type="checkbox" />
                                     <p className='truncate'>{transact.Invoice}</p>
                                 </div>
 
-                                <div className='min-w-0 lg:block hidden'>
+                                <div className='min-w-0 md:block hidden'>
                                     <p className='truncate'>{transact.Date}</p>
                                 </div>
 
-                                <div className='min-w-0 sm:block hidden'>
+                                <div className='min-w-0 flex justify-end'>
                                     <p className='truncate'>{transact.Type}</p>
                                 </div>
 
-                                <div className='sm:col-span-2 min-w-0 text-right'>
-                                    <p className='truncate'>
+                                <div className='min-w-0 sp:block hidden text-right'>
+                                    <p className='truncate text-[14px]'>
                                         {transact.Amount ? transact.Amount : `${transact.ConvertedFrom} ➔ ${transact.ConvertedTo}`}
                                     </p>
                                 </div>
 
-                                <div className='min-w-0 lg:block hidden'>
+                                <div className='min-w-0 md:block hidden'>
                                     {transact.Currency ? (
                                         <div className='flex items-center gap-1 truncate'>
                                             {transact.Currency}
@@ -471,16 +474,18 @@ const Overview = () => {
                                     )}
                                 </div>
 
-                                <div className='min-w-0 lg:block hidden'>
+                                <div className='min-w-0 sm:block hidden'>
                                     <p className='truncate'>{transact.Sender} {transact.Recipient}</p>
                                 </div>
 
-                                <div className='min-w-0'>
-                                    <div className={`rounded-xl py-[2px] px-2 flex items-center justify-center w-fit truncate
-                                  ${transact.Status === 'Completed' && 'bg-green-100 text-green-600'}
-                                  ${transact.Status === 'Pending' && 'bg-orange-100 text-orange-600'}
-                                  ${transact.Status === 'Failed' && 'bg-red-100 text-red-600'}
-                                `}>
+                                <div className='min-w-0 sp:block hidden'>
+                                    <div
+                                        className={`rounded-xl py-[2px] px-2 flex items-center justify-center w-fit truncate
+                                                                     ${transact.Status === 'Completed' && 'bg-[#ECFDF3] text-[#027A48]'}
+                                                                     ${transact.Status === 'Pending' && 'bg-[#FFFAEB] text-[#B54708]'}
+                                                                     ${transact.Status === 'Failed' && 'bg-red-100 text-red-600'}
+                                                                   `}
+                                    >
                                         {transact.Status}
                                     </div>
                                 </div>
@@ -506,7 +511,7 @@ const Overview = () => {
             <SendBar />
             <LiveRates />
             {overViewTransactionDetails && (
-                <ViewTransactionDetailsBar />
+                <ViewTransactionDetailsBar className='duration-700 transition-all' />
             )}
         </div >
     )

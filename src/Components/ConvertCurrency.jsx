@@ -112,14 +112,14 @@ const ConvertCurrency = () => {
                     <div className='flex items-center gap-2'>
                         <div className='flex items-center w-full'>
                             <input className='border-[1.5px] border-black/30 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
-                            <p className='2xl:ml-[-97.5%] xl:ml-[-345px] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] ml-[-97.5%] text-[20px] text-[#525154]'>$</p>
+                            <p className='2xl:ml-[-97%] ml-[-93%] xl:ml-[-345px] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] sp:ml-[-97%] text-[20px] text-[#525154]'>$</p>
                         </div>
                         <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
                     </div>
                 </div>
                 <div className='flex gap-2 mt-12'>
                     <button
-                        className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
+                        className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                         onClick={handleConvertBar}
                     >
                         Cancel
