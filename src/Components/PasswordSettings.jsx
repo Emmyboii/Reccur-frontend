@@ -4,7 +4,7 @@ const PasswordSettings = (props) => {
     const { TransactionType } = props
 
     return (
-        <div className={TransactionType === 'password' ? 'flex flex-col gap-10 lg:w-[80%]' : 'hidden'}>
+        <div className={TransactionType === 'password' ? 'flex flex-col gap-10 lg:w-[90%]' : 'hidden'}>
             <div className='flex justify-between'>
                 <div className='flex flex-col gap-1'>
                     <p className='text-[18px] font-medium text-[#1D1C1F]'>Password settings</p>

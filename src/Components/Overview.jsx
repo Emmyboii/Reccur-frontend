@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
 import Select from 'react-select';
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
 import { Context } from '../Context/Context';
@@ -7,7 +8,6 @@ import AcctDetailsBar from './AcctDetailsBar';
 import ConvertCurrency from './ConvertCurrency';
 import SendBar from './SendBar';
 import LiveRates from './LiveRates';
-import { AiTwotoneFileText } from 'react-icons/ai';
 import Search from '../Components/Images/search.png'
 import Bell from '../Components/Images/bell.png'
 import Add from '../Components/Images/AddBtn.png'
@@ -18,8 +18,7 @@ import Bank from '../Components/Images/bank.png'
 import GreenLine from '../Components/Images/greenLine.png'
 import RedLine from '../Components/Images/redLine.png'
 import Increase from '../Components/Images/Increase.png'
-import GreenVector from '../Components/Images/GreenVector.png'
-import RedVector from '../Components/Images/RedVector.png'
+import ViewTransactionDetailsBar from './ViewTransactionDetailsBar';
 
 const Overview = () => {
 
@@ -42,13 +41,11 @@ const Overview = () => {
         handleConvertBar,
         convertBar,
         handleLiveRates,
-        liveRatesBar
+        liveRatesBar,
+        setSelectedTransactionDetails,
+        handleOverViewTransactionDetails,
+        overViewTransactionDetails
     } = useContext(Context)
-    const [filterOption, setFilterOption] = useState('transactions')
-
-    const handleFilterChange = (e) => {
-        setFilterOption(e.target.value)
-    }
 
     const option1 = [
         {
@@ -223,21 +220,21 @@ const Overview = () => {
     return (
         <div>
             <div
-                className={`w-[80%] h-[200%] absolute z-30 ${acctDetailsBar || sendBar || convertBar || liveRatesBar ? 'bg-black/20' : 'hidden'}`}
-                onClick={acctDetailsBar ? handleAcctDetailsBar : convertBar ? handleConvertBar : sendBar ? handleSendBar : liveRatesBar ? handleLiveRates : null}
+                className={`w-[80%] h-[200%] absolute z-30 ${acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails ? 'bg-black/20' : 'hidden'}`}
+                onClick={acctDetailsBar ? handleAcctDetailsBar : convertBar ? handleConvertBar : sendBar ? handleSendBar : liveRatesBar ? handleLiveRates : overViewTransactionDetails ? handleOverViewTransactionDetails : null}
             ></div>
-            <div className='flex items-center justify-between text-[#1D1C1F] md:px-8 px-4 py-8'>
+            <div className='flex items-center justify-between text-[#1D1C1F] md:p-10 px-4 py-8'>
                 <div>
                     <p className='text-[28px] font-semibold'>Home</p>
                     <p className='text-[16px] font-normal text-[#525154]'>Welcome back, Cooper!</p>
                 </div>
-                <div className='flex md:items-center items-start gap-4'>
+                <div className='flex md:items-center items-start gap-9'>
                     <img className='md:block hidden' src={Search} alt="" />
                     <img className='md:block hidden' src={Bell} alt="" />
                     <img className='sp:w-8 w-[30px]' src={Add} alt="" />
                 </div>
             </div>
-            <div className='flex justify-between items-center md:px-8 px-4 py-2'>
+            <div className='flex justify-between items-center md:px-10 px-4 py-2'>
                 <p className='font-medium text-[18px]'>Overview</p>
                 <button
                     onClick={handleLiveRates}
@@ -246,7 +243,7 @@ const Overview = () => {
                     Live rates
                 </button>
             </div>
-            <div className='px-5 pt-4 flex md:flex-row flex-col md:gap-0 gap-7'>
+            <div className='px-10 pt-4 flex md:flex-row flex-col md:gap-0 gap-7'>
                 <div className='w-full md:border-r-2 md:pr-4 border-black/50'>
                     <div className='flex items-center justify-between'>
                         <p className='flex items-center gap-1 text-[14px] text-[#78757A]'>
@@ -302,11 +299,7 @@ const Overview = () => {
                     </div>
                     <div>
                         <p className='text-[36px] font-semibold'>$0</p>
-                        {filterOption === 'transactions' ? (
-                            <img className='ml-3' src={GreenLine} alt="" />
-                        ) : (
-                            <img src={GreenVector} alt="" />
-                        )}
+                        <img className='ml-3 w-full xl:w-[50%]' src={GreenLine} alt="" />
                     </div>
                 </div>
                 <div className='w-full md:ml-5'>
@@ -324,15 +317,11 @@ const Overview = () => {
                     </div>
                     <div>
                         <p className='text-[36px] font-semibold'>$0</p>
-                        {filterOption === 'transactions' ? (
-                            <img src={RedLine} alt="" />
-                        ) : (
-                            <img src={RedVector} alt="" />
-                        )}
+                        <img className='w-full xl:w-[50%]' src={RedLine} alt="" />
                     </div>
                 </div>
             </div>
-            <div className='mt-[45px] mx-8'>
+            <div className='mt-[45px] mx-10'>
                 <h1 className='font-medium text-[18px]'>Congratulations on taking the first step!</h1>
                 <p className='text-[14px] font-normal text-[#525154]'>Complete these simple steps to get started using reccur.</p>
                 <div className='flex sm:flex-row flex-col text-[14px] justify-between gap-4 w-[80%] mt-4'>
@@ -408,152 +397,117 @@ const Overview = () => {
                     </div>
                 </div>
             </div>
-            {filterOption === 'transactions' ? (
-                <div className='mt-[30px] px-8 pb-8 text-black/70'>
-                    <div className='sm:flex items-center justify-between'>
-                        <div>
-                            <p className='text-[18px] font-medium'>Transactions</p>
-                            <p className='text-[14px] font-normal text-[#525154]'>Track and manage all your payments, transfers, and conversions in one place.</p>
-                        </div>
-                        <select value={filterOption} onChange={handleFilterChange} className='appearance-none mt-2 outline-none bg-white px-4 py-[10px] border border-black/50 rounded-lg cursor-pointer' name="" id="">
-                            <option value="activities">All Activities</option>
-                            <option value="transactions">All Transactions</option>
-                        </select>
+            <div className='mt-[30px] px-10 pb-8 text-black/70'>
+                <div className='sm:flex items-center justify-between'>
+                    <div>
+                        <p className='text-[18px] font-medium'>Transactions</p>
+                        <p className='text-[14px] font-normal text-[#525154]'>Track and manage all your payments, transfers, and conversions in one place.</p>
                     </div>
-                    <div className='mt-[30px]'>
-                        <p className='flex items-center text-[14px] font-normal gap-4 text-[#667085]'><img src={Search} alt="" /> Search transactions by invoice, date, name or email... </p>
-                        <div className='mt-[20px] '>
-                            <div className='grid lg:grid-cols-9 sm:grid-cols-6 grid-cols-4 gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-normal text-left'>
-                                <div className='flex gap-2 items-center min-w-0'>
-                                    <input className='mt-1 size-4 rounded-md' type="checkbox" />
-                                    <p>Invoice</p>
-                                </div>
-                                <div className='lg:flex gap-2 items-center min-w-0 hidden'>
-                                    <p className='truncate'>Payment date</p>
-                                    <IoArrowDownSharp className='mt-1 text-[20px]' />
-                                </div>
-                                <div className='sm:flex gap-2 items-center min-w-0 hidden'>
-                                    <p className='truncate'>Type</p>
-                                    <IoArrowDownSharp className='mt-1 text-[16px]' />
-                                </div>
-                                <div className='flex items-center justify-end sm:col-span-2 min-w-0'>
-                                    <p className='truncate'>Amount</p>
-                                </div>
-                                <div className='min-w-0 lg:block hidden'>
-                                    <p className='truncate'>Currency</p>
-                                </div>
-                                <div className='lg:flex items-center min-w-0 hidden'>
-                                    <p className='truncate'>Sender/Recipient</p>
-                                </div>
-                                <div className='flex items-center min-w-0'>
-                                    <p className='truncate'>Status</p>
-                                </div>
-                                <div className='flex items-center min-w-0 invisible'>
-                                    <p className='truncate'>Details</p>
-                                </div>
+                    <Link to='/transactions' className='appearance-none mt-2 outline-none bg-white px-4 py-[10px] border border-black/50 rounded-lg' name="" id="">
+                        <p>All Transactions</p>
+                    </Link>
+                </div>
+                <div className='mt-[30px]'>
+                    <p className='flex items-center text-[14px] font-normal gap-4 text-[#667085]'><img src={Search} alt="" /> Search transactions by invoice, date, name or email... </p>
+                    <div className='mt-[20px] '>
+                        <div className='grid lg:grid-cols-9 sm:grid-cols-6 grid-cols-4 gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-normal text-left'>
+                            <div className='flex gap-2 items-center min-w-0'>
+                                <input className='mt-1 size-4 rounded-md' type="checkbox" />
+                                <p>Invoice</p>
                             </div>
+                            <div className='lg:flex gap-2 items-center min-w-0 hidden'>
+                                <p className='truncate'>Payment date</p>
+                                <IoArrowDownSharp className='mt-1 text-[20px]' />
+                            </div>
+                            <div className='sm:flex gap-2 items-center min-w-0 hidden'>
+                                <p className='truncate'>Type</p>
+                                <IoArrowDownSharp className='mt-1 text-[16px]' />
+                            </div>
+                            <div className='flex items-center justify-end sm:col-span-2 min-w-0'>
+                                <p className='truncate'>Amount</p>
+                            </div>
+                            <div className='min-w-0 lg:block hidden'>
+                                <p className='truncate'>Currency</p>
+                            </div>
+                            <div className='lg:flex items-center min-w-0 hidden'>
+                                <p className='truncate'>Sender/Recipient</p>
+                            </div>
+                            <div className='flex items-center min-w-0'>
+                                <p className='truncate'>Status</p>
+                            </div>
+                            <div className='flex items-center min-w-0 invisible'>
+                                <p className='truncate'>Details</p>
+                            </div>
+                        </div>
 
-                            {Transactions.map((transact, index) => (
-                                <div key={index} className='grid lg:grid-cols-9 sm:grid-cols-6 grid-cols-4 gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
-                                    <div className='flex gap-2 items-center min-w-0'>
-                                        <input className='mt-1 size-5 rounded-2xl' type="checkbox" />
-                                        <p className='truncate'>{transact.Invoice}</p>
-                                    </div>
+                        {Transactions.map((transact, index) => (
+                            <div key={index} className='grid lg:grid-cols-9 sm:grid-cols-6 grid-cols-4 gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
+                                <div className='flex gap-2 items-center min-w-0'>
+                                    <input className='mt-1 size-5 rounded-2xl' type="checkbox" />
+                                    <p className='truncate'>{transact.Invoice}</p>
+                                </div>
 
-                                    <div className='min-w-0 lg:block hidden'>
-                                        <p className='truncate'>{transact.Date}</p>
-                                    </div>
+                                <div className='min-w-0 lg:block hidden'>
+                                    <p className='truncate'>{transact.Date}</p>
+                                </div>
 
-                                    <div className='min-w-0 sm:block hidden'>
-                                        <p className='truncate'>{transact.Type}</p>
-                                    </div>
+                                <div className='min-w-0 sm:block hidden'>
+                                    <p className='truncate'>{transact.Type}</p>
+                                </div>
 
-                                    <div className='sm:col-span-2 min-w-0 text-right'>
-                                        <p className='truncate'>
-                                            {transact.Amount ? transact.Amount : `${transact.ConvertedFrom} ➔ ${transact.ConvertedTo}`}
-                                        </p>
-                                    </div>
+                                <div className='sm:col-span-2 min-w-0 text-right'>
+                                    <p className='truncate'>
+                                        {transact.Amount ? transact.Amount : `${transact.ConvertedFrom} ➔ ${transact.ConvertedTo}`}
+                                    </p>
+                                </div>
 
-                                    <div className='min-w-0 lg:block hidden'>
-                                        {transact.Currency ? (
-                                            <div className='flex items-center gap-1 truncate'>
-                                                {transact.Currency}
-                                            </div>
-                                        ) : (
-                                            <p className='truncate flex gap-1'>{transact.Currency1}—{transact.Currency2}</p>
-                                        )}
-                                    </div>
+                                <div className='min-w-0 lg:block hidden'>
+                                    {transact.Currency ? (
+                                        <div className='flex items-center gap-1 truncate'>
+                                            {transact.Currency}
+                                        </div>
+                                    ) : (
+                                        <p className='truncate flex gap-1'>{transact.Currency1}—{transact.Currency2}</p>
+                                    )}
+                                </div>
 
-                                    <div className='min-w-0 lg:block hidden'>
-                                        <p className='truncate'>{transact.Sender} {transact.Recipient}</p>
-                                    </div>
+                                <div className='min-w-0 lg:block hidden'>
+                                    <p className='truncate'>{transact.Sender} {transact.Recipient}</p>
+                                </div>
 
-                                    <div className='min-w-0'>
-                                        <div className={`rounded-xl py-[2px] px-2 flex items-center justify-center w-fit truncate
+                                <div className='min-w-0'>
+                                    <div className={`rounded-xl py-[2px] px-2 flex items-center justify-center w-fit truncate
                                   ${transact.Status === 'Completed' && 'bg-green-100 text-green-600'}
                                   ${transact.Status === 'Pending' && 'bg-orange-100 text-orange-600'}
                                   ${transact.Status === 'Failed' && 'bg-red-100 text-red-600'}
                                 `}>
-                                            {transact.Status}
-                                        </div>
-                                    </div>
-
-                                    <div className='min-w-0'>
-                                        <p className='text-[#431594] font-medium cursor-pointer truncate'>View Details</p>
+                                        {transact.Status}
                                     </div>
                                 </div>
-                            ))}
-                        </div>
+
+                                <div className='min-w-0'>
+                                    <button
+                                        className='text-[#542d9d] truncate'
+                                        onClick={() => {
+                                            setSelectedTransactionDetails(transact)
+                                            handleOverViewTransactionDetails()
+                                        }}
+                                    >
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
-            ) : (
-                <div className='mt-[30px] md:px-8 px-[14px] pb-8 text-black/50'>
-                    <div className='md:flex items-center justify-between'>
-                        <div>
-                            <p className='text-[22px] font-semibold text-black'>Activites</p>
-                            <p>Stay up to date on recent activities in your account.</p>
-                        </div>
-                        <select value={filterOption} onChange={handleFilterChange} className='appearance-none md:mt-0 mt-2 outline-none bg-white p-2 border border-black/50 rounded-lg cursor-pointer' name="" id="">
-                            <option value="activities">All Activities</option>
-                            <option value="transactions">All Transactions</option>
-                        </select>
-                    </div>
-                    <div className='mt-[30px] flex flex-col gap-7 text-[14px] text-[#1D1C1F] font-medium'>
-                        <div className='flex md:flex-row flex-col md:gap-0 gap-2 justify-between'>
-                            <p className='flex items-center gap-'>
-                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[18px]' />
-                                Your invoice <span className='text-[#542d9d] px-[3px]'>#RC0001</span> for Samantha Tino has been paid.
-                            </p>
-                            <p className='text-black/50'>8/30/2022, 12:46 am</p>
-                        </div>
-                        <div className='flex md:flex-row flex-col md:gap-0 gap-2 justify-between'>
-                            <p className='flex items-center gap-'>
-                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[18px]' />
-                                Your invoice <span className='text-[#542d9d] px-[3px]'>#RC0001</span> for Samantha Tino has been paid.
-                            </p>
-                            <p className='text-black/50'>8/30/2022, 12:46 am</p>
-                        </div>
-                        <div className='flex md:flex-row flex-col md:gap-0 gap-2 justify-between'>
-                            <p className='flex items-center gap-'>
-                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[18px]' />
-                                <span className='text-[#542d9d] px-[3px]'>$5000</span> has been deposited into your account.
-                            </p>
-                            <p className='text-black/50'>8/30/2022, 12:46 am</p>
-                        </div>
-                        <div className='flex md:flex-row flex-col md:gap-0 gap-2 justify-between'>
-                            <p className='flex items-center gap-'>
-                                <AiTwotoneFileText className='mt-1 text-[#9d6df7] text-[18px]' />
-                                Your invoice <span className='text-[#542d9d] px-[3px]'>#RC0001</span> for Samantha Tino has been paid.
-                            </p>
-                            <p className='text-black/50'>8/30/2022, 12:46 am</p>
-                        </div>
-                    </div>
-                </div>
-            )}
+            </div>
             <AcctDetailsBar />
             <ConvertCurrency />
             <SendBar />
             <LiveRates />
+            {overViewTransactionDetails && (
+                <ViewTransactionDetailsBar />
+            )}
         </div >
     )
 }

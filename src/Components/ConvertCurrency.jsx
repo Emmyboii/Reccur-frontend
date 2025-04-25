@@ -69,7 +69,7 @@ const ConvertCurrency = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 ${convertBar ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 ${convertBar ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-5 justify-between'>
                 <div>
                     <h1 className='text-[20px] font-medium'>Convert currency</h1>
@@ -112,20 +112,20 @@ const ConvertCurrency = () => {
                     <div className='flex items-center gap-2'>
                         <div className='flex items-center w-full'>
                             <input className='border-[1.5px] border-black/30 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
-                            <p className='xl:ml-[-345px] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] ml-[-97.5%] text-[20px] text-[#525154]'>$</p>
+                            <p className='2xl:ml-[-97.5%] xl:ml-[-345px] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] ml-[-97.5%] text-[20px] text-[#525154]'>$</p>
                         </div>
                         <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
                     </div>
                 </div>
                 <div className='flex gap-2 mt-12'>
                     <button
-                        className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
+                        className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
                         onClick={handleConvertBar}
                     >
                         Cancel
                     </button>
                     <button
-                        className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
+                        className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
                         onClick={() => {
                             window.scrollTo(0, 0)
                             handleConversion()

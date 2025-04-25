@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="flex w-full">
       <Sidebar />
-      <div className="lg:w-[80%] w-full">
+      <div className="w-full">
         <div
           className={`w-full h-[200%] lg:hidden text-[#1D1C1F] z-40 absolute ${sideBar ? 'bg-black/20' : 'hidden'}`}
           onClick={handleSideBar}

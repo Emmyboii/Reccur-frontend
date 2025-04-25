@@ -5,7 +5,7 @@ const KYC = (props) => {
     const { TransactionType } = props
 
     return (
-        <div className={TransactionType === 'KYC' ? 'flex flex-col gap-10 lg:w-[80%]' : 'hidden'}>
+        <div className={TransactionType === 'KYC' ? 'flex flex-col gap-10 lg:w-[90%]' : 'hidden'}>
             <div className='flex flex-col gap-1'>
                 <p className='text-[18px] font-medium text-[#1D1C1F]'>Verify Your Identity</p>
                 <p className='text-[14px] font-normal text-[#525154]'>Help us get to know you better so we can keep your account secure and offer you the best experience.</p>

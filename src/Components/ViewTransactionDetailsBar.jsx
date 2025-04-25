@@ -5,10 +5,24 @@ import menu from '../Components/Images/menu.png';
 
 const ViewTransactionDetailsBar = () => {
 
-    const { handleViewTransactionDetails, viewTransactionDetails, selectedTransactionDetails } = useContext(Context)
+    const {
+        handleViewTransactionDetails,
+        viewTransactionDetails,
+        selectedTransactionDetails,
+        overViewTransactionDetails,
+        handleOverViewTransactionDetails
+    } = useContext(Context)
+
+    const onClick = () => {
+        if (viewTransactionDetails) {
+            handleViewTransactionDetails()
+        } else if (overViewTransactionDetails) {
+            handleOverViewTransactionDetails()
+        }
+    }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 text-black z-30 overflow-auto ${viewTransactionDetails ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 text-black z-30 overflow-auto ${viewTransactionDetails || overViewTransactionDetails ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-2 justify-between'>
                 <div>
                     <p className='text-[24px] font-medium text-[#1D1C1F]'>Transaction details</p>
@@ -16,7 +30,7 @@ const ViewTransactionDetailsBar = () => {
                 </div>
                 <img
                     className='size-5 mt-1 cursor-pointer' src={close} alt=""
-                    onClick={handleViewTransactionDetails}
+                    onClick={onClick}
                 />
             </div>
             <div className='flex gap-2 mt-5'>
@@ -107,7 +121,7 @@ const ViewTransactionDetailsBar = () => {
                 <p className='text-[18px] font-medium text-[#1D1C1F]'>Payment summary</p>
                 {selectedTransactionDetails && (
                     <div>
-                        <div className={selectedTransactionDetails.Currency1?'hidden':'block'}>
+                        <div className={selectedTransactionDetails.Currency1 ? 'hidden' : 'block'}>
                             <div className='flex justify-between mt-5'>
                                 <p className='text-[#302F33] font-normal text-[16px]'>Amount sent</p>
                                 <p className='text-[#302F33] text-[16px]'>$2,000.00</p>
@@ -117,13 +131,13 @@ const ViewTransactionDetailsBar = () => {
                                 <p className='text-[#302F33] text-[16px]'>$20.00</p>
                             </div>
                         </div>
-                        <div className={!selectedTransactionDetails.Currency1?'hidden':'block'}>
+                        <div className={!selectedTransactionDetails.Currency1 ? 'hidden' : 'block'}>
                             <div className='flex justify-between mt-5'>
                                 <p className='text-[#302F33] font-normal text-[16px]'>Amount converted</p>
                                 <p className='text-[#302F33] text-[16px]'>₦166,000</p>
                             </div>
                             <div
-                             className='flex justify-between mt-5'>
+                                className='flex justify-between mt-5'>
                                 <p className='text-[#302F33] font-normal text-[16px]'>Rate</p>
                                 <p className='text-[#302F33] text-[16px]'>1 USD = 1650 USD</p>
                             </div>

@@ -14,6 +14,7 @@ const ContextProvider = (props) => {
     const [viewDetails, setViewDetails] = useState(false)
     const [viewInvoice, setViewInvoice] = useState(false)
     const [viewTransactionDetails, setViewTransactionDetails] = useState(false)
+    const [overViewTransactionDetails, setOverViewViewTransactionDetails] = useState(false)
     const [profileEdit, setProfileEdit] = useState(false)
     const [deleteProfile, setDeleteProfile] = useState(false)
     const [deleteInvoice, setDeleteInvoice] = useState(false)
@@ -56,6 +57,9 @@ const ContextProvider = (props) => {
     }
     const handleViewTransactionDetails = () => {
         setViewTransactionDetails(!viewTransactionDetails)
+    }
+    const handleOverViewTransactionDetails = () => {
+        setOverViewViewTransactionDetails(!overViewTransactionDetails)
     }
     const handleProfileEdit = () => {
         setProfileEdit(!profileEdit)
@@ -147,6 +151,8 @@ const ContextProvider = (props) => {
         setSelectedInvoice,
         viewTransactionDetails,
         handleViewTransactionDetails,
+        overViewTransactionDetails,
+        handleOverViewTransactionDetails,
         selectedTransactionDetails,
         setSelectedTransactionDetails,
         handleNoDelete,

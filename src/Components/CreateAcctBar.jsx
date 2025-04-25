@@ -82,7 +82,7 @@ const CreateAcctBar = () => {
     };
 
     return (
-        <div className={`fixed lg:top-0 top-[60px] h-screen bg-white z-50 lg:p-10 py-8 px-4 duration-700 ${acctBar ? 'sm:w-[50%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed lg:top-0 top-[60px] h-screen bg-white z-50 lg:p-10 py-8 px-4 duration-700 ${acctBar ? 'sm:w-[50%] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between gap-2'>
                 <div>
                     <h1 className='text-[20px] font-medium text-[#1D1C1F]'>Create Account</h1>
@@ -108,13 +108,13 @@ const CreateAcctBar = () => {
                 </div>
                 <div className='flex gap-2 mt-4'>
                     <button
-                        className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
+                        className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
                         onClick={handleAcctBar}
                     >
                         Cancel
                     </button>
                     <button
-                        className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
+                        className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
                         onClick={() => {
                             setChecked(true)
                             window.scrollTo(0, 0)

@@ -26,7 +26,7 @@ const WelcomePage = () => {
                     <p className='text-center mt-1 text-[#525154] text-[16px] font-medium'>Get started in just a few steps and unlock seamless transactions<br /> worldwide.</p>
                 </div>
                 <button
-                    className="bg-[#531CB3] text-white py-[10px] px-4 rounded-lg"
+                    className="bg-[#531CB3] text-white py-[10px] w-[117px] px-4 rounded-lg"
                     onClick={() => {
                         navigate('/getready')
                         window.scrollTo(0, 0)

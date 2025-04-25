@@ -23,7 +23,7 @@ const CreateInvoice = () => {
                     <p className='text-[28px] text-[#1D1C1F] font-semibold'>Invoices</p>
                     <p className='text-[14px] font-normal text-[#525154]'>View and manage your created and sent invoices here.</p>
                 </div>
-                <div className='flex md:items-center items-start gap-4'>
+                <div className='flex md:items-center items-start gap-9'>
                     <img className='md:block hidden' src={Search} alt="" />
                     <img className='md:block hidden' src={Bell} alt="" />
                     <img className='sp:w-8 w-[30px]' src={Add} alt="" />

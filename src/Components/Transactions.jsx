@@ -457,7 +457,10 @@ const Transactions = () => {
                     </div>
                 </div>
             </div>
-            <ViewTransactionDetailsBar />
+            {viewTransactionDetails && (
+                <ViewTransactionDetailsBar />
+            )}
+
         </div>
     )
 }

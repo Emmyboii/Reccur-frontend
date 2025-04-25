@@ -70,7 +70,7 @@ const LiveRates = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${liveRatesBar ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${liveRatesBar ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between gap-2'>
                 <div>
                     <h1 className='text-[20px] font-medium'>Live Market Rates</h1>
@@ -171,7 +171,7 @@ const LiveRates = () => {
                         />
                         <div
                             onClick={() => setToggle(!toggle)}
-                            className="flex items-center gap-2 xl:ml-[-360px] lg:ml-[-355px] md:ml-[-405px] sm:ml-[-300px] ml-[-97.5%] cursor-pointer"
+                            className="flex items-center gap-2 xl:ml-[-360px] 2xl:ml-[-99%] lg:ml-[-355px] md:ml-[-405px] sm:ml-[-300px] ml-[-97.5%] cursor-pointer"
                         >
                             NGN <IoIosArrowDown className={toggle ? 'rotate-180' : 'rotate-0'} />
                         </div>
@@ -190,7 +190,7 @@ const LiveRates = () => {
                         />
                         <div
                             onClick={() => setToggle2(!toggle2)}
-                            className="flex items-center gap-2 xl:ml-[-360px] lg:ml-[-355px] md:ml-[-405px] sm:ml-[-300px] ml-[-97.5%] cursor-pointer"
+                            className="flex items-center gap-2 xl:ml-[-360px] 2xl:ml-[-99%] lg:ml-[-355px] md:ml-[-405px] sm:ml-[-300px] ml-[-97.5%] cursor-pointer"
                         >
                             USA <IoIosArrowDown className={toggle2 ? 'rotate-180' : 'rotate-0'} />
                         </div>

@@ -193,7 +193,7 @@ const BeneficiaryBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
                     <h1 className='text-[28px] font-semibold'>Add beneficiary</h1>
@@ -225,7 +225,7 @@ const BeneficiaryBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -263,7 +263,7 @@ const BeneficiaryBar = () => {
                                     id=""
                                     placeholder='Bank name'
                                 />
-                                <img className='lg:ml-[-400px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={Bank} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -292,13 +292,13 @@ const BeneficiaryBar = () => {
                         </div>
                         <div className='flex gap-4 mt-10'>
                             <button
-                                className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
                                 onClick={handleBeneficiaryBar}
                             >
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     handleAddedBeneficiaries()
@@ -321,7 +321,7 @@ const BeneficiaryBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -364,13 +364,13 @@ const BeneficiaryBar = () => {
                         </div>
                         <div className='flex gap-4 mt-12'>
                             <button
-                                className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
                                 onClick={handleBeneficiaryBar}
                             >
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     handleAddedBeneficiaries()

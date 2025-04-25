@@ -42,7 +42,7 @@ const AdvancedSettings = (props) => {
     }
 
     return (
-        <div className={TransactionType === 'Advanced' ? 'flex flex-col gap-10 lg:w-[80%]' : 'hidden'}>
+        <div className={TransactionType === 'Advanced' ? 'flex flex-col gap-10 lg:w-[90%]' : 'hidden'}>
             <div className='flex flex-col gap-1'>
                 <p className='text-[18px] font-medium text-[#1D1C1F]'>Advanced settings</p>
             </div>
@@ -82,7 +82,7 @@ const AdvancedSettings = (props) => {
                         />
                         <button
                             onClick={() => setOnDelete(true)}
-                            className='text-white rounded-lg py-[10px] mt-3 md:w-[40%] sp:w-[50%] w-[65%] text-[14px] font-medium px-4 bg-[#EF4444]'
+                            className='text-white rounded-lg py-[10px] mt-3 md:w-[40%] 2xl:w-[30%] sp:w-[50%] w-[65%] text-[14px] font-medium px-4 bg-[#EF4444]'
                         >
                             Delete your account
                         </button>

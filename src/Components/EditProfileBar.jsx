@@ -190,7 +190,7 @@ const EditProfileBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 overflow-auto ${profileEdit ? 'sm:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 overflow-auto ${profileEdit ? 'sm:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex items-center justify-between'>
                 <div>
                     <h1 className='text-[20px] font-medium'>Edit beneficiary</h1>
@@ -221,7 +221,7 @@ const EditProfileBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] sm:ml-[-450px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -259,7 +259,7 @@ const EditProfileBar = () => {
                                     id=""
                                     placeholder='Bank name'
                                 />
-                                <img className='lg:ml-[-400px] sm:ml-[-450px] ml-[-97.5%]' src={Bank} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97.5%]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -288,13 +288,13 @@ const EditProfileBar = () => {
                         </div>
                         <div className='flex gap-2 mt-10'>
                             <button
-                                className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
                                 onClick={handleProfileEdit}
                             >
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     handleProfileEdit()
@@ -316,7 +316,7 @@ const EditProfileBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] sm:ml-[-450px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -359,13 +359,13 @@ const EditProfileBar = () => {
                         </div>
                         <div className='flex gap-2 mt-12'>
                             <button
-                                className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
                                 onClick={handleProfileEdit}
                             >
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     handleProfileEdit()

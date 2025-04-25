@@ -152,7 +152,7 @@ const SendBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${sendBar ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${sendBar ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between gap-5'>
                 <div>
                     <h1 className='text-[20px] font-medium'>Send Money</h1>
@@ -197,7 +197,7 @@ const SendBar = () => {
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <img className='lg:ml-[-405px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -235,7 +235,7 @@ const SendBar = () => {
                                     id=""
                                     placeholder='Enter bank name'
                                 />
-                                <img className='lg:ml-[-405px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={Bank} alt="" />
+                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -267,7 +267,7 @@ const SendBar = () => {
                             <div className='flex items-center gap-2'>
                                 <div className='flex items-center w-full'>
                                     <input className='border-[1.5px] border-black/20 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
-                                    <p className='xl:ml-[-340px] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] ml-[-97.5%] text-[20px] text-[#525154]'>$</p>
+                                    <p className='xl:ml-[-340px] 2xl:ml-[-99%] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] ml-[-97.5%] text-[20px] text-[#525154]'>$</p>
                                 </div>
                                 <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
                             </div>
@@ -295,13 +295,13 @@ const SendBar = () => {
                         </div>
                         <div className='flex gap-2 mt-12'>
                             <button
-                                className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
                                 onClick={handleSendBar}
                             >
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     // handleConversion()
@@ -336,7 +336,7 @@ const SendBar = () => {
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <img className='lg:ml-[-405px] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
+                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97.5%]' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -382,18 +382,18 @@ const SendBar = () => {
                             <div className='flex items-center w-full'>
                                 <input className='border-[1.5px] border-black/20 py-[10px] pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id="" />
                                 <AiTwotoneQuestionCircle className='ml-[-30px]' />
-                                <p className='lg:ml-[-390px] md:ml-[-435px] sm:ml-[-326px] ml-[-94.5%] text-[20px] text-[#525154]'>$</p>
+                                <p className='lg:ml-[-390px] 2xl:ml-[-97.5%] md:ml-[-435px] sm:ml-[-326px] ml-[-94.5%] text-[20px] text-[#525154]'>$</p>
                             </div>
                         </div>
                         <div className='flex gap-2 mt-12'>
                             <button
-                                className='p-3 rounded-lg w-[30%] border-[1.5px] border-black/10'
+                                className='p-3 rounded-lg w-[20%] border-[1.5px] border-black/10'
                                 onClick={handleSendBar}
                             >
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
+                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
                                 onClick={() => {
                                     window.scrollTo(0, 0)
                                     // handleConversion()

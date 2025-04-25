@@ -12,11 +12,12 @@ const Home = () => {
         acctDetailsBar,
         sendBar,
         convertBar,
-        liveRatesBar
+        liveRatesBar,
+        overViewTransactionDetails
     } = useContext(Context)
 
     useEffect(() => {
-        if (acctBar || acctDetailsBar || sendBar || convertBar || liveRatesBar) {
+        if (acctBar || acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails) {
             document.body.style.overflow = 'hidden';
         } else {
             document.body.style.overflow = 'auto';
@@ -25,7 +26,7 @@ const Home = () => {
         return () => {
             document.body.style.overflow = 'auto';
         };
-    }, [acctBar, acctDetailsBar, sendBar, convertBar, liveRatesBar])
+    }, [acctBar, acctDetailsBar, sendBar, convertBar, liveRatesBar, overViewTransactionDetails])
 
     return (
         <div>

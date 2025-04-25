@@ -9,7 +9,7 @@ const InvoiceSettings = (props) => {
     const [toggle2, setToggle2] = useState(false)
 
     return (
-        <div className={TransactionType === 'Invoice' ? 'flex flex-col gap-10 lg:w-[80%]' : 'hidden'}>
+        <div className={TransactionType === 'Invoice' ? 'flex flex-col gap-10 lg:w-[90%]' : 'hidden'}>
             <div className='flex justify-between'>
                 <div className='flex flex-col gap-1'>
                     <p className='text-[18px] font-medium text-[#1D1C1F]'>Invoice settings</p>

@@ -71,7 +71,7 @@ const AccountSettings = (props) => {
     }
 
     return (
-        <div className={TransactionType === 'account' ? 'flex flex-col gap-10 lg:w-[80%]' : 'hidden'}>
+        <div className={TransactionType === 'account' ? 'flex flex-col gap-10 lg:w-[90%]' : 'hidden'}>
             <div className='sa:flex justify-between'>
                 <div className='flex flex-col gap-1'>
                     <p className='text-[18px] font-medium text-[#1D1C1F]'>Your information</p>
@@ -147,7 +147,7 @@ const AccountSettings = (props) => {
                     className='rounded-lg sm:w-[70%]'
                 />
             </div>
-            <button className='text-[#531CB3] text-[14px] font-medium bg-[#E8E1F5] px-4 py-[10px] rounded-lg'>Save changes</button>
+            <button className='text-[#531CB3] text-[14px] lg:hidden block font-medium bg-[#E8E1F5] px-4 py-[10px] rounded-lg'>Save changes</button>
 
         </div>
     )

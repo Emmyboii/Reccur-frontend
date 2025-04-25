@@ -102,7 +102,7 @@ const UploadDocument = () => {
       </div>
       <div className='flex gap-2 mt-10'>
         <button
-          className='p-3 rounded-lg w-[30%] text-[#525154] border-[1.5px] border-black/10'
+          className='p-3 rounded-lg w-[20%] text-[#525154] border-[1.5px] border-black/10'
           onClick={() => {
             navigate(-1)
             window.scrollTo(0, 0)
@@ -111,7 +111,7 @@ const UploadDocument = () => {
           Previous
         </button>
         <button
-          className='p-3 rounded-lg bg-[#531CB3] text-white w-[70%]'
+          className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
           onClick={() => {
             navigate('/home')
             setVerified(!verified)

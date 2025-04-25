@@ -14,8 +14,8 @@ const DeleteProfile = () => {
 
     return (
         <div onClick={closeRef} ref={DeleteModel} className={`fixed flex items-center justify-center z-50 inset-0 bg-opacity-30 bg-black/40 ${deleteProfile ? 'block' : 'hidden'}`}>
-            <div className='bg-white w-[360px] shadow-lg rounded-xl flex flex-col justify-center py-5 px-7'>
-                <div className='flex gap-3'>
+            <div className='bg-white w-[360px] 2xl:w-[20%] shadow-lg rounded-xl flex flex-col justify-center py-5 px-7'>
+                <div className='flex justify-between gap-3'>
                     <div>
                         <p className='text-[18px] text-[#1D1C1F] font-medium mb-2'>Delete information?</p>
                         <p className='text-[#525154] font-normal text-[14px]'>This will permanently delete Samantha Tino from your client list.</p>

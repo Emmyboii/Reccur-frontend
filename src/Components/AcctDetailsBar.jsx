@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
 import close from '../Components/Images/x-close.png';
+import copy from '../Components/Images/copy.png';
 import { Context } from '../Context/Context';
 import Select from 'react-select';
 import { LuArrowLeftRight } from 'react-icons/lu';
 import { GoArrowUpRight } from 'react-icons/go';
-import { IoCopy } from 'react-icons/io5';
 
 const AcctDetailsBar = () => {
 
@@ -82,7 +82,7 @@ const AcctDetailsBar = () => {
     };
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 z-50 text-[#1D1C1F] ${acctDetailsBar ? 'sm:w-[400px] md:w-[510px] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 z-50 text-[#1D1C1F] ${acctDetailsBar ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
                     <div className='mt-1 flex items-center gap-2'>
@@ -123,7 +123,7 @@ const AcctDetailsBar = () => {
                         className='flex items-center gap-2 text-[#542d9d] font-semibold cursor-pointer'
                     >
                         {copied ? 'Copied!' : 'Copy details'}
-                        <IoCopy className='mt-1' />
+                        <img src={copy} alt="" />
                     </p>
                 </div>
                 <div>

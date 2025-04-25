@@ -25,7 +25,7 @@ const UserSettings = () => {
                     <div>
                         <p className='text-[28px] font-semibold'>Settings</p>
                     </div>
-                    <div className='flex items-center gap-5'>
+                    <div className='flex items-center gap-9'>
                         <img src={Search} alt="" />
                         <img src={Bell} alt="" />
                         <img className='w-8' src={Add} alt="" />
@@ -88,7 +88,7 @@ const UserSettings = () => {
                     </p>
                 </div>
                 {noDelete && (
-                    <div className='absolute top-10 sm:right-10 right-2 flex items-center sm:w-[320px] w-[95%] justify-between p-4 rounded-lg bg-[#1D1C1F] text-[#F9F7FC]'>
+                    <div className='absolute top-10 sm:right-10 right-2 flex items-center sm:w-[320px] w-[95%] 2xl:w-[30%] justify-between p-4 rounded-lg bg-[#1D1C1F] text-[#F9F7FC]'>
                         <div className='flex gap-2 items-center'>
                             <img src={smiley} alt="" />
                             <p className='text-[14px] font-medium'>Phew! We almost lost you there.</p>
@@ -102,7 +102,7 @@ const UserSettings = () => {
                     </div>
                 )}
                 {deleted && (
-                    <div className='absolute top-10 sm:right-10 right-2 flex items-center sm:w-[320px] w-[95%] justify-between p-4 rounded-lg bg-[#1D1C1F] text-[#F9F7FC]'>
+                    <div className='absolute top-10 sm:right-10 right-2 flex items-center sm:w-[320px] w-[95%] 2xl:w-[30%] justify-between p-4 rounded-lg bg-[#1D1C1F] text-[#F9F7FC]'>
                         <div className='flex gap-2 items-start'>
                             <img className='mt-1' src={sad} alt="" />
                             <div>
