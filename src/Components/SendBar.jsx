@@ -197,7 +197,7 @@ const SendBar = () => {
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <img className='absolute ml-2' src={user} alt="" />
+                                <img className='absolute ml-3' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -235,7 +235,7 @@ const SendBar = () => {
                                     id=""
                                     placeholder='Enter bank name'
                                 />
-                                <img className='absolute ml-2' src={Bank} alt="" />
+                                <img className='absolute ml-3' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -336,7 +336,7 @@ const SendBar = () => {
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <img className='absolute ml-2' src={user} alt="" />
+                                <img className='absolute ml-3' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>

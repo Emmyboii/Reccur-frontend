@@ -171,7 +171,7 @@ const LiveRates = () => {
                         />
                         <div
                             onClick={() => setToggle(!toggle)}
-                            className="flex items-center gap-2 absolute ml-2 cursor-pointer"
+                            className="flex items-center gap-2 absolute ml-3 cursor-pointer"
                         >
                             NGN <IoIosArrowDown className={toggle ? 'rotate-180' : 'rotate-0'} />
                         </div>
@@ -190,7 +190,7 @@ const LiveRates = () => {
                         />
                         <div
                             onClick={() => setToggle2(!toggle2)}
-                            className="flex items-center gap-2 absolute ml-2 cursor-pointer"
+                            className="flex items-center gap-2 absolute ml-3 cursor-pointer"
                         >
                             USA <IoIosArrowDown className={toggle2 ? 'rotate-180' : 'rotate-0'} />
                         </div>

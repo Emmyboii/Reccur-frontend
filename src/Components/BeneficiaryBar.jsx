@@ -225,7 +225,7 @@ const BeneficiaryBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='absolute ml-2' src={user} alt="" />
+                                <img className='absolute ml-3' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -321,7 +321,7 @@ const BeneficiaryBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='absolute ml-2' src={user} alt="" />
+                                <img className='absolute ml-3' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
