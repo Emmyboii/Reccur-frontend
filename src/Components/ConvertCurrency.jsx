@@ -69,7 +69,7 @@ const ConvertCurrency = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 ${convertBar ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 ${convertBar ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-5 justify-between'>
                 <div>
                     <h1 className='text-[20px] font-medium'>Convert currency</h1>
@@ -110,9 +110,9 @@ const ConvertCurrency = () => {
                 <div className='mt-5'>
                     <label htmlFor="amount">Amount</label>
                     <div className='flex items-center gap-2'>
-                        <div className='flex items-center w-full'>
+                        <div className='flex items-center w-full relative'>
                             <input className='border-[1.5px] border-black/30 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
-                            <p className='2xl:ml-[-97%] ml-[-93%] xl:ml-[-345px] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] sp:ml-[-97%] text-[20px] text-[#525154]'>$</p>
+                            <p className='text-[20px] text-[#525154] absolute ml-3'>$</p>
                         </div>
                         <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
                     </div>

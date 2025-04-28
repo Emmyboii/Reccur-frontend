@@ -30,7 +30,7 @@ const CreateAcct = () => {
                 className={`w-full h-[200%] absolute ${acctBar ? 'bg-black/30' : 'hidden'}`}
                 onClick={handleAcctBar}
             ></div>
-            <div className='flex items-center justify-between md:p-10 py-10 px-4 w-full'>
+            <div className='flex items-start justify-between md:p-10 py-10 px-4 w-full'>
                 <div>
                     <p className='text-[28px] font-semibold'>Home</p>
                     <p className='text-[16px] font-normal text-[#525154]'>Welcome back, Cooper!</p>
@@ -41,7 +41,7 @@ const CreateAcct = () => {
                     <img className='sp:w-8 w-[30px]' src={Add} alt="" />
                 </div>
             </div>
-            <div className='flex flex-col items-center gap-9 bg-[#fbf9fd] md:p-10 mx-10 p-10 px-2 rounded-md border-2 border-black/70 border-dashed'>
+            <div className='flex flex-col items-center gap-9 bg-[#fbf9fd] md:p-10 lg:mx-10 mx-4 p-10 px-2 rounded-md border-2 border-black/50 border-dashed'>
                 <div className='max-w-[500px]'>
                     <p className='text-center font-medium text-[19px] text-[#1D1C1F]'>We are here to help you get paid for your work.</p>
                     <p className='text-center mt-1 text-[14px] font-normal text-[#525154]'>Get started by creating your first bank account for any supported country (e.g., USA, Canada, UK)</p>

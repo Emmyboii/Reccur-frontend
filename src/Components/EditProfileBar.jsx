@@ -190,7 +190,7 @@ const EditProfileBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 overflow-auto ${profileEdit ? 'sm:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-[#1D1C1F] z-50 overflow-auto ${profileEdit ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex items-center justify-between'>
                 <div>
                     <h1 className='text-[20px] font-medium'>Edit beneficiary</h1>
@@ -213,7 +213,7 @@ const EditProfileBar = () => {
                     <div className='mt-7 text-[#525154] text-[14px] font-medium'>
                         <div className='mt-5'>
                             <label htmlFor="fullName">Full Name</label>
-                            <div className='flex items-center mt-2'>
+                            <div className='flex items-center mt-2 relative'>
                                 <input
                                     className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
@@ -221,7 +221,7 @@ const EditProfileBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97%]' src={user} alt="" />
+                                <img className='absolute ml-2' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -251,7 +251,7 @@ const EditProfileBar = () => {
                         </div>
                         <div className='mt-5'>
                             <label htmlFor="fullName">Bank name</label>
-                            <div className='flex items-center mt-2'>
+                            <div className='flex items-center mt-2 relative'>
                                 <input
                                     className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
@@ -259,7 +259,7 @@ const EditProfileBar = () => {
                                     id=""
                                     placeholder='Bank name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97%]' src={Bank} alt="" />
+                                <img className='absolute ml-3' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -308,7 +308,7 @@ const EditProfileBar = () => {
                     <div className='mt-7 text-[#525154]'>
                         <div className='mt-5'>
                             <label htmlFor="fullName">Full Name</label>
-                            <div className='flex items-center mt-2'>
+                            <div className='flex items-center mt-2 relative'>
                                 <input
                                     className='border-[1.5px] text-[14px] font-normal text-[#1D1C1F] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
@@ -316,7 +316,7 @@ const EditProfileBar = () => {
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] sm:ml-[-450px] ml-[-97%]' src={user} alt="" />
+                                <img className='absolute ml-2' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>

@@ -321,7 +321,7 @@ const Overview = () => {
                     </div>
                 </div>
             </div>
-            <div className='mt-[45px] md:mx-10 mx-4'>
+            <div className='mt-[45px] lg:mx-10 mx-4'>
                 <h1 className='font-medium text-[18px]'>Congratulations on taking the first step!</h1>
                 <p className='text-[14px] font-normal text-[#525154]'>Complete these simple steps to get started using reccur.</p>
                 <div className='flex sm:flex-row flex-col text-[14px] justify-between gap-4 w-[80%] mt-4'>

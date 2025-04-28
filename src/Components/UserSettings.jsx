@@ -25,7 +25,7 @@ const UserSettings = () => {
                     <div>
                         <p className='text-[28px] font-semibold'>Settings</p>
                     </div>
-                    <div className='flex items-center gap-9'>
+                    <div className='flex md:items-center items-start gap-9'>
                         <img src={Search} alt="" />
                         <img src={Bell} alt="" />
                         <img className='w-8' src={Add} alt="" />

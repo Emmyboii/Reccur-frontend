@@ -18,10 +18,10 @@ const CreateInvoice = () => {
                 className={`w-full h-[200%] absolute ${createInvoice || viewInvoice ? 'bg-black/20' : 'hidden'}`}
                 onClick={createInvoice ? handleCreateInvoice : viewInvoice ? handleViewInvoice : null}
             ></div>
-            <div className='flex items-center justify-between lg:p-10 py-8 px-4'>
+            <div className='flex items-start justify-between lg:p-10 py-8 px-4'>
                 <div>
                     <p className='text-[28px] text-[#1D1C1F] font-semibold'>Invoices</p>
-                    <p className='text-[14px] font-normal text-[#525154]'>View and manage your created and sent invoices here.</p>
+                    <p className='text-[16px] font-normal text-[#525154]'>View and manage your created and sent invoices here.</p>
                 </div>
                 <div className='flex md:items-center items-start gap-9'>
                     <img className='md:block hidden' src={Search} alt="" />
@@ -32,7 +32,7 @@ const CreateInvoice = () => {
             {invoiceAdded ? (
                 <CreatedInvoices />
             ) : (
-                <div className='flex flex-col items-center gap-9 mt-[10px] bg-[#F9F7FC] lg:m-10 mx-4 px-2 py-16 rounded-md border-2 border-black/50 border-dashed'>
+                <div className='flex flex-col items-center gap-9 bg-[#F9F7FC] lg:mx-10 mx-4 px-2 py-16 rounded-md border-2 border-black/50 border-dashed'>
                     <div>
                         <p className='text-center font-medium text-[20px]'>Create your first quote!</p>
                         <p className='text-center font-normal mt-1 text-[#525154]'>Create and share your invoices to start earning today!</p>

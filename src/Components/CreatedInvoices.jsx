@@ -76,7 +76,7 @@ const CreatedInvoices = () => {
     ]
 
     return (
-        <div className='lg:p-10 py-8 px-4'>
+        <div className='lg:p-10 lg:py-5 py-5 px-4'>
             <p className='flex items-center gap-4'><img src={Search} alt="" />Search invoices by number, items, clients or amount</p>
             <div className='sm:grid md:grid-cols-5 sm:grid-cols-4 flex justify-between gap-5 border-t-[1.5px] border-b-[1.5px] px-2 text-[#78757A] border-black/10 mt-3 py-[14px] text-[14px] font-medium text-left'>
                 <div className='flex gap-5 items-center min-w-0'>

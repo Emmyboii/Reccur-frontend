@@ -265,7 +265,7 @@ const Transactions = () => {
                         <p className='text-[28px] font-semibold'>Transactions</p>
                         <p className='text-[16px] font-normal text-[#525154]'>Track and manage all your payments, transfers, and conversions in one place.</p>
                     </div>
-                    <div className='flex md:items-center items-start gap-4'>
+                    <div className='flex md:items-center items-start gap-9'>
                         <img className='md:block hidden' src={Search} alt="" />
                         <img className='md:block hidden' src={Bell} alt="" />
                         <img className='sp:w-8 w-[60px]' src={Add} alt="" />

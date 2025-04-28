@@ -43,7 +43,7 @@ const CreateInvoiceBar = () => {
     };
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${createInvoice ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${createInvoice ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
                     <h1 className='text-[20px] font-medium'>Create invoice</h1>
@@ -81,7 +81,7 @@ const CreateInvoiceBar = () => {
                 </div>
                 <div className='mt-5'>
                     <label className='text-[#525154] text-[14px]' htmlFor="fullName">Due date</label>
-                    <div className='flex items-center'>
+                    <div className='flex items-center relative'>
                         <input
                             className='border-[1.5px] border-[#D2D0D6] mt-[6px] outline-none py-[10px] w-full pl-[42px] rounded-md'
                             type="text"
@@ -89,7 +89,7 @@ const CreateInvoiceBar = () => {
                             id=""
                             placeholder='Select date'
                         />
-                        <img className='xl:ml-[-400px] 2xl:ml-[-99%] lg:ml-[-395px] mt-1 md:ml-[-445px] sm:ml-[-340px] ml-[-96%] size-5' src={Date} alt="" />
+                        <img className='absolute ml-3 mt-1 size-5' src={Date} alt="" />
                     </div>
                 </div>
                 {addItem.map((item, index) => (
@@ -122,7 +122,7 @@ const CreateInvoiceBar = () => {
                                 </div>
                                 <div className='w-full'>
                                     <label className='text-[#525154] text-[14px]' htmlFor="itemName">{item.UnitPrice}</label>
-                                    <div className='flex items-center'>
+                                    <div className='flex items-center relative'>
                                         <input
                                             className='border-[1.5px] border-[#D2D0D6] mt-[6px] outline-none py-[10px] pl-8 w-full rounded-lg'
                                             type="number"
@@ -130,7 +130,7 @@ const CreateInvoiceBar = () => {
                                             id=""
                                             placeholder='Unit Price'
                                         />
-                                        <p className='lg:ml-[-160px] 2xl:ml-[-97%] md:ml-[-185px] sm:ml-[-130px] ml-[-93%] mt-[7px] text-[#78757A] text-[16px]'>$</p>
+                                        <p className='absolute ml-3 mt-[7px] text-[#78757A] text-[16px]'>$</p>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@ const CreateInvoiceBar = () => {
                         )}
                         <div>
                             <label className='text-[#525154] text-[14px]' htmlFor="fullName">{item.Amount}</label>
-                            <div className='flex items-center w-full'>
+                            <div className='flex items-center w-full relative'>
                                 <input
                                     className='border-[1.5px] border-[#D2D0D6] mt-[6px] outline-none py-[10px] pl-8 w-full rounded-lg'
                                     type="number"
@@ -147,7 +147,7 @@ const CreateInvoiceBar = () => {
                                     id=""
                                     placeholder='Amount'
                                 />
-                                <p className='xl:ml-[-355px] 2xl:ml-[-98.5%] lg:ml-[-350px] md:ml-[-400px] sm:ml-[-295px] ml-[-95.5%] text-[#78757A] mt-[7px] text-[16px]'>$</p>
+                                <p className='absolute ml-3 text-[#78757A] mt-[7px] text-[16px]'>$</p>
                             </div>
                         </div>
                         <div className='flex items-center gap-2'>

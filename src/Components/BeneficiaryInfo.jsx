@@ -121,7 +121,7 @@ const BeneficiaryInfo = () => {
     ]
 
     return (
-        <div className='px-8 text-black/60'>
+        <div className='md:px-10 mx-4 text-black/60'>
             <div className='flex gap-5 border-b-[1.5px]'>
                 <p
                     onClick={() => setBeneficiaryType('all')}

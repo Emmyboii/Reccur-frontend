@@ -193,7 +193,7 @@ const BeneficiaryBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
                     <h1 className='text-[28px] font-semibold'>Add beneficiary</h1>
@@ -217,15 +217,15 @@ const BeneficiaryBar = () => {
                     <div className='mt-7 text-[#525154] text-[14px] font-medium'>
                         <div className='mt-5'>
                             <label htmlFor="fullName">Full Name</label>
-                            <div className='flex items-center mt-2'>
+                            <div className='flex items-center mt-2 relative'>
                                 <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[35px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97%]' src={user} alt="" />
+                                <img className='absolute ml-2' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -255,7 +255,7 @@ const BeneficiaryBar = () => {
                         </div>
                         <div className='mt-5'>
                             <label htmlFor="fullName">Bank name</label>
-                            <div className='flex items-center mt-2'>
+                            <div className='flex items-center mt-2 relative'>
                                 <input
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[47px] rounded-md'
                                     type="text"
@@ -263,7 +263,7 @@ const BeneficiaryBar = () => {
                                     id=""
                                     placeholder='Bank name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97%]' src={Bank} alt="" />
+                                <img className='absolute ml-3' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -313,15 +313,15 @@ const BeneficiaryBar = () => {
                     <div className='mt-7'>
                         <div className='mt-5 text-black/60'>
                             <label className='text-black/60' htmlFor="fullName">Full Name</label>
-                            <div className='flex items-center mt-2'>
+                            <div className='flex items-center mt-2 relative'>
                                 <input
-                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
+                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[35px] rounded-md'
                                     type="text"
                                     name=""
                                     id=""
                                     placeholder='Beneficiary’s full name'
                                 />
-                                <img className='lg:ml-[-400px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] ml-[-97%]' src={user} alt="" />
+                                <img className='absolute ml-2' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>

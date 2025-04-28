@@ -152,7 +152,7 @@ const SendBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${sendBar ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${sendBar ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between gap-5'>
                 <div>
                     <h1 className='text-[20px] font-medium'>Send Money</h1>
@@ -189,7 +189,7 @@ const SendBar = () => {
                         </div>
                         <div className='mt-5'>
                             <label className='text-black/50' htmlFor="fullName">Full Name</label>
-                            <div className='flex items-center mt-2'>
+                            <div className='flex items-center mt-2 relative'>
                                 <input
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
@@ -197,7 +197,7 @@ const SendBar = () => {
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] sp:ml-[-97%] ml-[-93%]' src={user} alt="" />
+                                <img className='absolute ml-2' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -227,7 +227,7 @@ const SendBar = () => {
                         </div>
                         <div className='mt-5'>
                             <label className='text-black/50' htmlFor="fullName">Bank name</label>
-                            <div className='flex items-center mt-2'>
+                            <div className='flex items-center mt-2 relative'>
                                 <input
                                     className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[47px] rounded-md'
                                     type="text"
@@ -235,7 +235,7 @@ const SendBar = () => {
                                     id=""
                                     placeholder='Enter bank name'
                                 />
-                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] sp:ml-[-97%] ml-[-93%]' src={Bank} alt="" />
+                                <img className='absolute ml-2' src={Bank} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -265,9 +265,9 @@ const SendBar = () => {
                         <div className='mt-5'>
                             <label htmlFor="amount">Amount</label>
                             <div className='flex items-center gap-2'>
-                                <div className='flex items-center w-full'>
+                                <div className='flex items-center w-full relative'>
                                     <input className='border-[1.5px] border-black/20 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
-                                    <p className='xl:ml-[-340px] 2xl:ml-[-99%] lg:ml-[-340px] md:ml-[-390px] sm:ml-[-285px] sp:ml-[-97%] ml-[-93%] text-[20px] text-[#525154]'>$</p>
+                                    <p className='absolute ml-3 text-[20px] text-[#525154]'>$</p>
                                 </div>
                                 <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
                             </div>
@@ -328,7 +328,7 @@ const SendBar = () => {
                         </div>
                         <div className='mt-5'>
                             <label className='text-black/50' htmlFor="fullName">Full Name</label>
-                            <div className='flex items-center mt-2'>
+                            <div className='flex items-center mt-2 relative'>
                                 <input
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
@@ -336,7 +336,7 @@ const SendBar = () => {
                                     value={'Samantha Tino'}
                                     id=""
                                 />
-                                <img className='lg:ml-[-405px] 2xl:ml-[-99%] md:ml-[-450px] sm:ml-[-340px] sp:ml-[-97%] ml-[-93%]' src={user} alt="" />
+                                <img className='absolute ml-2' src={user} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -379,10 +379,10 @@ const SendBar = () => {
                         </div>
                         <div className='mt-5'>
                             <label className='text-black/50' htmlFor="amount">Amount</label>
-                            <div className='flex items-center w-full'>
+                            <div className='flex items-center w-full relative'>
                                 <input className='border-[1.5px] border-black/20 py-[10px] pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id="" />
                                 <AiTwotoneQuestionCircle className='ml-[-30px]' />
-                                <p className='lg:ml-[-390px] 2xl:ml-[-97%] sp:ml-[-97%] ml-[-93%] md:ml-[-435px] sm:ml-[-326px] text-[20px] text-[#525154]'>$</p>
+                                <p className='absolute ml-3 text-[20px] text-[#525154]'>$</p>
                             </div>
                         </div>
                         <div className='flex gap-2 mt-12'>

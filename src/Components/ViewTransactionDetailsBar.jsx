@@ -22,7 +22,7 @@ const ViewTransactionDetailsBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 transition-all text-black z-30 overflow-auto ${viewTransactionDetails || overViewTransactionDetails ? 'sm:w-[400px] md:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 transition-all text-black z-30 overflow-auto ${viewTransactionDetails || overViewTransactionDetails ? 'sm:w-[40%] w-full right-0' : 'right-[-100%]'}`}>
             <div className='flex gap-2 justify-between'>
                 <div>
                     <p className='text-[24px] font-medium text-[#1D1C1F]'>Transaction details</p>
@@ -81,7 +81,7 @@ const ViewTransactionDetailsBar = () => {
             <div className='mt-10'>
                 <div className='flex justify-between'>
                     <p className='text-[18px] text-[#1D1C1F]'>Recipient</p>
-                    <p className='text-[14px] text-[#531CB3]'>View beneficiary</p>
+                    <p className='text-[14px] text-[#531CB3] cursor-pointer'>View beneficiary</p>
                 </div>
                 <div className='mt-5'>
                     <h1 className='text-[16px] font-medium text-[#302F33]'>Samantha Tino</h1>

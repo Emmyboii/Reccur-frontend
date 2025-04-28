@@ -7,7 +7,7 @@ const ViewDetailsBar = () => {
 
     const { handleViewDetails, viewDetails, handleDeleteProfile, handleProfileEdit } = useContext(Context)
 
-    const [Transaction, setTransaction] = useState(0)
+    const [Transaction, setTransaction] = useState(1)
 
     const Payment = [
         {
@@ -43,7 +43,7 @@ const ViewDetailsBar = () => {
     ]
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 text-black z-30 overflow-auto ${viewDetails ? 'sm:w-[510px] 2xl:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 text-black z-30 overflow-auto ${viewDetails ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-2 justify-between'>
                 <div>
                     <h1 className='text-[20px] font-medium text-[#1D1C1F]'>Samantha Tino</h1>
@@ -106,7 +106,7 @@ const ViewDetailsBar = () => {
                             <div key={i} className='grid grid-cols-3 gap-5 py-3 border-b border-b-black/50 text-[#525154]'>
                                 <p>{pay.Payments}</p>
                                 <p>{pay.PaymentDate}</p>
-                                <div className='flex items-center gap-10'>
+                                <div className='flex items-center justify-between mr-5'>
                                     {pay.Amount}
                                     <p
                                         className={`font-semibold text-[18px] text-black/60 cursor-pointer`}

@@ -15,7 +15,7 @@ const ConfirmConversion = () => {
     return (
         <div onClick={closeRef} ref={ConversionModel} className={`backdrop-blur-[1px] fixed flex items-center justify-center z-50 inset-0 bg-opacity-30 bg-black/40 ${confirmConversion ? 'block' : 'hidden'}`}>
             <div className='bg-white w-[35%] rounded-xl flex flex-col justify-center p-6'>
-                <div className='flex gap-[120px]'>
+                <div className='flex justify-between'>
                     <div>
                         <p className='text-[18px] font-medium mb-2'>Confirm Conversion</p>
                         <p className='text-[#525154] font-normal text-[14px]'>Funds will be available in your NGN account immediately after the conversion.</p>
