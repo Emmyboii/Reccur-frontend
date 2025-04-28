@@ -38,7 +38,7 @@ const AddBeneficiary = () => {
                         <img className='sp:w-8 w-[30px]' src={Add} alt="" />
                     </div>
             </div>
-            <div className={beneficiaryAdded ? 'hidden' : 'flex flex-col items-center gap-9 bg-[#F9F7FC] mx-10 sm:p-[64px] py-16 rounded-md border-2 border-black/50 border-dashed'}>
+            <div className={beneficiaryAdded ? 'hidden' : 'flex flex-col items-center gap-9 bg-[#F9F7FC] lg:mx-10 mx-4 px-2 py-16 rounded-md border-2 border-black/50 border-dashed'}>
                 <div className='max-w-[500px]'>
                     <p className='text-center font-medium text-[20px]'>Manage your beneficiaries</p>
                     <p className='text-center text-[14px] font-normal text-[#525154] mt-1'>Manage your beneficiaries in one place. Save and organize their details to enable seamless payments and keep track of your transfer history with ease.</p>
