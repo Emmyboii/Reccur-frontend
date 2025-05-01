@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
 import Transactions from '../Components/Transactions'
 import { Context } from '../Context/Context'
 
@@ -21,13 +20,7 @@ const Transaction = () => {
         };
     }, [viewTransactionDetails])
 
-    return (
-        <div>
-            <Routes>
-                <Route path='/transactions' element={<Transactions />} />
-            </Routes>
-        </div>
-    )
+    return <Transactions />
 }
 
 export default Transaction

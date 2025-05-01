@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-import { Route, Routes } from 'react-router-dom'
 import CreateInvoice from '../Components/CreateInvoice'
 import { Context } from '../Context/Context'
 
@@ -22,13 +21,7 @@ const Invoice = () => {
         };
     }, [createInvoice, viewInvoice, deleteInvoice])
 
-    return (
-        <div>
-            <Routes>
-                <Route path='/invoices' element={<CreateInvoice />} />
-            </Routes>
-        </div>
-    )
+    return <CreateInvoice />
 }
 
 export default Invoice

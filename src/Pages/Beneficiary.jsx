@@ -1,6 +1,5 @@
 import React, { useContext, useEffect } from 'react'
 import AddBeneficiaries from '../Components/AddBeneficiary';
-import { Route, Routes } from 'react-router-dom';
 import { Context } from '../Context/Context';
 
 const Beneficiary = () => {
@@ -24,14 +23,7 @@ const Beneficiary = () => {
         };
     }, [viewDetails, profileEdit, deleteProfile, beneficiaryBar])
 
-    return (
-        <div>
-            <Routes>
-                <Route path='/beneficiaries' element={<AddBeneficiaries />} />
-            </Routes>
-
-        </div>
-    )
+    return <AddBeneficiaries />;
 }
 
 export default Beneficiary

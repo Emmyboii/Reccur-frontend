@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
 import { RiHome6Line } from "react-icons/ri";
 import Avatar from '../Components/Images/Avatar.png'
-import Logo from '../Components/Images/Logomark.png';
+import Logo from '../Components/Images/Logomark2.png';
 import close from '../Components/Images/close.png';
 import Beneficiary from '../Components/Images/beneficiary.png';
 import Transaction from '../Components/Images/transaction.png';
@@ -41,19 +40,19 @@ const Sidebar = () => {
             <div>
                 <div className='flex items-center justify-between'>
                     {verified ? (
-                        <Link onClick={isMdScreen ? handleSideBar : undefined} to='/home'>
+                        <a href='/home' onClick={isMdScreen ? handleSideBar : undefined}>
                             <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
                                 <img src={Logo} alt="" className='mt-2 w-7 h-7' />
                                 <p>reccur</p>
                             </h1>
-                        </Link>
+                        </a>
                     ) : (
-                        <Link onClick={isMdScreen ? handleSideBar : undefined} to='/'>
+                        <a href='/' onClick={isMdScreen ? handleSideBar : undefined} to='/'>
                             <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
                                 <img src={Logo} alt="" className='mt-2 w-7 h-7' />
                                 <p>reccur</p>
                             </h1>
-                        </Link>
+                        </a>
                     )}
                     <img
                         onClick={handleSideBar}
@@ -65,14 +64,14 @@ const Sidebar = () => {
 
                 <div className='flex flex-col gap-2 mt-5'>
                     {verified ? (
-                        <Link onClick={isMdScreen ? handleSideBar : undefined} to='/home'>
+                        <a href='/home' onClick={isMdScreen ? handleSideBar : undefined} to='/home'>
                             <div className={location.pathname.startsWith('/home') ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                                 <RiHome6Line className='text-[24px]' />
                                 <p>Home</p>
                             </div>
-                        </Link>
+                        </a>
                     ) : (
-                        <Link onClick={isMdScreen ? handleSideBar : undefined} to='/'>
+                        <a href='/' onClick={isMdScreen ? handleSideBar : undefined} to='/'>
                             <div className={location.pathname.startsWith('/') &&
                                 location.pathname !== '/beneficiaries' &&
                                 location.pathname !== '/beneficiaries' &&
@@ -87,49 +86,45 @@ const Sidebar = () => {
                                 <RiHome6Line className='text-[24px]' />
                                 <p>Home</p>
                             </div>
-                        </Link>
+                        </a>
                     )}
 
-                    <Link onClick={isMdScreen ? handleSideBar : undefined} to='/beneficiaries'>
+                    <a href='/beneficiaries' onClick={isMdScreen ? handleSideBar : undefined}>
                         <div className={location.pathname === '/beneficiaries' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Beneficiary} alt="" />
                             <p>Beneficiaries</p>
                         </div>
-                    </Link>
-                    <Link onClick={isMdScreen ? handleSideBar : undefined} to='/invoices'>
+                    </a>
+                    <a href='/invoices' onClick={isMdScreen ? handleSideBar : undefined}>
                         <div className={location.pathname === '/invoices' ? 'bg-[#4e22a0] flex items-center gap-3 cursor-pointer rounded-md p-2' : 'flex items-center gap-3 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Invoice} alt="" />
                             <p>Invoices</p>
                         </div>
-                    </Link>
-                    <Link onClick={isMdScreen ? handleSideBar : undefined} to='/transactions'>
+                    </a>
+                    <a href='/transactions' onClick={isMdScreen ? handleSideBar : undefined}>
                         <div className={location.pathname === '/transactions' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Transaction} alt="" />
                             <p>Transactions</p>
                         </div>
-                    </Link>
-                    <Link onClick={isMdScreen ? handleSideBar : undefined} to='/settings'>
+                    </a>
+                    <a href='/settings' onClick={isMdScreen ? handleSideBar : undefined}>
                         <div className={location.pathname === '/settings' ? 'bg-[#4e22a0] flex items-center gap-3 cursor-pointer rounded-md p-2' : 'flex items-center gap-3 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                             <img src={Settings} alt="" />
                             <p>Settings</p>
                         </div>
-                    </Link>
+                    </a>
                 </div>
             </div>
             <div className='flex items-center justify-between'>
-                <Link
-                    onClick={() => setTransactionType('account')}
-                    to='/settings'>
+                <a href='/settings' onClick={() => setTransactionType('account')}>
                     <div onClick={isMdScreen ? handleSideBar : undefined} className='flex items-center cursor-pointer gap-2'>
                         <img src={Avatar} alt='' />
                         <p>Cooper Bator</p>
                     </div>
-                </Link>
-                <Link
-                    onClick={() => setTransactionType('account')}
-                    to='/settings'>
+                </a>
+                <a href='/settings' onClick={() => setTransactionType('account')}>
                     <BsThreeDots onClick={isMdScreen ? handleSideBar : undefined} className='text-[20px] cursor-pointer' />
-                </Link>
+                </a>
             </div>
         </div>
     )

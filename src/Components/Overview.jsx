@@ -403,11 +403,11 @@ const Overview = () => {
                         <p className='text-[18px] font-medium'>Transactions</p>
                         <p className='text-[14px] font-normal text-[#525154]'>Track and manage all your payments, transfers, and conversions in one place.</p>
                     </div>
-                    <Link to='/transactions'>
+                    <a href='/transactions'>
                         <span className='mt-4 bg-white px-4 py-[10px] border border-black/50 rounded-lg'>
                             All Transactions
                         </span>
-                    </Link>
+                    </a>
 
                 </div>
                 <div className='mt-[30px]'>

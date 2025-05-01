@@ -31,8 +31,8 @@ const Home = () => {
     return (
         <div>
             <Routes>
-                <Route path='/home' element={<CreateAcct />} />
-                <Route path='/home/overview' element={<Overview />} />
+                <Route path='/' element={<CreateAcct />} />
+                <Route path='overview' element={<Overview />} />
             </Routes>
             <ConfirmConversion />
         </div>

@@ -1,9 +1,8 @@
 import React, { useContext } from 'react'
 import menu from '../Components/Images/nav_menu.png';
-import Logo from '../Components/Images/Logomark.png';
+import Logo from '../Components/Images/Logomark2.png';
 import Search from '../Components/Images/search2.png'
 import Bell from '../Components/Images/notification2.png'
-import { Link } from 'react-router-dom';
 import { Context } from '../Context/Context';
 
 const NavBar = () => {
@@ -22,13 +21,13 @@ const NavBar = () => {
                     alt=""
                 />
                 {verified ? (
-                    <Link to='/home'>
+                    <a href='/home'>
                         <img src={Logo} alt="" className='w-7 h-7' />
-                    </Link>
+                    </a>
                 ) : (
-                    <Link to='/'>
+                    <a href='/'>
                         <img src={Logo} alt="" className='w-7 h-7' />
-                    </Link>
+                    </a>
                 )}
             </div>
             <div className='flex items-center gap-8'>
