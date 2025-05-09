@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import Select from 'react-select';
+import currencyCountryMap from './CurrencyCountryMap ';
 import { useNavigate } from 'react-router-dom';
-import { BsCurrencyDollar } from 'react-icons/bs'
 import close from '../Components/Images/x-close.png';
 import { Context } from '../Context/Context';
 
@@ -9,6 +9,61 @@ const CreateAcctBar = () => {
     const navigate = useNavigate();
 
     const { acctBar, handleAcctBar, setChecked } = useContext(Context)
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [formData, setFormData] = useState({
+        currency: ''
+    })
+
+    const createAccount = async (e) => {
+        e.preventDefault()
+
+        setIsSubmitting(true);
+
+        try {
+            const token = localStorage.getItem('token')
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/account`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'failed');
+            } else {
+                console.log('currencyAdded:', data);
+            }
+
+        } catch (error) {
+            console.error('Error during currency addition:', error.message);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
+
+    const currencyOptions = Object.keys(currencyCountryMap).map(code => {
+        const countryCode = currencyCountryMap[code];
+        return {
+            value: code,
+            label: (
+                <div className="flex items-center gap-2">
+                    <img
+                        src={`https://flagcdn.com/w40/${countryCode}.png`}
+                        alt={code}
+                        className="w-[20px] h-4 rounded-sm"
+                    />
+                    {code}
+                </div>
+            )
+        };
+    });
+
 
     const customStyles = {
         indicatorSeparator: () => ({
@@ -38,47 +93,18 @@ const CreateAcctBar = () => {
         }),
     };
 
-    const options = [
-        {
-            value: 'placeholder',
-            label: (
-                <div className="flex items-center gap-2">
-                    <BsCurrencyDollar className='size-5' /> Choose Currency
-                </div>
-            ),
-            isDisabled: true
-        },
-        {
-            value: 'usd',
-            label: (
-                <div className="flex items-center gap-2">
-                    <img className='w-[20px] h-4 rounded-sm' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                    USD
-                </div>
-            ),
-        },
-        {
-            value: 'ngn',
-            label: (
-                <div className="flex items-center gap-2">
-                    <img className='w-[20px] h-4 rounded-sm' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                    NGN
-                </div>
-            )
-        }
-    ];
-    const [selectedCurrency, setSelectedCurrency] = useState(options[0]);
+    const [selectedCurrency, setSelectedCurrency] = useState(null);
     const [output, setOutput] = useState("");
 
     const handleChange = (selectedOption) => {
         setSelectedCurrency(selectedOption);
-        if (selectedOption.value === 'usd') {
-            setOutput("Your USD account comes with a unique account number, making it easy to share with anyone sending you payments in USD. Enjoy seamless transactions without hidden fees or unfavorable exchange rates.");
-        } else if (selectedOption.value === 'eur') {
-            setOutput("Your NGN account comes with a unique account number, making it easy to share with anyone sending you payments in USD. Enjoy seamless transactions without hidden fees or unfavorable exchange rates.");
-        } else {
-            setOutput("");
+        if (selectedOption.value) {
+            setOutput(`Your ${selectedOption.value} account comes with a unique account number, making it easy to share with anyone sending you payments in ${selectedOption.value}. Enjoy seamless transactions without hidden fees or unfavorable exchange rates.`);
         }
+        setFormData(prev => ({
+            ...prev,
+            currency: selectedOption.value
+        }))
     };
 
     return (
@@ -98,10 +124,10 @@ const CreateAcctBar = () => {
                 <div className='mt-1'>
                     <Select
                         styles={customStyles}
-                        options={options}
+                        options={currencyOptions}
                         onChange={handleChange}
                         value={selectedCurrency}
-                        isSearchable={false}
+                        isSearchable={true}
                         className='rounded-m w-full outline-none'
                     />
                     {output && <p className="mt-1 text-black/70">{output}</p>}
@@ -114,15 +140,21 @@ const CreateAcctBar = () => {
                         Cancel
                     </button>
                     <button
-                        className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
-                        onClick={() => {
+                        className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
+                        onClick={(e) => {
                             setChecked(true)
                             window.scrollTo(0, 0)
                             navigate('/home/overview')
                             handleAcctBar()
+                            createAccount(e)
                         }}
-                    >
-                        Create Account
+                        disabled={isSubmitting}
+                        >
+                            {isSubmitting ? (
+                                'Loading...'
+                            ) : (
+                                'Create Account'
+                            )}
                     </button>
                 </div>
             </div>

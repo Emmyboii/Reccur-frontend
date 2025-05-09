@@ -12,6 +12,19 @@ const DeleteProfile = () => {
         }
     }
 
+    const deleteABeneficairy = async () => {
+        const token = localStorage.getItem('token');
+        const BeneficairyID = localStorage.getItem('BeneficairyID');
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary/${BeneficairyID}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Token ${token}`,
+                "Content-Type": "application/json",
+
+            },
+        });
+    }
+
     return (
         <div onClick={closeRef} ref={DeleteModel} className={`fixed flex items-center justify-center z-50 inset-0 bg-opacity-30 bg-black/40 ${deleteProfile ? 'block' : 'hidden'}`}>
             <div className='bg-white w-[360px] 2xl:w-[20%] shadow-lg rounded-xl flex flex-col justify-center mx-3 py-5 px-7'>
@@ -36,6 +49,7 @@ const DeleteProfile = () => {
                         className='p-3 rounded-lg font-medium bg-[#FEEDED] text-[#EF4444] text-[14px] w-[30%]'
                         onClick={() => {
                             handleDeleteProfile()
+                            deleteABeneficairy()
                         }}
                     >
                         Delete

@@ -20,6 +20,7 @@ const PasswordSettings = (props) => {
                     type="text"
                     name=""
                     id=""
+required
                     className='rounded-lg py-[10px] sm:w-[70%] px-[14px] border border-[#D2D0D6]'
                     placeholder='Your current password'
                 />
@@ -32,6 +33,7 @@ const PasswordSettings = (props) => {
                     type="text"
                     name=""
                     id=""
+required
                     className='rounded-lg py-[10px] sm:w-[70%] px-[14px] border border-[#D2D0D6]'
                     placeholder='Your new password'
                 />

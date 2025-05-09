@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import Logo from '../Components/Images/Logomark2.png';
 import arrow from '../Components/Images/arrowRight.png';
 import google from '../Components/Images/Google.png';
@@ -12,6 +13,8 @@ const SignUp = () => {
         email: '',
         password: '',
     })
+
+    const navigate = useNavigate()
 
     const [showPassword, setShowPassword] = useState(false)
     const [validationError, setValidationError] = useState({})
@@ -57,9 +60,8 @@ const SignUp = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`${process.env.BACKEND_URL}/signup`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/signup`, {
                 method: 'POST',
-                credentials: "include",
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
@@ -70,18 +72,18 @@ const SignUp = () => {
             const data = await response.json();
 
             if (!response.ok) {
-                setStatus({ message: data.error, type: 'error' })
                 setShowModal(true)
                 throw new Error(data.message || 'Signup failed');
             } else {
+                console.log('Signup successful:', data);
                 setStatus({ message: data.message, type: 'success' })
                 setShowModal(true)
-                console.log('Signup successful:', data);
-                window.location.replace('/login')
+                navigate('/login')
             }
 
         } catch (error) {
             console.error('Error during signup:', error.message);
+            setStatus({ message: error.message, type: 'error' })
         } finally {
             setIsSubmitting(false);
         }
@@ -115,7 +117,7 @@ const SignUp = () => {
                 <form onSubmit={SignUp} className='flex flex-col gap-6 text-[14px] font-medium text-[#525154]' action="">
                     {showModal && (
                         <div className={status.type === 'error' ? 'bg-red-500 text-white p-2 rounded-md flex items-center justify-between' : 'bg-green-500 text-white p-2 rounded-md flex items-center justify-between'}>
-                            <p className='text-[17px] font-bold'>
+                            <p className='text-[16px] font-bold'>
                                 {status.message}
                             </p>
                             <IoMdWarning className='text-[25px]' />
@@ -129,7 +131,6 @@ const SignUp = () => {
                             name="first_name"
                             value={formData.first_name}
                             onChange={handleChange}
-                            id=""
                             placeholder='Enter your first name'
                             required
                         />
@@ -142,7 +143,6 @@ const SignUp = () => {
                             name="last_name"
                             value={formData.last_name}
                             onChange={handleChange}
-                            id=""
                             placeholder='Enter your last name'
                             required
                         />
@@ -155,7 +155,6 @@ const SignUp = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            id=""
                             placeholder='Enter your email'
                             required
                         />

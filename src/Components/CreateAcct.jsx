@@ -36,9 +36,9 @@ const CreateAcct = () => {
                     <p className='text-[16px] font-normal text-[#525154]'>Welcome back, Cooper!</p>
                 </div>
                 <div className='flex md:items-center items-start gap-9'>
-                    <img className='md:block hidden' src={Search} alt="" />
-                    <img className='md:block hidden' src={Bell} alt="" />
-                    <img className='sp:w-8 w-[30px]' src={Add} alt="" />
+                    <img className='lg:block hidden cursor-pointer' src={Search} alt="" />
+                    <img className='lg:block hidden cursor-pointer' src={Bell} alt="" />
+                    <img className='sp:w-8 w-[30px] cursor-pointer' src={Add} alt="" />
                 </div>
             </div>
             <div className='flex flex-col items-center gap-9 bg-[#fbf9fd] lg:mx-10 mx-4 py-16 px-2 rounded-md border-2 border-black/50 border-dashed'>

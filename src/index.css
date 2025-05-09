@@ -38,6 +38,18 @@ input::-webkit-inner-spin-button {
   background: none;
 }
 
+/* Chrome, Safari, Edge */
+.custom-date-input::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+/* Firefox */
+.custom-date-input[type="date"]::-moz-calendar-picker-indicator {
+  display: none;
+}
+
+
 .loading-overlay {
   position: fixed;
   top: 0;

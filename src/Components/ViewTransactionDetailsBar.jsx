@@ -84,7 +84,7 @@ const ViewTransactionDetailsBar = () => {
                     <p className='text-[14px] text-[#531CB3] cursor-pointer'>View beneficiary</p>
                 </div>
                 <div className='mt-5'>
-                    <h1 className='text-[16px] font-medium text-[#302F33]'>Samantha Tino</h1>
+                    <h1 className='text-[16px] font-medium text-[#302F33]'>{selectedTransactionDetails.Sender}{selectedTransactionDetails.Recipient}</h1>
                     <p className='text-[#525154] text-[14px]'><span className='text-[#531CB3]'>sam@tino.com •</span> Biffco Enterprises Ltd.</p>
                 </div>
             </div>
@@ -95,26 +95,32 @@ const ViewTransactionDetailsBar = () => {
                         <div className={selectedTransactionDetails.Currency1 ? 'hidden' : 'flex justify-between my-3'}>
                             <p className='text-[#302F33] font-normal text-[16px]'>Account credited</p>
                             <div className='flex items-center gap-2'>
-                                <img className='w-[26px] h-[18px] rounded-[2px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                                <p className='text-[16px] text-[#1D1C1F]'>USD</p>
+                                {selectedTransactionDetails.Currency}
                             </div>
                         </div>
                         <div className={!selectedTransactionDetails.Currency1 ? 'hidden' : 'flex justify-between my-3'}>
                             <p className='text-[#302F33] font-normal text-[16px]'>Account credited</p>
                             <div className='flex items-center gap-2'>
-                                <img className='w-[26px] h-[18px] rounded-[2px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                                <p className='text-[16px] text-[#1D1C1F]'>USD</p>
+                                <img
+                                    src={selectedTransactionDetails.Currency2?.flag}
+                                    className='w-[26px] h-[18px] rounded-[2px] mt-[6px]'
+                                    alt={selectedTransactionDetails.Currency2?.code}
+                                />
+                                <p>{selectedTransactionDetails.Currency2?.code}</p>
                             </div>
                         </div>
                         <div className={!selectedTransactionDetails.Currency1 ? 'hidden' : 'flex justify-between my-3'}>
-                            <p className='text-[#302F33] font-normal text-[16px]'>Account credited</p>
+                            <p className='text-[#302F33] font-normal text-[16px]'>Account debited</p>
                             <div className='flex items-center gap-2'>
-                                <img className='w-[26px] h-[18px] rounded-[2px]' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                                <p className='text-[16px] text-[#1D1C1F]'>NGN</p>
+                                <img
+                                    src={selectedTransactionDetails.Currency1?.flag}
+                                    className='w-[26px] h-[18px] rounded-[2px] mt-[6px]'
+                                    alt={selectedTransactionDetails.Currency1?.code}
+                                />
+                                <p>{selectedTransactionDetails.Currency1?.code}</p>
                             </div>
                         </div>
                     </div>
-
                 )}
             </div>
             <div className='mt-7'>

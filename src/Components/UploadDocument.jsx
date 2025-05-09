@@ -1,26 +1,82 @@
 import React, { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FaRegImage } from "react-icons/fa6";
 
 const UploadDocument = () => {
-  const navigate = useNavigate();
   const location = useLocation()
 
   const [frontDoc, setFrontDoc] = useState(null)
   const [backDoc, setBackDoc] = useState(null)
   const [verified, setVerified] = useState(false)
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    id_type: '',
+    front_national_id: null,
+    back_national_id: null
+  })
+
+  const handleChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }))
+  }
+
   const handleFrontDocChange = (e) => {
     const selected = e.target.files[0]
     if (selected) {
+      const previewURL = URL.createObjectURL(selected); // Create a temporary URL for the image
       setFrontDoc(selected)
+      setFormData(prev => ({
+        ...prev,
+        front_national_id: previewURL
+      }));
     }
   }
 
   const handleBackDocChange = (e) => {
     const selected = e.target.files[0]
     if (selected) {
+      const previewURL = URL.createObjectURL(selected); // Create a temporary URL for the image
       setBackDoc(selected)
+      setFormData(prev => ({
+        ...prev,
+        back_national_id: previewURL
+      }));
+    }
+  }
+
+  const VerifyDocument = async (e) => {
+    e.preventDefault()
+
+    setIsSubmitting(true);
+
+    try {
+      const token = localStorage.getItem('token')
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/create-kyc`, {
+        method: 'POST',
+        
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Token ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'KYC failed');
+      } else {
+        console.log('KYCAdded:', data);
+      }
+
+    } catch (error) {
+      console.error('Error during KYC:', error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -42,14 +98,18 @@ const UploadDocument = () => {
       <div className='mt-8 flex flex-col gap-6 text-[#525154] font-medium text-[14px]'>
         <div>
           <label htmlFor="code">Select Document</label>
-          <select className='border-[1.5px] mt-1 border-black/20 rounded-lg w-full py-[10px] px-[14px] outline-none'>
-            <option value="nigeria">Passport</option>
-            <option value="nigeria">Lekki</option>
-            <option value="nigeria">Lekki</option>
-            <option value="nigeria">Lekki</option>
-            <option value="nigeria">Lekki</option>
-            <option value="nigeria">Lekki</option>
+          <select
+            name="id_type"
+            value={formData.id_type}
+            onChange={handleChange}
+            className="border-[1.5px] mt-1 border-black/20 rounded-lg w-full py-[10px] px-[14px] outline-none"
+          >
+            <option value="">Select ID Type</option>
+            <option value="passport">Passport</option>
+            <option value="nin">NIN</option>
+            <option value="driver_license">Driver's License</option>
           </select>
+
         </div>
         <div className='flex gap-4 mt-4'>
           <div className='w-full'>
@@ -104,22 +164,27 @@ const UploadDocument = () => {
         <button
           className='p-3 rounded-lg w-[25%] text-[#525154] border-[1.5px] border-black/10'
           onClick={() => {
-            navigate(-1)
+            window.location.replace('/dashboard/verifyidentity')
             window.scrollTo(0, 0)
           }}
         >
           Previous
         </button>
         <button
-          className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
-          onClick={() => {
-            navigate('/home')
+          className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
+          onClick={(e) => {
+            VerifyDocument(e)
+            window.location.replace('/home')
             setVerified(!verified)
-            localStorage.setItem('detailsVerified', JSON.stringify(!verified))
-            window.scrollTo(0, 0)
+            localStorage.setItem('userCreated', JSON.stringify(!verified))
           }}
+          disabled={isSubmitting}
         >
-          Submit application
+          {isSubmitting ? (
+            'Loading...'
+          ) : (
+            'Submit Application'
+          )}
         </button>
       </div>
     </div>

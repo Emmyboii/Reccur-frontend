@@ -69,9 +69,8 @@ const UpdatePassword = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`${process.env.BACKEND_URL}/updatepassword`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/updatepassword`, {
                 method: 'POST',
-                credentials: "include",
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json'

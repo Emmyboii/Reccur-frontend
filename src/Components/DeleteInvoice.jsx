@@ -12,6 +12,19 @@ const DeleteInvoice = () => {
         }
     }
 
+    const deleteAnInvoice = async () => {
+        const token = localStorage.getItem('token');
+        const invoiceID = localStorage.getItem('invoiceID');
+        await fetch(`${process.env.REACT_APP_BACKEND_URL}/invoice/${invoiceID}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Token ${token}`,
+                "Content-Type": "application/json",
+
+            },
+        });
+    }
+
     return (
         <div onClick={closeRef} ref={DeleteModel} className={`fixed flex items-center justify-center z-50 inset-0 bg-opacity-30 bg-black/40 ${deleteInvoice ? 'block' : 'hidden'}`}>
             <div className='bg-white w-[360px] 2xl:w-[20%] lg:ml-[200px] mx-3 shadow-lg rounded-xl flex flex-col justify-center py-5 px-7'>
@@ -36,6 +49,7 @@ const DeleteInvoice = () => {
                         className='p-3 rounded-lg font-medium bg-[#FEEDED] text-[#EF4444] text-[14px] w-[30%]'
                         onClick={() => {
                             handleDeleteInvoice()
+                            deleteAnInvoice()
                         }}
                     >
                         Delete

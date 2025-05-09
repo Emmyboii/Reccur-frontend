@@ -111,7 +111,8 @@ const ConvertCurrency = () => {
                     <label htmlFor="amount">Amount</label>
                     <div className='flex items-center gap-2'>
                         <div className='flex items-center w-full relative'>
-                            <input className='border-[1.5px] border-black/30 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
+                            <input className='border-[1.5px] border-black/30 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id=""
+required />
                             <p className='text-[20px] text-[#525154] absolute ml-3'>$</p>
                         </div>
                         <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>

@@ -38,9 +38,8 @@ const ForgotPassword = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`${process.env.BACKEND_URL}/forgotpassword`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/forgotpassword`, {
                 method: 'POST',
-                credentials: "include",
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json'

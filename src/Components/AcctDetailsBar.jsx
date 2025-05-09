@@ -120,10 +120,10 @@ const AcctDetailsBar = () => {
                     <p className='text-[18px] font-medium'>Bank Account Details</p>
                     <p
                         onClick={handleCopy}
-                        className='flex items-center gap-2 text-[#542d9d] font-semibold cursor-pointer'
+                        className='flex items-center gap-2 text-[#542d9d] text-[14px] font-semibold cursor-pointer'
                     >
                         {copied ? 'Copied!' : 'Copy details'}
-                        <img src={copy} alt="" />
+                        <img className='size-4' src={copy} alt="" />
                     </p>
                 </div>
                 <div>

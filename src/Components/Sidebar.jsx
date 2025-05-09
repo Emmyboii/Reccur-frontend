@@ -14,7 +14,7 @@ import { Context } from '../Context/Context';
 const Sidebar = () => {
     const location = useLocation()
 
-    const verified = JSON.parse(localStorage.getItem('detailsVerified'))
+    const verified = JSON.parse(localStorage.getItem('userCreated'))
 
     const { handleSideBar, sideBar, setSideBar, setTransactionType } = useContext(Context)
 
@@ -47,7 +47,7 @@ const Sidebar = () => {
                             </h1>
                         </a>
                     ) : (
-                        <a href='/' onClick={isMdScreen ? handleSideBar : undefined} to='/'>
+                        <a href='/dashboard' onClick={isMdScreen ? handleSideBar : undefined}>
                             <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
                                 <img src={Logo} alt="" className='mt-2 w-7 h-7' />
                                 <p>reccur</p>
@@ -64,14 +64,14 @@ const Sidebar = () => {
 
                 <div className='flex flex-col gap-2 mt-5'>
                     {verified ? (
-                        <a href='/home' onClick={isMdScreen ? handleSideBar : undefined} to='/home'>
+                        <a href='/home' onClick={isMdScreen ? handleSideBar : undefined}>
                             <div className={location.pathname.startsWith('/home') ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
                                 <RiHome6Line className='text-[24px]' />
                                 <p>Home</p>
                             </div>
                         </a>
                     ) : (
-                        <a href='/' onClick={isMdScreen ? handleSideBar : undefined} to='/'>
+                        <a href='/dashboard' onClick={isMdScreen ? handleSideBar : undefined}>
                             <div className={location.pathname.startsWith('/') &&
                                 location.pathname !== '/beneficiaries' &&
                                 location.pathname !== '/beneficiaries' &&

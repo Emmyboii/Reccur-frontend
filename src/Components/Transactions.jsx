@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Search from '../Components/Images/search.png'
 import Bell from '../Components/Images/bell.png'
 import Add from '../Components/Images/AddBtn.png'
@@ -12,8 +12,34 @@ import ViewTransactionDetailsBar from './ViewTransactionDetailsBar';
 const Transactions = () => {
 
     const [TransactionType, setTransactionType] = useState('all')
-
     const { setSelectedTransactionDetails, handleViewTransactionDetails, viewTransactionDetails } = useContext(Context)
+    const [searchQuery, setSearchQuery] = useState('');
+    const [transaction, setTransaction] = useState([])
+
+    const handleTransactionClick = (id) => {
+        localStorage.setItem('invoiceID', id);
+    };
+
+    const handleSearch = (query) => {
+        setSearchQuery(query);  // Update the search query state
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchInvoices = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/activity`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setTransaction(data);
+        };
+
+        fetchInvoices();
+    }, []);
 
     const customStyles = {
         indicatorSeparator: () => ({
@@ -47,6 +73,18 @@ const Transactions = () => {
             label: (
                 <p className='text-[14px]'>This week</p>
             )
+        },
+        {
+            value: '',
+            label: (
+                <p className='text-[14px]'>Last week</p>
+            )
+        },
+        {
+            value: '',
+            label: (
+                <p className='text-[14px]'>Last Month</p>
+            )
         }
     ]
     const option2 = [
@@ -55,6 +93,18 @@ const Transactions = () => {
             label: (
                 <p className='text-[14px]'>This week</p>
             )
+        },
+        {
+            value: '',
+            label: (
+                <p className='text-[14px]'>Last week</p>
+            )
+        },
+        {
+            value: '',
+            label: (
+                <p className='text-[14px]'>Last Month</p>
+            )
         }
     ]
     const option3 = [
@@ -62,6 +112,18 @@ const Transactions = () => {
             value: '',
             label: (
                 <p className='text-[14px]'>This week</p>
+            )
+        },
+        {
+            value: '',
+            label: (
+                <p className='text-[14px]'>Last week</p>
+            )
+        },
+        {
+            value: '',
+            label: (
+                <p className='text-[14px]'>Last Month</p>
             )
         }
     ]
@@ -103,16 +165,14 @@ const Transactions = () => {
             Type: 'Converted',
             ConvertedFrom: '#40,000',
             ConvertedTo: '$29',
-            Currency1: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                </div>
-            ),
-            Currency2: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                </div>
-            ),
+            Currency1: {
+                code: 'NGN',
+                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
+            },
+            Currency2: {
+                code: 'USD',
+                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
+            },
             Sender: 'Samantha',
             Recipient: 'Tino',
             Status: 'Completed'
@@ -123,16 +183,14 @@ const Transactions = () => {
             Type: 'Converted',
             ConvertedFrom: '#40,000',
             ConvertedTo: '$29',
-            Currency1: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                </div>
-            ),
-            Currency2: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                </div>
-            ),
+            Currency1: {
+                code: 'NGN',
+                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
+            },
+            Currency2: {
+                code: 'USD',
+                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
+            },
             Sender: 'Samantha',
             Recipient: 'Tino',
             Status: 'Completed'
@@ -143,16 +201,14 @@ const Transactions = () => {
             Type: 'Converted',
             ConvertedFrom: '#40,000',
             ConvertedTo: '$29',
-            Currency1: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                </div>
-            ),
-            Currency2: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                </div>
-            ),
+            Currency1: {
+                code: 'NGN',
+                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
+            },
+            Currency2: {
+                code: 'USD',
+                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
+            },
             Sender: 'Samantha',
             Recipient: 'Tino',
             Status: 'Completed'
@@ -163,16 +219,14 @@ const Transactions = () => {
             Type: 'Converted',
             ConvertedFrom: '#40,000',
             ConvertedTo: '$29',
-            Currency1: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                </div>
-            ),
-            Currency2: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                </div>
-            ),
+            Currency1: {
+                code: 'NGN',
+                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
+            },
+            Currency2: {
+                code: 'USD',
+                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
+            },
             Sender: 'Samantha',
             Recipient: 'Tino',
             Status: 'Completed'
@@ -183,16 +237,14 @@ const Transactions = () => {
             Type: 'Converted',
             ConvertedFrom: '#40,000',
             ConvertedTo: '$29',
-            Currency1: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                </div>
-            ),
-            Currency2: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                </div>
-            ),
+            Currency1: {
+                code: 'NGN',
+                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
+            },
+            Currency2: {
+                code: 'USD',
+                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
+            },
             Sender: 'Samantha',
             Recipient: 'Tino',
             Status: 'Completed'
@@ -203,16 +255,14 @@ const Transactions = () => {
             Type: 'Converted',
             ConvertedFrom: '#40,000',
             ConvertedTo: '$29',
-            Currency1: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                </div>
-            ),
-            Currency2: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                </div>
-            ),
+            Currency1: {
+                code: 'NGN',
+                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
+            },
+            Currency2: {
+                code: 'USD',
+                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
+            },
             Sender: 'Samantha',
             Recipient: 'Tino',
             Status: 'Completed'
@@ -223,16 +273,14 @@ const Transactions = () => {
             Type: 'Converted',
             ConvertedFrom: '#40,000',
             ConvertedTo: '$29',
-            Currency1: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                </div>
-            ),
-            Currency2: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px]' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                </div>
-            ),
+            Currency1: {
+                code: 'NGN',
+                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
+            },
+            Currency2: {
+                code: 'USD',
+                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
+            },
             Sender: 'Samantha',
             Recipient: 'Tino',
             Status: 'Completed'
@@ -266,8 +314,8 @@ const Transactions = () => {
                         <p className='text-[16px] font-normal text-[#525154]'>Track and manage all your payments, transfers, and conversions in one place.</p>
                     </div>
                     <div className='flex md:items-center items-start gap-9'>
-                        <img className='md:block hidden' src={Search} alt="" />
-                        <img className='md:block hidden' src={Bell} alt="" />
+                        <img className='lg:block hidden cursor-pointer' src={Search} alt="" />
+                    <img className='lg:block hidden cursor-pointer' src={Bell} alt="" />
                         <img className='sp:w-8 w-[60px]' src={Add} alt="" />
                     </div>
                 </div>
@@ -359,7 +407,16 @@ const Transactions = () => {
                     </div>
                 </div>
                 <div className='mt-[50px]'>
-                    <p className='flex items-center gap-4 text-[#667085]'><img src={Search} alt="" /> Search transactions by invoice, date, name or email... </p>
+                    <div className='relative'>
+                     <input
+                            type="text"
+                            placeholder="Search invoices by number, items, clients or amount"
+                            value={searchQuery}
+                            onChange={(e) => handleSearch(e.target.value)}
+                            className="px-4 py-2 border-none outline-none border-gray-300 w-full placeholder:text-[#667085] ml-5 rounded-md"
+                        />
+                        <img src={Search} alt="" className='absolute top-2' />
+                    </div>
                     <div className='mt-[20px] '>
                         <div className='sp:grid md:grid-cols-8 sm:grid-cols-6 sp:grid-cols-5 flex justify-between gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-medium text-left'>
                             <div className='flex gap-2 items-center min-w-0'>
@@ -391,7 +448,12 @@ const Transactions = () => {
                             </div>
                         </div>
 
-                        {Transactions.map((transact, index) => (
+                        {Transactions.filter(transact =>
+                            (transact.Invoice?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                            (transact.Date?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                            (transact.Type?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                            (transact.Recipient?.toLowerCase() || '').includes(searchQuery.toLowerCase())
+                        ).map((transact, index) => (
                             <div key={index} className='sp:grid md:grid-cols-8 sm:grid-cols-6 sp:grid-cols-5 flex justify-between gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
                                 <div className='flex gap-2 items-center min-w-0'>
                                     <input className='mt-1 size-5 rounded-lg' type="checkbox" />
@@ -418,7 +480,19 @@ const Transactions = () => {
                                             {transact.Currency}
                                         </div>
                                     ) : (
-                                        <p className='truncate flex gap-1'>{transact.Currency1}—{transact.Currency2}</p>
+                                        <div className='truncate flex gap-1 items-center'>
+                                            <img
+                                                src={transact.Currency1.flag}
+                                                alt={transact.Currency1.code}
+                                                className='w-[15px] h-[12px] rounded-[2px] mt-[6px]'
+                                            />
+                                            <span>—</span>
+                                            <img
+                                                src={transact.Currency2.flag}
+                                                alt={transact.Currency2.code}
+                                                className='w-[15px] h-[12px] rounded-[2px] mt-[6px]'
+                                            />
+                                        </div>
                                     )}
                                 </div>
 
@@ -444,6 +518,7 @@ const Transactions = () => {
                                         onClick={() => {
                                             setSelectedTransactionDetails(transact)
                                             handleViewTransactionDetails()
+                                            handleTransactionClick(transact.id)
                                         }}
                                     >
                                         View Details

@@ -4,6 +4,8 @@ import Sidebar from "./Components/Sidebar";
 import NavBar from "./Components/NavBar";
 import { Context } from "./Context/Context";
 import LoadingScreen from "./Pages/LoadingScreen";
+import ProtectedRoutes from "./Components/ProtectedRoutes";
+import HomeRoot from "./Pages/HomeRoot";
 
 const Dashboard = React.lazy(() => import('./Pages/Dashboard'));
 const Home = React.lazy(() => import('./Pages/Home'));
@@ -20,8 +22,7 @@ function App() {
   const { handleSideBar, sideBar } = useContext(Context);
   const location = useLocation();
 
-  const shouldHideSidebar = location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/forgotpassword'||location.pathname === '/updatepassword';
-
+  const shouldHideSidebar = location.pathname === '/' || location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/forgotpassword' || location.pathname === '/updatepassword';
 
   return (
     <div className="flex w-full">
@@ -32,16 +33,20 @@ function App() {
           className={`w-full h-[200%] lg:hidden text-[#1D1C1F] z-40 absolute ${sideBar ? 'bg-black/20' : 'hidden'}`}
           onClick={handleSideBar}
         ></div>
-        <NavBar />
+        {!shouldHideSidebar && <NavBar />}
         <Suspense fallback={<LoadingScreen />}>
           <Routes>
-            <Route path="/*" element={<Dashboard />} />
-            <Route path="/home/*" element={<Home />} />
-            <Route path="/beneficiaries/*" element={<Beneficiary />} />
-            <Route path="/invoices/*" element={<Invoice />} />
-            <Route path="/transactions/*" element={<Transaction />} />
-            <Route path="/settings/*" element={<Settings />} />
-            <Route path="/signUp" element={<SignUp />} />
+            <Route path="/" element={<HomeRoot />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/dashboard/*" element={<Dashboard />} />
+              <Route path="/home/*" element={<Home />} />
+              <Route path="/beneficiaries/*" element={<Beneficiary />} />
+              <Route path="/invoices/*" element={<Invoice />} />
+              <Route path="/transactions/*" element={<Transaction />} />
+              <Route path="/settings/*" element={<Settings />} />
+            </Route>
+
+            <Route path="/signup" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
             <Route path="/updatepassword" element={<UpdatePassword />} />

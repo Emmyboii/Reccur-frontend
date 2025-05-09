@@ -1,12 +1,10 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 import ID from '../Components/Images/IDNum.png'
 import warn from '../Components/Images/warn.png'
 import person from '../Components/Images/person.png'
 import map from '../Components/Images/map.png'
 
 const GetReady = () => {
-    const navigate = useNavigate();
     return (
         <div className='flex flex-col mx-auto max-w-[560px] md:p-10 py-10 px-4'>
             <div className='pt-10'>
@@ -60,8 +58,7 @@ const GetReady = () => {
                 <button
                     className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                     onClick={() => {
-                        navigate(-1)
-                        window.scrollTo(0, 0)
+                        window.location.replace('/dashboard')
                     }}
                 >
                     Cancel
@@ -69,8 +66,7 @@ const GetReady = () => {
                 <button
                     className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
                     onClick={() => {
-                        navigate('/verifynumber')
-                        window.scrollTo(0, 0)
+                        window.location.replace('/dashboard/verifynumber')
                     }}
                 >
                     Continue

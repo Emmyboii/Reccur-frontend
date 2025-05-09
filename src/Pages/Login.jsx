@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Logo from '../Components/Images/Logomark2.png';
+import { useNavigate } from 'react-router-dom';
 import arrow from '../Components/Images/arrowRight.png';
 import google from '../Components/Images/Google.png';
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
@@ -11,7 +12,7 @@ const Login = () => {
         email: '',
         password: '',
     })
-
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
     const [validationError, setValidationError] = useState({})
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,9 +52,8 @@ const Login = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`${process.env.BACKEND_URL}/login`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
                 method: 'POST',
-                credentials: "include",
                 headers: {
                     Accept: 'application/json',
                     'Content-Type': 'application/json'
@@ -64,7 +64,6 @@ const Login = () => {
             const data = await response.json();
 
             if (!response.ok) {
-                setStatus({ message: data.error, type: 'error' })
                 setShowModal(true)
                 throw new Error(data.message || 'login failed');
             } else {
@@ -72,11 +71,12 @@ const Login = () => {
                 setStatus({ message: data.message, type: 'success' })
                 setShowModal(true)
                 console.log('Login successful:', data);
-                window.location.replace('/')
+                navigate('/dashboard')
             }
 
         } catch (error) {
             console.error('Error during login:', error.message);
+            setStatus({ message: error.message, type: 'error' })
         } finally {
             setIsSubmitting(false);
         }
@@ -108,9 +108,8 @@ const Login = () => {
                 <form onSubmit={Login} className='flex flex-col gap-6 text-[14px] font-medium text-[#525154]' action="">
                     {showModal && (
                         <div className={status.type === 'error' ? 'bg-red-500 text-white p-2 rounded-md flex items-center justify-between' : 'bg-green-500 text-white p-2 rounded-md flex items-center justify-between'}>
-                            <p className='text-[17px] font-bold'>
+                            <p className='text-[16px] font-bold'>
                                 {status.message}
-                                <a className='text-white underline ml-2' href='/signUp'>Sign Up?</a>
                             </p>
                             <IoMdWarning className='text-[25px]' />
                         </div>
@@ -122,7 +121,6 @@ const Login = () => {
                             type="email"
                             name="email"
                             onChange={handleChange}
-                            id=""
                             placeholder='Enter your email'
                             required
                         />
@@ -137,7 +135,6 @@ const Login = () => {
                                 type={showPassword ? "text" : "password"}
                                 name="password"
                                 value={formData.password}
-                                id=""
                                 placeholder='Create a password'
                                 required
                             />

@@ -1,9 +1,10 @@
 import React, { useContext, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import CreateAcct from '../Components/CreateAcct'
-import Overview from '../Components/Overview'
 import { Context } from '../Context/Context'
 import ConfirmConversion from '../Components/ConfirmConversion'
+
+const CreateAcct = React.lazy(() => import('../Components/CreateAcct'));
+const Overview = React.lazy(() => import('../Components/Overview'));
 
 const Home = () => {
 

@@ -166,6 +166,7 @@ const LiveRates = () => {
                             type="number"
                             name=""
                             id=""
+required
                             className='border-[1.5px] border-black/20 outline-none py-2 w-full sm:pl-[80px] pl-[70px] rounded-md'
                             placeholder='Amount'
                         />
@@ -184,6 +185,7 @@ const LiveRates = () => {
                             type="number"
                             name=""
                             id=""
+required
                             className='border-[1.5px] border-black/20 outline-none bg-transparent py-2 w-full sm:pl-[80px] pl-[70px] rounded-md'
                             placeholder='--'
                             disabled

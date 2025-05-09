@@ -7,7 +7,9 @@ import { Context } from '../Context/Context';
 const BeneficiaryInfo = () => {
 
     const [beneficiaryType, setBeneficiaryType] = useState('all')
+    const [beneficiaries, setBeneficiaries] = useState([])
     const [menu, setMenu] = useState(null)
+    const [searchQuery, setSearchQuery] = useState('');
 
     const { handleViewDetails, handleProfileEdit, handleDeleteProfile } = useContext(Context)
 
@@ -21,6 +23,47 @@ const BeneficiaryInfo = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
+    const handleBeneficairyClick = (id) => {
+        localStorage.setItem('BeneficairyID', id);
+    };
+
+    const fetchBeneficiary = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Token ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to fetch beneficiary');
+            }
+
+            return data;
+        } catch (error) {
+            console.error('Error fetching beneficiary:', error.message);
+            return null;
+        }
+    };
+
+    useEffect(() => {
+        const getBeneficiaries = async () => {
+            const data = await fetchBeneficiary();
+            if (data) {
+                setBeneficiaries(data);
+            }
+        };
+
+        getBeneficiaries();
+    }, []);
+
 
     const Beneficiary = [
         {
@@ -120,6 +163,34 @@ const BeneficiaryInfo = () => {
         },
     ]
 
+    const handleSearch = (query) => {
+        setSearchQuery(query);  // Update the search query state
+    };
+
+    const filteredBeneficiaries = beneficiaryType === 'all'
+        ? Beneficiary.filter(ben =>
+            ben.BeneficiaryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            ben.AccountType.toLowerCase().includes(searchQuery.toLowerCase())
+            // ben.Business.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        : Beneficiary.filter(ben => {
+            if (beneficiaryType === 'BT') {
+                return ben.AccountType === 'Bank Transfer' && (
+                    ben.BeneficiaryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    ben.Email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    ben.Business.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            } else if (beneficiaryType === 'cry') {
+                return ['USDT', 'SOL', 'BTC', 'USDC', 'BNB', 'ETH'].includes(ben.AccountType) && (
+                    ben.BeneficiaryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    ben.Email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    ben.Business.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            }
+            return true;
+        });
+
+
     return (
         <div className='md:px-10 mx-4 text-black/60'>
             <div className='flex gap-5 border-b-[1.5px]'>
@@ -143,7 +214,16 @@ const BeneficiaryInfo = () => {
                 </p>
             </div>
             <div className='py-10'>
-                <p className='flex items-center gap-4 text-[14px] text-[#78757A] font-normal'><img src={Search} alt="" />Search for beneficiary, by name, email or business</p>
+                <div className='relative'>
+                    <input
+                        type="text"
+                        placeholder="Search for beneficiary, by name, email or business"
+                        value={searchQuery}
+                        onChange={(e) => handleSearch(e.target.value)}
+                        className="px-4 py-2 border-none outline-none border-gray-300 w-full placeholder:text-[14px] placeholder:text-[#78757A] ml-5 rounded-md"
+                    />
+                    <img src={Search} alt="" className='absolute top-2' />
+                </div>
                 <div className='sm:grid md:grid-cols-5 sm:grid-cols-4 flex justify-between gap-5 border-t-[1.5px] border-b-[1.5px] px-2 text-[#78757A] border-black/10 mt-3 py-4 text-[14px] font-medium text-left'>
                     <div className='flex items-center min-w-0'>
                         <input className='mt-1 mr-5 size-4' type="checkbox" />
@@ -168,7 +248,7 @@ const BeneficiaryInfo = () => {
                         </div>
                     </div>
                 </div>
-                {Beneficiary.map((Ben, i) => {
+                {filteredBeneficiaries.map((Ben, i) => {
                     return <div
                         key={i}
                         onClick={isSmScreen ? () => handleViewDetails(i) : undefined}
@@ -184,7 +264,7 @@ const BeneficiaryInfo = () => {
                         </div>
                         <div className='min-w-0 sm:block hidden'>
                             {Ben.Country !== '' ? (
-                                <p className='truncate'>{Ben.Country}</p>
+                                <div className='truncate'>{Ben.Country}</div>
                             ) : (
                                 <p>—</p>
                             )}
@@ -213,6 +293,7 @@ const BeneficiaryInfo = () => {
                                     <p
                                         onClick={() => {
                                             handleViewDetails()
+                                            handleBeneficairyClick(Ben.id)
                                             setMenu(menu === i ? null : i)
                                         }}
                                         className='cursor-pointer hover:bg-[#F9F7FC] px-4 py-1'
@@ -222,6 +303,7 @@ const BeneficiaryInfo = () => {
                                     <p
                                         onClick={() => {
                                             handleProfileEdit()
+                                            handleBeneficairyClick(Ben.id)
                                             setMenu(menu === i ? null : i)
                                         }}
                                         className='cursor-pointer hover:bg-[#F9F7FC] px-4 py-1'
@@ -231,6 +313,7 @@ const BeneficiaryInfo = () => {
                                     <p
                                         onClick={() => {
                                             handleDeleteProfile()
+                                            handleBeneficairyClick(Ben.id)
                                             setMenu(menu === i ? null : i)
                                         }}
                                         className='cursor-pointer hover:bg-[#F9F7FC] px-4 py-1'
@@ -242,7 +325,7 @@ const BeneficiaryInfo = () => {
                         </div>
                     </div>
                 })}
-                <p className='text-[#78757A] mt-4'>1 Beneficiary</p>
+                <p className='text-[#78757A] mt-4'>{filteredBeneficiaries.length} Beneficiary{filteredBeneficiaries.length > 1 ? 's' : ''}</p>
             </div>
         </div>
     )

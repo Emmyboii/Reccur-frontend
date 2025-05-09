@@ -91,6 +91,7 @@ const InvoiceSettings = (props) => {
                         className="rounded-lg py-[10px] sm:w-[70%] outline-none px-[14px] border border-[#D2D0D6] appearance-none bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2212%22%20height%3D%227%22%20viewBox%3D%220%200%2012%207%22%20fill%3D%22none%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M1%201L6%206L11%201%22%20stroke%3D%22%23666%22%20stroke-width%3D%222%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_14px_center]"
                         name=""
                         id=""
+required
                     >
                         <option value="">3 days</option>
                         <option value="">5 days</option>

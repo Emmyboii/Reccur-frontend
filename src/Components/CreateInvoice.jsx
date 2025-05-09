@@ -15,7 +15,7 @@ const CreateInvoice = () => {
     return (
         <div>
             <div
-                className={`w-full h-[200%] absolute ${createInvoice || viewInvoice ? 'bg-black/20' : 'hidden'}`}
+                className={`w-full h-[200%] z-30 absolute ${createInvoice || viewInvoice ? 'bg-black/20' : 'hidden'}`}
                 onClick={createInvoice ? handleCreateInvoice : viewInvoice ? handleViewInvoice : null}
             ></div>
             <div className='flex items-start justify-between lg:p-10 py-8 px-4'>
@@ -24,9 +24,9 @@ const CreateInvoice = () => {
                     <p className='text-[16px] font-normal text-[#525154]'>View and manage your created and sent invoices here.</p>
                 </div>
                 <div className='flex md:items-center items-start gap-9'>
-                    <img className='md:block hidden' src={Search} alt="" />
-                    <img className='md:block hidden' src={Bell} alt="" />
-                    <img className='sp:w-8 w-[30px]' src={Add} alt="" />
+                    <img className='lg:block hidden cursor-pointer' src={Search} alt="" />
+                    <img className='lg:block hidden cursor-pointer' src={Bell} alt="" />
+                    <img className='sp:w-8 w-[30px] cursor-pointer' onClick={handleCreateInvoice} src={Add} alt="" />
                 </div>
             </div>
             {invoiceAdded ? (

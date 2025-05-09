@@ -11,8 +11,11 @@ const CreatedInvoices = () => {
 
     const { handleViewInvoice, handleDeleteInvoice, setSelectedInvoice } = useContext(Context)
     const [menu, setMenu] = useState(null)
+    const [searchQuery, setSearchQuery] = useState('');
 
     const [isSmScreen, setIsSmScreen] = useState(window.innerWidth < 450);
+
+    const [invoice, setInvoice] = useState([])
 
     useEffect(() => {
         const handleResize = () => {
@@ -23,61 +26,95 @@ const CreatedInvoices = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const handleInvoiceClick = (id) => {
+        localStorage.setItem('invoiceID', id);
+    };
+
+    const handleSearch = (query) => {
+        setSearchQuery(query);  // Update the search query state
+    };
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchInvoices = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/invoice`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setInvoice(data);
+        };
+
+        fetchInvoices();
+    }, []);
+
     const Invoices = [
         {
-            invoices: '#RC787024',
+            reference_number: '#RC787024',
             payerName: 'Samantha Tino',
             amount: '$2,097',
             status: 'Draft',
-            dueDate: '07/05/2016',
+            due_days: '07/05/2016',
         },
         {
-            invoices: '#RC787024',
+            reference_number: '#RC787024',
             payerName: 'Samantha Tino',
             amount: '12',
             status: 'Paid',
-            dueDate: '07/05/2016',
+            due_days: '07/05/2016',
         },
         {
-            invoices: '#RC787024',
+            reference_number: '#RC787024',
             payerName: 'Samantha Tino',
             amount: '12',
             status: 'Draft',
-            dueDate: '07/05/2016',
+            due_days: '07/05/2016',
         },
         {
-            invoices: '#RC787024',
+            reference_number: '#RC787024',
             payerName: 'Samantha Tino',
             amount: '12',
             status: 'Unpaid',
-            dueDate: '07/05/2016',
+            due_days: '07/05/2016',
         },
         {
-            invoices: '#RC787024',
+            reference_number: '#RC787024',
             payerName: 'Samantha Tino',
             amount: '12',
             status: 'Paid',
-            dueDate: '07/05/2016',
+            due_days: '07/05/2016',
         },
         {
-            invoices: '#RC787024',
+            reference_number: '#RC787024',
             payerName: 'Samantha Tino',
             amount: '12',
             status: 'Unpaid',
-            dueDate: '07/05/2016',
+            due_days: '07/05/2016',
         },
         {
-            invoices: '#RC787024',
+            reference_number: '#RC787024',
             payerName: 'Samantha Tino',
             amount: '12',
             status: 'Unpaid',
-            dueDate: '07/05/2016',
+            due_days: '07/05/2016',
         },
     ]
 
     return (
         <div className='lg:p-10 lg:py-5 py-5 px-4'>
-            <p className='flex items-center gap-4'><img src={Search} alt="" />Search invoices by number, items, clients or amount</p>
+            <div className='relative'>
+                <input
+                    type="text"
+                    placeholder="Search invoices by number, items, clients or amount"
+                    value={searchQuery}
+                    onChange={(e) => handleSearch(e.target.value)}
+                    className="px-4 py-2 border-none outline-none border-gray-300 w-full placeholder:text-[14px] placeholder:text-[#78757A] ml-5 rounded-md"
+                />
+                <img src={Search} alt="" className='absolute top-2' />
+            </div>
             <div className='sm:grid md:grid-cols-5 sm:grid-cols-4 flex justify-between gap-5 border-t-[1.5px] border-b-[1.5px] px-2 text-[#78757A] border-black/10 mt-3 py-[14px] text-[14px] font-medium text-left'>
                 <div className='flex gap-5 items-center min-w-0'>
                     <input className='mt-1 size-4' type="checkbox" />
@@ -106,12 +143,18 @@ const CreatedInvoices = () => {
                     </div>
                 </div>
             </div>
-            {Invoices.map((invoice, i) => {
+            {Invoices.filter(invoice =>
+                invoice.payerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                invoice.invoices.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                invoice.amount.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                invoice.status.toLowerCase().includes(searchQuery.toLowerCase())
+            ).map((invoice, i) => {
                 return <div
                     key={i}
                     onClick={isSmScreen ? () => {
                         handleViewInvoice(i)
                         setSelectedInvoice(invoice)
+                        handleInvoiceClick(invoice.id)
                     }
                         : undefined
                     }
@@ -119,7 +162,7 @@ const CreatedInvoices = () => {
                 >
                     <div className='flex gap-5 items-center min-w-0'>
                         <input className='mt-1 size-4 cursor-pointer' type="checkbox" />
-                        <p className='truncate'>{invoice.invoices}</p>
+                        <p className='truncate'>{invoice.reference_number}</p>
                     </div>
 
                     <div className='min-w-0'>
@@ -135,7 +178,7 @@ const CreatedInvoices = () => {
                         </p>
                     </div>
                     <div className='min-w-0 sp:flex hidden items-center justify-between gap-5 relative'>
-                        <p>{invoice.dueDate}</p>
+                        <p>{invoice.due_days}</p>
                         <div
                             onClick={() => setMenu(menu === i ? null : i)}
                             className={`font-semibold text-[18px] text-black/60 ${menu === i ? 'bg-[#E6E4EB] rounded-md p-2 py-3' : 'py-2'}`}
@@ -148,6 +191,7 @@ const CreatedInvoices = () => {
                                     onClick={() => {
                                         setSelectedInvoice(invoice)
                                         handleViewInvoice()
+                                        handleInvoiceClick(invoice.id)
                                         setMenu(menu === i ? null : i)
                                     }}
                                     className='cursor-pointer hover:bg-[#F9F7FC] px-2 py-1'
@@ -157,6 +201,7 @@ const CreatedInvoices = () => {
                                 <p
                                     onClick={() => {
                                         handleDeleteInvoice()
+                                        handleInvoiceClick(invoice.id)
                                         setMenu(menu === i ? null : i)
                                     }}
                                     className='cursor-pointer hover:bg-[#F9F7FC] px-2 py-1'

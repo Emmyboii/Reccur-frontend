@@ -77,6 +77,7 @@ const AdvancedSettings = (props) => {
                             type="text"
                             name=""
                             id=""
+required
                             className='rounded-lg py-[10px] px-[14px] border border-[#D2D0D6]'
                             placeholder='Your email address'
                         />

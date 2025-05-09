@@ -194,8 +194,9 @@ const SendBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
                                     type="text"
                                     name=""
-                                    value={'Samantha Tino'}
+                                    // value={'Samantha Tino'}
                                     id=""
+                                    required
                                 />
                                 <img className='absolute ml-3' src={user} alt="" />
                             </div>
@@ -221,6 +222,7 @@ const SendBar = () => {
                                     type="number"
                                     name=""
                                     id=""
+                                    required
                                     placeholder='Enter account number'
                                 />
                             </div>
@@ -233,6 +235,7 @@ const SendBar = () => {
                                     type="text"
                                     name=""
                                     id=""
+                                    required
                                     placeholder='Enter bank name'
                                 />
                                 <img className='absolute ml-3' src={Bank} alt="" />
@@ -246,6 +249,7 @@ const SendBar = () => {
                                     type="number"
                                     name=""
                                     id=""
+                                    required
                                     placeholder='Enter routing number'
                                 />
                             </div>
@@ -258,6 +262,7 @@ const SendBar = () => {
                                     type="number"
                                     name=""
                                     id=""
+                                    required
                                     placeholder='Enter swift code'
                                 />
                             </div>
@@ -266,7 +271,8 @@ const SendBar = () => {
                             <label htmlFor="amount">Amount</label>
                             <div className='flex items-center gap-2'>
                                 <div className='flex items-center w-full relative'>
-                                    <input className='border-[1.5px] border-black/20 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id="" />
+                                    <input className='border-[1.5px] border-black/20 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id=""
+                                        required />
                                     <p className='absolute ml-3 text-[20px] text-[#525154]'>$</p>
                                 </div>
                                 <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
@@ -335,6 +341,7 @@ const SendBar = () => {
                                     name=""
                                     value={'Samantha Tino'}
                                     id=""
+                                    required
                                 />
                                 <img className='absolute ml-3' src={user} alt="" />
                             </div>
@@ -360,6 +367,7 @@ const SendBar = () => {
                                     type="text"
                                     name=""
                                     id=""
+                                    required
                                     value={'T9yv72q1J6xYtX9GJ2FWUQa3tV3pK5XG7'}
                                 />
                             </div>
@@ -380,7 +388,8 @@ const SendBar = () => {
                         <div className='mt-5'>
                             <label className='text-black/50' htmlFor="amount">Amount</label>
                             <div className='flex items-center w-full relative'>
-                                <input className='border-[1.5px] border-black/20 py-[10px] pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id="" />
+                                <input className='border-[1.5px] border-black/20 py-[10px] pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id=""
+                                    required />
                                 <AiTwotoneQuestionCircle className='ml-[-30px]' />
                                 <p className='absolute ml-3 text-[20px] text-[#525154]'>$</p>
                             </div>

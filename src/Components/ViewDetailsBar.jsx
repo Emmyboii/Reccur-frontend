@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../Context/Context'
 import close from '../Components/Images/x-close.png';
 import menus from '../Components/Images/menu.png';
@@ -8,36 +8,59 @@ const ViewDetailsBar = () => {
     const { handleViewDetails, viewDetails, handleDeleteProfile, handleProfileEdit } = useContext(Context)
 
     const [Transaction, setTransaction] = useState(1)
+    const [BenficairyDetails, setBenficairyDetails] = useState([])
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const BeneficairyID = localStorage.getItem('BeneficairyID');
+
+        const fetchBenficairy = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary/${BeneficairyID}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setBenficairyDetails(data);
+        };
+
+        fetchBenficairy();
+    }, []);
+
+    const handleBeneficairyClick = (id) => {
+        localStorage.setItem('BeneficairyID', id);
+    };
 
     const Payment = [
         {
             Payments: '#RC787024',
-            PaymentDate: <p>07/05/2016</p>,
+            PaymentDate: '07/05/2016',
             Amount: ' $2,097'
         },
         {
             Payments: '#RC787024',
-            PaymentDate: <p>07/05/2016</p>,
+            PaymentDate: '07/05/2016',
             Amount: ' $2,097'
         },
         {
             Payments: '#RC787024',
-            PaymentDate: <p>07/05/2016</p>,
+            PaymentDate: '07/05/2016',
             Amount: ' $2,097'
         },
         {
             Payments: '#RC787024',
-            PaymentDate: <p>07/05/2016</p>,
+            PaymentDate: '07/05/2016',
             Amount: ' $2,097'
         },
         {
             Payments: '#RC787024',
-            PaymentDate: <p>07/05/2016</p>,
+            PaymentDate: '07/05/2016',
             Amount: ' $2,097'
         },
         {
             Payments: '#RC787024',
-            PaymentDate: <p>07/05/2016</p>,
+            PaymentDate: '07/05/2016',
             Amount: ' $2,097'
         }
     ]
@@ -46,7 +69,7 @@ const ViewDetailsBar = () => {
         <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 text-black z-30 overflow-auto ${viewDetails ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-2 justify-between'>
                 <div>
-                    <h1 className='text-[20px] font-medium text-[#1D1C1F]'>Samantha Tino</h1>
+                    <h1 className='text-[20px] font-medium text-[#1D1C1F]'>{BenficairyDetails.full_name}</h1>
                     <p className='text-[#525154]'><span className='text-[#531CB3]'>sam@tino.com •</span> Biffco Enterprises Ltd.</p>
                 </div>
                 <img
@@ -58,6 +81,7 @@ const ViewDetailsBar = () => {
                 <button
                     onClick={() => {
                         handleDeleteProfile()
+                        handleBeneficairyClick(BenficairyDetails.id)
                     }}
                     className='p-2 px-3 text-[14px] border-[1.5px] rounded-lg'
                 >
@@ -66,6 +90,7 @@ const ViewDetailsBar = () => {
                 <button
                     onClick={() => {
                         handleProfileEdit()
+                        handleBeneficairyClick(BenficairyDetails.id)
                     }}
                     className='p-2 px-3 text-[14px] bg-[#E8E1F5] text-[#531CB3] border rounded-lg'
                 >

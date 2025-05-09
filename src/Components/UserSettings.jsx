@@ -26,9 +26,9 @@ const UserSettings = () => {
                         <p className='text-[28px] font-semibold'>Settings</p>
                     </div>
                     <div className='flex md:items-center items-start gap-9'>
-                        <img src={Search} alt="" />
-                        <img src={Bell} alt="" />
-                        <img className='w-8' src={Add} alt="" />
+                        <img className='lg:block hidden cursor-pointer' src={Search} alt="" />
+                    <img className='lg:block hidden cursor-pointer' src={Bell} alt="" />
+                        <img className='w-8 cursor-pointer' src={Add} alt="" />
                     </div>
                 </div>
                 <div className='flex gap-7 border-b-[1.5px] overflow-x-auto scrollbar-hide scroll-smooth snap-x'>
