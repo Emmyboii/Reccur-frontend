@@ -1,13 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ID from '../Components/Images/IDNum.png'
 import warn from '../Components/Images/warn.png'
 import person from '../Components/Images/person.png'
 import map from '../Components/Images/map.png'
+import { useNavigate } from 'react-router-dom'
 
 const GetReady = () => {
+
+    const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const handleClick = () => {
+        setIsSubmitting(true);
+
+        setTimeout(() => {
+            setIsSubmitting(false);
+            window.scrollTo(0, 0)
+            navigate('/dashboard/verifyaddress')
+        }, 2500);
+    };
+
     return (
         <div className='flex flex-col mx-auto max-w-[560px] md:p-10 py-10 px-4'>
-            <div className='pt-10'>
+            <div>
                 <h1 className='text-[28px] font-medium text-[#1D1C1F] text-center'>Get ready to verify your identity</h1>
                 <p className='text-[#525154] text-[14px] font-normal text-center'>
                     To keep your account secure and compliant, we need a few details from you.
@@ -48,8 +63,8 @@ const GetReady = () => {
                 </div>
             </div>
             <div className='flex items-start gap-2 bg-[#E8E1F5] text-[#431594] rounded-lg my-7 py-3 px-4'>
-            <img className='mt-1' src={warn} alt="" />
-            <p>
+                <img className='mt-1' src={warn} alt="" />
+                <p>
                     Ensure your documents are valid and clearly visible before uploading. We collect this information
                     to verify your identity and provide you with a secure and seamless experience.
                 </p>
@@ -58,18 +73,22 @@ const GetReady = () => {
                 <button
                     className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                     onClick={() => {
-                        window.location.replace('/dashboard')
+                        navigate('/dashboard')
+                        window.scrollTo(0, 0)
                     }}
                 >
                     Cancel
                 </button>
                 <button
-                    className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
-                    onClick={() => {
-                        window.location.replace('/dashboard/verifynumber')
-                    }}
+                    className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
+                    onClick={handleClick}
+                    disabled={isSubmitting}
                 >
-                    Continue
+                    {isSubmitting ? (
+                        'Loading...'
+                    ) : (
+                        'Continue'
+                    )}
                 </button>
             </div>
         </div>

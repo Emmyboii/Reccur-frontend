@@ -1,9 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Search from '../Components/Images/search.png'
 import Bell from '../Components/Images/bell.png'
 import Add from '../Components/Images/AddBtn.png'
+import { useNavigate } from 'react-router-dom'
 
 const WelcomePage = () => {
+
+    const navigate = useNavigate();
+    const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const handleClick = () => {
+        setIsSubmitting(true);
+
+        setTimeout(() => {
+            setIsSubmitting(false);
+window.scrollTo(0,0)
+            navigate('/dashboard/getready')
+        }, 2000);
+    };
 
     return (
         <div className='flex flex-col md:p-10 py-10 px-4 w-full'>
@@ -23,14 +37,17 @@ const WelcomePage = () => {
                     <p className='text-center text-[16px] text-[#1D1C1F] font-medium'>Welcome!</p>
                     <p className='text-center mt-1 text-[#525154] text-[16px] font-medium'>Get started in just a few steps and unlock seamless transactions<br /> worldwide.</p>
                 </div>
+
                 <button
-                    className="bg-[#531CB3] text-white py-[10px] w-[117px] px-4 rounded-lg"
-                    onClick={() => {
-                        window.location.replace('/dashboard/getready')
-                        window.scrollTo(0, 0)
-                    }}
+                    className={`p-[10px] px-4 rounded-lg text-white w-[117px] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
+                    onClick={handleClick}
+                    disabled={isSubmitting}
                 >
-                    Get Started
+                    {isSubmitting ? (
+                        'Loading...'
+                    ) : (
+                        'Get Started'
+                    )}
                 </button>
             </div>
         </div>

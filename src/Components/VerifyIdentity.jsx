@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Country } from "country-state-city";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Search from '../Components/Images/search.png'
 import Select from 'react-select';
 import CountryCode from './CountryCode';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { format } from 'date-fns';
 
 const VerifyIdentity = () => {
     const location = useLocation()
+    const navigate = useNavigate();
     const [countries, setCountries] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState("");
-    const [phoneCode, setPhoneCode] = useState('');
     const [selectedCode, setSelectedCode] = useState(CountryCode[122]);
     const [isOpen, setIsOpen] = useState(false);
     const [validationError, setValidationError] = useState({})
@@ -24,7 +27,7 @@ const VerifyIdentity = () => {
         document_expiration_date: '',
         citizenship: '',
         phone_number: '',
-        phone_country_code: phoneCode
+        phone_country_code: ''
     })
 
     const handleChange = (e) => {
@@ -33,13 +36,43 @@ const VerifyIdentity = () => {
             [e.target.name]: e.target.value
         }))
     }
+
+    const handleDateChange = (date, fieldName) => {
+        if (!date) return;
+
+        const formattedDate = format(date, 'yyyy-MM-dd');
+        setFormData(prev => ({
+            ...prev,
+            [fieldName]: formattedDate
+        }));
+    };
+
+    useEffect(() => {
+        const prevData = JSON.parse(localStorage.getItem('KYC-Data')) || {};
+        const updatedData = {
+            ...prevData,
+            phone_country_code: selectedCode.code,
+        };
+        localStorage.setItem('KYC-Data', JSON.stringify(updatedData));
+
+        setFormData((prev) => ({
+            ...prev,
+            phone_country_code: selectedCode.code,
+        }));
+    }, [selectedCode]);
+
+
     const toggleDropdown = () => setIsOpen(!isOpen);
 
 
     const handleSelect = (country) => {
         setSelectedCode(country);
         setIsOpen(false);
-        setPhoneCode(country.code)
+
+        setFormData((prev) => ({
+            ...prev,
+            phone_country_code: country.code,
+        }));
     };
 
     useEffect(() => {
@@ -64,6 +97,30 @@ const VerifyIdentity = () => {
         setValidationError(error)
         return Object.keys(error).length === 0;
     }
+
+    const handleClick = () => {
+        setIsSubmitting(true);
+        validateForm()
+
+        const prevData = JSON.parse(localStorage.getItem('KYC-Data')) || {};
+        const updatedData = {
+            ...prevData,
+            ...formData,
+        };
+
+        localStorage.setItem('KYC-Data', JSON.stringify(updatedData));
+
+        setTimeout(() => {
+            setIsSubmitting(false);
+            window.scrollTo(0, 0)
+            navigate('/dashboard/uploadDocument');
+        }, 2500);
+    };
+
+    useEffect(() => {
+        const KYC_Data = JSON.parse(localStorage.getItem('KYC-Data'))
+        if (KYC_Data) setFormData(KYC_Data)
+    }, [])
 
     const countryOptions = countries.map((c) => ({
         label: (
@@ -137,16 +194,24 @@ const VerifyIdentity = () => {
                         placeholder='Enter your TIN'
                     />
                 </div>
-                <div>
-                    <label htmlFor="code">Date of birth</label>
-                    <input
-                        className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
-                        type="date"
-                        name="date_of_birth"
-                        value={formData.date_of_birth}
-                        onChange={handleChange}
-                        id=""
-                        required
+                <div className='flex flex-col'>
+                    <label htmlFor="document_expiration_date">Date of birth</label>
+                    <DatePicker
+                        selected={
+                            formData.date_of_birth
+                                ? new Date(formData.date_of_birth.replace(/\//g, '-'))
+                                : null
+                        }
+                        onChange={(date) => handleDateChange(date, 'date_of_birth')}
+                        dateFormat="yyyy-MM-dd"
+                        customInput={
+                            <input
+                                type="text"
+                                className="border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none"
+                                placeholder="yyyy-MM-dd"
+                            />
+                        }
+                        popperPlacement="bottom"
                     />
                 </div>
                 <div>
@@ -208,7 +273,7 @@ const VerifyIdentity = () => {
                     <label htmlFor="code">Document Number</label>
                     <input
                         className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
-                        type="number"
+                        type="text"
                         name="document_number"
                         value={formData.document_number}
                         onChange={handleChange}
@@ -217,46 +282,59 @@ const VerifyIdentity = () => {
                         placeholder='Enter your document number'
                     />
                 </div>
-                <div>
-                    <label htmlFor="code">Document issuance date</label>
-                    <input
-                        className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
-                        type="date"
-                        name="document_issuance_date"
-                        value={formData.document_issuance_date}
-                        onChange={handleChange}
-                        id=""
-                        required
+                <div className='flex flex-col'>
+                    <label htmlFor="document_expiration_date">Document issuance date</label>
+                    <DatePicker
+                        selected={
+                            formData.document_issuance_date
+                                ? new Date(formData.document_issuance_date.replace(/\//g, '-'))
+                                : null
+                        }
+                        onChange={(date) => handleDateChange(date, 'document_issuance_date')}
+                        dateFormat="yyyy-MM-dd"
+                        customInput={
+                            <input
+                                type="text"
+                                className="border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none"
+                                placeholder="yyyy-MM-dd"
+                            />
+                        }
+                        popperPlacement="bottom"
                     />
                 </div>
-                <div>
-                    <label htmlFor="code">Document expiration date</label>
-                    <input
-                        className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
-                        type="date"
-                        name="document_expiration_date"
-                        value={formData.document_expiration_date}
-                        onChange={handleChange}
-                        id=""
-                        required
+                <div className='flex flex-col'>
+                    <label htmlFor="document_expiration_date">Document expiration date</label>
+                    <DatePicker
+                        selected={
+                            formData.document_expiration_date
+                                ? new Date(formData.document_expiration_date.replace(/\//g, '-'))
+                                : null
+                        }
+                        onChange={(date) => handleDateChange(date, 'document_expiration_date')}
+                        dateFormat="yyyy-MM-dd"
+                        customInput={
+                            <input
+                                type="text"
+                                className="border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none"
+                                placeholder="yyyy-MM-dd"
+                            />
+                        }
+                        popperPlacement="bottom"
                     />
                 </div>
                 <div className='flex gap-2 mt-4'>
                     <button
                         className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                         onClick={() => {
-                            window.location.replace('/dashboard/verifyaddress')
+                            navigate('/dashboard/verifyaddress')
+                            window.scrollTo(0, 0)
                         }}
                     >
                         Previous
                     </button>
                     <button
                         className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
-                        onClick={(e) => {
-                            localStorage.setItem('KYC-Data', JSON.stringify(formData))
-                            setIsSubmitting(true)
-                            validateForm()
-                        }}
+                        onClick={handleClick}
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? (

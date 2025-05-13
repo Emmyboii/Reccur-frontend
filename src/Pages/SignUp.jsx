@@ -92,24 +92,24 @@ const SignUp = () => {
 
     return (
         <div className='flex flex-col gap-24 pb-24'>
-            <div className='py-4 px-20 flex items-center border-b border-b-[#F9F7FC] justify-between'>
+            <div className='py-4 sa:px-20 px-5 flex items-center border-b border-b-[#F9F7FC] justify-between'>
                 <div className='flex gap-2'>
-                    <img src={Logo} alt="" />
-                    <p className='text-[#1D1C1F] text-[20px] font-semibold'>reccur</p>
+                    <img className='sp:size-8 size-6' src={Logo} alt="" />
+                    <p className='text-[#1D1C1F] sp:text-[20px] text-[18px] font-semibold'>reccur</p>
                 </div>
                 <div className='flex gap-3'>
                     <a href="/login">
-                        <button className='py-3 px-5 w-[91px]'>Sign in</button>
+                        <button className='py-3 px-5 sa:w-[91px]'>Sign in</button>
                     </a>
                     <a href="/signup">
-                        <button className='bg-[#531CB3] text-white flex gap-3 items-center justify-center py-3 px-5 w-[154px] rounded-lg'>
+                        <button className='bg-[#531CB3] text-white flex gap-3 items-center justify-center py-3 px-5 sa:w-[154px] rounded-lg'>
                             Get started
-                            <img src={arrow} alt="" />
+                          <img src={arrow} alt="" />
                         </button>
                     </a>
                 </div>
             </div>
-            <div className='mx-auto flex flex-col gap-8 w-[400px]'>
+            <div className='sp:mx-auto mx-5 flex flex-col gap-8 sp:w-[400px]'>
                 <div className='flex flex-col gap-4 items-center'>
                     <p className='text-[#1D1C1F] text-[36px] font-semibold'>Sign up to reccur</p>
                     <p className='text-[16px] font-normal text-[#525154]'>Psst! it’s free!</p>

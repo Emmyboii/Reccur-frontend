@@ -1,17 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Country, State, City } from "country-state-city";
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaTimes } from "react-icons/fa";
 import Select from 'react-select';
 import Search from '../Components/Images/search.png'
 import Upload from '../Components/Images/upload.png'
+import { Context } from '../Context/Context';
 
 const VerifyAddress = () => {
     const location = useLocation()
+    const navigate = useNavigate();
     const [document, setDocument] = useState(null)
     const [progress, setProgress] = useState(0);
     const [uploading, setUploading] = useState(false);
     const intervalRef = useRef(null);
+
+    const { setForms, forms } = useContext(Context)
 
     const [countries, setCountries] = useState([]);
     const [states, setStates] = useState([]);
@@ -24,13 +28,13 @@ const VerifyAddress = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
         country: '',
+        country_code: '',
         state_or_province: '',
         postal_code: '',
         proof_of_address_type: 'UTILITY_BILL',
         street_line_1: '',
         street_line_2: '',
         city: '',
-        proof_of_address_document: null
     })
 
     const handleChange = (e) => {
@@ -40,6 +44,29 @@ const VerifyAddress = () => {
         }))
     }
 
+    const handleClick = () => {
+        setIsSubmitting(true);
+
+        const prevData = JSON.parse(localStorage.getItem('KYC-Data')) || {};
+        const updatedData = {
+            ...prevData,
+            ...formData,
+        };
+
+        localStorage.setItem('KYC-Data', JSON.stringify(updatedData));
+        console.log(forms);
+
+        setTimeout(() => {
+            setIsSubmitting(false);
+            window.scrollTo(0, 0)
+            navigate('/dashboard/verifyidentity');
+        }, 2500);
+    };
+
+    useEffect(() => {
+        const KYC_Data = JSON.parse(localStorage.getItem('KYC-Data'))
+        if (KYC_Data) setFormData(KYC_Data)
+    }, [])
 
     useEffect(() => {
         const allCountries = Country.getAllCountries();
@@ -49,6 +76,7 @@ const VerifyAddress = () => {
     const handleCountryChange = (option) => {
         setSelectedCountry(option);
         setFormData(prev => ({ ...prev, country: option.value }));
+        setFormData(prev => ({ ...prev, country_code: option.values }));
 
         const fetchedStates = State.getStatesOfCountry(option.values);
         setStates(fetchedStates);
@@ -150,13 +178,13 @@ const VerifyAddress = () => {
     const handleDocumentChange = (e) => {
         const selected = e.target.files[0];
         if (selected) {
-            const previewURL = URL.createObjectURL(selected)
             setDocument(selected.name);
             simulateProgress();
-            setFormData(prev => ({
-                ...prev,
-                proof_of_address_document: previewURL
-            }));
+            // setFormData(prev => ({
+            //     ...prev,
+            //     proof_of_address_document: selected
+            // }));
+            setForms(selected)
         }
     };
 
@@ -165,10 +193,11 @@ const VerifyAddress = () => {
         setDocument(null);
         setProgress(0);
         setUploading(false);
-        setFormData(prev => ({
-            ...prev,
-            proof_of_address_type: ''
-        }));
+        // setFormData(prev => ({
+        //     ...prev,
+        //     proof_of_address_document: ''
+        // }));
+        setForms(null)
     };
 
     useEffect(() => {
@@ -240,12 +269,11 @@ const VerifyAddress = () => {
                     <label htmlFor="code">Street Line 1</label>
                     <input
                         className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
-                        type="number"
+                        type="text"
                         name="street_line_1"
                         value={formData.street_line_1}
                         onChange={handleChange}
                         required
-                        id=""
                         placeholder='564866'
                     />
                 </div>
@@ -253,7 +281,7 @@ const VerifyAddress = () => {
                     <label htmlFor="code">Street Line 2</label>
                     <input
                         className='border-[1.5px] mt-1 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
-                        type="number"
+                        type="text"
                         name="street_line_2"
                         value={formData.street_line_2}
                         onChange={handleChange}
@@ -324,17 +352,15 @@ const VerifyAddress = () => {
                     <button
                         className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                         onClick={() => {
-                            window.location.replace('/dashboard/verifynumber')
+                            navigate('/dashboard/getready')
+                            window.scrollTo(0, 0)
                         }}
                     >
                         Previous
                     </button>
                     <button
                         className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
-                        onClick={(e) => {
-                            localStorage.setItem('KYC-Data', JSON.stringify(formData))
-                            setIsSubmitting(true)
-                        }}
+                        onClick={handleClick}
                         disabled={isSubmitting}
                     >
                         {isSubmitting ? (

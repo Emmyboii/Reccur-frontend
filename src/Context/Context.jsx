@@ -22,6 +22,7 @@ const ContextProvider = (props) => {
     const [beneficiaryAdded, setBeneficiaryAdded] = useState(false)
     const [createInvoice, setCreateInvoice] = useState(false)
     const [invoiceAdded, setInvoiceAdded] = useState(false)
+    const [forms, setForms] = useState(null)
     const [checked, setChecked] = useState(false)
     const [checked2, setChecked2] = useState(false)
     const [checked3, setChecked3] = useState(false)
@@ -102,6 +103,8 @@ const ContextProvider = (props) => {
 
 
     const contextValue = {
+        setForms,
+        forms,
         handleSideBar,
         sideBar,
         setSideBar,

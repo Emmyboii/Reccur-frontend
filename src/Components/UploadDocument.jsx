@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FaRegImage } from "react-icons/fa6";
+import { Context } from '../Context/Context';
 
 const UploadDocument = () => {
   const location = useLocation()
+  const navigate = useNavigate();
+
+  const { forms } = useContext(Context)
+
 
   const [frontDoc, setFrontDoc] = useState(null)
   const [backDoc, setBackDoc] = useState(null)
@@ -12,40 +17,47 @@ const UploadDocument = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     id_type: '',
-    front_national_id: null,
-    back_national_id: null
   })
 
   const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value
-    }))
-  }
+    const { name, value } = e.target;
+
+    const updatedFormData = {
+      ...formData,
+      [name]: value
+    };
+    setFormData(updatedFormData);
+
+    const prevData = JSON.parse(localStorage.getItem('KYC-Data')) || {};
+    const mergedData = {
+      ...prevData,
+      ...updatedFormData
+    };
+
+    localStorage.setItem('KYC-Data', JSON.stringify(mergedData));
+  };
+
 
   const handleFrontDocChange = (e) => {
     const selected = e.target.files[0]
     if (selected) {
-      const previewURL = URL.createObjectURL(selected); // Create a temporary URL for the image
       setFrontDoc(selected)
-      setFormData(prev => ({
-        ...prev,
-        front_national_id: previewURL
-      }));
+      console.log('file selected', selected);
     }
   }
 
   const handleBackDocChange = (e) => {
     const selected = e.target.files[0]
     if (selected) {
-      const previewURL = URL.createObjectURL(selected); // Create a temporary URL for the image
       setBackDoc(selected)
-      setFormData(prev => ({
-        ...prev,
-        back_national_id: previewURL
-      }));
     }
   }
+
+  useEffect(() => {
+    const KYC_Data = JSON.parse(localStorage.getItem('KYC-Data'))
+    setFormData(KYC_Data)
+    console.log(forms);
+  }, [])
 
   const VerifyDocument = async (e) => {
     e.preventDefault()
@@ -54,31 +66,59 @@ const UploadDocument = () => {
 
     try {
       const token = localStorage.getItem('token')
-      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/create-kyc`, {
+      const storedForm = JSON.parse(localStorage.getItem('KYC-Data'))
+
+      const formDatas = new FormData();
+
+      Object.entries(storedForm).forEach(([key, value]) => {
+        formDatas.append(key, value);
+      });
+
+      formDatas.append("passport", frontDoc);
+      formDatas.append("proof_of_address_document", forms);
+
+      const kycRes = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/create-kyc`, {
         method: 'POST',
-        
         headers: {
-          Accept: 'application/json',
           Authorization: `Token ${token}`,
-          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: formDatas
       })
 
-      const data = await response.json();
+      const kycData = await kycRes.json();
 
-      if (!response.ok) {
-        throw new Error(data.message || 'KYC failed');
-      } else {
-        console.log('KYCAdded:', data);
-      }
+      if (!kycRes.ok) throw new Error(kycData.message || 'KYC failed');
+
+      console.log('KYC Added:', kycData);
+
+      const walletRes = await fetch(`${process.env.REACT_APP_BACKEND_URL}/create-usdc-wallet`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+
+      if (!walletRes.ok) throw new Error('Wallet creation failed');
+
+      const customerRes = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/create-customer`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+
+      if (!customerRes.ok) throw new Error('Customer creation failed');
+
+      navigate('/home');
+      setVerified(!verified);
+      localStorage.setItem('userCreated', JSON.stringify(true));
 
     } catch (error) {
       console.error('Error during KYC:', error.message);
     } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <div className='flex flex-col max-w-[540px] px-4 mx-auto md:p-10 py-10'>
@@ -105,11 +145,10 @@ const UploadDocument = () => {
             className="border-[1.5px] mt-1 border-black/20 rounded-lg w-full py-[10px] px-[14px] outline-none"
           >
             <option value="">Select ID Type</option>
-            <option value="passport">Passport</option>
-            <option value="nin">NIN</option>
-            <option value="driver_license">Driver's License</option>
+            <option value="PASSPORT">Passport</option>
+            <option value="NATIONAL_ID">NIN</option>
+            <option value="DRIVERS_LICENSE">Driver's License</option>
           </select>
-
         </div>
         <div className='flex gap-4 mt-4'>
           <div className='w-full'>
@@ -164,7 +203,7 @@ const UploadDocument = () => {
         <button
           className='p-3 rounded-lg w-[25%] text-[#525154] border-[1.5px] border-black/10'
           onClick={() => {
-            window.location.replace('/dashboard/verifyidentity')
+            navigate('/dashboard/verifyidentity')
             window.scrollTo(0, 0)
           }}
         >
@@ -172,12 +211,7 @@ const UploadDocument = () => {
         </button>
         <button
           className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
-          onClick={(e) => {
-            VerifyDocument(e)
-            window.location.replace('/home')
-            setVerified(!verified)
-            localStorage.setItem('userCreated', JSON.stringify(!verified))
-          }}
+          onClick={VerifyDocument}
           disabled={isSubmitting}
         >
           {isSubmitting ? (
