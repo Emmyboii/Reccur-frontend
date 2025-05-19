@@ -58,9 +58,11 @@ const VerifyAddress = () => {
 
         setTimeout(() => {
             setIsSubmitting(false);
-            window.scrollTo(0, 0)
             navigate('/dashboard/verifyidentity');
         }, 2500);
+        setTimeout(() => {
+            window.scrollTo(0, 0)
+        }, 2700);
     };
 
     useEffect(() => {

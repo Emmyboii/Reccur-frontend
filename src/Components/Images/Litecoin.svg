@@ -1,0 +1,17 @@
+<svg width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Cryptocurrency icon/Litecoin" filter="url(#filter0_d_5226_1963)">
+<rect x="16" y="15" width="60" height="60" rx="30" fill="white"/>
+<path id="Group" d="M44.9028 54.0212C49.8088 54.1138 54.6249 54.2038 59.5309 54.3864C59.3511 55.1142 59.1688 55.7495 59.0789 56.3873C58.804 57.2978 58.5317 58.1182 58.352 59.0287C58.2595 59.4839 58.0771 59.5739 57.6251 59.5739H34.1816C35.001 56.3873 35.8178 53.3859 36.6346 50.1993C35.3631 50.6545 34.2715 51.1098 33 51.655C33.3648 50.2919 33.7269 49.1088 34.1816 47.8332C34.1816 47.6531 34.4538 47.5605 34.6362 47.5605C35.4557 47.1979 36.3623 46.9227 37.1791 46.5575C37.4514 46.47 37.7263 46.1974 37.7263 45.9222L41.5379 31.7279C41.6304 31.1826 41.8102 31 42.4472 31H50.7155C49.7163 34.7293 48.807 38.4637 47.8078 42.3756C49.2617 41.7403 50.6256 41.1925 52.1693 40.6472C51.9869 41.3751 51.7146 42.0104 51.6248 42.6482C51.4424 44.1065 50.6256 44.9243 49.1718 45.2895C48.5374 45.4696 47.8977 45.7422 47.2633 46.0174C47.038 46.1522 46.8508 46.3396 46.7188 46.5626C46.0818 49.0188 45.4447 51.385 44.9002 53.8411V54.0238L44.9028 54.0212Z" fill="#1D1C1F"/>
+</g>
+<defs>
+<filter id="filter0_d_5226_1963" x="0" y="0" width="92" height="92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="8"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0784314 0 0 0 0 0.0823529 0 0 0 0 0.101961 0 0 0 0.06 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5226_1963"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5226_1963" result="shape"/>
+</filter>
+</defs>
+</svg>

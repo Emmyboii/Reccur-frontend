@@ -235,11 +235,14 @@ const VerifyIdentity = () => {
                     <div className='mt-1 relative'>
                         <input
                             className='border-[1.5px] border-black/20 rounded-md placeholder-black/4- w-full pl-[110px] p-2 outline-none'
-                            type="number"
+                            type="text"
                             name="phone_number"
                             value={formData.phone_number}
                             onChange={handleChange}
                             id="number"
+                            maxLength="11"
+                             pattern="^\d{1,11}$"
+                            inputMode="numeric"
                             required
                             placeholder='9000000000'
                         />

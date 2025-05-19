@@ -9,6 +9,7 @@ module.exports = {
         uncut: ['"Uncut Sans VF"', 'sans-serif'],
       },
       screens: {
+        'mf': '850px',
         'sp': '450px',
         'sd': '500px',
         'sa': '550px'

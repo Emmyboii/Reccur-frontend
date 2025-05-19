@@ -13,11 +13,14 @@ const GetReady = () => {
     const handleClick = () => {
         setIsSubmitting(true);
 
+        setTimeout
+            (() => {
+                setIsSubmitting(false);
+                navigate('/dashboard/verifyaddress')
+            }, 2500);
         setTimeout(() => {
-            setIsSubmitting(false);
             window.scrollTo(0, 0)
-            navigate('/dashboard/verifyaddress')
-        }, 2500);
+        }, 2700);
     };
 
     return (
@@ -74,7 +77,6 @@ const GetReady = () => {
                     className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
                     onClick={() => {
                         navigate('/dashboard')
-                        window.scrollTo(0, 0)
                     }}
                 >
                     Cancel

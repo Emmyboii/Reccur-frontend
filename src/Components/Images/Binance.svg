@@ -1,0 +1,17 @@
+<svg width="92" height="92" viewBox="0 0 92 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Cryptocurrency icon/Binance" filter="url(#filter0_d_5226_1914)">
+<rect x="16" y="15" width="60" height="60" rx="30" fill="white"/>
+<path id="Group" fill-rule="evenodd" clip-rule="evenodd" d="M39.603 42.5674L46.3357 35.8346L53.0742 42.5731L56.9915 38.6558L46.3357 28L35.6857 38.65L39.603 42.5674ZM29 45.3352L32.9163 41.4189L36.8326 45.3352L32.9163 49.2515L29 45.3352ZM46.3357 54.8385L39.603 48.1058L35.6799 52.0173L35.6856 52.0231L46.3357 62.6731L56.9915 52.0173L53.0742 48.1L46.3357 54.8385ZM55.8354 45.3379L59.7517 41.4216L63.668 45.3379L59.7517 49.2542L55.8354 45.3379ZM46.3357 41.3616L50.3107 45.3366L46.3357 49.3174L42.3607 45.3424V45.3308L43.0588 44.6328L43.3992 44.2981L46.3357 41.3616Z" fill="#1D1C1F"/>
+</g>
+<defs>
+<filter id="filter0_d_5226_1914" x="0" y="0" width="92" height="92" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="8"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0.0784314 0 0 0 0 0.0823529 0 0 0 0 0.101961 0 0 0 0.06 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5226_1914"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5226_1914" result="shape"/>
+</filter>
+</defs>
+</svg>

@@ -10,6 +10,7 @@ const UploadDocument = () => {
   const { forms } = useContext(Context)
 
 
+  const [passport, setPassport] = useState(null)
   const [frontDoc, setFrontDoc] = useState(null)
   const [backDoc, setBackDoc] = useState(null)
   const [verified, setVerified] = useState(false)
@@ -37,6 +38,14 @@ const UploadDocument = () => {
     localStorage.setItem('KYC-Data', JSON.stringify(mergedData));
   };
 
+
+  const handlePassportChange = (e) => {
+    const selected = e.target.files[0]
+    if (selected) {
+      setPassport(selected)
+      console.log('file selected', selected);
+    }
+  }
 
   const handleFrontDocChange = (e) => {
     const selected = e.target.files[0]
@@ -74,7 +83,7 @@ const UploadDocument = () => {
         formDatas.append(key, value);
       });
 
-      formDatas.append("passport", frontDoc);
+      formDatas.append("passport", passport);
       formDatas.append("proof_of_address_document", forms);
 
       const kycRes = await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/create-kyc`, {
@@ -147,16 +156,15 @@ const UploadDocument = () => {
             <option value="">Select ID Type</option>
             <option value="PASSPORT">Passport</option>
             <option value="NATIONAL_ID">NIN</option>
-            <option value="DRIVERS_LICENSE">Driver's License</option>
           </select>
         </div>
-        <div className='flex gap-4 mt-4'>
+        {formData.id_type === 'PASSPORT' || formData.id_type === '' ? (
           <div className='w-full'>
-            <label htmlFor="frontDoc">
+            <label htmlFor="passport">
               <div className='bg-[#eae2f6] cursor-pointer rounded-md h-[150px] border-2 border-black/50 flex items-center justify-center'>
-                {frontDoc ? (
+                {passport ? (
                   <img
-                    src={URL.createObjectURL(frontDoc)}
+                    src={URL.createObjectURL(passport)}
                     alt=''
                     className='w-full h-[140px] rounded-md cursor-pointer object-cover'
                   />
@@ -167,37 +175,63 @@ const UploadDocument = () => {
               <input
                 type="file"
                 name=""
-                id="frontDoc"
-                onChange={handleFrontDocChange}
+                id="passport"
+                onChange={handlePassportChange}
                 hidden
               />
             </label>
             <p className='text-[#531CB3]'>Upload Front</p>
           </div>
-          <div className='w-full'>
-            <label htmlFor="backdoc">
-              <div className='bg-[#eae2f6] cursor-pointer rounded-md h-[150px] border-2 border-black/50 flex items-center justify-center'>
-                {backDoc ? (
-                  <img
-                    src={URL.createObjectURL(backDoc)}
-                    alt=''
-                    className='w-full h-[140px] rounded-md cursor-pointer object-cover'
-                  />
-                ) : (
-                  <FaRegImage className='text-[25px] text-black/40' />
-                )}
-              </div>
-              <input
-                type="file"
-                name=""
-                id="backdoc"
-                onChange={handleBackDocChange}
-                hidden
-              />
-            </label>
-            <p className='text-[#531CB3]'>Upload Back</p>
+        ) : (
+          <div className='flex gap-4 mt-4'>
+            <div className='w-full'>
+              <label htmlFor="frontDoc">
+                <div className='bg-[#eae2f6] cursor-pointer rounded-md h-[150px] border-2 border-black/50 flex items-center justify-center'>
+                  {frontDoc ? (
+                    <img
+                      src={URL.createObjectURL(frontDoc)}
+                      alt=''
+                      className='w-full h-[140px] rounded-md cursor-pointer object-cover'
+                    />
+                  ) : (
+                    <FaRegImage className='text-[25px] text-black/40' />
+                  )}
+                </div>
+                <input
+                  type="file"
+                  name=""
+                  id="frontDoc"
+                  onChange={handleFrontDocChange}
+                  hidden
+                />
+              </label>
+              <p className='text-[#531CB3]'>Upload Front</p>
+            </div>
+            <div className='w-full'>
+              <label htmlFor="backdoc">
+                <div className='bg-[#eae2f6] cursor-pointer rounded-md h-[150px] border-2 border-black/50 flex items-center justify-center'>
+                  {backDoc ? (
+                    <img
+                      src={URL.createObjectURL(backDoc)}
+                      alt=''
+                      className='w-full h-[140px] rounded-md cursor-pointer object-cover'
+                    />
+                  ) : (
+                    <FaRegImage className='text-[25px] text-black/40' />
+                  )}
+                </div>
+                <input
+                  type="file"
+                  name=""
+                  id="backdoc"
+                  onChange={handleBackDocChange}
+                  hidden
+                />
+              </label>
+              <p className='text-[#531CB3]'>Upload Back</p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <div className='flex gap-2 mt-10'>
         <button
