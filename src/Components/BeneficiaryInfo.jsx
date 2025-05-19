@@ -167,28 +167,24 @@ const BeneficiaryInfo = () => {
         setSearchQuery(query);  // Update the search query state
     };
 
-    const filteredBeneficiaries = beneficiaryType === 'all'
-        ? Beneficiary.filter(ben =>
-            ben.BeneficiaryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            ben.AccountType.toLowerCase().includes(searchQuery.toLowerCase())
-            // ben.Business.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-        : Beneficiary.filter(ben => {
-            if (beneficiaryType === 'BT') {
-                return ben.AccountType === 'Bank Transfer' && (
-                    ben.BeneficiaryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    ben.Email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    ben.Business.toLowerCase().includes(searchQuery.toLowerCase())
-                );
-            } else if (beneficiaryType === 'cry') {
-                return ['USDT', 'SOL', 'BTC', 'USDC', 'BNB', 'ETH'].includes(ben.AccountType) && (
-                    ben.BeneficiaryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    ben.Email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    ben.Business.toLowerCase().includes(searchQuery.toLowerCase())
-                );
-            }
-            return true;
-        });
+    // const filteredBeneficiaries = beneficiaryType === 'all'
+    //     ? beneficiaries.filter(ben =>
+    //         ben.BeneficiaryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    //         ben.AccountType.toLowerCase().includes(searchQuery.toLowerCase())
+    //         // ben.Business.toLowerCase().includes(searchQuery.toLowerCase())
+    //     )
+    //     : beneficiaries.filter(ben => {
+    //         if (beneficiaryType === 'BT') {
+    //             return ben.account_type === 'fiat' && (
+    //                 ben.full_name.toLowerCase().includes(searchQuery.toLowerCase())
+    //             );
+    //         } else if (beneficiaryType === 'cry') {
+    //             return ['USDT', 'SOL', 'BTC', 'USDC', 'BNB', 'ETH'].includes(ben.account_type) && (
+    //                 ben.full_name.toLowerCase().includes(searchQuery.toLowerCase())
+    //             );
+    //         }
+    //         return true;
+    //     });
 
 
     return (
@@ -248,7 +244,7 @@ const BeneficiaryInfo = () => {
                         </div>
                     </div>
                 </div>
-                {filteredBeneficiaries.map((Ben, i) => {
+                {beneficiaries.map((Ben, i) => {
                     return <div
                         key={i}
                         onClick={isSmScreen ? () => handleViewDetails(i) : undefined}
@@ -256,29 +252,29 @@ const BeneficiaryInfo = () => {
                     >
                         <div className='flex gap-5 items-center min-w-0'>
                             <input className='mt-1 size-4 cursor-pointer' type="checkbox" />
-                            <p className='truncate'>{Ben.BeneficiaryName}</p>
+                            <p className='truncate'>{Ben.full_name}</p>
                         </div>
 
                         <div className='min-w-0'>
-                            <p className='truncate'>{Ben.AccountType}</p>
+                            <p className='truncate'>{Ben.account_type}</p>
                         </div>
                         <div className='min-w-0 sm:block hidden'>
-                            {Ben.Country !== '' ? (
-                                <div className='truncate'>{Ben.Country}</div>
+                            {Ben.country !== null ? (
+                                <div className='truncate'>{Ben.country}</div>
                             ) : (
                                 <p>—</p>
                             )}
                         </div>
                         <div className='min-w-0 md:block hidden'>
-                            {Ben.Address !== '' ? (
-                                <p className='truncate'>{Ben.Address}</p>
+                            {Ben.Address !== null ? (
+                                <p className='truncate'>{Ben.address}</p>
                             ) : (
                                 <p>—</p>
                             )}
                         </div>
                         <div className='min-w-0 sp:flex hidden justify-end items-center gap-5 relative'>
-                            {Ben.AccountNumber !== '' ? (
-                                <p className='truncate'>{Ben.AccountNumber}</p>
+                            {Ben.AccountNumber !== null ? (
+                                <p className='truncate'>{Ben.account_number}</p>
                             ) : (
                                 <p>—</p>
                             )}
@@ -325,7 +321,7 @@ const BeneficiaryInfo = () => {
                         </div>
                     </div>
                 })}
-                <p className='text-[#78757A] mt-4'>{filteredBeneficiaries.length} Beneficiary{filteredBeneficiaries.length > 1 ? 's' : ''}</p>
+                <p className='text-[#78757A] mt-4'>{beneficiaries.length} Beneficiary{beneficiaries.length > 1 ? 's' : ''}</p>
             </div>
         </div>
     )

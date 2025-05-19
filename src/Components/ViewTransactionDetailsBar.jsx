@@ -22,7 +22,7 @@ const ViewTransactionDetailsBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 transition-all text-black z-30 overflow-auto ${viewTransactionDetails || overViewTransactionDetails ? 'sm:w-[40%] w-full right-0' : 'right-[-100%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 transition-all text-black z-30 overflow-auto ${viewTransactionDetails || overViewTransactionDetails ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%]'}`}>
             <div className='flex gap-2 justify-between'>
                 <div>
                     <p className='text-[24px] font-medium text-[#1D1C1F]'>Transaction details</p>

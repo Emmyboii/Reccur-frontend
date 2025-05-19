@@ -19,10 +19,12 @@ const BeneficiaryBar = () => {
     const [formData, setFormData] = useState({
         bank_name: '',
         bank_account_type: '',
+        country: '',
         account_number: '',
         swift_code: '',
         routing_number: '',
         full_name: '',
+        address: '',
     })
 
     const [formDataCrypto, setFormDataCrypto] = useState({
@@ -30,6 +32,7 @@ const BeneficiaryBar = () => {
         wallet_address: '',
         network_type: '',
         full_name: '',
+        address: '',
     })
 
     const handleBankChange = (e) => {
@@ -53,7 +56,7 @@ const BeneficiaryBar = () => {
 
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary/create-bank`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -69,6 +72,9 @@ const BeneficiaryBar = () => {
                 throw new Error(data.message || 'failed');
             } else {
                 console.log('beneficairyAdded:', data);
+                window.scrollTo(0, 0)
+                handleAddedBeneficiaries()
+                handleBeneficiaryBar()
             }
 
         } catch (error) {
@@ -101,6 +107,9 @@ const BeneficiaryBar = () => {
                 throw new Error(data.message || 'failed');
             } else {
                 console.log('CryptoBeneficairyAdded:', data);
+                window.scrollTo(0, 0)
+                handleAddedBeneficiaries()
+                handleBeneficiaryBar()
             }
 
         } catch (error) {
@@ -160,35 +169,36 @@ const BeneficiaryBar = () => {
 
     const bankOptions = [
         { label: "Select Bank", value: "", isDisabled: true },
-        { label: "Sterling Bank PLC", value: "sterling-bank-plc" },
-        { label: "Keystone Bank PLC", value: "keystone-bank-plc" },
-        { label: "First City Monument Bank PLC", value: "first-city-monument-bank-plc" },
-        { label: "United Bank For Africa PLC", value: "united-bank-for-africa-plc" },
-        { label: "Jaiz Bank", value: "jaiz-bank" },
-        { label: "Fidelity Bank PLC", value: "fidelity-bank-plc" },
-        { label: "Polaris Bank PLC", value: "polaris-bank-plc" },
-        { label: "CITI Bank", value: "citi-bank" },
-        { label: "Ecobank Nigeria PLC", value: "ecobank-nigeria-plc" },
-        { label: "Unity Bank PLC", value: "unity-bank-plc" },
-        { label: "Stanbic IBTC Bank PLC", value: "stanbic-ibtc-bank-plc" },
-        { label: "Access Bank PLC", value: "access-bank-plc" },
-        { label: "Zenith International Bank PLC", value: "zenith-international-bank-plc" },
-        { label: "First Bank Of Nigeria PLC", value: "first-bank-of-nigeria-plc" },
-        { label: "Wema Bank PLC", value: "wema-bank-plc" },
-        { label: "Union Bank Of Nigeria PLC", value: "union-bank-of-nigeria-plc" },
-        { label: "Heritage Bank PLC", value: "heritage-bank-plc" },
-        { label: "Standard Chartered Bank PLC", value: "standard-chartered-bank-plc" },
-        { label: "GT Bank", value: "gt-bank" },
-        { label: "Suntrust Bank", value: "suntrust-bank" },
-        { label: "Providus Bank", value: "providus-bank" },
-        { label: "Afribank Nigeria Plc", value: "afribank-nigeria-plc" },
-        { label: "Enterprise Bank Limited", value: "enterprise-bank-limited" },
+        { label: "Sterling Bank PLC", value: "Sterling Bank PLC" },
+        { label: "Keystone Bank PLC", value: "Keystone Bank PLC" },
+        { label: "First City Monument Bank PLC", value: "First City Monument Bank PLC" },
+        { label: "United Bank For Africa PLC", value: "United Bank For Africa PLC" },
+        { label: "Jaiz Bank", value: "Jaiz Bank" },
+        { label: "Fidelity Bank PLC", value: "Fidelity Bank PLC" },
+        { label: "Polaris Bank PLC", value: "Polaris Bank PLC" },
+        { label: "CITI Bank", value: "CITI Bank" },
+        { label: "Ecobank Nigeria PLC", value: "Ecobank Nigeria PLC" },
+        { label: "Unity Bank PLC", value: "Unity Bank PLC" },
+        { label: "Stanbic IBTC Bank PLC", value: "Stanbic IBTC Bank PLC" },
+        { label: "Access Bank PLC", value: "Access Bank PLC" },
+        { label: "Zenith International Bank PLC", value: "Zenith International Bank PLC" },
+        { label: "First Bank Of Nigeria PLC", value: "First Bank Of Nigeria PLC" },
+        { label: "Wema Bank PLC", value: "Wema Bank PLC" },
+        { label: "Union Bank Of Nigeria PLC", value: "Union Bank Of Nigeria PLC" },
+        { label: "Heritage Bank PLC", value: "Heritage Bank PLC" },
+        { label: "Standard Chartered Bank PLC", value: "Standard Chartered Bank PLC" },
+        { label: "GT Bank", value: "GT Bank" },
+        { label: "Suntrust Bank", value: "Suntrust Bank" },
+        { label: "Providus Bank", value: "Providus Bank" },
+        { label: "Afribank Nigeria Plc", value: "Afribank Nigeria Plc" },
+        { label: "Enterprise Bank Limited", value: "Enterprise Bank Limited" },
+
     ];
 
     const cryptocurrencyOptions = [
         { label: "Cryptocurrency Type", value: "", isDisabled: true },
-        { label: "USDT", value: "usdt" },
-        { label: "USDC", value: "usdc" },
+        { label: "USDT", value: "USDT" },
+        { label: "USDC", value: "USDC" },
         { label: "BTC", value: "BTC" },
         { label: "SOL", value: "SOL" },
         { label: "ETH", value: "ETH" },
@@ -284,7 +294,7 @@ const BeneficiaryBar = () => {
         setCountries(Option)
         setFormData(prev => ({
             ...prev,
-            bank_account_type: Option.value
+            country: Option.value
         }))
     }
     const handleCrypto = (Option) => {
@@ -303,7 +313,7 @@ const BeneficiaryBar = () => {
     }
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${beneficiaryBar ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
                     <h1 className='text-[28px] font-semibold'>Add beneficiary</h1>
@@ -397,6 +407,23 @@ const BeneficiaryBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
+                            <label htmlFor="fullName">Bank Account type</label>
+                            <div className='flex items-center mt-2 relative'>
+                                <select
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
+                                    name="bank_account_type"
+                                    onChange={handleBankChange}
+                                    id=""
+                                    required
+                                    value={formData.bank_account_type}
+                                >
+                                    <option value="" disabled>Select</option>
+                                    <option value="SAVING">Savings</option>
+                                    <option value="CHECKING">Checking</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className='mt-5'>
                             <label htmlFor="fullName">Routing number</label>
                             <div className='flex items-center mt-2'>
                                 <input
@@ -426,6 +453,21 @@ const BeneficiaryBar = () => {
                                 />
                             </div>
                         </div>
+                        <div className='mt-5'>
+                            <label htmlFor="fullName">Address</label>
+                            <div className='flex items-center mt-2'>
+                                <input
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
+                                    type="text"
+                                    name="address"
+                                    value={formData.address}
+                                    onChange={handleBankChange}
+                                    id=""
+                                    required
+                                    placeholder='Enter your address'
+                                />
+                            </div>
+                        </div>
                         <div className='flex gap-4 mt-10'>
                             <button
                                 className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
@@ -436,9 +478,8 @@ const BeneficiaryBar = () => {
                             <button
                                 className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
                                 onClick={(e) => {
-                                    window.scrollTo(0, 0)
-                                    handleAddedBeneficiaries()
-                                    handleBeneficiaryBar()
+                handleAddedBeneficiaries()
+
                                     createBankBeneficairy(e)
                                 }}
                                 disabled={isSubmitting}
@@ -510,6 +551,21 @@ const BeneficiaryBar = () => {
                                 />
                             </div>
                         </div>
+                        <div className='mt-5'>
+                            <label htmlFor="fullName">Address</label>
+                            <div className='flex items-center mt-2'>
+                                <input
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
+                                    type="text"
+                                    name="address"
+                                    value={formDataCrypto.address}
+                                    onChange={handleCryptoChange}
+                                    id=""
+                                    required
+                                    placeholder='Enter your address'
+                                />
+                            </div>
+                        </div>
                         <div className='flex gap-4 mt-12'>
                             <button
                                 className='p-3 rounded-lg w-[25%] border-[1.5px] border-black/10'
@@ -520,9 +576,6 @@ const BeneficiaryBar = () => {
                             <button
                                 className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
                                 onClick={(e) => {
-                                    window.scrollTo(0, 0)
-                                    
-                                    handleBeneficiaryBar()
                                     createCryptoBeneficairy(e)
                                 }}
                                 disabled={isSubmitting}

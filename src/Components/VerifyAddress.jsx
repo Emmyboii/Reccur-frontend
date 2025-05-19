@@ -52,6 +52,7 @@ const VerifyAddress = () => {
             ...prevData,
             ...formData,
         };
+        console.log(formData);
 
         localStorage.setItem('KYC-Data', JSON.stringify(updatedData));
         console.log(forms);

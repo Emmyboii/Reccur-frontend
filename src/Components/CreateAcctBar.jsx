@@ -38,6 +38,11 @@ const CreateAcctBar = () => {
                 throw new Error(data.message || 'failed');
             } else {
                 console.log('currencyAdded:', data);
+                localStorage.setItem('AcctCreated', 'Yes')
+                navigate('/home/overview')
+                setChecked(true)
+                window.scrollTo(0, 0)
+                handleAcctBar()
             }
 
         } catch (error) {
@@ -47,22 +52,26 @@ const CreateAcctBar = () => {
         }
     }
 
-    const currencyOptions = Object.keys(currencyCountryMap).map(code => {
-        const countryCode = currencyCountryMap[code];
-        return {
-            value: code,
-            label: (
-                <div className="flex items-center gap-2">
-                    <img
-                        src={`https://flagcdn.com/w40/${countryCode}.png`}
-                        alt={code}
-                        className="w-[20px] h-4 rounded-sm"
-                    />
-                    {code}
-                </div>
-            )
-        };
-    });
+    const allowedCurrencies = ['USD', 'EUR'];
+
+    const currencyOptions = Object.keys(currencyCountryMap)
+        .filter(code => allowedCurrencies.includes(code))
+        .map(code => {
+            const countryCode = currencyCountryMap[code];
+            return {
+                value: code,
+                label: (
+                    <div className="flex items-center gap-2">
+                        <img
+                            src={`https://flagcdn.com/w40/${countryCode}.png`}
+                            alt={code}
+                            className="w-[20px] h-4 rounded-sm"
+                        />
+                        {code}
+                    </div>
+                )
+            };
+        });
 
 
     const customStyles = {
@@ -108,7 +117,7 @@ const CreateAcctBar = () => {
     };
 
     return (
-        <div className={`fixed lg:top-0 top-[60px] h-screen bg-white z-50 lg:p-10 py-8 px-4 duration-700 ${acctBar ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed lg:top-0 top-[60px] h-screen bg-white z-50 lg:p-10 py-8 px-4 duration-700 ${acctBar ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between gap-2'>
                 <div>
                     <h1 className='text-[20px] font-medium text-[#1D1C1F]'>Create Account</h1>
@@ -142,19 +151,15 @@ const CreateAcctBar = () => {
                     <button
                         className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
                         onClick={(e) => {
-                            setChecked(true)
-                            window.scrollTo(0, 0)
-                            navigate('/home/overview')
-                            handleAcctBar()
                             createAccount(e)
                         }}
                         disabled={isSubmitting}
-                        >
-                            {isSubmitting ? (
-                                'Loading...'
-                            ) : (
-                                'Create Account'
-                            )}
+                    >
+                        {isSubmitting ? (
+                            'Loading...'
+                        ) : (
+                            'Create Account'
+                        )}
                     </button>
                 </div>
             </div>

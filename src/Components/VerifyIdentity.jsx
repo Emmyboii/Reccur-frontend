@@ -51,13 +51,13 @@ const VerifyIdentity = () => {
         const prevData = JSON.parse(localStorage.getItem('KYC-Data')) || {};
         const updatedData = {
             ...prevData,
-            phone_country_code: selectedCode.code,
+            phone_country_code: selectedCode.name,
         };
         localStorage.setItem('KYC-Data', JSON.stringify(updatedData));
 
         setFormData((prev) => ({
             ...prev,
-            phone_country_code: selectedCode.code,
+            phone_country_code: selectedCode.name,
         }));
     }, [selectedCode]);
 
@@ -71,7 +71,7 @@ const VerifyIdentity = () => {
 
         setFormData((prev) => ({
             ...prev,
-            phone_country_code: country.code,
+            phone_country_code: country.name,
         }));
     };
 

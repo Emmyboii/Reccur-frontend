@@ -6,6 +6,9 @@ import { Context } from "./Context/Context";
 import LoadingScreen from "./Pages/LoadingScreen";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
 import HomeRoot from "./Pages/HomeRoot";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import RedirectVerifiedUsers from "./Components/RedirectVerifiedUsers";
+import PublicRoute from "./Components/PublicRoute";
 
 const Dashboard = React.lazy(() => import('./Pages/Dashboard'));
 const Home = React.lazy(() => import('./Pages/Home'));
@@ -22,6 +25,10 @@ function App() {
   const { handleSideBar, sideBar } = useContext(Context);
   const location = useLocation();
 
+
+
+  const verified = JSON.parse(localStorage.getItem('userCreated'))
+
   const shouldHideSidebar = location.pathname === '/' || location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/forgotpassword' || location.pathname === '/updatepassword';
 
   return (
@@ -30,7 +37,7 @@ function App() {
 
       <div className="w-full">
         <div
-          className={`w-full h-[200%] lg:hidden text-[#1D1C1F] z-40 absolute ${sideBar ? 'bg-black/20' : 'hidden'}`}
+          className={`w-full top-0 h-[200%] lg:hidden text-[#1D1C1F] z-40 absolute ${sideBar ? 'bg-black/20' : 'hidden'}`}
           onClick={handleSideBar}
         ></div>
         {!shouldHideSidebar && <NavBar />}
@@ -38,16 +45,65 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeRoot />} />
             <Route element={<ProtectedRoutes />}>
-              <Route path="/dashboard/*" element={<Dashboard />} />
-              <Route path="/home/*" element={<Home />} />
-              <Route path="/beneficiaries/*" element={<Beneficiary />} />
-              <Route path="/invoices/*" element={<Invoice />} />
-              <Route path="/transactions/*" element={<Transaction />} />
-              <Route path="/settings/*" element={<Settings />} />
+              <Route
+                path="/dashboard/*"
+                element={
+                  <RedirectVerifiedUsers verified={verified}>
+                    <Dashboard />
+                  </RedirectVerifiedUsers>
+                }
+              />
+              <Route
+                path="/home/*"
+                element={
+                  <ProtectedRoute verified={verified}>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/beneficiaries/*"
+                element={
+                  <ProtectedRoute verified={verified}>
+                    <Beneficiary />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/invoices/*"
+                element={
+                  <ProtectedRoute verified={verified}>
+                    <Invoice />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/transactions/*"
+                element={
+                  <ProtectedRoute verified={verified}>
+                    <Transaction />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings/*"
+                element={
+                  <ProtectedRoute verified={verified}>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
 
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
             <Route path="/forgotpassword" element={<ForgotPassword />} />
             <Route path="/updatepassword" element={<UpdatePassword />} />
           </Routes>

@@ -143,12 +143,7 @@ const CreatedInvoices = () => {
                     </div>
                 </div>
             </div>
-            {Invoices.filter(invoice =>
-                invoice.payerName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                invoice.invoices.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                invoice.amount.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                invoice.status.toLowerCase().includes(searchQuery.toLowerCase())
-            ).map((invoice, i) => {
+            {invoice.map((invoice, i) => {
                 return <div
                     key={i}
                     onClick={isSmScreen ? () => {

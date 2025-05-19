@@ -90,12 +90,11 @@ const AccountSettings = (props) => {
     const handleProfilePics = (e) => {
         const selectedPics = e.target.files[0]
         if (selectedPics) {
-            // const previewURL = URL.createObjectURL(selectedPics)
             setProfilePics(selectedPics)
-            // setFormData(prev => ({
-            //     ...prev,
-            //     image: previewURL
-            // }));
+            setFormData(prev => ({
+                ...prev,
+                image: selectedPics
+            }))
         }
     }
 
@@ -126,6 +125,7 @@ const AccountSettings = (props) => {
 
         try {
             const token = localStorage.getItem('token');
+
 
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/update-profile`, {
                 method: 'PATCH',
@@ -291,9 +291,9 @@ const AccountSettings = (props) => {
                 </div>
                 <label className='sm:w-[70%]' htmlFor="ProfilePics">
                     <div className='flex gap-6'>
-                        {profilePics ? (
+                        {formData.image ? (
                             <img
-                                src={URL.createObjectURL(profilePics)}
+                                src={URL.createObjectURL(formData.image)}
                                 alt=""
                                 className='rounded-[48px] size-12 cursor-pointer'
                             />

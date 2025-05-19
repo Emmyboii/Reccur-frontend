@@ -81,7 +81,9 @@ const CreateInvoiceBar = () => {
         })),
     };
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        
         const token = localStorage.getItem('token');
 
         try {
@@ -101,6 +103,9 @@ const CreateInvoiceBar = () => {
             }
 
             console.log('Invoice created:', data);
+            window.scrollTo(0, 0)
+            handleCreateInvoice()
+            handleAddedInvoice()
             return data;
         } catch (error) {
             console.error('Error creating invoice:', error.message);
@@ -109,7 +114,7 @@ const CreateInvoiceBar = () => {
 
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${createInvoice ? 'sm:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${createInvoice ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
                     <h1 className='text-[20px] font-medium'>Create invoice</h1>
@@ -120,7 +125,7 @@ const CreateInvoiceBar = () => {
                     onClick={handleCreateInvoice}
                 />
             </div>
-            <form onSubmit={handleSubmit} className='mt-7 text-black/60'>
+            <form className='mt-7 text-black/60'>
                 <div className='mt-5'>
                     <label className='text-[#525154] text-[14px]'>Payer's name</label>
                     <div className='flex items-center'>
@@ -265,10 +270,8 @@ const CreateInvoiceBar = () => {
                     <button
                         type='submit'
                         className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
-                        onClick={() => {
-                            window.scrollTo(0, 0)
-                            handleCreateInvoice()
-                            handleAddedInvoice()
+                        onClick={(e) => {
+                            handleSubmit(e)
                         }}
                     >
                         Create Invoice

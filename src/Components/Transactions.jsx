@@ -304,7 +304,7 @@ const Transactions = () => {
     return (
         <div>
             <div
-                className={`w-full h-[200%] absolute z-10 ${viewTransactionDetails ? 'bg-black/30' : 'hidden'}`}
+                className={`w-full top-0 h-[200%] absolute z-10 ${viewTransactionDetails ? 'bg-black/30' : 'hidden'}`}
                 onClick={handleViewTransactionDetails}
             ></div>
             <div className='lg:p-10 py-8 px-4'>

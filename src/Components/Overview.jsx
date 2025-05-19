@@ -24,7 +24,6 @@ import CreateAcctBar from './CreateAcctBar';
 const Overview = () => {
 
     const {
-        checked,
         checked2,
         setChecked2,
         checked3,
@@ -49,6 +48,9 @@ const Overview = () => {
         handleAcctBar,
         acctBar
     } = useContext(Context)
+
+    const acctCreated = JSON.parse(localStorage.getItem('AcctCreated'));
+
 
     const [searchQuery, setSearchQuery] = useState('');
     const handleSearch = (query) => {
@@ -227,7 +229,7 @@ const Overview = () => {
     return (
         <div>
             <div
-                className={`w-full h-[200%] absolute z-30 ${acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails || acctBar ? 'bg-black/20' : 'hidden'}`}
+                className={`w-full top-0 h-[200%] absolute z-50 ${acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails || acctBar ? 'bg-black/20' : 'hidden'}`}
                 onClick={acctDetailsBar ? handleAcctDetailsBar : convertBar ? handleConvertBar : sendBar ? handleSendBar : liveRatesBar ? handleLiveRates : overViewTransactionDetails ? handleOverViewTransactionDetails : acctBar ? handleAcctBar : null}
             ></div>
             <div className='flex items-center justify-between text-[#1D1C1F] md:p-10 px-4 py-8'>
@@ -337,10 +339,10 @@ const Overview = () => {
                 <div className='flex sm:flex-row flex-col text-[14px] justify-between gap-4 w-[80%] mt-4'>
                     <div className='flex flex-col gap-4'>
                         <div
-                            className={`flex items-center gap-2 cursor-pointer ${checked ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
+                            className={`flex items-center gap-2 cursor-pointer ${acctCreated === 'Yes' ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
                             onClick={null}
                         >
-                            {checked ? (
+                            {acctCreated === 'Yes' ? (
                                 <FaCheckCircle className='mt-1 text-[#542d9d]' />
                             ) : (
                                 <FaRegCircle className='mt-1 text-black/50' />

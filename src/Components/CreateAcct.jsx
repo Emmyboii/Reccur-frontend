@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
 import CreateAcctBar from './CreateAcctBar';
 import { Context } from '../Context/Context';
@@ -11,7 +11,6 @@ const CreateAcct = () => {
     const {
         handleAcctBar,
         acctBar,
-        checked,
         checked2,
         setChecked2,
         checked3,
@@ -24,16 +23,43 @@ const CreateAcct = () => {
         setChecked6
     } = useContext(Context)
 
+    const [formData, setFormData] = useState({
+        first_name: '',
+    })
+
+    useEffect(() => {
+        localStorage.setItem('AcctCreated', JSON.stringify('No'));
+    }, [])
+
+    const acctCreated = JSON.parse(localStorage.getItem('AcctCreated'));
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchProfile = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setFormData(data);
+        };
+
+        fetchProfile();
+    }, []);
+
     return (
         <div>
             <div
-                className={`w-full h-[200%] absolute ${acctBar ? 'bg-black/30' : 'hidden'}`}
+                className={`w-full top-0 h-[200%] absolute ${acctBar ? 'bg-black/30' : 'hidden'}`}
                 onClick={handleAcctBar}
             ></div>
             <div className='flex items-start justify-between md:p-10 py-10 px-4 w-full'>
                 <div>
                     <p className='text-[28px] font-semibold'>Home</p>
-                    <p className='text-[16px] font-normal text-[#525154]'>Welcome back, Cooper!</p>
+                    <p className='text-[16px] font-normal text-[#525154]'>Welcome back, {formData.first_name}!</p>
                 </div>
                 <div className='flex md:items-center items-start gap-9'>
                     <img className='lg:block hidden cursor-pointer' src={Search} alt="" />
@@ -59,10 +85,10 @@ const CreateAcct = () => {
                 <div className='flex sm:flex-row flex-col text-[14px] justify-between gap-4 w-[80%] mt-4'>
                     <div className='flex flex-col gap-4'>
                         <div
-                            className={`flex items-center gap-2 cursor-pointer ${checked ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
-                            onClick={!checked ? handleAcctBar : null}
+                            className={`flex items-center gap-2 cursor-pointer ${acctCreated === 'Yes' ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
+                            onClick={acctCreated === 'No' ? handleAcctBar : null}
                         >
-                            {checked ? (
+                            {acctCreated === 'Yes' ? (
                                 <FaCheckCircle className='mt-1 text-[#542d9d]' />
                             ) : (
                                 <FaRegCircle className='mt-1 text-black/50' />

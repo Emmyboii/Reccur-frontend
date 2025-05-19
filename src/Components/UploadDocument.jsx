@@ -120,7 +120,7 @@ const UploadDocument = () => {
 
       navigate('/home');
       setVerified(!verified);
-      localStorage.setItem('userCreated', JSON.stringify(true));
+      localStorage.setItem('userCreated', JSON.stringify('verified'));
 
     } catch (error) {
       console.error('Error during KYC:', error.message);
@@ -180,7 +180,7 @@ const UploadDocument = () => {
                 hidden
               />
             </label>
-            <p className='text-[#531CB3]'>Upload Front</p>
+            <p className='text-[#531CB3]'>Upload Passport</p>
           </div>
         ) : (
           <div className='flex gap-4 mt-4'>

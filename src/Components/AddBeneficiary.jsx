@@ -24,7 +24,7 @@ const AddBeneficiary = () => {
     return (
         <div>
             <div
-                className={`w-full h-[200%] text-[#1D1C1F] absolute z-30 ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
+                className={`w-full top-0 h-[200%] text-[#1D1C1F] absolute z-30 ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
                 onClick={beneficiaryBar ? handleBeneficiaryBar : viewDetails ? handleViewDetails : profileEdit ? handleProfileEdit : null}
             ></div>
             <div className='flex items-start justify-between md:p-10 py-10 px-4'>
@@ -33,10 +33,10 @@ const AddBeneficiary = () => {
                     <p className='text-[16px] font-normal text-[#525154]'>View and manage your beneficiaries here.</p>
                 </div>
                 <div className='flex md:items-center items-start gap-9'>
-                        <img className='lg:block hidden cursor-pointer' src={Search} alt="" />
+                    <img className='lg:block hidden cursor-pointer' src={Search} alt="" />
                     <img className='lg:block hidden cursor-pointer' src={Bell} alt="" />
-                        <img className='sp:w-8 w-[30px]' onClick={handleBeneficiaryBar} src={Add} alt="" />
-                    </div>
+                    <img className='sp:w-8 w-[30px]' onClick={handleBeneficiaryBar} src={Add} alt="" />
+                </div>
             </div>
             <div className={beneficiaryAdded ? 'hidden' : 'flex flex-col items-center gap-9 bg-[#F9F7FC] lg:mx-10 mx-4 px-2 py-16 rounded-md border-2 border-black/50 border-dashed'}>
                 <div className='max-w-[500px]'>

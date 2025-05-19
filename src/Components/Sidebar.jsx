@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
 import { RiHome6Line } from "react-icons/ri";
-import Avatar from '../Components/Images/Avatar.png'
 import Logo from '../Components/Images/Logomark2.png';
 import close from '../Components/Images/close.png';
 import Beneficiary from '../Components/Images/beneficiary.png';
@@ -12,9 +11,49 @@ import Settings from '../Components/Images/Settings.png';
 import { Context } from '../Context/Context';
 
 const Sidebar = () => {
-    const location = useLocation()
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const verified = JSON.parse(localStorage.getItem('userCreated'))
+
+    const [formData, setFormData] = useState({
+        fullname: '',
+        last_name: '',
+        image: null
+    })
+
+    const getRandomColor = () => {
+        const colors = [
+            "#F87171", // red-400
+            "#60A5FA", // blue-400
+            "#34D399", // green-400
+            "#FBBF24", // yellow-400
+            "#A78BFA", // purple-400
+            "#FB7185", // pink-400
+            "#F97316", // orange-400
+            "#38BDF8", // sky-400
+        ];
+        return colors[Math.floor(Math.random() * colors.length)];
+    };
+
+    const bgColor = useMemo(() => getRandomColor(), []);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchProfile = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setFormData(data);
+        };
+
+        fetchProfile();
+    }, []);
 
     const { handleSideBar, sideBar, setSideBar, setTransactionType } = useContext(Context)
 
@@ -35,95 +74,111 @@ const Sidebar = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, [setSideBar, isLgScreen]);
 
+    const handleRedirectIfUnverified = (e, targetPath) => {
+        e.preventDefault();
+        if (isMdScreen) handleSideBar();
+        if (verified === 'verified') {
+            navigate(targetPath);
+        } else {
+            navigate('/dashboard', {
+                state: { error: 'You need to fill in your KYC data to continue' }
+            });
+        }
+    };
+
+    const menuItems = [
+        { path: '/home', label: 'Home', icon: <RiHome6Line className="text-[24px]" /> },
+        { path: '/beneficiaries', label: 'Beneficiaries', icon: <img src={Beneficiary} alt="" /> },
+        { path: '/invoices', label: 'Invoices', icon: <img src={Invoice} alt="" /> },
+        { path: '/transactions', label: 'Transactions', icon: <img src={Transaction} alt="" /> },
+        { path: '/settings', label: 'Settings', icon: <img src={Settings} alt="" /> },
+    ];
+
     return (
         <div className={`bg-[#431594] text-white sp:w-[350px] 2xl:w-[550px] w-full h-screen top-0 left-0 py-8 px-5 z-50 gap-5 ${sideBar ? 'fixed flex lg:hidden flex-col justify-between' : 'lg:flex sticky hidden lg:flex-col lg:justify-between'}`}>
             <div>
-                <div className='flex items-center justify-between'>
-                    {verified ? (
-                        <a href='/home' onClick={isMdScreen ? handleSideBar : undefined}>
-                            <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
-                                <img src={Logo} alt="" className='mt-2 w-7 h-7' />
-                                <p>reccur</p>
-                            </h1>
-                        </a>
-                    ) : (
-                        <a href='/dashboard' onClick={isMdScreen ? handleSideBar : undefined}>
-                            <h1 className='flex gap-3 items-center font-semibold ml-2 text-[20px]'>
-                                <img src={Logo} alt="" className='mt-2 w-7 h-7' />
-                                <p>reccur</p>
-                            </h1>
-                        </a>
-                    )}
+                <div className="flex items-center justify-between">
+                    <a
+                        href={verified === 'verified' ? '/home' : '/dashboard'}
+                        onClick={(e) => handleRedirectIfUnverified(e, verified === 'verified' ? '/home' : '/dashboard')}
+                    >
+                        <h1 className="flex gap-3 items-center font-semibold ml-2 text-[20px]">
+                            <img src={Logo} alt="" className="mt-2 w-7 h-7" />
+                            <p>reccur</p>
+                        </h1>
+                    </a>
                     <img
                         onClick={handleSideBar}
                         src={close}
                         alt=""
-                        className='cursor-pointer lg:hidden'
+                        className="cursor-pointer lg:hidden"
                     />
                 </div>
 
-                <div className='flex flex-col gap-2 mt-5'>
-                    {verified ? (
-                        <a href='/home' onClick={isMdScreen ? handleSideBar : undefined}>
-                            <div className={location.pathname.startsWith('/home') ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                                <RiHome6Line className='text-[24px]' />
-                                <p>Home</p>
-                            </div>
-                        </a>
-                    ) : (
-                        <a href='/dashboard' onClick={isMdScreen ? handleSideBar : undefined}>
-                            <div className={location.pathname.startsWith('/') &&
-                                location.pathname !== '/beneficiaries' &&
-                                location.pathname !== '/beneficiaries' &&
-                                location.pathname !== '/invoices' &&
-                                location.pathname !== '/transactions' &&
-                                location.pathname !== '/settings' ?
-                                'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2'
-                                :
-                                'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'
-                            }
+                {/* Sidebar Menu */}
+                <div className="flex flex-col gap-2 mt-5">
+                    {menuItems.map(({ path, label, icon }) => (
+                        <a
+                            href={path}
+                            key={label}
+                            onClick={(e) => handleRedirectIfUnverified(e, path)}
+                        >
+                            <div
+                                className={`${location.pathname === path
+                                    ? 'bg-[#4e22a0]'
+                                    : 'hover:bg-[#4e22a0]'
+                                    } flex items-center gap-2 cursor-pointer rounded-md p-2`}
                             >
-                                <RiHome6Line className='text-[24px]' />
-                                <p>Home</p>
+                                {icon}
+                                <p>{label}</p>
                             </div>
                         </a>
-                    )}
-
-                    <a href='/beneficiaries' onClick={isMdScreen ? handleSideBar : undefined}>
-                        <div className={location.pathname === '/beneficiaries' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                            <img src={Beneficiary} alt="" />
-                            <p>Beneficiaries</p>
-                        </div>
-                    </a>
-                    <a href='/invoices' onClick={isMdScreen ? handleSideBar : undefined}>
-                        <div className={location.pathname === '/invoices' ? 'bg-[#4e22a0] flex items-center gap-3 cursor-pointer rounded-md p-2' : 'flex items-center gap-3 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                            <img src={Invoice} alt="" />
-                            <p>Invoices</p>
-                        </div>
-                    </a>
-                    <a href='/transactions' onClick={isMdScreen ? handleSideBar : undefined}>
-                        <div className={location.pathname === '/transactions' ? 'bg-[#4e22a0] flex items-center gap-2 cursor-pointer rounded-md p-2' : 'flex items-center gap-2 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                            <img src={Transaction} alt="" />
-                            <p>Transactions</p>
-                        </div>
-                    </a>
-                    <a href='/settings' onClick={isMdScreen ? handleSideBar : undefined}>
-                        <div className={location.pathname === '/settings' ? 'bg-[#4e22a0] flex items-center gap-3 cursor-pointer rounded-md p-2' : 'flex items-center gap-3 cursor-pointer hover:bg-[#4e22a0] rounded-md p-2'}>
-                            <img src={Settings} alt="" />
-                            <p>Settings</p>
-                        </div>
-                    </a>
+                    ))}
                 </div>
             </div>
-            <div className='flex items-center justify-between'>
-                <a href='/settings' onClick={() => setTransactionType('account')}>
-                    <div onClick={isMdScreen ? handleSideBar : undefined} className='flex items-center cursor-pointer gap-2'>
-                        <img src={Avatar} alt='' />
-                        <p>Cooper Bator</p>
+            
+            {/* Profile Section */}
+            <div className="flex items-center justify-between mt-4">
+                <a
+                    href="/settings"
+                    onClick={(e) => {
+                        setTransactionType('account');
+                        handleRedirectIfUnverified(e, '/settings');
+                    }}
+                >
+                    <div className="flex w-full items-center cursor-pointer gap-2">
+                        <label htmlFor="ProfilePics">
+                            <div className="flex gap-6">
+                                {formData.image ? (
+                                    <img
+                                        src={URL.createObjectURL(formData.image)}
+                                        alt=""
+                                        className="rounded-[48px] size-9 cursor-pointer"
+                                    />
+                                ) : (
+                                    <div
+                                        className="flex items-center justify-center cursor-pointer rounded-full text-[24px] size-11 text-white font-semibold uppercase"
+                                        style={{ backgroundColor: bgColor }}
+                                    >
+                                        {formData.last_name?.charAt(0) || "?"}
+                                    </div>
+                                )}
+                            </div>
+                        </label>
+                        <p>{formData.fullname}</p>
                     </div>
                 </a>
-                <a href='/settings' onClick={() => setTransactionType('account')}>
-                    <BsThreeDots onClick={isMdScreen ? handleSideBar : undefined} className='text-[20px] cursor-pointer' />
+                <a
+                    href="/settings"
+                    onClick={(e) => {
+                        setTransactionType('account');
+                        handleRedirectIfUnverified(e, '/settings');
+                    }}
+                >
+                    <BsThreeDots
+                        onClick={isMdScreen ? handleSideBar : undefined}
+                        className="text-[20px] cursor-pointer"
+                    />
                 </a>
             </div>
         </div>

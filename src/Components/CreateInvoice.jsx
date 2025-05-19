@@ -15,7 +15,7 @@ const CreateInvoice = () => {
     return (
         <div>
             <div
-                className={`w-full h-[200%] z-30 absolute ${createInvoice || viewInvoice ? 'bg-black/20' : 'hidden'}`}
+                className={`w-full top-0 h-[200%] z-30 absolute ${createInvoice || viewInvoice ? 'bg-black/20' : 'hidden'}`}
                 onClick={createInvoice ? handleCreateInvoice : viewInvoice ? handleViewInvoice : null}
             ></div>
             <div className='flex items-start justify-between lg:p-10 py-8 px-4'>
