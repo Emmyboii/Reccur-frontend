@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Context } from '../Context/Context'
 import ConfirmConversion from '../Components/ConfirmConversion'
@@ -9,7 +9,6 @@ const Overview = React.lazy(() => import('../Components/Overview'));
 const Home = () => {
 
     const verified = JSON.parse(localStorage.getItem('userCreated'))
-    const acctCreated = JSON.parse(localStorage.getItem('AcctCreated'));
 
     const {
         acctBar,
@@ -19,6 +18,44 @@ const Home = () => {
         liveRatesBar,
         overViewTransactionDetails
     } = useContext(Context)
+
+    const [acct, setAcct] = useState([])
+
+
+    const fetchAccount = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/account`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Token ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to fetch beneficiary');
+            }
+
+            return data;
+        } catch (error) {
+            console.error('Error fetching beneficiary:', error.message);
+            return null;
+        }
+    };
+    useEffect(() => {
+        const getBeneficiaries = async () => {
+            const data = await fetchAccount();
+            if (data) {
+                setAcct(data);
+            }
+        };
+
+        getBeneficiaries();
+    }, []);
 
     useEffect(() => {
         if (acctBar || acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails) {
@@ -37,7 +74,7 @@ const Home = () => {
             {verified === 'verified' ? (
                 <div>
                     <Routes>
-                        {acctCreated === 'Yes' ? (
+                        {acct.length > 0 ? (
                             <Route path='overview' element={<Overview />} />
                         ) : (
                             <Route path='/' element={<CreateAcct />} />
@@ -48,11 +85,10 @@ const Home = () => {
             ) : (
                 <Navigate to="/dashboard" replace state={{ error: 'You need to fill in your KYC data to continue' }} />
             )}
-            {acctCreated === 'Yes' ? (
-                <Navigate to="/home/overview" replace state={{ error: 'You need to fill in your KYC data to continue' }} />
+            {acct.length > 0 ? (
+                <Navigate to="/home/overview" />
             ) : (
-                <Navigate to="/home" replace state={{ error: 'You need to fill in your KYC data to continue' }} />
-
+                <Navigate to="/home" />
             )}
         </div>
     )

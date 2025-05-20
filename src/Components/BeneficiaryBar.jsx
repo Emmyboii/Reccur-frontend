@@ -4,12 +4,12 @@ import user from '../Components/Images/user.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import Bank from '../Components/Images/bank.png';
-import SouthAfrica from '../Components/Images/SouthAfrica.png';
-import UK from '../Components/Images/UK.png';
-import Mexico from '../Components/Images/Mexico.png';
-import France from '../Components/Images/France.png';
-import Philippines from '../Components/Images/Philippines.png';
-import India from '../Components/Images/India.png';
+// import SouthAfrica from '../Components/Images/SouthAfrica.png';
+// import UK from '../Components/Images/UK.png';
+// import Mexico from '../Components/Images/Mexico.png';
+// import France from '../Components/Images/France.png';
+// import Philippines from '../Components/Images/Philippines.png';
+// import India from '../Components/Images/India.png';
 
 const BeneficiaryBar = () => {
     const { handleBeneficiaryBar, beneficiaryBar, handleAddedBeneficiaries } = useContext(Context)
@@ -17,14 +17,13 @@ const BeneficiaryBar = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
-        bank_name: '',
-        bank_account_type: '',
-        country: '',
-        account_number: '',
-        swift_code: '',
-        routing_number: '',
-        full_name: '',
-        address: '',
+        bank_name: "",
+        bank_account_type: "",
+        account_number: "",
+        swift_code: "",
+        routing_number: "",
+        full_name: "",
+        address: "",
     })
 
     const [formDataCrypto, setFormDataCrypto] = useState({
@@ -32,7 +31,7 @@ const BeneficiaryBar = () => {
         wallet_address: '',
         network_type: '',
         full_name: '',
-        address: '',
+        account_type: ''
     })
 
     const handleBankChange = (e) => {
@@ -49,6 +48,7 @@ const BeneficiaryBar = () => {
         }))
     }
 
+
     const createBankBeneficairy = async (e) => {
         e.preventDefault()
 
@@ -56,7 +56,7 @@ const BeneficiaryBar = () => {
 
         try {
             const token = localStorage.getItem('token')
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary`, {
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary/create-bank`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -119,53 +119,53 @@ const BeneficiaryBar = () => {
         }
     }
 
-    const countryOptions = [
-        {
-            label: "Select Country",
-            value: "select",
-            isDisabled: true,
-        },
-        {
-            label: "USA",
-            value: "usa",
-            icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png",
-        },
-        {
-            label: "South Africa",
-            value: "sa",
-            icon: SouthAfrica,
-        },
-        {
-            label: "Nigeria",
-            value: "ngn",
-            icon: "https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg",
-        },
-        {
-            label: "United Kingdom",
-            value: "UK",
-            icon: UK,
-        },
-        {
-            label: "Mexico",
-            value: "Mexico",
-            icon: Mexico,
-        },
-        {
-            label: "France",
-            value: "France",
-            icon: France,
-        },
-        {
-            label: "Philippines",
-            value: "Philippines",
-            icon: Philippines,
-        },
-        {
-            label: "India",
-            value: "India",
-            icon: India,
-        },
-    ];
+    // const countryOptions = [
+    //     {
+    //         label: "Select Country",
+    //         value: "select",
+    //         isDisabled: true,
+    //     },
+    //     {
+    //         label: "USA",
+    //         value: "usa",
+    //         icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png",
+    //     },
+    //     {
+    //         label: "South Africa",
+    //         value: "sa",
+    //         icon: SouthAfrica,
+    //     },
+    //     {
+    //         label: "Nigeria",
+    //         value: "ngn",
+    //         icon: "https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg",
+    //     },
+    //     {
+    //         label: "United Kingdom",
+    //         value: "UK",
+    //         icon: UK,
+    //     },
+    //     {
+    //         label: "Mexico",
+    //         value: "Mexico",
+    //         icon: Mexico,
+    //     },
+    //     {
+    //         label: "France",
+    //         value: "France",
+    //         icon: France,
+    //     },
+    //     {
+    //         label: "Philippines",
+    //         value: "Philippines",
+    //         icon: Philippines,
+    //     },
+    //     {
+    //         label: "India",
+    //         value: "India",
+    //         icon: India,
+    //     },
+    // ];
 
     const bankOptions = [
         { label: "Select Bank", value: "", isDisabled: true },
@@ -209,6 +209,18 @@ const BeneficiaryBar = () => {
         { label: "Network Type", value: "type", isDisabled: true },
         { label: "SOL", value: "SOL" },
         { label: "ETH", value: "ETH" },
+    ];
+
+    const acctTypeOptions = [
+        { label: "Account Type", value: "type", isDisabled: true },
+        { label: "Fait", value: "fait" },
+        { label: "Crypto", value: "crypto" },
+    ];
+
+    const bankAcctTypeOptions = [
+        { label: "Bank Account Type", value: "type", isDisabled: true },
+        { label: "Savings", value: "SAVING" },
+        { label: "Checking", value: "CHECKING" },
     ];
 
     const customStyles = {
@@ -279,9 +291,11 @@ const BeneficiaryBar = () => {
     };
 
     const [banks, setBanks] = useState(bankOptions[0])
-    const [countries, setCountries] = useState(countryOptions[0])
+    const [bankAcctType, setBankAcctType] = useState(bankAcctTypeOptions[0])
+    // const [countries, setCountries] = useState(countryOptions[0])
     const [crypto, setCrypto] = useState(cryptocurrencyOptions[0])
     const [networkType, setNetworkType] = useState(networkOptions[0])
+    const [acctType, setAcctType] = useState(acctTypeOptions[0])
 
     const handleBanks = (Option) => {
         setBanks(Option)
@@ -290,18 +304,33 @@ const BeneficiaryBar = () => {
             bank_name: Option.value
         }))
     }
-    const handleCountries = (Option) => {
-        setCountries(Option)
+
+    const handleBankAcctType = (Option) => {
+        setBankAcctType(Option)
         setFormData(prev => ({
             ...prev,
-            country: Option.value
+            bank_account_type: Option.value
         }))
     }
+    // const handleCountries = (Option) => {
+    //     setCountries(Option)
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         country: Option.value
+    //     }))
+    // }
     const handleCrypto = (Option) => {
         setCrypto(Option)
         setFormDataCrypto(prev => ({
             ...prev,
             cryptocurrency_type: Option.value
+        }))
+    }
+    const handleAccountType = (Option) => {
+        setAcctType(Option)
+        setFormDataCrypto(prev => ({
+            ...prev,
+            account_type: Option.value
         }))
     }
     const handleNetworkType = (Option) => {
@@ -342,7 +371,7 @@ const BeneficiaryBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[35px] rounded-md'
                                     type="text"
                                     name="full_name"
-                                    value={formData.full_name}
+                                    value={formData.full_name || ''}
                                     onChange={handleBankChange}
                                     id=""
                                     required
@@ -351,7 +380,7 @@ const BeneficiaryBar = () => {
                                 <img className='absolute ml-3' src={user} alt="" />
                             </div>
                         </div>
-                        <div className='mt-5'>
+                        {/* <div className='mt-5'>
                             <label htmlFor="code">Beneficiary's Country</label>
                             <div className='mt-1'>
                                 <Select
@@ -375,7 +404,7 @@ const BeneficiaryBar = () => {
                                     className='rounded-m w-full outline-none'
                                 />
                             </div>
-                        </div>
+                        </div> */}
                         <div className='mt-5'>
                             <label htmlFor="fullName">Beneficiary's account number</label>
                             <div className='flex items-center mt-2'>
@@ -383,7 +412,7 @@ const BeneficiaryBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name="account_number"
-                                    value={formData.account_number}
+                                    value={formData.account_number || ''}
                                     onChange={handleBankChange}
                                     id=""
                                     required
@@ -407,20 +436,16 @@ const BeneficiaryBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label htmlFor="fullName">Bank Account type</label>
-                            <div className='flex items-center mt-2 relative'>
-                                <select
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
-                                    name="bank_account_type"
-                                    onChange={handleBankChange}
-                                    id=""
-                                    required
-                                    value={formData.bank_account_type}
-                                >
-                                    <option value="" disabled>Select</option>
-                                    <option value="SAVING">Savings</option>
-                                    <option value="CHECKING">Checking</option>
-                                </select>
+                            <label className='text-black/50' htmlFor="fullName">Bank account type</label>
+                            <div className='mt-1'>
+                                <Select
+                                    styles={customStyles}
+                                    options={bankAcctTypeOptions}
+                                    value={bankAcctType}
+                                    onChange={handleBankAcctType}
+                                    isSearchable={false}
+                                    className='rounded-m w-full outline-none'
+                                />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -430,7 +455,7 @@ const BeneficiaryBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name="routing_number"
-                                    value={formData.routing_number}
+                                    value={formData.routing_number || ''}
                                     onChange={handleBankChange}
                                     id=""
                                     required
@@ -445,7 +470,7 @@ const BeneficiaryBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name="swift_code"
-                                    value={formData.swift_code}
+                                    value={formData.swift_code || ''}
                                     onChange={handleBankChange}
                                     id=""
                                     required
@@ -460,7 +485,7 @@ const BeneficiaryBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="text"
                                     name="address"
-                                    value={formData.address}
+                                    value={formData.address || ''}
                                     onChange={handleBankChange}
                                     id=""
                                     required
@@ -478,7 +503,7 @@ const BeneficiaryBar = () => {
                             <button
                                 className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
                                 onClick={(e) => {
-                handleAddedBeneficiaries()
+                                    handleAddedBeneficiaries()
 
                                     createBankBeneficairy(e)
                                 }}
@@ -493,7 +518,7 @@ const BeneficiaryBar = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className='mt-7'>
+                    <div className='mt-7 text-[#525154] text-[14px] font-medium'>
                         <div className='mt-5 text-black/60'>
                             <label className='text-black/60' htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2 relative'>
@@ -501,7 +526,7 @@ const BeneficiaryBar = () => {
                                     className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[35px] rounded-md'
                                     type="text"
                                     name="full_name"
-                                    value={formDataCrypto.full_name}
+                                    value={formDataCrypto.full_name || ''}
                                     onChange={handleCryptoChange}
                                     id=""
                                     required
@@ -530,11 +555,24 @@ const BeneficiaryBar = () => {
                                     className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="text"
                                     name="wallet_address"
-                                    value={formDataCrypto.wallet_address}
+                                    value={formDataCrypto.wallet_address || ''}
                                     onChange={handleCryptoChange}
                                     id=""
                                     required
                                     placeholder='Wallet address'
+                                />
+                            </div>
+                        </div>
+                        <div className='mt-5'>
+                            <label className='text-black/50' htmlFor="fullName">Account type</label>
+                            <div className='mt-1'>
+                                <Select
+                                    styles={customStyles}
+                                    options={acctTypeOptions}
+                                    value={acctType}
+                                    onChange={handleAccountType}
+                                    isSearchable={false}
+                                    className='rounded-m w-full outline-none'
                                 />
                             </div>
                         </div>
@@ -548,21 +586,6 @@ const BeneficiaryBar = () => {
                                     onChange={handleNetworkType}
                                     isSearchable={false}
                                     className='rounded-m w-full outline-none'
-                                />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label htmlFor="fullName">Address</label>
-                            <div className='flex items-center mt-2'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
-                                    type="text"
-                                    name="address"
-                                    value={formDataCrypto.address}
-                                    onChange={handleCryptoChange}
-                                    id=""
-                                    required
-                                    placeholder='Enter your address'
                                 />
                             </div>
                         </div>

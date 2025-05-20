@@ -43,7 +43,16 @@ function App() {
         {!shouldHideSidebar && <NavBar />}
         <Suspense fallback={<LoadingScreen />}>
           <Routes>
-            <Route path="/" element={<HomeRoot />} />
+
+            <Route
+              path="/"
+              element={
+                <PublicRoute>
+                  <HomeRoot />
+                </PublicRoute>
+              }
+            />
+
             <Route element={<ProtectedRoutes />}>
               <Route
                 path="/dashboard/*"
@@ -95,7 +104,14 @@ function App() {
               />
             </Route>
 
-            <Route path="/signup" element={<SignUp />} />
+            <Route
+              path="/signup"
+              element={
+                <PublicRoute>
+                  <SignUp />
+                </PublicRoute>
+              }
+            />
             <Route
               path="/login"
               element={

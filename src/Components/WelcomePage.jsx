@@ -63,7 +63,6 @@ const WelcomePage = () => {
         fetchProfile();
     }, []);
 
-
     return (
         <div className='flex flex-col md:p-10 py-10 px-4 w-full'>
             {error && (

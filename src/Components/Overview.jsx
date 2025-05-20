@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import Select from 'react-select';
 import { FaCheckCircle, FaRegCircle } from "react-icons/fa";
 import { Context } from '../Context/Context';
@@ -51,10 +50,127 @@ const Overview = () => {
 
     const acctCreated = JSON.parse(localStorage.getItem('AcctCreated'));
 
+    const currencyLogos = useMemo(() => ({
+        USD: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png',
+        EUR: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg',
+    }), []);
+
+    const [formData, setFormData] = useState({
+        first_name: '',
+    })
+    const [accounts, setAccounts] = useState([]);
+    const [selectedCurrency, setSelectedCurrency] = useState(null);
+    const [output, setOutput] = useState("");
+    const [selectedAccount, setSelectedAccount] = useState('');
+    // const [status, setStatus] = useState('');
+
+    useEffect(() => {
+        if (selectedCurrency) {
+            const acct = accounts.find(
+                (account) => account.currency === selectedCurrency.value
+            );
+            setSelectedAccount(acct);
+        }
+    }, [selectedCurrency, accounts]);
+
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token');
+
+    //     const fetchStatus = async () => {
+    //         const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/account/${selectedAccount.id}/status`, {
+    //             method: "GET",
+    //             headers: {
+    //                 Authorization: `Token ${token}`,
+    //             },
+    //         });
+
+    //         if (!res.ok) {
+    //             console.error(`HTTP error! status: ${res.status}`);
+    //             return;
+    //         }
+
+    //         const text = await res.text();
+    //         if (!text) {
+    //             console.warn("Empty response body");
+    //             return;
+    //         }
+
+    //         const data = JSON.parse(text);
+    //         setStatus(data);
+    //     };
+
+    //     fetchStatus();
+    // }, [selectedAccount])
+
+    // console.log(status.status);
+
+
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchProfile = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/profile`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setFormData(data);
+        };
+
+        fetchProfile();
+    }, []);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchAccount = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/account`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setAccounts(data);
+
+            if (data.length > 0) {
+                setSelectedCurrency({
+                    value: data[0].currency,
+                    label: (
+                        <div className="flex items-center gap-2">
+                            <img
+                                src={currencyLogos[data[0].currency]}
+                                alt={data[0].currency}
+                                className="w-[20px] h-4"
+                            />
+                            <span>{data[0].currency}</span>
+                        </div>
+                    ),
+                });
+            }
+        };
+
+        fetchAccount();
+    }, [currencyLogos]);
+
+
+    const handleCurrencyChange = (selectedOption) => {
+        setSelectedCurrency(selectedOption);
+        if (selectedOption.value === 'USD') {
+            setOutput("USD");
+        } else if (selectedOption.value === 'EUR') {
+            setOutput("EUR");
+        } else {
+            setOutput("");
+        }
+    };
 
     const [searchQuery, setSearchQuery] = useState('');
     const handleSearch = (query) => {
-        setSearchQuery(query);  // Update the search query state
+        setSearchQuery(query);
     };
 
     const option1 = [
@@ -74,26 +190,19 @@ const Overview = () => {
         }
     ]
 
-    const options = [
-        {
-            value: 'usd',
-            label: (
-                <div className="flex items-center gap-2">
-                    <img className='w-[20px] h-4 rounded-sm' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                    USD
-                </div>
-            ),
-        },
-        {
-            value: 'ngn',
-            label: (
-                <div className="flex items-center gap-2">
-                    <img className='w-[20px] h-4 rounded-sm' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                    NGN
-                </div>
-            )
-        }
-    ];
+    const currencyOptions = accounts.map((account) => ({
+        value: account.currency,
+        label: (
+            <div className="flex items-center gap-2">
+                <img
+                    src={currencyLogos[account.currency]}
+                    alt={account.currency}
+                    className="w-[20px] h-4"
+                />
+                <span>{account.currency}</span>
+            </div>
+        ),
+    }));
 
     const handleTransactionClick = (id) => {
         localStorage.setItem('invoiceID', id);
@@ -212,13 +321,9 @@ const Overview = () => {
         },
     ]
 
-    const [selectedBalance, setSelectedBalance] = useState(options[0]);
     const [selectedMoneyRecieved, setSelectedMoneyRecieved] = useState(option1[0]);
     const [selectedMoneySent, setSelectedMoneySent] = useState(option2[0]);
 
-    const handleChange = (selectedOption) => {
-        setSelectedBalance(selectedOption);
-    }
     const handleChange2 = (selectedOption) => {
         setSelectedMoneyRecieved(selectedOption);
     }
@@ -235,7 +340,7 @@ const Overview = () => {
             <div className='flex items-center justify-between text-[#1D1C1F] md:p-10 px-4 py-8'>
                 <div>
                     <p className='text-[28px] font-semibold'>Home</p>
-                    <p className='text-[16px] font-normal text-[#525154]'>Welcome back, Cooper!</p>
+                    <p className='text-[16px] font-normal text-[#525154]'>Welcome back, {formData.first_name}!</p>
                 </div>
                 <div className='flex md:items-center items-start gap-9'>
                     <img className='lg:block hidden cursor-pointer' src={Search} alt="" />
@@ -263,14 +368,22 @@ const Overview = () => {
                         </p>
                         <Select
                             styles={customStyles}
-                            options={options}
-                            onChange={handleChange}
-                            value={selectedBalance}
+                            options={currencyOptions}
+                            onChange={handleCurrencyChange}
+                            value={selectedCurrency}
                             isSearchable={false}
                         />
                     </div>
                     <div>
-                        <p className='text-[36px] font-semibold'>$0</p>
+                        <p className="text-[36px] font-semibold">
+                            {selectedCurrency && selectedAccount && (
+                                <>
+                                    {selectedCurrency.value === 'USD' && '$'}
+                                    {selectedCurrency.value === 'EUR' && '€'}
+                                    {selectedAccount.balance}
+                                </>
+                            )}
+                        </p>
                         <p className='bg-green-200 border-2 flex items-center gap-1 justify-center border-green-500 w-20 py-1 rounded-md text-green-500 text-center'>
                             +25% <img src={Increase} alt="" />
                         </p>
@@ -545,7 +658,13 @@ const Overview = () => {
                     </div>
                 </div>
             </div>
-            <AcctDetailsBar />
+            <AcctDetailsBar
+                selectedCurrency={selectedCurrency}
+                handleCurrencyChange={handleCurrencyChange}
+                currencyOptions={currencyOptions}
+                output={output}
+                selectedAccount={selectedAccount}
+            />
             <ConvertCurrency />
             <SendBar />
             <CreateAcctBar />

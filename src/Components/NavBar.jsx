@@ -7,7 +7,7 @@ import { Context } from '../Context/Context';
 
 const NavBar = () => {
 
-    const verified = JSON.parse(localStorage.getItem('detailsVerified'))
+    const verified = JSON.parse(localStorage.getItem('userCreated'))
 
     const { handleSideBar } = useContext(Context)
 
@@ -20,7 +20,7 @@ const NavBar = () => {
                     src={menu}
                     alt=""
                 />
-                {verified ? (
+                {verified === 'verified' ? (
                     <a href='/home'>
                         <img src={Logo} alt="" className='w-7 h-7' />
                     </a>

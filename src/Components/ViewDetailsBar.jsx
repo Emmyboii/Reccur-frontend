@@ -11,6 +11,9 @@ const ViewDetailsBar = () => {
     const [BenficairyDetails, setBenficairyDetails] = useState([])
 
     useEffect(() => {
+
+        if (!viewDetails) return;
+
         const token = localStorage.getItem('token');
         const BeneficairyID = localStorage.getItem('BeneficairyID');
 
@@ -70,7 +73,7 @@ const ViewDetailsBar = () => {
             <div className='flex gap-2 justify-between'>
                 <div>
                     <h1 className='text-[20px] font-medium text-[#1D1C1F]'>{BenficairyDetails.full_name}</h1>
-                    <p className='text-[#525154]'><span className='text-[#531CB3]'>sam@tino.com •</span> Biffco Enterprises Ltd.</p>
+                    {/* <p className='text-[#525154]'><span className='text-[#531CB3]'>sam@tino.com •</span> Biffco Enterprises Ltd.</p> */}
                 </div>
                 <img
                     className='size-5 mt-1 cursor-pointer' src={close} alt=""
@@ -116,7 +119,7 @@ const ViewDetailsBar = () => {
                             </div>
                             <div className='flex flex-col gap-2'>
                                 <p className='text-[#525154]'>Number of Transactions</p>
-                                <p className='text-[#1D1C1F] text-[20px] font-semibold'>6</p>
+                                <p className='text-[#1D1C1F] text-[20px] xl:text-start lg:text-center md:text-start sm:text-center font-semibold'>6</p>
                             </div>
                         </div>
                     </div>

@@ -4,12 +4,12 @@ import user from '../Components/Images/user.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import Bank from '../Components/Images/bank.png';
-import SouthAfrica from '../Components/Images/SouthAfrica.png';
-import UK from '../Components/Images/UK.png';
-import Mexico from '../Components/Images/Mexico.png';
-import France from '../Components/Images/France.png';
-import Philippines from '../Components/Images/Philippines.png';
-import India from '../Components/Images/India.png';
+// import SouthAfrica from '../Components/Images/SouthAfrica.png';
+// import UK from '../Components/Images/UK.png';
+// import Mexico from '../Components/Images/Mexico.png';
+// import France from '../Components/Images/France.png';
+// import Philippines from '../Components/Images/Philippines.png';
+// import India from '../Components/Images/India.png';
 
 const EditProfileBar = () => {
     const { handleProfileEdit, profileEdit } = useContext(Context)
@@ -17,12 +17,13 @@ const EditProfileBar = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [formData, setFormData] = useState({
-        bank_name: '',
-        bank_account_type: '',
-        account_number: '',
-        swift_code: '',
-        routing_number: '',
-        full_name: '',
+        bank_name: "",
+        bank_account_type: "",
+        account_number: "",
+        swift_code: "",
+        routing_number: "",
+        full_name: "",
+        address: "",
     })
 
     const [formDataCrypto, setFormDataCrypto] = useState({
@@ -30,9 +31,13 @@ const EditProfileBar = () => {
         wallet_address: '',
         network_type: '',
         full_name: '',
+        account_type: ''
     })
 
     useEffect(() => {
+
+        if (!profileEdit) return;
+
         const token = localStorage.getItem('token');
         const BeneficairyID = localStorage.getItem('BeneficairyID');
 
@@ -44,12 +49,28 @@ const EditProfileBar = () => {
                 },
             });
             const data = await res.json();
-            setFormDataCrypto(data);
-            setFormData(data);
+            setFormDataCrypto(prev => ({
+                ...prev,
+                cryptocurrency_type: data.cryptocurrency_type,
+                wallet_address: data.wallet_address,
+                network_type: data.network_type,
+                full_name: data.full_name,
+                account_type: data.account_type,
+            }));
+            setFormData(prev => ({
+                ...prev,
+                bank_name: data.bank_name,
+                bank_account_type: data.bank_account_type,
+                account_number: data.account_number,
+                swift_code: data.swift_code,
+                routing_number: data.routing_number,
+                full_name: data.full_name,
+                address: data.address,
+            }));
         };
 
         fetchBeneficiaries();
-    }, [])
+    }, [profileEdit])
 
     const handleBankChange = (e) => {
         setFormData(prev => ({
@@ -134,53 +155,53 @@ const EditProfileBar = () => {
     }
 
 
-    const countryOptions = [
-        {
-            label: "Select Country",
-            value: "select",
-            isDisabled: true,
-        },
-        {
-            label: "USA",
-            value: "usa",
-            icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png",
-        },
-        {
-            label: "South Africa",
-            value: "sa",
-            icon: SouthAfrica,
-        },
-        {
-            label: "Nigeria",
-            value: "ngn",
-            icon: "https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg",
-        },
-        {
-            label: "United Kingdom",
-            value: "UK",
-            icon: UK,
-        },
-        {
-            label: "Mexico",
-            value: "Mexico",
-            icon: Mexico,
-        },
-        {
-            label: "France",
-            value: "France",
-            icon: France,
-        },
-        {
-            label: "Philippines",
-            value: "Philippines",
-            icon: Philippines,
-        },
-        {
-            label: "India",
-            value: "India",
-            icon: India,
-        },
-    ];
+    // const countryOptions = [
+    //     {
+    //         label: "Select Country",
+    //         value: "select",
+    //         isDisabled: true,
+    //     },
+    //     {
+    //         label: "USA",
+    //         value: "usa",
+    //         icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png",
+    //     },
+    //     {
+    //         label: "South Africa",
+    //         value: "sa",
+    //         icon: SouthAfrica,
+    //     },
+    //     {
+    //         label: "Nigeria",
+    //         value: "ngn",
+    //         icon: "https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg",
+    //     },
+    //     {
+    //         label: "United Kingdom",
+    //         value: "UK",
+    //         icon: UK,
+    //     },
+    //     {
+    //         label: "Mexico",
+    //         value: "Mexico",
+    //         icon: Mexico,
+    //     },
+    //     {
+    //         label: "France",
+    //         value: "France",
+    //         icon: France,
+    //     },
+    //     {
+    //         label: "Philippines",
+    //         value: "Philippines",
+    //         icon: Philippines,
+    //     },
+    //     {
+    //         label: "India",
+    //         value: "India",
+    //         icon: India,
+    //     },
+    // ];
 
     const bankOptions = [
         { label: "Select Bank", value: "", isDisabled: true },
@@ -224,6 +245,19 @@ const EditProfileBar = () => {
         { label: "SOL", value: "SOL" },
         { label: "ETH", value: "ETH" },
     ];
+
+    const acctTypeOptions = [
+        { label: "Account Type", value: "type", isDisabled: true },
+        { label: "Fait", value: "fait" },
+        { label: "Crypto", value: "crypto" },
+    ];
+
+    const bankAcctTypeOptions = [
+        { label: "Bank Account Type", value: "type", isDisabled: true },
+        { label: "Savings", value: "SAVING" },
+        { label: "Checking", value: "CHECKING" },
+    ];
+
 
     const customStyles = {
         indicatorSeparator: () => ({
@@ -293,9 +327,11 @@ const EditProfileBar = () => {
     };
 
     const [banks, setBanks] = useState(bankOptions[0])
-    const [countries, setCountries] = useState(countryOptions[0])
+    const [bankAcctType, setBankAcctType] = useState(bankAcctTypeOptions[0])
+    // const [countries, setCountries] = useState(countryOptions[0])
     const [crypto, setCrypto] = useState(cryptocurrencyOptions[0])
     const [networkType, setNetworkType] = useState(networkOptions[0])
+    const [acctType, setacctType] = useState(acctTypeOptions[0])
 
     const handleBanks = (Option) => {
         setBanks(Option)
@@ -304,13 +340,21 @@ const EditProfileBar = () => {
             bank_name: Option.value
         }))
     }
-    const handleCountries = (Option) => {
-        setCountries(Option)
+
+    const handleBankAcctType = (Option) => {
+        setBankAcctType(Option)
         setFormData(prev => ({
             ...prev,
             bank_account_type: Option.value
         }))
     }
+    // const handleCountries = (Option) => {
+    //     setCountries(Option)
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         bank_account_type: Option.value
+    //     }))
+    // }
     const handleCrypto = (Option) => {
         setCrypto(Option)
         setFormDataCrypto(prev => ({
@@ -318,6 +362,14 @@ const EditProfileBar = () => {
             cryptocurrency_type: Option.value
         }))
     }
+    const handleAccountType = (Option) => {
+        setacctType(Option)
+        setFormDataCrypto(prev => ({
+            ...prev,
+            account_type: Option.value
+        }))
+    }
+
     const handleNetworkType = (Option) => {
         setNetworkType(Option)
         setFormDataCrypto(prev => ({
@@ -330,7 +382,7 @@ const EditProfileBar = () => {
         <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${profileEdit ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
-                    <h1 className='text-[28px] font-semibold'>Add beneficiary</h1>
+                    <h1 className='text-[28px] font-semibold'>Edit beneficiary</h1>
                     <p className='text-[14px] font-normal text-[#525154]'>No emails will be sent to your beneficiary when you add them here - that is, unless you tell us to.</p>
                 </div>
                 <img
@@ -356,16 +408,15 @@ const EditProfileBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[35px] rounded-md'
                                     type="text"
                                     name="full_name"
-                                    value={formData.full_name}
+                                    value={formData.full_name || ""}
                                     onChange={handleBankChange}
-                                    id=""
                                     required
                                     placeholder='Beneficiary’s full name'
                                 />
                                 <img className='absolute ml-3' src={user} alt="" />
                             </div>
                         </div>
-                        <div className='mt-5'>
+                        {/* <div className='mt-5'>
                             <label htmlFor="code">Beneficiary's Country</label>
                             <div className='mt-1'>
                                 <Select
@@ -389,7 +440,7 @@ const EditProfileBar = () => {
                                     className='rounded-m w-full outline-none'
                                 />
                             </div>
-                        </div>
+                        </div> */}
                         <div className='mt-5'>
                             <label htmlFor="fullName">Beneficiary's account number</label>
                             <div className='flex items-center mt-2'>
@@ -397,7 +448,7 @@ const EditProfileBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name="account_number"
-                                    value={formData.account_number}
+                                    value={formData.account_number || ''}
                                     onChange={handleBankChange}
                                     id=""
                                     required
@@ -421,13 +472,26 @@ const EditProfileBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
+                            <label className='text-black/50' htmlFor="fullName">Bank account type</label>
+                            <div className='mt-1'>
+                                <Select
+                                    styles={customStyles}
+                                    options={bankAcctTypeOptions}
+                                    value={bankAcctType}
+                                    onChange={handleBankAcctType}
+                                    isSearchable={false}
+                                    className='rounded-m w-full outline-none'
+                                />
+                            </div>
+                        </div>
+                        <div className='mt-5'>
                             <label htmlFor="fullName">Routing number</label>
                             <div className='flex items-center mt-2'>
                                 <input
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name="routing_number"
-                                    value={formData.routing_number}
+                                    value={formData.routing_number || ""}
                                     onChange={handleBankChange}
                                     id=""
                                     required
@@ -442,11 +506,26 @@ const EditProfileBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name="swift_code"
-                                    value={formData.swift_code}
+                                    value={formData.swift_code || ""}
                                     onChange={handleBankChange}
                                     id=""
                                     required
                                     placeholder='Enter swift code'
+                                />
+                            </div>
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="fullName">Address</label>
+                            <div className='flex items-center mt-2'>
+                                <input
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
+                                    type="text"
+                                    name="address"
+                                    value={formData.address || ''}
+                                    onChange={handleBankChange}
+                                    id=""
+                                    required
+                                    placeholder='Enter your address'
                                 />
                             </div>
                         </div>
@@ -475,7 +554,7 @@ const EditProfileBar = () => {
                         </div>
                     </div>
                 ) : (
-                    <div className='mt-7'>
+                    <div className='mt-7 text-[#525154] text-[14px] font-medium'>
                         <div className='mt-5 text-black/60'>
                             <label className='text-black/60' htmlFor="fullName">Full Name</label>
                             <div className='flex items-center mt-2 relative'>
@@ -483,7 +562,7 @@ const EditProfileBar = () => {
                                     className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[35px] rounded-md'
                                     type="text"
                                     name="full_name"
-                                    value={formDataCrypto.full_name}
+                                    value={formDataCrypto.full_name || ''}
                                     onChange={handleCryptoChange}
                                     id=""
                                     required
@@ -509,14 +588,27 @@ const EditProfileBar = () => {
                             <label className='text-black/50' htmlFor="fullName">Wallet address</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
+                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 text-black/60 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="text"
                                     name="wallet_address"
-                                    value={formDataCrypto.wallet_address}
+                                    value={formDataCrypto.wallet_address || ''}
                                     onChange={handleCryptoChange}
                                     id=""
                                     required
                                     placeholder='Wallet address'
+                                />
+                            </div>
+                        </div>
+                        <div className='mt-5'>
+                            <label className='text-black/50' htmlFor="fullName">Account type</label>
+                            <div className='mt-1'>
+                                <Select
+                                    styles={customStyles}
+                                    options={acctTypeOptions}
+                                    value={acctType}
+                                    onChange={handleAccountType}
+                                    isSearchable={false}
+                                    className='rounded-m w-full outline-none'
                                 />
                             </div>
                         </div>

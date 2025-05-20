@@ -6,15 +6,14 @@ import Select from 'react-select';
 import { LuArrowLeftRight } from 'react-icons/lu';
 import { GoArrowUpRight } from 'react-icons/go';
 
-const AcctDetailsBar = () => {
+const AcctDetailsBar = ({ selectedCurrency, handleCurrencyChange, currencyOptions, output, selectedAccount }) => {
 
     const { acctDetailsBar, handleAcctDetailsBar } = useContext(Context)
 
     const [balance, setBalance] = useState(0);
 
     const [copied, setCopied] = useState(false);
-    const textToCopy = "Use this account to receive payments from your clients or friends in the US.";
-
+    const textToCopy = `${selectedAccount.account_number ? selectedAccount.account_number : null}`
     const handleCopy = async () => {
         navigator.clipboard.writeText(textToCopy);
         setCopied(true);
@@ -46,40 +45,7 @@ const AcctDetailsBar = () => {
         }),
     };
 
-    const options = [
-        {
-            value: 'ngn',
-            label: (
-                <div className="flex items-center gap-2">
-                    <img className='w-6 h-4' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                    NGN
-                </div>
-            )
-        },
-        {
-            value: 'usd',
-            label: (
-                <div className="flex items-center gap-2">
-                    <img className='w-6 h-4' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                    USD
-                </div>
-            ),
-        },
-    ]
 
-    const [selectedCurrency, setSelectedCurrency] = useState(options[0]);
-    const [output, setOutput] = useState("");
-
-    const handleChange = (selectedOption) => {
-        setSelectedCurrency(selectedOption);
-        if (selectedOption.value === 'usd') {
-            setOutput("USD");
-        } else if (selectedOption.value === 'ngn') {
-            setOutput("NGN");
-        } else {
-            setOutput("");
-        }
-    };
 
     return (
         <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 z-50 text-[#1D1C1F] ${acctDetailsBar ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
@@ -88,8 +54,8 @@ const AcctDetailsBar = () => {
                     <div className='mt-1 flex items-center gap-2'>
                         <Select
                             styles={customStyles}
-                            options={options}
-                            onChange={handleChange}
+                            options={currencyOptions}
+                            onChange={handleCurrencyChange}
                             value={selectedCurrency}
                             isSearchable={false}
                             className='rounded-m outline-none'
@@ -97,13 +63,21 @@ const AcctDetailsBar = () => {
                         {output && <p className="mt-1 text-[14px]">{output} Balance</p>}
                     </div>
                     <div className='mt-[13px]'>
-                        <p className='text-[36px] font-semibold'>#{balance}</p>
+                        <p className="text-[36px] font-semibold">
+                            {selectedCurrency && selectedAccount && (
+                                <>
+                                    {selectedCurrency.value === 'USD' && '$'}
+                                    {selectedCurrency.value === 'EUR' && '€'}
+                                    {selectedAccount.balance}
+                                </>
+                            )}
+                        </p>
                         <div className='flex gap-4 text-white mt-[12px]'>
-                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
+                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0.00 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
                                 <GoArrowUpRight className='mt-1' />
                                 Send
                             </button>
-                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
+                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0.00 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
                                 <LuArrowLeftRight className='mt-1' />
                                 Recieve
                             </button>
@@ -128,22 +102,43 @@ const AcctDetailsBar = () => {
                 </div>
                 <div>
                     <p className='pr-[120px] text-[#525154] text-[14px]'>
-                        {textToCopy}
+                        Use this account to receive payments from your clients or friends in the US.
                     </p>
                 </div>
             </div>
             <div className='mt-[20px]'>
                 <p className='text-[#B5B3BA]'>Bank Information</p>
-                <p className='text-[16px] font-medium'>Union Bank</p>
-                <p className='text-[14pxx] text-[#525154]'>1801 Main St., Ikeja City, MO 64108</p>
+                <p className='text-[16px] font-medium'>
+                    {selectedAccount.bank_name ? selectedAccount.bank_name : 'N/A'}
+                </p>
+                <p className="text-[14px] text-[#525154]">
+                    {selectedAccount?.address &&
+                        (selectedAccount.address.streetLine1 ||
+                            selectedAccount.address.city ||
+                            selectedAccount.address.stateOrProvince ||
+                            selectedAccount.address.postalCode ||
+                            selectedAccount.address.countryCode) ? (
+                        [
+                            selectedAccount.address.streetLine1,
+                            selectedAccount.address.streetLine2,
+                            selectedAccount.address.city,
+                            selectedAccount.address.stateOrProvince,
+                            selectedAccount.address.postalCode,
+                            selectedAccount.address.countryCode
+                        ].filter(Boolean).join(', ')
+                    ) : 'N/A'}
+                </p>
+
             </div>
             <div className='mt-[10px]'>
                 <p className='text-[#B5B3BA]'>Beneficiary Name</p>
-                <p className='text-[16px] font-medium'>Cooper Bator</p>
+                <p className='text-[16px] font-medium'>
+                    {selectedAccount.first_name ? selectedAccount.first_name : 'N/A'} {selectedAccount.last_name ? selectedAccount.last_name : 'N/A'}
+                </p>
             </div>
             <div className='mt-[10px]'>
                 <p className='text-[#B5B3BA]'>Account Number</p>
-                <p className='text-[16px] font-medium'>4324456678</p>
+                <p className='text-[16px] font-medium'>{selectedAccount.account_number ? selectedAccount.account_number : 'N/A'}</p>
             </div>
         </div>
     )
