@@ -8,13 +8,9 @@ const WelcomePage = () => {
 
     const navigate = useNavigate();
     const [isSubmitting, setIsSubmitting] = useState(false)
-
     const location = useLocation();
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        localStorage.setItem('userCreated', JSON.stringify('NotVerified'));
-    }, [])
 
     useEffect(() => {
         if (location.state?.error) {

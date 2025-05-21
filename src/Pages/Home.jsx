@@ -8,8 +8,6 @@ const Overview = React.lazy(() => import('../Components/Overview'));
 
 const Home = () => {
 
-    const verified = JSON.parse(localStorage.getItem('userCreated'))
-
     const {
         acctBar,
         acctDetailsBar,
@@ -20,7 +18,6 @@ const Home = () => {
     } = useContext(Context)
 
     const [acct, setAcct] = useState([])
-
 
     const fetchAccount = async () => {
         try {
@@ -37,24 +34,24 @@ const Home = () => {
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || 'Failed to fetch beneficiary');
+                throw new Error(data.message || 'Failed to fetch account');
             }
 
             return data;
         } catch (error) {
-            console.error('Error fetching beneficiary:', error.message);
+            console.error('Error fetching account:', error.message);
             return null;
         }
     };
     useEffect(() => {
-        const getBeneficiaries = async () => {
+        const getAccount = async () => {
             const data = await fetchAccount();
             if (data) {
                 setAcct(data);
             }
         };
 
-        getBeneficiaries();
+        getAccount();
     }, []);
 
     useEffect(() => {
@@ -71,20 +68,16 @@ const Home = () => {
 
     return (
         <div>
-            {verified === 'verified' ? (
-                <div>
-                    <Routes>
-                        {acct.length > 0 ? (
-                            <Route path='overview' element={<Overview />} />
-                        ) : (
-                            <Route path='/' element={<CreateAcct />} />
-                        )}
-                    </Routes>
-                    <ConfirmConversion />
-                </div>
-            ) : (
-                <Navigate to="/dashboard" replace state={{ error: 'You need to fill in your KYC data to continue' }} />
-            )}
+            <div>
+                <Routes>
+                    {acct.length > 0 ? (
+                        <Route path='overview' element={<Overview />} />
+                    ) : (
+                        <Route path='/' element={<CreateAcct />} />
+                    )}
+                </Routes>
+                <ConfirmConversion />
+            </div>
             {acct.length > 0 ? (
                 <Navigate to="/home/overview" />
             ) : (

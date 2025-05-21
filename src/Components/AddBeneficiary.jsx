@@ -86,9 +86,9 @@ const AddBeneficiary = () => {
                     Add your first beneficiary
                 </button>
             </div>
+            <BeneficiaryBar />
             <div className={beneficiaries.length > 0 ? 'block' : 'hidden'}>
                 <BeneficiaryInfo />
-                <BeneficiaryBar />
                 <ViewDetailsBar />
                 <EditProfileBar />
                 <DeleteProfile />

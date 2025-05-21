@@ -59,6 +59,7 @@ const Overview = () => {
         first_name: '',
     })
     const [accounts, setAccounts] = useState([]);
+    const [balance, setBalance] = useState([]);
     const [selectedCurrency, setSelectedCurrency] = useState(null);
     const [output, setOutput] = useState("");
     const [selectedAccount, setSelectedAccount] = useState('');
@@ -121,6 +122,23 @@ const Overview = () => {
         };
 
         fetchProfile();
+    }, []);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchBalance = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/get_wallet_balance`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setBalance(data);
+        };
+
+        fetchBalance();
     }, []);
 
     useEffect(() => {
@@ -380,7 +398,7 @@ const Overview = () => {
                                 <>
                                     {selectedCurrency.value === 'USD' && '$'}
                                     {selectedCurrency.value === 'EUR' && '€'}
-                                    {selectedAccount.balance}
+                                    {balance.balance}
                                 </>
                             )}
                         </p>

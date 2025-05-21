@@ -1,10 +1,13 @@
 import React, { useContext, useRef } from 'react'
 import { Context } from '../Context/Context'
 import close from '../Components/Images/x-close.png';
+import { useNavigate } from 'react-router-dom';
 
 const DeleteProfile = () => {
     const { deleteProfile, handleDeleteProfile } = useContext(Context)
     const DeleteModel = useRef()
+
+    const navigate = useNavigate();
 
     const closeRef = (e) => {
         if (DeleteModel.current === e.target) {
@@ -15,14 +18,21 @@ const DeleteProfile = () => {
     const deleteABeneficairy = async () => {
         const token = localStorage.getItem('token');
         const BeneficairyID = localStorage.getItem('BeneficairyID');
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary/${BeneficairyID}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary/${BeneficairyID}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Token ${token}`,
                 "Content-Type": "application/json",
-
             },
         });
+        if (response.ok) {
+            handleDeleteProfile();
+            console.log("Navigating to /beneficiaries");
+            navigate("/beneficiaries");
+        } else {
+            const errorText = await response.text();
+            console.error("Delete failed:", errorText);
+        }
     }
 
     return (
@@ -48,7 +58,6 @@ const DeleteProfile = () => {
                     <button
                         className='p-3 rounded-lg font-medium bg-[#FEEDED] text-[#EF4444] text-[14px] w-[30%]'
                         onClick={() => {
-                            handleDeleteProfile()
                             deleteABeneficairy()
                         }}
                     >

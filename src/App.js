@@ -1,4 +1,4 @@
-import React, { Suspense, useContext } from "react";
+import React, { Suspense, useContext, useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./Components/Sidebar";
 import NavBar from "./Components/NavBar";
@@ -25,9 +25,41 @@ function App() {
   const { handleSideBar, sideBar } = useContext(Context);
   const location = useLocation();
 
+  const CrestedKyc = localStorage.getItem('KYCcreated')
+  const [kyc, setKyc] = useState()
 
+  localStorage.setItem('KYCcreated', kyc);
 
-  const verified = JSON.parse(localStorage.getItem('userCreated'))
+  useEffect(() => {
+    const fetchKyc = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/kyc/`, {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Token ${token}`,
+            'Content-Type': 'application/json'
+          }
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Failed to fetch kyc');
+        }
+
+        setKyc(data.id);
+
+      } catch (error) {
+        console.error('Error fetching kyc:', error.message);
+        return null;
+      }
+    }
+
+    fetchKyc()
+  }, [kyc])
+
 
   const shouldHideSidebar = location.pathname === '/' || location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/forgotpassword' || location.pathname === '/updatepassword';
 
@@ -57,7 +89,7 @@ function App() {
               <Route
                 path="/dashboard/*"
                 element={
-                  <RedirectVerifiedUsers verified={verified}>
+                  <RedirectVerifiedUsers kyc={kyc} verified={CrestedKyc}>
                     <Dashboard />
                   </RedirectVerifiedUsers>
                 }
@@ -65,7 +97,7 @@ function App() {
               <Route
                 path="/home/*"
                 element={
-                  <ProtectedRoute verified={verified}>
+                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
                     <Home />
                   </ProtectedRoute>
                 }
@@ -73,7 +105,7 @@ function App() {
               <Route
                 path="/beneficiaries/*"
                 element={
-                  <ProtectedRoute verified={verified}>
+                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
                     <Beneficiary />
                   </ProtectedRoute>
                 }
@@ -81,7 +113,7 @@ function App() {
               <Route
                 path="/invoices/*"
                 element={
-                  <ProtectedRoute verified={verified}>
+                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
                     <Invoice />
                   </ProtectedRoute>
                 }
@@ -89,7 +121,7 @@ function App() {
               <Route
                 path="/transactions/*"
                 element={
-                  <ProtectedRoute verified={verified}>
+                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
                     <Transaction />
                   </ProtectedRoute>
                 }
@@ -97,7 +129,7 @@ function App() {
               <Route
                 path="/settings/*"
                 element={
-                  <ProtectedRoute verified={verified}>
+                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
                     <Settings />
                   </ProtectedRoute>
                 }
