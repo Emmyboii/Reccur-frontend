@@ -20,7 +20,7 @@ import Increase from '../Components/Images/Increase.png'
 import ViewTransactionDetailsBar from './ViewTransactionDetailsBar';
 import CreateAcctBar from './CreateAcctBar';
 
-const Overview = () => {
+const Overview = ({ acct }) => {
 
     const {
         checked2,
@@ -45,15 +45,58 @@ const Overview = () => {
         handleOverViewTransactionDetails,
         overViewTransactionDetails,
         handleAcctBar,
-        acctBar
+        acctBar,
+        handleViewDetails,
+        viewDetails
     } = useContext(Context)
 
-    const acctCreated = JSON.parse(localStorage.getItem('AcctCreated'));
+    const [transaction, setTransaction] = useState([])
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchTransactions = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/transactions`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setTransaction(data);
+        };
+
+        fetchTransactions();
+    }, []);
 
     const currencyLogos = useMemo(() => ({
-        USD: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png',
+        USD: 'https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg',
         EUR: 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg',
+        GBP: 'https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg',
+        JPY: 'https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg',
+        CAD: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg',
+        AUD: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Flag_of_Australia.svg',
+        CHF: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Switzerland.svg',
+        CNY: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Flag_of_the_People%27s_Republic_of_China.svg',
+        INR: 'https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg',
+        NGN: 'https://upload.wikimedia.org/wikipedia/commons/7/79/Flag_of_Nigeria.svg',
+        ZAR: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Flag_of_South_Africa.svg',
+        BRL: 'https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg',
+        MXN: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Mexico.svg',
+        RUB: 'https://upload.wikimedia.org/wikipedia/en/f/f3/Flag_of_Russia.svg',
+        SEK: 'https://upload.wikimedia.org/wikipedia/en/4/4c/Flag_of_Sweden.svg',
+        NOK: 'https://upload.wikimedia.org/wikipedia/en/d/d9/Flag_of_Norway.svg',
+        DKK: 'https://upload.wikimedia.org/wikipedia/en/9/9c/Flag_of_Denmark.svg',
+        SGD: 'https://upload.wikimedia.org/wikipedia/commons/4/48/Flag_of_Singapore.svg',
+        HKD: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Flag_of_Hong_Kong.svg',
+        KRW: 'https://upload.wikimedia.org/wikipedia/en/0/09/Flag_of_South_Korea.svg',
+        AED: 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Flag_of_the_United_Arab_Emirates.svg',
+        SAR: 'https://upload.wikimedia.org/wikipedia/en/0/0d/Flag_of_Saudi_Arabia.svg',
+        TRY: 'https://upload.wikimedia.org/wikipedia/commons/b/b4/Flag_of_Turkey.svg',
+        EGP: 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Egypt.svg',
+        KES: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Flag_of_Kenya.svg',
     }), []);
+
 
     const [formData, setFormData] = useState({
         first_name: '',
@@ -252,93 +295,6 @@ const Overview = () => {
         }),
     }
 
-    const Transactions = [
-        {
-            Invoice: '#RC787024',
-            Date: '27 July, 2022',
-            Type: 'Sent',
-            Amount: '-$500',
-            Currency: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                    <p>USD</p>
-                </div>
-            ),
-            Sender: 'Samantha',
-            Recipient: 'Tino',
-            Status: 'Completed'
-        },
-        {
-            Invoice: '#RC787024',
-            Date: '27 July, 2022',
-            Type: 'Recieved',
-            Amount: '+$1,200',
-            Currency: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                    <p>NGN</p>
-                </div>
-            ),
-            Sender: 'Samantha',
-            Recipient: 'Tino',
-            Status: 'Pending'
-        },
-        {
-            Invoice: '#RC787024',
-            Date: '27 July, 2022',
-            Type: 'Converted',
-            ConvertedFrom: '#40,000',
-            ConvertedTo: '$29',
-            Currency1: {
-                code: 'NGN',
-                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
-            },
-            Currency2: {
-                code: 'USD',
-                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
-            },
-            Sender: 'Samantha',
-            Recipient: 'Tino',
-            Status: 'Completed'
-        },
-        {
-            Invoice: '#RC787024',
-            Date: '27 July, 2022',
-            Type: 'Converted',
-            ConvertedFrom: '#40,000',
-            ConvertedTo: '$29',
-            Currency1: {
-                code: 'NGN',
-                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
-            },
-            Currency2: {
-                code: 'USD',
-                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
-            },
-            Sender: 'Samantha',
-            Recipient: 'Tino',
-            Status: 'Completed'
-        },
-        {
-            Invoice: '#RC787024',
-            Date: '27 July, 2022',
-            Type: 'Converted',
-            ConvertedFrom: '#40,000',
-            ConvertedTo: '$29',
-            Currency1: {
-                code: 'NGN',
-                flag: 'https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg'
-            },
-            Currency2: {
-                code: 'USD',
-                flag: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png'
-            },
-            Sender: 'Samantha',
-            Recipient: 'Tino',
-            Status: 'Completed'
-        },
-    ]
-
     const [selectedMoneyRecieved, setSelectedMoneyRecieved] = useState(option1[0]);
     const [selectedMoneySent, setSelectedMoneySent] = useState(option2[0]);
 
@@ -352,8 +308,8 @@ const Overview = () => {
     return (
         <div>
             <div
-                className={`w-full top-0 h-[200%] absolute z-50 ${acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails || acctBar ? 'bg-black/20' : 'hidden'}`}
-                onClick={acctDetailsBar ? handleAcctDetailsBar : convertBar ? handleConvertBar : sendBar ? handleSendBar : liveRatesBar ? handleLiveRates : overViewTransactionDetails ? handleOverViewTransactionDetails : acctBar ? handleAcctBar : null}
+                className={`w-full top-0 h-[200%] absolute z-50 ${viewDetails || acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails || acctBar ? 'bg-black/20' : 'hidden'}`}
+                onClick={viewDetails ? handleViewDetails : acctDetailsBar ? handleAcctDetailsBar : convertBar ? handleConvertBar : sendBar ? handleSendBar : liveRatesBar ? handleLiveRates : overViewTransactionDetails ? handleOverViewTransactionDetails : acctBar ? handleAcctBar : null}
             ></div>
             <div className='flex items-center justify-between text-[#1D1C1F] md:p-10 px-4 py-8'>
                 <div>
@@ -470,10 +426,10 @@ const Overview = () => {
                 <div className='flex sm:flex-row flex-col text-[14px] justify-between gap-4 w-[80%] mt-4'>
                     <div className='flex flex-col gap-4'>
                         <div
-                            className={`flex items-center gap-2 cursor-pointer ${acctCreated === 'Yes' ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
-                            onClick={null}
+                            className={`flex items-center gap-2 cursor-pointer ${acct > 0 ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
+                            onClick={acct = 0 ? handleAcctBar : null}
                         >
-                            {acctCreated === 'Yes' ? (
+                            {acct > 0 ? (
                                 <FaCheckCircle className='mt-1 text-[#542d9d]' />
                             ) : (
                                 <FaRegCircle className='mt-1 text-black/50' />
@@ -565,16 +521,12 @@ const Overview = () => {
                         <img src={Search} alt="" className='absolute top-2' />
                     </div>
                     <div className='mt-[20px] '>
-                        <div className='sp:grid md:grid-cols-8 sm:grid-cols-6 sp:grid-cols-5 flex justify-between gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-medium text-left'>
-                            <div className='flex gap-2 items-center min-w-0'>
-                                <input className='mt-1 size-4 rounded-md' type="checkbox" />
-                                <p>Invoice</p>
-                            </div>
-                            <div className='md:flex hidden gap-2 items-center min-w-0'>
+                        <div className='sp:grid md:grid-cols-9 sm:grid-cols-8 sp:grid-cols-7 flex gap-5 border-t border-b text-[#667085] border-black/50 py-[14px] px-4 text-[14px] font-medium text-left'>
+                            <div className='flex gap-2 col-span-2 items-center min-w-0'>
                                 <p className='truncate'>Payment date</p>
-                                <IoArrowDownSharp className='mt-1 text-[20px]' />
+                                <IoArrowDownSharp className='mt-1 text-[16px]' />
                             </div>
-                            <div className='flex gap-2 items-center justify-center min-w-0'>
+                            <div className='flex gap-2 items-center min-w-0'>
                                 <p className='truncate'>Type</p>
                                 <IoArrowDownSharp className='mt-1 text-[16px]' />
                             </div>
@@ -584,7 +536,7 @@ const Overview = () => {
                             <div className='min-w-0 md:block hidden'>
                                 <p className='truncate'>Currency</p>
                             </div>
-                            <div className='sm:flex hidden items-center min-w-0'>
+                            <div className='sm:flex hidden items-center col-span-2 min-w-0'>
                                 <p className='truncate'>Sender/Recipient</p>
                             </div>
                             <div className='sp:flex hidden items-center min-w-0'>
@@ -595,67 +547,63 @@ const Overview = () => {
                             </div>
                         </div>
 
-                        {Transactions.filter(transact =>
-                            (transact.Invoice?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-                            (transact.Date?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-                            (transact.Type?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-                            (transact.Recipient?.toLowerCase() || '').includes(searchQuery.toLowerCase())
-                        ).map((transact, index) => (
-                            <div key={index} className='sp:grid md:grid-cols-8 sm:grid-cols-6 sp:grid-cols-5 flex justify-between gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
-                                <div className='flex gap-2 items-center min-w-0'>
-                                    <input className='mt-1 size-5 rounded-lg' type="checkbox" />
-                                    <p className='truncate'>{transact.Invoice}</p>
+                        {transaction.filter(transact => {
+                            const formattedDate = new Date(transact.date_created).toLocaleDateString("en-GB", {
+                                day: '2-digit',
+                                month: 'short',
+                                year: 'numeric',
+                            }).toLowerCase();
+                            return (
+                                formattedDate.includes(searchQuery.toLowerCase()) ||
+                                (transact.Type?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                                (transact.Recipient?.toLowerCase() || '').includes(searchQuery.toLowerCase())
+                            );
+                        }).map((transact, index) => (
+                            <div key={index} className='sp:grid md:grid-cols-9 sm:grid-cols-8 sp:grid-cols-7 flex justify-between gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
+
+                                <div className='min-w-0 block col-span-2'>
+                                    <p className='truncate'>
+                                        {new Date(transact.date_created).toLocaleDateString("en-GB", {
+                                            day: '2-digit',
+                                            month: 'short',
+                                            year: 'numeric',
+                                        })}
+                                    </p>
                                 </div>
 
-                                <div className='min-w-0 md:block hidden'>
-                                    <p className='truncate'>{transact.Date}</p>
-                                </div>
-
-                                <div className='min-w-0 flex justify-end'>
-                                    <p className='truncate'>{transact.Type}</p>
+                                <div className='min-w-0'>
+                                    <p className='truncate'>{transact.type.charAt(0).toUpperCase() + transact.type.slice(1)}</p>
                                 </div>
 
                                 <div className='min-w-0 sp:block hidden text-right'>
                                     <p className='truncate text-[14px]'>
-                                        {transact.Amount ? transact.Amount : `${transact.ConvertedFrom} ➔ ${transact.ConvertedTo}`}
+                                        {transact.currency === 'USD' ? '$' : '€'}
+                                        {transact.amount}
                                     </p>
                                 </div>
 
-                                <div className='min-w-0 md:block hidden'>
-                                    {transact.Currency ? (
-                                        <div className='flex items-center gap-1 truncate'>
-                                            {transact.Currency}
-                                        </div>
-                                    ) : (
-                                        <div className='truncate flex gap-1 items-center'>
-                                            <img
-                                                src={transact.Currency1.flag}
-                                                alt={transact.Currency1.code}
-                                                className='w-[15px] h-[12px] rounded-[2px] mt-[6px]'
-                                            />
-                                            <span>—</span>
-                                            <img
-                                                src={transact.Currency2.flag}
-                                                alt={transact.Currency2.code}
-                                                className='w-[15px] h-[12px] rounded-[2px] mt-[6px]'
-                                            />
-                                        </div>
-                                    )}
+                                <div className='min-w-0 md:flex gap-1 items-center hidden'>
+                                    <img
+                                        src={currencyLogos[transact.currency]}
+                                        alt={transact.currency}
+                                        className="w-[20px] h-4 rounded-md"
+                                    />
+                                    {transact.currency}
                                 </div>
 
-                                <div className='min-w-0 sm:block hidden'>
-                                    <p className='truncate'>{transact.Sender} {transact.Recipient}</p>
+                                <div className='min-w-0 sm:block col-span-2 hidden'>
+                                    <p className='truncate'>{transact.payment.beneficiary.full_name}</p>
                                 </div>
 
                                 <div className='min-w-0 sp:block hidden'>
                                     <div
                                         className={`rounded-xl py-[2px] px-2 flex items-center justify-center w-fit truncate
-                                                    ${transact.Status === 'Completed' && 'bg-[#ECFDF3] text-[#027A48]'}
-                                                    ${transact.Status === 'Pending' && 'bg-[#FFFAEB] text-[#B54708]'}
-                                                    ${transact.Status === 'Failed' && 'bg-red-100 text-red-600'}
-                                                `}
+                                                                  ${transact.payment.status === 'completed' && 'bg-[#ECFDF3] text-[#027A48]'}
+                                                                  ${transact.payment.status === 'pending' && 'bg-[#FFFAEB] text-[#B54708]'}
+                                                                  ${transact.payment.status === 'failed' && 'bg-red-100 text-red-600'}
+                                                                `}
                                     >
-                                        {transact.Status}
+                                        {transact.payment.status}
                                     </div>
                                 </div>
 
@@ -673,6 +621,9 @@ const Overview = () => {
                                 </div>
                             </div>
                         ))}
+                        <div className='my-4 text-[#344054]'>
+                            {transaction.length} items
+                        </div>
                     </div>
                 </div>
             </div>
@@ -682,9 +633,15 @@ const Overview = () => {
                 currencyOptions={currencyOptions}
                 output={output}
                 selectedAccount={selectedAccount}
+                balance={balance}
             />
             <ConvertCurrency />
-            <SendBar />
+            <SendBar
+                selectedAccount={selectedAccount}
+                accounts={accounts}
+                currencyLogos={currencyLogos}
+
+            />
             <CreateAcctBar />
             <LiveRates />
             {overViewTransactionDetails && (

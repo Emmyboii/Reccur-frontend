@@ -60,8 +60,8 @@ const AddBeneficiary = () => {
     return (
         <div>
             <div
-                className={`w-full top-0 h-[200%] text-[#1D1C1F] absolute z-30 ${beneficiaryBar || viewDetails || profileEdit ? 'bg-black/10' : 'hidden'}`}
-                onClick={beneficiaryBar ? handleBeneficiaryBar : viewDetails ? handleViewDetails : profileEdit ? handleProfileEdit : null}
+                className={`w-full top-0 h-[200%] text-[#1D1C1F] absolute z-30 ${profileEdit || beneficiaryBar || viewDetails ? 'bg-black/10' : 'hidden'}`}
+                onClick={profileEdit ? handleProfileEdit : beneficiaryBar ? handleBeneficiaryBar : viewDetails ? handleViewDetails : null}
             ></div>
             <div className='flex items-start justify-between md:p-10 py-10 px-4'>
                 <div>

@@ -5,9 +5,8 @@ import Search from '../Components/Images/search2.png'
 import Bell from '../Components/Images/notification2.png'
 import { Context } from '../Context/Context';
 
-const NavBar = () => {
+const NavBar = ({verified, kyc}) => {
 
-    const verified = JSON.parse(localStorage.getItem('userCreated'))
 
     const { handleSideBar } = useContext(Context)
 
@@ -20,12 +19,12 @@ const NavBar = () => {
                     src={menu}
                     alt=""
                 />
-                {verified === 'verified' ? (
+                {verified === kyc ? (
                     <a href='/home'>
                         <img src={Logo} alt="" className='w-7 h-7' />
                     </a>
                 ) : (
-                    <a href='/'>
+                    <a href='/dashboard'>
                         <img src={Logo} alt="" className='w-7 h-7' />
                     </a>
                 )}

@@ -6,7 +6,7 @@ import Search from '../Components/Images/search.png'
 import Bell from '../Components/Images/bell.png'
 import Add from '../Components/Images/AddBtn.png'
 
-const CreateAcct = () => {
+const CreateAcct = ({ acct }) => {
 
     const {
         handleAcctBar,
@@ -26,12 +26,6 @@ const CreateAcct = () => {
     const [formData, setFormData] = useState({
         first_name: '',
     })
-
-    useEffect(() => {
-        localStorage.setItem('AcctCreated', JSON.stringify('No'));
-    }, [])
-
-    const acctCreated = JSON.parse(localStorage.getItem('AcctCreated'));
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -85,10 +79,10 @@ const CreateAcct = () => {
                 <div className='flex sm:flex-row flex-col text-[14px] justify-between gap-4 w-[80%] mt-4'>
                     <div className='flex flex-col gap-4'>
                         <div
-                            className={`flex items-center gap-2 cursor-pointer ${acctCreated === 'Yes' ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
-                            onClick={acctCreated === 'No' ? handleAcctBar : null}
+                            className={`flex items-center gap-2 cursor-pointer ${acct > 0 ? 'text-black/50 line-through' : 'text-[#542d9d] underline'}`}
+                            onClick={acct = 0 ? handleAcctBar : null}
                         >
-                            {acctCreated === 'Yes' ? (
+                            {acct > 0 ? (
                                 <FaCheckCircle className='mt-1 text-[#542d9d]' />
                             ) : (
                                 <FaRegCircle className='mt-1 text-black/50' />

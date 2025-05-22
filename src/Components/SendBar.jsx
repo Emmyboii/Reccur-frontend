@@ -1,110 +1,188 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import OffToggle from '../Components/Images/OffToggle.png';
 import OnToggle from '../Components/Images/OnToggle.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import { AiTwotoneQuestionCircle } from "react-icons/ai";
-import Bank from '../Components/Images/bank.png';
+// import Bank from '../Components/Images/bank.png';
 import close from '../Components/Images/x-close.png';
-import user from '../Components/Images/user.png';
+// import user from '../Components/Images/user.png';
 
-const SendBar = () => {
+const SendBar = ({ accounts, currencyLogos }) => {
 
     const { handleSendBar, sendBar } = useContext(Context)
     const [method, setMethod] = useState('bank')
     const [toggle, setToggle] = useState(false)
+    const [beneficiaries, setBeneficiaries] = useState([])
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const options = [
-        {
-            value: 'sourceAcct',
-            label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                        <p>USD</p>
-                        <p>-8938798456</p>
-                    </div>
-                </div>
-            ),
-        },
-    ]
-    const country = [
-        {
-            value: 'select',
-            label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <p>Select Country</p>
-                    </div>
-                </div>
-            ),
-            isDisabled: true
-        },
-        {
-            value: 'usa',
-            label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <img className='w-[20px] h-4 rounded-sm' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                        <p>USA</p>
-                    </div>
-                </div>
-            ),
-        },
-        {
-            value: 'ngn',
-            label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <img className='w-[20px] h-4 rounded-sm' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
-                        <p>NGN</p>
-                    </div>
-                </div>
-            ),
-        },
-    ]
-    const CryptocurrencyType = [
-        {
-            value: 'usdt',
-            label: (
-                <div className="flex items-center gap-2">
-                    <div className="flex items-center gap-2">
-                        <p>USDT</p>
-                    </div>
-                </div>
-            ),
-        },
-        {
-            value: 'usdc',
-            label: (
-                <div className="flex items-center gap-2 text-black/60">
-                    <p>USDC</p>
-                </div>
-            ),
-        },
-        {
-            value: 'BTC',
-            label: (
-                <div className="flex items-center gap-2 text-black/60">
-                    <p>BTC</p>
-                </div>
-            ),
-        },
-        {
-            value: 'SOL',
-            label: (
-                <div className="flex items-center gap-2 text-black/60">
-                    <p>SOL</p>
-                </div>
-            ),
-        },
-    ]
-    const NetworkType = [
-        {
-            value: 'trc',
-            label: 'TRC 20'
+    const [formData, setFormData] = useState({
+        beneficiary: '',
+        amount: ''
+    })
+
+    const [cryptoformData, setCryptoFormData] = useState({
+        beneficiary: '',
+        amount: ''
+    })
+
+    // const currencyOptions = accounts.map((account) => ({
+    //     value: `bank-${account.currency}`,
+    //     label: (
+    //         <div className="flex items-center gap-2">
+    //             <img
+    //                 src={currencyLogos[account.currency]}
+    //                 alt={account.currency}
+    //                 className="w-5"
+    //             />
+    //             <span>{account.currency}</span>
+    //             <span>{account.account_number}</span>
+    //         </div>
+    //     ),
+    // }));
+
+    // const currencyOptionsInCrypto = accounts.map((account) => ({
+    //     value: `crypto-${account.currency}`,
+    //     label: (
+    //         <div className="flex items-center gap-2">
+    //             <img
+    //                 src={currencyLogos[account.currency]}
+    //                 alt={account.currency}
+    //                 className="w-5"
+    //             />
+    //             <span>{account.currency}</span>
+    //             <span>{account.account_number}</span>
+    //         </div>
+    //     ),
+    // }));
+
+    const BeneficairyOptions = beneficiaries.map((ben) => ({
+        value: `bank-${ben.id}`,
+        label: ben.full_name
+    }));
+
+    const BeneficairyOptionsInCrypto = beneficiaries.map((ben) => ({
+        value: `crypto-${ben.id}`,
+        label: ben.full_name
+    }));
+
+    const fetchBeneficiary = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Token ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Failed to fetch beneficiary');
+            }
+
+            return data;
+        } catch (error) {
+            console.error('Error fetching beneficiary:', error.message);
+            return null;
         }
-    ]
+    };
+
+    useEffect(() => {
+        const getBeneficiaries = async () => {
+            const data = await fetchBeneficiary();
+            if (data) {
+                setBeneficiaries(data);
+            }
+        };
+
+        getBeneficiaries();
+    }, []);
+
+    const sendMoney = async (e) => {
+        e.preventDefault()
+
+        setIsSubmitting(true);
+
+        try {
+            const token = localStorage.getItem('token')
+
+            const payload = {
+                beneficiary: formData.beneficiary,
+                amount: formData.amount.toString()
+            };
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/payments/fiat`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'failed');
+            } else {
+                console.log('moneySent:', data);
+                window.scrollTo(0, 0)
+                handleSendBar()
+                alert('Money sent!')
+            }
+
+        } catch (error) {
+            console.error('Error while sending money:', error.message);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
+
+    const sendMoneyInCrypto = async (e) => {
+        e.preventDefault()
+
+        setIsSubmitting(true);
+
+        try {
+            const token = localStorage.getItem('token')
+
+            const payload = {
+                beneficiary: cryptoformData.beneficiary,
+                amount: cryptoformData.amount.toString()
+            };
+            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/payments/crypto`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'failed');
+            } else {
+                console.log('moneySent:', data);
+                window.scrollTo(0, 0)
+                handleSendBar()
+                alert('Money sent!')
+            }
+
+        } catch (error) {
+            console.error('Error while sending money:', error.message);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
+
+    
     const customStyles = {
         indicatorSeparator: () => ({
             display: 'none',
@@ -133,23 +211,45 @@ const SendBar = () => {
         }),
     };
 
-    const [sourceAcct, setSourceAcct] = useState(options[0])
-    const [countries, setCountries] = useState(country[0])
-    const [crypto, setCrypto] = useState(CryptocurrencyType[0])
-    const [networkType, setNetworkType] = useState(NetworkType[0])
+    // const [sourceAcct, setSourceAcct] = useState()
+    // const [sourceAcctInCrypto, setSourceAcctInCrypto] = useState()
+    const [beneficiaryAcct, setBeneficiaryAcct] = useState()
+    const [beneficiaryAcctInCrypto, setBeneficiaryAcctInCrypto] = useState()
+    // const [countries, setCountries] = useState(country[0])
+    // const [crypto, setCrypto] = useState(CryptocurrencyType[0])
+    // const [networkType, setNetworkType] = useState(NetworkType[0])
 
-    const handleSourceAcctChange = (Option) => {
-        setSourceAcct(Option)
-    }
-    const handleCountries = (Option) => {
-        setCountries(Option)
-    }
-    const handleCrypto = (Option) => {
-        setCrypto(Option)
-    }
-    const handleNetworkType = (Option) => {
-        setNetworkType(Option)
-    }
+    // const handleSourceAcctChange = (Option) => {
+    //     setSourceAcct(Option)
+    // }
+    // const handleSourceAcctChangeInCrypto = (Option) => {
+    //     setSourceAcctInCrypto(Option)
+    // }
+    const handleBeneficiaryAcctChange = (Option) => {
+        setBeneficiaryAcct(Option);
+        setFormData(prev => ({
+            ...prev,
+            beneficiary: Option.value.replace('bank-', '')
+        }));
+    };
+
+    const handleBeneficiaryAcctChangeInCrypto = (Option) => {
+        setBeneficiaryAcctInCrypto(Option);
+        setCryptoFormData(prev => ({
+            ...prev,
+            beneficiary: Option.value.replace('crypto-', '')
+        }));
+    };
+
+    // const handleCountries = (Option) => {
+    //     setCountries(Option)
+    // }
+    // const handleCrypto = (Option) => {
+    //     setCrypto(Option)
+    // }
+    // const handleNetworkType = (Option) => {
+    //     setNetworkType(Option)
+    // }
 
     return (
         <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 text-black z-50 overflow-auto ${sendBar ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
@@ -174,96 +274,30 @@ const SendBar = () => {
             {method === 'bank' ?
                 (
                     <div className='mt-7 text-[14px] font-normal text-[#525154]'>
-                        <div>
+                        {/* <div>
                             <label className='text-black/50' htmlFor="code">Source Account</label>
                             <div className='mt-1'>
                                 <Select
                                     styles={customStyles}
-                                    options={options}
+                                    options={currencyOptions}
                                     value={sourceAcct}
                                     onChange={handleSourceAcctChange}
                                     isSearchable={false}
                                     className='rounded-m w-full outline-none'
                                 />
                             </div>
-                        </div>
+                        </div> */}
+
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Full Name</label>
-                            <div className='flex items-center mt-2 relative'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
-                                    type="text"
-                                    name=""
-                                    // value={'Samantha Tino'}
-                                    id=""
-                                    required
-                                />
-                                <img className='absolute ml-3' src={user} alt="" />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="code">Beneficiary's Country</label>
+                            <label className='text-black/50' htmlFor="fullName">Beneficiary Account</label>
                             <div className='mt-1'>
                                 <Select
                                     styles={customStyles}
-                                    options={country}
-                                    value={countries}
-                                    onChange={handleCountries}
+                                    options={BeneficairyOptions}
+                                    value={beneficiaryAcct}
+                                    onChange={handleBeneficiaryAcctChange}
                                     isSearchable={false}
                                     className='rounded-m w-full outline-none'
-                                />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Beneficiary's account number</label>
-                            <div className='flex items-center mt-2'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
-                                    type="number"
-                                    name=""
-                                    id=""
-                                    required
-                                    placeholder='Enter account number'
-                                />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Bank name</label>
-                            <div className='flex items-center mt-2 relative'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[47px] rounded-md'
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    required
-                                    placeholder='Enter bank name'
-                                />
-                                <img className='absolute ml-3' src={Bank} alt="" />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Routing number</label>
-                            <div className='flex items-center mt-2'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
-                                    type="number"
-                                    name=""
-                                    id=""
-                                    required
-                                    placeholder='Enter routing number'
-                                />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Swift code</label>
-                            <div className='flex items-center mt-2'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
-                                    type="number"
-                                    name=""
-                                    id=""
-                                    required
-                                    placeholder='Enter swift code'
                                 />
                             </div>
                         </div>
@@ -271,8 +305,16 @@ const SendBar = () => {
                             <label htmlFor="amount">Amount</label>
                             <div className='flex items-center gap-2'>
                                 <div className='flex items-center w-full relative'>
-                                    <input className='border-[1.5px] border-black/20 outline-none p-2 pl-8 w-full rounded-md' type="number" name="" id=""
-                                        required />
+                                    <input
+                                        className='border-[1.5px] border-black/20 py-[10px] pl-8 w-full outline-none rounded-md'
+                                        placeholder='0'
+                                        type="number"
+                                        name="amount"
+                                        value={formData.amount}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, amount: e.target.value }))}
+                                        id=""
+                                        required
+                                    />
                                     <p className='absolute ml-3 text-[20px] text-[#525154]'>$</p>
                                 </div>
                                 <button className='py-[10px] px-4 bg-[#F9F7FC] text-[#E8E1F5] rounded-md'>Max</button>
@@ -307,79 +349,44 @@ const SendBar = () => {
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
-                                onClick={() => {
-                                    window.scrollTo(0, 0)
-                                    // handleConversion()
+                                className={`p-3 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
+                                onClick={(e) => {
+                                    sendMoney(e)
                                 }}
+                                disabled={isSubmitting}
                             >
-                                Send money
+                                {isSubmitting ? (
+                                    'Loading...'
+                                ) : (
+                                    'Send Money'
+                                )}
                             </button>
                         </div>
                     </div>
                 ) : (
                     <div className='mt-7 text-[14px] font-normal text-[#525154]'>
-                        <div>
+                        {/* <div>
                             <label className='text-black/50' htmlFor="code">Source Account</label>
                             <div className='mt-1'>
                                 <Select
                                     styles={customStyles}
-                                    options={options}
-                                    value={sourceAcct}
-                                    onChange={handleSourceAcctChange}
+                                    options={currencyOptionsInCrypto}
+                                    value={sourceAcctInCrypto}
+                                    onChange={handleSourceAcctChangeInCrypto}
                                     isSearchable={false}
                                     className='rounded-m w-full outline-none'
                                 />
                             </div>
-                        </div>
+                        </div> */}
+                        
                         <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Full Name</label>
-                            <div className='flex items-center mt-2 relative'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
-                                    type="text"
-                                    name=""
-                                    value={'Samantha Tino'}
-                                    id=""
-                                    required
-                                />
-                                <img className='absolute ml-3' src={user} alt="" />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="code">Cryptocurrency type</label>
+                            <label className='text-black/50' htmlFor="fullName">Beneficiary Account</label>
                             <div className='mt-1'>
                                 <Select
                                     styles={customStyles}
-                                    options={CryptocurrencyType}
-                                    value={crypto}
-                                    onChange={handleCrypto}
-                                    isSearchable={false}
-                                    className='rounded-m w-full outline-none'
-                                />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="fullName">Wallet address</label>
-                            <div className='flex items-center mt-2'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] px-[14px] w-full  rounded-md'
-                                    type="text"
-                                    name=""
-                                    id=""
-                                    required
-                                    value={'T9yv72q1J6xYtX9GJ2FWUQa3tV3pK5XG7'}
-                                />
-                            </div>
-                        </div>
-                        <div className='mt-5'>
-                            <label className='text-black/50' htmlFor="code">Cryptocurrency type</label>
-                            <div className='mt-1'>
-                                <Select
-                                    styles={customStyles}
-                                    options={NetworkType}
-                                    value={networkType}
-                                    onChange={handleNetworkType}
+                                    options={BeneficairyOptionsInCrypto}
+                                    value={beneficiaryAcctInCrypto}
+                                    onChange={handleBeneficiaryAcctChangeInCrypto}
                                     isSearchable={false}
                                     className='rounded-m w-full outline-none'
                                 />
@@ -388,8 +395,16 @@ const SendBar = () => {
                         <div className='mt-5'>
                             <label className='text-black/50' htmlFor="amount">Amount</label>
                             <div className='flex items-center w-full relative'>
-                                <input className='border-[1.5px] border-black/20 py-[10px] pl-8 w-full outline-none rounded-md' placeholder='0' type="number" name="" id=""
-                                    required />
+                                <input
+                                    className='border-[1.5px] border-black/20 py-[10px] pl-8 w-full outline-none rounded-md'
+                                    placeholder='0'
+                                    type="number"
+                                    name="amount"
+                                    value={cryptoformData.amount}
+                                    onChange={(e) => setCryptoFormData(prev => ({ ...prev, amount: e.target.value }))}
+                                    id=""
+                                    required
+                                />
                                 <AiTwotoneQuestionCircle className='ml-[-30px]' />
                                 <p className='absolute ml-3 text-[20px] text-[#525154]'>$</p>
                             </div>
@@ -402,13 +417,17 @@ const SendBar = () => {
                                 Cancel
                             </button>
                             <button
-                                className='p-3 rounded-lg bg-[#531CB3] text-white w-[80%]'
-                                onClick={() => {
-                                    window.scrollTo(0, 0)
-                                    // handleConversion()
+                                className={`p-3 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
+                                onClick={(e) => {
+                                    sendMoneyInCrypto(e)
                                 }}
+                                disabled={isSubmitting}
                             >
-                                Send Money
+                                {isSubmitting ? (
+                                    'Loading...'
+                                ) : (
+                                    'Send Money'
+                                )}
                             </button>
                         </div>
                     </div>

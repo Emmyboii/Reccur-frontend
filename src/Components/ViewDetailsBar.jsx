@@ -10,6 +10,10 @@ const ViewDetailsBar = () => {
     const [Transaction, setTransaction] = useState(1)
     const [BenficairyDetails, setBenficairyDetails] = useState([])
 
+    // const [status, setStatus] = useState()
+
+
+
     useEffect(() => {
 
         if (!viewDetails) return;
@@ -30,6 +34,57 @@ const ViewDetailsBar = () => {
 
         fetchBenficairy();
     }, [viewDetails]);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        const fetchTransactions = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/payments`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setTransaction(data);
+        };
+
+        fetchTransactions();
+    }, []);
+
+    // useEffect(() => {
+    //     if (!viewDetails) return;
+
+    //     const token = localStorage.getItem('token');
+    //     const BeneficairyID = localStorage.getItem('BeneficairyID');
+
+    //     const fetchStatus = async () => {
+    //         const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary/${BeneficairyID}/status`, {
+    //             method: "GET",
+    //             headers: {
+    //                 Authorization: `Token ${token}`,
+    //             },
+    //         });
+
+    //         if (!res.ok) {
+    //             console.error(`HTTP error! status: ${res.status}`);
+    //             return;
+    //         }
+
+    //         const text = await res.text();
+    //         console.log("Raw text response:", text);
+    //         if (!text) {
+    //             console.warn("Empty response body");
+    //             return;
+    //         }
+
+    //         const data = JSON.parse(text);
+    //         setStatus(data.status);
+    //     }
+
+    //     fetchStatus();
+    // }, [viewDetails])
+
 
     const handleBeneficairyClick = (id) => {
         localStorage.setItem('BeneficairyID', id);
@@ -69,7 +124,7 @@ const ViewDetailsBar = () => {
     ]
 
     return (
-        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 text-black z-30 overflow-auto ${viewDetails ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
+        <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 text-black z-50 overflow-auto ${viewDetails ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-2 justify-between'>
                 <div>
                     <h1 className='text-[20px] font-medium text-[#1D1C1F]'>{BenficairyDetails.full_name}</h1>

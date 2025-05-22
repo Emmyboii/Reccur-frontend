@@ -25,10 +25,9 @@ function App() {
   const { handleSideBar, sideBar } = useContext(Context);
   const location = useLocation();
 
-  const CrestedKyc = localStorage.getItem('KYCcreated')
-  const [kyc, setKyc] = useState()
+  const CreatedKyc = localStorage.getItem('KYCcreated')
+  const [kyc, setKyc] = useState(() => CreatedKyc || null)
 
-  localStorage.setItem('KYCcreated', kyc);
 
   useEffect(() => {
     const fetchKyc = async () => {
@@ -50,6 +49,7 @@ function App() {
         }
 
         setKyc(data.id);
+        localStorage.setItem('KYCcreated', data.id);
 
       } catch (error) {
         console.error('Error fetching kyc:', error.message);
@@ -57,15 +57,29 @@ function App() {
       }
     }
 
-    fetchKyc()
-  }, [kyc])
+    if (!CreatedKyc) {
+      fetchKyc();
+    }
+  }, [CreatedKyc])
+
+  useEffect(() => {
+    const timestamp = localStorage.getItem('tokenTimestamp');
+
+    const now = Date.now();
+    const TWO_DAYS = 2 * 24 * 60 * 60 * 1000;
+
+    if (now - Number(timestamp) > TWO_DAYS) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('tokenTimestamp');
+    }
+  }, [])
 
 
   const shouldHideSidebar = location.pathname === '/' || location.pathname === '/signup' || location.pathname === '/login' || location.pathname === '/forgotpassword' || location.pathname === '/updatepassword';
 
   return (
     <div className="flex w-full">
-      {!shouldHideSidebar && <Sidebar />}
+      {!shouldHideSidebar && <Sidebar kyc={kyc} verified={CreatedKyc} />}
 
       <div className="w-full">
         <div
@@ -89,7 +103,7 @@ function App() {
               <Route
                 path="/dashboard/*"
                 element={
-                  <RedirectVerifiedUsers kyc={kyc} verified={CrestedKyc}>
+                  <RedirectVerifiedUsers kyc={kyc} verified={CreatedKyc}>
                     <Dashboard />
                   </RedirectVerifiedUsers>
                 }
@@ -97,7 +111,7 @@ function App() {
               <Route
                 path="/home/*"
                 element={
-                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
+                  <ProtectedRoute kyc={kyc} verified={CreatedKyc}>
                     <Home />
                   </ProtectedRoute>
                 }
@@ -105,7 +119,7 @@ function App() {
               <Route
                 path="/beneficiaries/*"
                 element={
-                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
+                  <ProtectedRoute kyc={kyc} verified={CreatedKyc}>
                     <Beneficiary />
                   </ProtectedRoute>
                 }
@@ -113,7 +127,7 @@ function App() {
               <Route
                 path="/invoices/*"
                 element={
-                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
+                  <ProtectedRoute kyc={kyc} verified={CreatedKyc}>
                     <Invoice />
                   </ProtectedRoute>
                 }
@@ -121,7 +135,7 @@ function App() {
               <Route
                 path="/transactions/*"
                 element={
-                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
+                  <ProtectedRoute kyc={kyc} verified={CreatedKyc}>
                     <Transaction />
                   </ProtectedRoute>
                 }
@@ -129,7 +143,7 @@ function App() {
               <Route
                 path="/settings/*"
                 element={
-                  <ProtectedRoute kyc={kyc} verified={CrestedKyc}>
+                  <ProtectedRoute kyc={kyc} verified={CreatedKyc}>
                     <Settings />
                   </ProtectedRoute>
                 }

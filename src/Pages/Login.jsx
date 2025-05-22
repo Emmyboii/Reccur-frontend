@@ -68,6 +68,7 @@ const Login = () => {
                 throw new Error(data.message || 'login failed');
             } else {
                 localStorage.setItem('token', data.token)
+                localStorage.setItem('tokenTimestamp', Date.now());
                 setStatus({ message: data.message, type: 'success' })
                 setShowModal(true)
                 console.log('Login successful:', data);

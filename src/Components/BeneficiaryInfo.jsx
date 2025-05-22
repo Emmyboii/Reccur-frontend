@@ -65,104 +65,6 @@ const BeneficiaryInfo = () => {
     }, []);
 
 
-    const Beneficiary = [
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'Bank Transfer',
-            Country: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                    <p>USA</p>
-                </div>
-            ),
-            Address: '',
-            AccountNumber: '0839409083',
-        },
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'Bank Transfer',
-            Country: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                    <p>USA</p>
-                </div>
-            ),
-            Address: '',
-            AccountNumber: '0839409083',
-        },
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'Bank Transfer',
-            Country: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                    <p>USA</p>
-                </div>
-            ),
-            Address: '',
-            AccountNumber: '0839409083',
-        },
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'Bank Transfer',
-            Country: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                    <p>USA</p>
-                </div>
-            ),
-            Address: '',
-            AccountNumber: '0839409083',
-        },
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'USDT',
-            Country: '',
-            Address: 'T9yv72q1J6xYtX9GJ2FWUQa3tV3pK5XG7',
-            AccountNumber: '',
-        },
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'Bank Transfer',
-            Country: (
-                <div className='flex gap-[5px]'>
-                    <img className='w-[15px] h-[12px] rounded-[2px] mt-[6px] ' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
-                    <p>USA</p>
-                </div>
-            ),
-            Address: '',
-            AccountNumber: '0839409083',
-        },
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'USDT',
-            Country: '',
-            Address: 'T9yv72q1J6xYtX9GJ2FWUQa3tV3pK5XG7',
-            AccountNumber: '',
-        },
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'USDT',
-            Country: '',
-            Address: 'T9yv72q1J6xYtX9GJ2FWUQa3tV3pK5XG7',
-            AccountNumber: '',
-        },
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'USDT',
-            Country: '',
-            Address: 'T9yv72q1J6xYtX9GJ2FWUQa3tV3pK5XG7',
-            AccountNumber: '',
-        },
-        {
-            BeneficiaryName: 'Samantha Tino',
-            AccountType: 'USDT',
-            Country: '',
-            Address: 'T9yv72q1J6xYtX9GJ2FWUQa3tV3pK5XG7',
-            AccountNumber: '',
-        },
-    ]
-
     const handleSearch = (query) => {
         setSearchQuery(query);  // Update the search query state
     };
@@ -266,8 +168,8 @@ const BeneficiaryInfo = () => {
                             )}
                         </div>
                         <div className='min-w-0 md:block hidden'>
-                            {Ben.Address !== null ? (
-                                <p className='truncate'>{Ben.address}</p>
+                            {Ben.address !== null ? (
+                                <p className='truncate'>{Ben.address.streetLine1}</p>
                             ) : (
                                 <p>—</p>
                             )}

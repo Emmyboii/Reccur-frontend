@@ -1,0 +1,302 @@
+// {/* <div className='mt-5'>
+//                             <label htmlFor="code">Beneficiary's Country</label>
+//                             <div className='mt-1'>
+//                                 <Select
+//                                     styles={customStyles}
+//                                     options={countryOptions}
+//                                     getOptionLabel={(e) => (
+//                                         <div className="flex items-center gap-2 text-black/50">
+//                                             {e.icon && (
+//                                                 <img
+//                                                     src={e.icon}
+//                                                     alt={e.label}
+//                                                     className="w-[20px] h-[15px] rounded-[2px]"
+//                                                 />
+//                                             )}
+//                                             <span>{e.label}</span>
+//                                         </div>
+//                                     )}
+//                                     value={countries}
+//                                     onChange={handleCountries}
+//                                     isSearchable={false}
+//                                     className='rounded-m w-full outline-none'
+//                                 />
+//                             </div>
+//                         </div> */}
+
+//                         // const countryOptions = [
+//     //     {
+//     //         label: "Select Country",
+//     //         value: "select",
+//     //         isDisabled: true,
+//     //     },
+//     //     {
+//     //         label: "USA",
+//     //         value: "usa",
+//     //         icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png",
+//     //     },
+//     //     {
+//     //         label: "South Africa",
+//     //         value: "sa",
+//     //         icon: SouthAfrica,
+//     //     },
+//     //     {
+//     //         label: "Nigeria",
+//     //         value: "ngn",
+//     //         icon: "https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg",
+//     //     },
+//     //     {
+//     //         label: "United Kingdom",
+//     //         value: "UK",
+//     //         icon: UK,
+//     //     },
+//     //     {
+//     //         label: "Mexico",
+//     //         value: "Mexico",
+//     //         icon: Mexico,
+//     //     },
+//     //     {
+//     //         label: "France",
+//     //         value: "France",
+//     //         icon: France,
+//     //     },
+//     //     {
+//     //         label: "Philippines",
+//     //         value: "Philippines",
+//     //         icon: Philippines,
+//     //     },
+//     //     {
+//     //         label: "India",
+//     //         value: "India",
+//     //         icon: India,
+//     //     },
+//     // ];
+
+//     //sendBar
+
+//     // const options = [
+//     //     {
+//     //         value: 'sourceAcct',
+//     //         label: (
+//     //             <div className="flex items-center gap-2">
+//     //                 <div className="flex items-center gap-2">
+//     //                     <img className='w-5' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+//     //                     <p>USD</p>
+//     //                     <p>-8938798456</p>
+//     //                 </div>
+//     //             </div>
+//     //         ),
+//     //     },
+//     // ]
+//     // const country = [
+//     //     {
+//     //         value: 'select',
+//     //         label: (
+//     //             <div className="flex items-center gap-2">
+//     //                 <div className="flex items-center gap-2">
+//     //                     <p>Select Country</p>
+//     //                 </div>
+//     //             </div>
+//     //         ),
+//     //         isDisabled: true
+//     //     },
+//     //     {
+//     //         value: 'usa',
+//     //         label: (
+//     //             <div className="flex items-center gap-2">
+//     //                 <div className="flex items-center gap-2">
+//     //                     <img className='w-[20px] h-4 rounded-sm' src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png" alt="" />
+//     //                     <p>USA</p>
+//     //                 </div>
+//     //             </div>
+//     //         ),
+//     //     },
+//     //     {
+//     //         value: 'ngn',
+//     //         label: (
+//     //             <div className="flex items-center gap-2">
+//     //                 <div className="flex items-center gap-2">
+//     //                     <img className='w-[20px] h-4 rounded-sm' src="https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg" alt="" />
+//     //                     <p>NGN</p>
+//     //                 </div>
+//     //             </div>
+//     //         ),
+//     //     },
+//     // ]
+//     // const CryptocurrencyType = [
+//     //     {
+//     //         value: 'usdt',
+//     //         label: (
+//     //             <div className="flex items-center gap-2">
+//     //                 <div className="flex items-center gap-2">
+//     //                     <p>USDT</p>
+//     //                 </div>
+//     //             </div>
+//     //         ),
+//     //     },
+//     //     {
+//     //         value: 'usdc',
+//     //         label: (
+//     //             <div className="flex items-center gap-2 text-black/60">
+//     //                 <p>USDC</p>
+//     //             </div>
+//     //         ),
+//     //     },
+//     //     {
+//     //         value: 'BTC',
+//     //         label: (
+//     //             <div className="flex items-center gap-2 text-black/60">
+//     //                 <p>BTC</p>
+//     //             </div>
+//     //         ),
+//     //     },
+//     //     {
+//     //         value: 'SOL',
+//     //         label: (
+//     //             <div className="flex items-center gap-2 text-black/60">
+//     //                 <p>SOL</p>
+//     //             </div>
+//     //         ),
+//     //     },
+//     // ]
+//     // const NetworkType = [
+//     //     {
+//     //         value: 'trc',
+//     //         label: 'TRC 20'
+//     //     }
+//     // ]
+
+//     {/* <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="fullName">Full Name</label>
+//                             <div className='flex items-center mt-2 relative'>
+//                                 <input
+//                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
+//                                     type="text"
+//                                     name=""
+//                                     // value={'Samantha Tino'}
+//                                     id=""
+//                                     required
+//                                 />
+//                                 <img className='absolute ml-3' src={user} alt="" />
+//                             </div>
+//                         </div>
+//                         <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="code">Beneficiary's Country</label>
+//                             <div className='mt-1'>
+//                                 <Select
+//                                     styles={customStyles}
+//                                     options={country}
+//                                     value={countries}
+//                                     onChange={handleCountries}
+//                                     isSearchable={false}
+//                                     className='rounded-m w-full outline-none'
+//                                 />
+//                             </div>
+//                         </div>
+//                         <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="fullName">Beneficiary's account number</label>
+//                             <div className='flex items-center mt-2'>
+//                                 <input
+//                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
+//                                     type="number"
+//                                     name=""
+//                                     id=""
+//                                     required
+//                                     placeholder='Enter account number'
+//                                 />
+//                             </div>
+//                         </div>
+//                         <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="fullName">Bank name</label>
+//                             <div className='flex items-center mt-2 relative'>
+//                                 <input
+//                                     className='border-[1.5px] border-black/20 outline-none py-2 w-full pl-[47px] rounded-md'
+//                                     type="text"
+//                                     name=""
+//                                     id=""
+//                                     required
+//                                     placeholder='Enter bank name'
+//                                 />
+//                                 <img className='absolute ml-3' src={Bank} alt="" />
+//                             </div>
+//                         </div>
+//                         <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="fullName">Routing number</label>
+//                             <div className='flex items-center mt-2'>
+//                                 <input
+//                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
+//                                     type="number"
+//                                     name=""
+//                                     id=""
+//                                     required
+//                                     placeholder='Enter routing number'
+//                                 />
+//                             </div>
+//                         </div>
+//                         <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="fullName">Swift code</label>
+//                             <div className='flex items-center mt-2'>
+//                                 <input
+//                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
+//                                     type="number"
+//                                     name=""
+//                                     id=""
+//                                     required
+//                                     placeholder='Enter swift code'
+//                                 />
+//                             </div>
+//                         </div> */}
+
+//                         {/* <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="fullName">Full Name</label>
+//                             <div className='flex items-center mt-2 relative'>
+//                                 <input
+//                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[40px] rounded-md'
+//                                     type="text"
+//                                     name=""
+//                                     value={'Samantha Tino'}
+//                                     id=""
+//                                     required
+//                                 />
+//                                 <img className='absolute ml-3' src={user} alt="" />
+//                             </div>
+//                         </div>
+//                         <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="code">Cryptocurrency type</label>
+//                             <div className='mt-1'>
+//                                 <Select
+//                                     styles={customStyles}
+//                                     options={CryptocurrencyType}
+//                                     value={crypto}
+//                                     onChange={handleCrypto}
+//                                     isSearchable={false}
+//                                     className='rounded-m w-full outline-none'
+//                                 />
+//                             </div>
+//                         </div>
+//                         <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="fullName">Wallet address</label>
+//                             <div className='flex items-center mt-2'>
+//                                 <input
+//                                     className='border-[1.5px] border-black/20 outline-none py-[10px] px-[14px] w-full  rounded-md'
+//                                     type="text"
+//                                     name=""
+//                                     id=""
+//                                     required
+//                                     value={'T9yv72q1J6xYtX9GJ2FWUQa3tV3pK5XG7'}
+//                                 />
+//                             </div>
+//                         </div>
+//                         <div className='mt-5'>
+//                             <label className='text-black/50' htmlFor="code">Cryptocurrency type</label>
+//                             <div className='mt-1'>
+//                                 <Select
+//                                     styles={customStyles}
+//                                     options={NetworkType}
+//                                     value={networkType}
+//                                     onChange={handleNetworkType}
+//                                     isSearchable={false}
+//                                     className='rounded-m w-full outline-none'
+//                                 />
+//                             </div>
+//                         </div> */}

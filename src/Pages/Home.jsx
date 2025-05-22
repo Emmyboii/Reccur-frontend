@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { Context } from '../Context/Context'
 import ConfirmConversion from '../Components/ConfirmConversion'
+import ViewDetailsBar from '../Components/ViewDetailsBar';
 
 const CreateAcct = React.lazy(() => import('../Components/CreateAcct'));
 const Overview = React.lazy(() => import('../Components/Overview'));
 
 const Home = () => {
+
+    const navigate = useNavigate();
 
     const {
         acctBar,
@@ -17,7 +20,8 @@ const Home = () => {
         overViewTransactionDetails
     } = useContext(Context)
 
-    const [acct, setAcct] = useState([])
+    const [acct, setAcct] = useState()
+    const [loading, setLoading] = useState(true);
 
     const fetchAccount = async () => {
         try {
@@ -36,7 +40,6 @@ const Home = () => {
             if (!response.ok) {
                 throw new Error(data.message || 'Failed to fetch account');
             }
-
             return data;
         } catch (error) {
             console.error('Error fetching account:', error.message);
@@ -47,12 +50,23 @@ const Home = () => {
         const getAccount = async () => {
             const data = await fetchAccount();
             if (data) {
-                setAcct(data);
+                setAcct(data.length);
             }
+            setLoading(false);
         };
 
         getAccount();
     }, []);
+
+    useEffect(() => {
+        if (!loading) {
+            if (acct > 0) {
+                navigate('/home/overview');
+            } else {
+                navigate('/home');
+            }
+        }
+    }, [loading, acct, navigate]);
 
     useEffect(() => {
         if (acctBar || acctDetailsBar || sendBar || convertBar || liveRatesBar || overViewTransactionDetails) {
@@ -68,21 +82,15 @@ const Home = () => {
 
     return (
         <div>
-            <div>
-                <Routes>
-                    {acct.length > 0 ? (
-                        <Route path='overview' element={<Overview />} />
-                    ) : (
-                        <Route path='/' element={<CreateAcct />} />
-                    )}
-                </Routes>
-                <ConfirmConversion />
-            </div>
-            {acct.length > 0 ? (
-                <Navigate to="/home/overview" />
-            ) : (
-                <Navigate to="/home" />
-            )}
+            <Routes>
+                {!loading && acct > 0 ? (
+                    <Route path='overview' element={<Overview acct={acct} loading={loading} />} />
+                ) : (
+                    <Route path='/' element={<CreateAcct acct={acct} loading={loading} />} />
+                )}
+            </Routes>
+            <ConfirmConversion />
+            <ViewDetailsBar />
         </div>
     )
 }

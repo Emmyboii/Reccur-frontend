@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { BsThreeDots } from "react-icons/bs";
 import { RiHome6Line } from "react-icons/ri";
 import Logo from '../Components/Images/Logomark2.png';
@@ -10,11 +10,9 @@ import Invoice from '../Components/Images/Invoice.png';
 import Settings from '../Components/Images/Settings.png';
 import { Context } from '../Context/Context';
 
-const Sidebar = () => {
+const Sidebar = ({ verified, kyc }) => {
     const location = useLocation();
     const navigate = useNavigate();
-
-    const verified = JSON.parse(localStorage.getItem('userCreated'))
 
     const [formData, setFormData] = useState({
         fullname: '',
@@ -77,7 +75,7 @@ const Sidebar = () => {
     const handleRedirectIfUnverified = (e, targetPath) => {
         e.preventDefault();
         if (isMdScreen) handleSideBar();
-        if (verified === 'verified') {
+        if (verified === kyc) {
             navigate(targetPath);
         } else {
             navigate('/dashboard', {
@@ -98,15 +96,15 @@ const Sidebar = () => {
         <div className={`bg-[#431594] text-white sp:w-[350px] 2xl:w-[550px] w-full h-screen top-0 left-0 py-8 px-5 z-50 gap-5 ${sideBar ? 'fixed flex lg:hidden flex-col justify-between' : 'lg:flex sticky hidden lg:flex-col lg:justify-between'}`}>
             <div>
                 <div className="flex items-center justify-between">
-                    <a
-                        href={verified === 'verified' ? '/home' : '/dashboard'}
-                        onClick={(e) => handleRedirectIfUnverified(e, verified === 'verified' ? '/home' : '/dashboard')}
+                    <Link
+                        to={verified === kyc ? '/home' : '/dashboard'}
+                        onClick={(e) => handleRedirectIfUnverified(e, verified === kyc ? '/home' : '/dashboard')}
                     >
                         <h1 className="flex gap-3 items-center font-semibold ml-2 text-[20px]">
                             <img src={Logo} alt="" className="mt-2 w-7 h-7" />
                             <p>reccur</p>
                         </h1>
-                    </a>
+                    </Link>
                     <img
                         onClick={handleSideBar}
                         src={close}
@@ -136,7 +134,7 @@ const Sidebar = () => {
                     ))}
                 </div>
             </div>
-            
+
             {/* Profile Section */}
             <div className="flex items-center justify-between mt-4">
                 <a

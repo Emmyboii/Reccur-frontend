@@ -6,11 +6,9 @@ import Select from 'react-select';
 import { LuArrowLeftRight } from 'react-icons/lu';
 import { GoArrowUpRight } from 'react-icons/go';
 
-const AcctDetailsBar = ({ selectedCurrency, handleCurrencyChange, currencyOptions, output, selectedAccount }) => {
+const AcctDetailsBar = ({ selectedCurrency, balance, handleCurrencyChange, currencyOptions, output, selectedAccount }) => {
 
-    const { acctDetailsBar, handleAcctDetailsBar } = useContext(Context)
-
-    const [balance, setBalance] = useState(0);
+    const { acctDetailsBar, handleAcctDetailsBar, handleSendBar } = useContext(Context)
 
     const [copied, setCopied] = useState(false);
     const textToCopy = `${selectedAccount.account_number ? selectedAccount.account_number : null}`
@@ -68,16 +66,21 @@ const AcctDetailsBar = ({ selectedCurrency, handleCurrencyChange, currencyOption
                                 <>
                                     {selectedCurrency.value === 'USD' && '$'}
                                     {selectedCurrency.value === 'EUR' && '€'}
-                                    {selectedAccount.balance}
+                                    {balance.balance}
                                 </>
                             )}
                         </p>
                         <div className='flex gap-4 text-white mt-[12px]'>
-                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0.00 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
+                            <button
+                                onClick={() => {
+                                    handleSendBar()
+                                    handleAcctDetailsBar()
+                                }}
+                                className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance.balance > 0.00 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
                                 <GoArrowUpRight className='mt-1' />
                                 Send
                             </button>
-                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance > 0.00 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
+                            <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance.balance > 0.00 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
                                 <LuArrowLeftRight className='mt-1' />
                                 Recieve
                             </button>

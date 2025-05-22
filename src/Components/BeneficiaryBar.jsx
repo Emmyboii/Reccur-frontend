@@ -1,9 +1,11 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { Country, State, City } from "country-state-city";
 import close from '../Components/Images/x-close.png';
 import user from '../Components/Images/user.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import Bank from '../Components/Images/bank.png';
+import Search from '../Components/Images/search.png'
 // import SouthAfrica from '../Components/Images/SouthAfrica.png';
 // import UK from '../Components/Images/UK.png';
 // import Mexico from '../Components/Images/Mexico.png';
@@ -14,7 +16,13 @@ import Bank from '../Components/Images/bank.png';
 const BeneficiaryBar = () => {
     const { handleBeneficiaryBar, beneficiaryBar, handleAddedBeneficiaries } = useContext(Context)
     const [method, setMethod] = useState('bank')
+    const [countries, setCountries] = useState([]);
+    const [states, setStates] = useState([]);
+    const [cities, setCities] = useState([]);
 
+    const [selectedCountry, setSelectedCountry] = useState("");
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedCity, setSelectedCity] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
         bank_name: "",
@@ -23,7 +31,12 @@ const BeneficiaryBar = () => {
         swift_code: "",
         routing_number: "",
         full_name: "",
-        address: "",
+        countryCode: '',
+        stateOrProvince: '',
+        postalCode: '',
+        streetLine1: '',
+        streetLine2: '',
+        city: '',
     })
 
     const [formDataCrypto, setFormDataCrypto] = useState({
@@ -35,6 +48,13 @@ const BeneficiaryBar = () => {
     })
 
     const handleBankChange = (e) => {
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    const handleChange = (e) => {
         setFormData(prev => ({
             ...prev,
             [e.target.name]: e.target.value
@@ -56,6 +76,26 @@ const BeneficiaryBar = () => {
 
         try {
             const token = localStorage.getItem('token')
+
+            const payload = {
+                bank_name: formData.bank_name,
+                bank_account_type: formData.bank_account_type,
+                account_number: formData.account_number,
+                swift_code: formData.swift_code,
+                routing_number: formData.routing_number,
+                full_name: formData.full_name,
+                address: {
+                    countryCode: formData.countryCode,
+                    stateOrProvince: formData.stateOrProvince,
+                    postalCode: formData.postalCode,
+                    streetLine1: formData.streetLine1,
+                    streetLine2: formData.streetLine2,
+                    city: formData.city,
+                },
+            };
+
+            console.log(payload);
+
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary/create-bank`, {
                 method: 'POST',
                 headers: {
@@ -63,7 +103,7 @@ const BeneficiaryBar = () => {
                     Authorization: `Token ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(payload)
             })
 
             const data = await response.json();
@@ -118,54 +158,6 @@ const BeneficiaryBar = () => {
             setIsSubmitting(false);
         }
     }
-
-    // const countryOptions = [
-    //     {
-    //         label: "Select Country",
-    //         value: "select",
-    //         isDisabled: true,
-    //     },
-    //     {
-    //         label: "USA",
-    //         value: "usa",
-    //         icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg/250px-Flag_of_the_United_States_%28DoS_ECA_Color_Standard%29.svg.png",
-    //     },
-    //     {
-    //         label: "South Africa",
-    //         value: "sa",
-    //         icon: SouthAfrica,
-    //     },
-    //     {
-    //         label: "Nigeria",
-    //         value: "ngn",
-    //         icon: "https://cdn.britannica.com/68/5068-050-53E22285/Flag-Nigeria.jpg",
-    //     },
-    //     {
-    //         label: "United Kingdom",
-    //         value: "UK",
-    //         icon: UK,
-    //     },
-    //     {
-    //         label: "Mexico",
-    //         value: "Mexico",
-    //         icon: Mexico,
-    //     },
-    //     {
-    //         label: "France",
-    //         value: "France",
-    //         icon: France,
-    //     },
-    //     {
-    //         label: "Philippines",
-    //         value: "Philippines",
-    //         icon: Philippines,
-    //     },
-    //     {
-    //         label: "India",
-    //         value: "India",
-    //         icon: India,
-    //     },
-    // ];
 
     const bankOptions = [
         { label: "Select Bank", value: "", isDisabled: true },
@@ -222,6 +214,65 @@ const BeneficiaryBar = () => {
         { label: "Savings", value: "SAVING" },
         { label: "Checking", value: "CHECKING" },
     ];
+
+    useEffect(() => {
+        const allCountries = Country.getAllCountries();
+        setCountries(allCountries);
+    }, []);
+
+    const handleCountryChange = (option) => {
+        setSelectedCountry(option);
+        setFormData(prev => ({ ...prev, countryCode: option.values }));
+
+        const fetchedStates = State.getStatesOfCountry(option.values);
+        setStates(fetchedStates);
+        setSelectedState(null);
+        setCities([]);
+        setSelectedCity(null);
+        setFormData(prev => ({ ...prev, stateOrProvince: '', city: '' }));
+    };
+
+    const handleStateChange = (option) => {
+        setSelectedState(option);
+        setFormData(prev => ({ ...prev, stateOrProvince: option.label }));
+
+        const fetchedCities = City.getCitiesOfState(selectedCountry.values, option.value);
+        setCities(fetchedCities);
+        setSelectedCity(null);
+        setFormData(prev => ({ ...prev, city: '' }));
+    };
+
+    const handleCityChange = (option) => {
+        setSelectedCity(option);
+        setFormData(prev => ({ ...prev, city: option.value }));
+    };
+
+    const countryOptions = countries.map((c) => ({
+        label: (
+            <div className="flex items-center gap-2">
+                <img
+                    src={`https://flagcdn.com/w40/${c.isoCode.toLowerCase()}.png`}
+                    alt={c.name}
+                    className="w-5 h-4"
+                />
+                {c.isoCode}
+            </div>
+        ),
+        value: c.isoCode,
+        values: c.isoCode,
+        raw: c,
+    }));
+
+    const stateOptions = states.map((s) => ({
+        label: s.name,
+        value: s.isoCode,
+        raw: s,
+    }));
+
+    const cityOptions = cities.map((c) => ({
+        label: c.name,
+        value: c.name,
+    }));
 
     const customStyles = {
         indicatorSeparator: () => ({
@@ -380,31 +431,6 @@ const BeneficiaryBar = () => {
                                 <img className='absolute ml-3' src={user} alt="" />
                             </div>
                         </div>
-                        {/* <div className='mt-5'>
-                            <label htmlFor="code">Beneficiary's Country</label>
-                            <div className='mt-1'>
-                                <Select
-                                    styles={customStyles}
-                                    options={countryOptions}
-                                    getOptionLabel={(e) => (
-                                        <div className="flex items-center gap-2 text-black/50">
-                                            {e.icon && (
-                                                <img
-                                                    src={e.icon}
-                                                    alt={e.label}
-                                                    className="w-[20px] h-[15px] rounded-[2px]"
-                                                />
-                                            )}
-                                            <span>{e.label}</span>
-                                        </div>
-                                    )}
-                                    value={countries}
-                                    onChange={handleCountries}
-                                    isSearchable={false}
-                                    className='rounded-m w-full outline-none'
-                                />
-                            </div>
-                        </div> */}
                         <div className='mt-5'>
                             <label htmlFor="fullName">Beneficiary's account number</label>
                             <div className='flex items-center mt-2'>
@@ -468,7 +494,7 @@ const BeneficiaryBar = () => {
                             <div className='flex items-center mt-2'>
                                 <input
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
-                                    type="number"
+                                    type="text"
                                     name="swift_code"
                                     value={formData.swift_code || ''}
                                     onChange={handleBankChange}
@@ -479,19 +505,87 @@ const BeneficiaryBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label htmlFor="fullName">Address</label>
+                            <label htmlFor="code">Country Code</label>
                             <div className='flex items-center mt-2'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
-                                    type="text"
-                                    name="address"
-                                    value={formData.address || ''}
-                                    onChange={handleBankChange}
-                                    id=""
+                                <Select
+                                    styles={customStyles}
+                                    options={countryOptions}
+                                    onChange={handleCountryChange}
+                                    placeholder="Select Country Code"
+                                    value={selectedCountry}
+                                    className="w-full"
                                     required
-                                    placeholder='Enter your address'
+                                    menuPlacement="auto"
                                 />
+                                <img className='ml-[-29px] z-20' src={Search} alt="" />
                             </div>
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">State / Province</label>
+                            <div className='flex items-center mt-2'>
+                                <Select
+                                    styles={customStyles}
+                                    options={stateOptions}
+                                    onChange={handleStateChange}
+                                    placeholder="Select State"
+                                    value={selectedState}
+                                    className="w-full"
+                                    menuPlacement="auto"
+                                    required
+                                />
+                                <img className='ml-[-29px] z-20' src={Search} alt="" />
+                            </div>
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">City</label>
+                            <Select
+                                styles={customStyles}
+                                options={cityOptions}
+                                onChange={handleCityChange}
+                                placeholder="Select City"
+                                value={selectedCity}
+                                className="w-full mt-2"
+                                menuPlacement="auto"
+                                required
+                            />
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">Street Line 1</label>
+                            <input
+                                className='border-[1.5px] mt-2 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
+                                type="text"
+                                name="streetLine1"
+                                value={formData.streetLine1}
+                                onChange={handleChange}
+                                required
+                                placeholder='564866'
+                            />
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">Street Line 2</label>
+                            <input
+                                className='border-[1.5px] mt-2 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
+                                type="text"
+                                name="streetLine2"
+                                value={formData.streetLine2}
+                                onChange={handleChange}
+                                id=""
+                                required
+                                placeholder='564866'
+                            />
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">Zip / postal code</label>
+                            <input
+                                className='border-[1.5px] mt-2 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
+                                type="number"
+                                name="postalCode"
+                                value={formData.postalCode}
+                                onChange={handleChange}
+                                id=""
+                                placeholder='564866'
+                                required
+                            />
                         </div>
                         <div className='flex gap-4 mt-10'>
                             <button
@@ -504,7 +598,6 @@ const BeneficiaryBar = () => {
                                 className={`p-[10px] px-4 rounded-lg text-white w-[80%] ${isSubmitting ? 'bg-[#E8E1F5]' : 'bg-[#531CB3]'}`}
                                 onClick={(e) => {
                                     handleAddedBeneficiaries()
-
                                     createBankBeneficairy(e)
                                 }}
                                 disabled={isSubmitting}
