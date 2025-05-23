@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../Context/Context'
 import { useNavigate } from 'react-router-dom'
+import ConfirmLogOut from './ConfirmLogOut'
 
 const AdvancedSettings = (props) => {
     const { TransactionType } = props
@@ -8,6 +9,7 @@ const AdvancedSettings = (props) => {
     const navigate = useNavigate()
 
     const [onDelete, setOnDelete] = useState(false)
+    const [onLogOut, setOnLogOut] = useState(false)
     const [count, setCount] = useState(5);
 
     const { setDeleted, handleNoDelete, deleted } = useContext(Context)
@@ -46,10 +48,24 @@ const AdvancedSettings = (props) => {
             <div className='flex flex-col gap-1'>
                 <p className='text-[18px] font-medium text-[#1D1C1F]'>Advanced settings</p>
             </div>
+            <div>
+                <p className='text-[16px] font-medium text-[#1D1C1F] mb-1'>Log Out!</p>
+                <p className='text-[16px] font-normal text-[#525154]'>
+                    Logging out will end your current session. You can log back in at any time to
+                    continue using your account.
+                </p>
+                <button
+                    onClick={() => setOnLogOut(!onLogOut)}
+                    className='text-white rounded-lg py-[10px] mt-3 text-[14px] font-medium px-4 bg-[#EF4444]'
+                >
+                    Log out now
+                </button>
+                <ConfirmLogOut onLogOut={onLogOut} setOnLogOut={setOnLogOut} />
+            </div>
             <div className='flex md:flex-row flex-col md:gap-5 gap-8'>
                 <div className='md:w-[40%]'>
-                    <p className='text-[14px] font-medium text-[#1D1C1F] mb-1'>Danger zone</p>
-                    <p className='text-[14px] font-normal text-[#525154]'>
+                    <p className='text-[16px] font-medium text-[#1D1C1F] mb-1'>Danger zone</p>
+                    <p className='text-[16px] font-normal text-[#525154]'>
                         Deleting your account will delete all of your client information and invoices,
                         as well as any payment made and payout information.
                     </p>
@@ -77,7 +93,7 @@ const AdvancedSettings = (props) => {
                             type="text"
                             name=""
                             id=""
-required
+                            required
                             className='rounded-lg py-[10px] px-[14px] border border-[#D2D0D6]'
                             placeholder='Your email address'
                         />

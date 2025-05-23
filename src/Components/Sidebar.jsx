@@ -9,10 +9,15 @@ import Transaction from '../Components/Images/transaction.png';
 import Invoice from '../Components/Images/Invoice.png';
 import Settings from '../Components/Images/Settings.png';
 import { Context } from '../Context/Context';
+import ConfirmLogOut from './ConfirmLogOut';
 
 const Sidebar = ({ verified, kyc }) => {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const [onLogOut, setOnLogOut] = useState(false)
+    const [onClick, setOnclick] = useState(false)
+
 
     const [formData, setFormData] = useState({
         fullname: '',
@@ -76,7 +81,7 @@ const Sidebar = ({ verified, kyc }) => {
         e.preventDefault();
         if (isMdScreen) handleSideBar();
         if (verified === kyc) {
-            navigate(targetPath);
+            window.location.replace(targetPath);
         } else {
             navigate('/dashboard', {
                 state: { error: 'You need to fill in your KYC data to continue' }
@@ -93,8 +98,8 @@ const Sidebar = ({ verified, kyc }) => {
     ];
 
     return (
-        <div className={`bg-[#431594] text-white sp:w-[350px] 2xl:w-[550px] w-full h-screen top-0 left-0 py-8 px-5 z-50 gap-5 ${sideBar ? 'fixed flex lg:hidden flex-col justify-between' : 'lg:flex sticky hidden lg:flex-col lg:justify-between'}`}>
-            <div>
+        <div className={`bg-[#431594] text-white sp:w-[350px] 2xl:w-[550px] w-full h-screen top-0 left-0 px-5 z-50 gap-5 ${sideBar ? 'fixed flex lg:hidden flex-col justify-between' : 'lg:flex sticky hidden lg:flex-col lg:justify-between'}`}>
+            <div className='py-8'>
                 <div className="flex items-center justify-between">
                     <Link
                         to={verified === kyc ? '/home' : '/dashboard'}
@@ -136,20 +141,35 @@ const Sidebar = ({ verified, kyc }) => {
             </div>
 
             {/* Profile Section */}
-            <div className="flex items-center justify-between mt-4">
-                <a
-                    href="/settings"
-                    onClick={(e) => {
-                        setTransactionType('account');
-                        handleRedirectIfUnverified(e, '/settings');
-                    }}
-                >
-                    <div className="flex w-full items-center cursor-pointer gap-2">
+            <div className='relative'>
+                <div className={`w-full text-black bg-white/80 text-[18px] text-center z-0 absolute transition-all duration-500 left-0 ${!onClick ? 'bottom-[-90px]' : 'bottom-[79px]'}`}>
+                    <a
+                        href="/settings"
+                        onClick={(e) => {
+                            setTransactionType('account');
+                            setOnclick(false)
+                        }}
+                    >
+                        <p className='py-2'>
+                            Account Settings
+                        </p>
+                    </a>
+                    <hr className='h-[2px] bg-[#431594]' />
+                    <p
+                        onClick={() => setOnLogOut(!onLogOut)}
+                        className='py-2 cursor-pointer'
+                    >
+                        Log Out
+                    </p>
+                </div>
+
+                <div onClick={() => setOnclick(!onClick)} className="flex items-center bg-[#431594] pb-8 h-full z-50 justify-between mt-4">
+                    <div className="flex w-full items-center cursor-pointer z-50 gap-2">
                         <label htmlFor="ProfilePics">
                             <div className="flex gap-6">
                                 {formData.image ? (
                                     <img
-                                        src={URL.createObjectURL(formData.image)}
+                                        src={formData.image}
                                         alt=""
                                         className="rounded-[48px] size-9 cursor-pointer"
                                     />
@@ -163,22 +183,17 @@ const Sidebar = ({ verified, kyc }) => {
                                 )}
                             </div>
                         </label>
-                        <p>{formData.fullname}</p>
+                        <p className='z-50'>{formData.fullname}</p>
                     </div>
-                </a>
-                <a
-                    href="/settings"
-                    onClick={(e) => {
-                        setTransactionType('account');
-                        handleRedirectIfUnverified(e, '/settings');
-                    }}
-                >
-                    <BsThreeDots
-                        onClick={isMdScreen ? handleSideBar : undefined}
-                        className="text-[20px] cursor-pointer"
-                    />
-                </a>
+                    <p>
+                        <BsThreeDots
+                            className="text-[20px] z-50 cursor-pointer"
+                        />
+                    </p>
+                </div>
             </div>
+
+            <ConfirmLogOut onLogOut={onLogOut} setOnLogOut={setOnLogOut} />
         </div>
     )
 }
