@@ -291,9 +291,9 @@ const AccountSettings = (props) => {
                 </div>
                 <label className='sm:w-[70%]' htmlFor="ProfilePics">
                     <div className='flex gap-6'>
-                        {formData.image ? (
+                        {profilePics ? (
                             <img
-                                src={URL.createObjectURL(formData.image)}
+                                src={URL.createObjectURL(profilePics)}
                                 alt=""
                                 className='rounded-[48px] size-12 cursor-pointer'
                             />

@@ -7,11 +7,34 @@ const ViewDetailsBar = () => {
 
     const { handleViewDetails, viewDetails, handleDeleteProfile, handleProfileEdit } = useContext(Context)
 
-    const [Transaction, setTransaction] = useState(1)
-    const [BenficairyDetails, setBenficairyDetails] = useState([])
+    const [Transaction, setTransaction] = useState([])
+    const [payments, setPayments] = useState([])
+    const [BenficairyDetails, setBenficairyDetails] = useState(null)
+    const [paymentId, setPaymentId] = useState(null)
 
     // const [status, setStatus] = useState()
 
+    useEffect(() => {
+        if (
+            BenficairyDetails &&
+            Array.isArray(Transaction) &&
+            Transaction.length > 0
+        ) {
+            // Find a transaction with matching beneficiary id
+            const matchingTransaction = Transaction.find(
+                (t) => t.beneficiary && t.beneficiary.id === BenficairyDetails.id
+            );
+
+            if (matchingTransaction) {
+                setPaymentId(matchingTransaction.id);
+            }
+        }
+    }, [BenficairyDetails, Transaction]);
+
+    useEffect(() => {
+        if (!viewDetails) return;
+        console.log('paymentId updated:', paymentId);
+    }, [paymentId, viewDetails]);
 
 
     useEffect(() => {
@@ -36,6 +59,9 @@ const ViewDetailsBar = () => {
     }, [viewDetails]);
 
     useEffect(() => {
+
+        if (!viewDetails) return;
+
         const token = localStorage.getItem('token');
 
         const fetchTransactions = async () => {
@@ -50,7 +76,27 @@ const ViewDetailsBar = () => {
         };
 
         fetchTransactions();
-    }, []);
+    }, [viewDetails]);
+
+    useEffect(() => {
+        if (!viewDetails || !paymentId) return;
+
+        const token = localStorage.getItem('token');
+
+        const fetchPayments = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/payments/${paymentId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+            const data = await res.json();
+            setPayments(data);
+        };
+
+        fetchPayments();
+    }, [viewDetails, paymentId]);
+
 
     // useEffect(() => {
     //     if (!viewDetails) return;
@@ -127,7 +173,10 @@ const ViewDetailsBar = () => {
         <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-3 duration-700 text-black z-50 overflow-auto ${viewDetails ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex gap-2 justify-between'>
                 <div>
-                    <h1 className='text-[20px] font-medium text-[#1D1C1F]'>{BenficairyDetails.full_name}</h1>
+                    {payments?.beneficiary && (
+                        <h1 className='text-[20px] font-medium text-[#1D1C1F]'>{payments.beneficiary.full_name}</h1>
+                    )}
+
                     {/* <p className='text-[#525154]'><span className='text-[#531CB3]'>sam@tino.com •</span> Biffco Enterprises Ltd.</p> */}
                 </div>
                 <img
@@ -163,43 +212,50 @@ const ViewDetailsBar = () => {
                     Send Money
                 </button>
             </div>
-            {Transaction > 0 ? (
+            {payments ? (
                 <div>
                     <div className='mt-7 border rounded-lg p-5 flex flex-col gap-3'>
                         <p className='text-[18px] font-medium text-[#302F33]'>Summary</p>
                         <div className='flex justify-between'>
                             <div className='flex flex-col gap-2'>
                                 <p className='text-[#525154]'>Amount Sent</p>
-                                <p className='text-[#1D1C1F] text-[20px] font-semibold'>$1,440.40</p>
+                                <p className='text-[#1D1C1F] text-[20px] font-semibold'>${payments.amount}</p>
                             </div>
                             <div className='flex flex-col gap-2'>
                                 <p className='text-[#525154]'>Number of Transactions</p>
-                                <p className='text-[#1D1C1F] text-[20px] xl:text-start lg:text-center md:text-start sm:text-center font-semibold'>6</p>
+                                <p className='text-[#1D1C1F] text-[20px] xl:text-start lg:text-center md:text-start sm:text-center font-semibold'>{payments.transactions ? payments.transactions.length : 1}</p>
                             </div>
                         </div>
                     </div>
                     <div className='mt-7'>
                         <p className='text-[20px] text-[#302F33]'>Transactions</p>
                         <div className='grid grid-cols-3 gap-5 py-3 border-b border-b-black/50 text-[#525154]'>
-                            <p>Payments</p>
                             <p>Payment Date</p>
-                            <p>Amount</p>
+                            <p>Payment type</p>
+                            <p className='flex items-center justify-between mr-5'>
+                                Amount
+                                <p className='font-semibold invisible text-[18px] text-black/60 cursor-pointer'>
+                                    <img src={menus} alt="" />
+                                </p>
+                            </p>
                         </div>
-                        {Payment.map((pay, i) => (
-                            <div key={i} className='grid grid-cols-3 gap-5 py-3 border-b border-b-black/50 text-[#525154]'>
-                                <p>{pay.Payments}</p>
-                                <p>{pay.PaymentDate}</p>
-                                <div className='flex items-center justify-between mr-5'>
-                                    {pay.Amount}
-                                    <p
-                                        className={`font-semibold text-[18px] text-black/60 cursor-pointer`}
-                                    >
-                                        <img src={menus} alt="" />
-                                    </p>
-                                </div>
+                        <div className='grid grid-cols-3 gap-5 py-3 border-b border-b-black/50 text-[#525154]'>
+                            <p>{new Date(payments.date_created).toLocaleDateString()}</p>
+                            <p className='truncate'>
+                                {payments.account_type === 'crypto' ? (
+                                    payments.cryptocurrency_type
+                                ) : (
+                                    'Bank Transfer'
+                                )}
+                            </p>
+                            <div className='flex items-center justify-between mr-5'>
+                                ${payments.amount}
+                                <p className='font-semibold text-[18px] text-black/60 cursor-pointer'>
+                                    <img src={menus} alt="" />
+                                </p>
                             </div>
-                        ))}
-                        <p className='text-[#78757A] mt-3'>6 items</p>
+                        </div>
+                        <p className='text-[#78757A] mt-3'>{payments.transactions ? payments.transactions.length : 1} {payments.transactions && payments.transactions.length > 1 ? 'items' : 'item'}</p>
                     </div>
                 </div>
             ) : (

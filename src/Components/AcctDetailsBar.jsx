@@ -2,11 +2,10 @@ import React, { useContext, useState } from 'react'
 import close from '../Components/Images/x-close.png';
 import copy from '../Components/Images/copy.png';
 import { Context } from '../Context/Context';
-import Select from 'react-select';
 import { LuArrowLeftRight } from 'react-icons/lu';
 import { GoArrowUpRight } from 'react-icons/go';
 
-const AcctDetailsBar = ({ selectedCurrency, balance, handleCurrencyChange, currencyOptions, output, selectedAccount }) => {
+const AcctDetailsBar = ({ selectedCurrency, balance, roundUp, currencyLogos, output, selectedAccount }) => {
 
     const { acctDetailsBar, handleAcctDetailsBar, handleSendBar } = useContext(Context)
 
@@ -19,45 +18,24 @@ const AcctDetailsBar = ({ selectedCurrency, balance, handleCurrencyChange, curre
 
     };
 
-    const customStyles = {
-        indicatorSeparator: () => ({
-            display: 'none',
-        }),
-        control: (base) => ({
-            ...base,
-            padding: '4px',
-            borderRadius: '6px',
-            boxShadow: 'none',
-            borderWidth: '1.5px'
-        }),
-        menu: (base) => ({
-            ...base,
-            zIndex: 999,
-        }),
-        option: (base, state) => ({
-            ...base,
-            backgroundColor: state.isFocused ? '#4e22a0' : 'white',
-            color: state.isFocused ? 'white' : 'black',
-            padding: 10,
-            cursor: 'pointer',
-        }),
-    };
-
-
-
     return (
         <div className={`fixed top-0 h-screen bg-white lg:p-10 py-8 px-4 duration-700 z-50 text-[#1D1C1F] ${acctDetailsBar ? 'sm:w-[50%] lg:w-[40%] w-full right-0' : 'right-[-100%] w-[40%]'}`}>
             <div className='flex justify-between'>
                 <div>
                     <div className='mt-1 flex items-center gap-2'>
-                        <Select
-                            styles={customStyles}
-                            options={currencyOptions}
-                            onChange={handleCurrencyChange}
-                            value={selectedCurrency}
-                            isSearchable={false}
-                            className='rounded-m outline-none'
-                        />
+                        <div className="relative w-[100px]">
+                            <input
+                                type="text"
+                                value={selectedCurrency?.value || ''}
+                                readOnly
+                                className="pl-8 pr-2 py-2 border-[1.5px] text-center rounded-[10px] w-full"
+                            />
+                            <img
+                                src={currencyLogos[selectedCurrency?.value]}
+                                alt={selectedCurrency?.value}
+                                className="w-[20px] h-4 absolute left-3 top-1/2 -translate-y-1/2"
+                            />
+                        </div>
                         {output && <p className="mt-1 text-[14px]">{output} Balance</p>}
                     </div>
                     <div className='mt-[13px]'>
@@ -65,8 +43,8 @@ const AcctDetailsBar = ({ selectedCurrency, balance, handleCurrencyChange, curre
                             {selectedCurrency && selectedAccount && (
                                 <>
                                     {selectedCurrency.value === 'USD' && '$'}
-                                    {selectedCurrency.value === 'EUR' && '€'}
-                                    {balance.balance}
+                                    {/* {selectedCurrency.value === 'EUR' && '€'} */}
+                                    {roundUp(balance.balance, 0)}
                                 </>
                             )}
                         </p>
@@ -77,11 +55,11 @@ const AcctDetailsBar = ({ selectedCurrency, balance, handleCurrencyChange, curre
                                     handleAcctDetailsBar()
                                 }}
                                 className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance.balance > 0.00 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
-                                <GoArrowUpRight className='mt-1' />
+                                <GoArrowUpRight />
                                 Send
                             </button>
                             <button className={`flex items-center w-full gap-2 p-2 rounded-lg ${balance.balance > 0.00 ? 'bg-[#531CB3]' : 'bg-[#E8E1F5] cursor-not-allowed'}`}>
-                                <LuArrowLeftRight className='mt-1' />
+                                <LuArrowLeftRight />
                                 Recieve
                             </button>
                         </div>
@@ -142,6 +120,10 @@ const AcctDetailsBar = ({ selectedCurrency, balance, handleCurrencyChange, curre
             <div className='mt-[10px]'>
                 <p className='text-[#B5B3BA]'>Account Number</p>
                 <p className='text-[16px] font-medium'>{selectedAccount.account_number ? selectedAccount.account_number : 'N/A'}</p>
+            </div>
+            <div className='mt-[10px]'>
+                <p className='text-[#B5B3BA]'>Routing Number</p>
+                <p className='text-[16px] font-medium'>{selectedAccount.routing_number ? selectedAccount.routing_number : 'N/A'}</p>
             </div>
         </div>
     )

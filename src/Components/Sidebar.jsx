@@ -81,7 +81,7 @@ const Sidebar = ({ verified, kyc }) => {
         e.preventDefault();
         if (isMdScreen) handleSideBar();
         if (verified === kyc) {
-            window.location.replace(targetPath);
+            navigate(targetPath);
         } else {
             navigate('/dashboard', {
                 state: { error: 'You need to fill in your KYC data to continue' }
@@ -121,8 +121,8 @@ const Sidebar = ({ verified, kyc }) => {
                 {/* Sidebar Menu */}
                 <div className="flex flex-col gap-2 mt-5">
                     {menuItems.map(({ path, label, icon }) => (
-                        <a
-                            href={path}
+                        <Link
+                            to={path}
                             key={label}
                             onClick={(e) => handleRedirectIfUnverified(e, path)}
                         >
@@ -135,16 +135,16 @@ const Sidebar = ({ verified, kyc }) => {
                                 {icon}
                                 <p>{label}</p>
                             </div>
-                        </a>
+                        </Link>
                     ))}
                 </div>
             </div>
 
             {/* Profile Section */}
             <div className='relative'>
-                <div className={`w-full text-black bg-white/80 text-[18px] text-center z-0 absolute transition-all duration-500 left-0 ${!onClick ? 'bottom-[-90px]' : 'bottom-[79px]'}`}>
-                    <a
-                        href="/settings"
+                <div className={`w-full text-black bg-white/80 text-[18px] text-center z-0 absolute transition-all duration-500 left-0 ${!onClick ? 'hidden' : 'bottom-[79px]'}`}>
+                    <Link
+                        to="/settings"
                         onClick={(e) => {
                             setTransactionType('account');
                             setOnclick(false)
@@ -153,7 +153,7 @@ const Sidebar = ({ verified, kyc }) => {
                         <p className='py-2'>
                             Account Settings
                         </p>
-                    </a>
+                    </Link>
                     <hr className='h-[2px] bg-[#431594]' />
                     <p
                         onClick={() => setOnLogOut(!onLogOut)}

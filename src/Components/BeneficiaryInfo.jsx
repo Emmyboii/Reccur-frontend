@@ -69,28 +69,35 @@ const BeneficiaryInfo = () => {
         setSearchQuery(query);  // Update the search query state
     };
 
-    // const filteredBeneficiaries = beneficiaryType === 'all'
-    //     ? beneficiaries.filter(ben =>
-    //         ben.BeneficiaryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    //         ben.AccountType.toLowerCase().includes(searchQuery.toLowerCase())
-    //         // ben.Business.toLowerCase().includes(searchQuery.toLowerCase())
-    //     )
-    //     : beneficiaries.filter(ben => {
-    //         if (beneficiaryType === 'BT') {
-    //             return ben.account_type === 'fiat' && (
-    //                 ben.full_name.toLowerCase().includes(searchQuery.toLowerCase())
-    //             );
-    //         } else if (beneficiaryType === 'cry') {
-    //             return ['USDT', 'SOL', 'BTC', 'USDC', 'BNB', 'ETH'].includes(ben.account_type) && (
-    //                 ben.full_name.toLowerCase().includes(searchQuery.toLowerCase())
-    //             );
-    //         }
-    //         return true;
-    //     });
+    const filteredBeneficiaries = beneficiaryType === 'all'
+        ? beneficiaries.filter(ben =>
+            ben.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            ben.account_type !== "crypto" && 'Bank Transafer'?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            ben.country?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            ben.account_number?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            ben.cryptocurrency_type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            ben.wallet_address?.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+        : beneficiaries.filter(ben => {
+            if (beneficiaryType === 'BT') {
+                return ben.account_type === 'fiat' && (
+                    ben.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    ben.account_number?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    ben.account_type !== "crypto" && 'Bank Transafer'?.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            } else if (beneficiaryType === 'cry') {
+                return ['USDT', 'SOL', 'BTC', 'USDC', 'BNB', 'ETH'].includes(ben.cryptocurrency_type) && (
+                    ben.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    ben.cryptocurrency_type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    ben.wallet_address?.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            }
+            return true;
+        });
 
 
     return (
-        <div className='md:px-10 mx-4 text-black/60'>
+        <div className='md:px-10 mx-4 text-black/60 overflow-x-hidden'>
             <div className='flex gap-5 border-b-[1.5px]'>
                 <p
                     onClick={() => setBeneficiaryType('all')}
@@ -115,7 +122,7 @@ const BeneficiaryInfo = () => {
                 <div className='relative'>
                     <input
                         type="text"
-                        placeholder="Search for beneficiary, by name, email or business"
+                        placeholder="Search for beneficiary, by name, account type or account number"
                         value={searchQuery}
                         onChange={(e) => handleSearch(e.target.value)}
                         className="px-4 py-2 border-none outline-none border-gray-300 w-full placeholder:text-[14px] placeholder:text-[#78757A] ml-5 rounded-md"
@@ -146,7 +153,7 @@ const BeneficiaryInfo = () => {
                         </div>
                     </div>
                 </div>
-                {beneficiaries.map((Ben, i) => {
+                {filteredBeneficiaries.map((Ben, i) => {
                     return <div
                         key={i}
                         onClick={isSmScreen ? () => handleViewDetails(i) : undefined}
@@ -158,7 +165,13 @@ const BeneficiaryInfo = () => {
                         </div>
 
                         <div className='min-w-0'>
-                            <p className='truncate'>{Ben.account_type}</p>
+                            <p className='truncate'>
+                                {Ben.account_type === 'crypto' ? (
+                                    Ben.cryptocurrency_type
+                                ) : (
+                                    'Bank Transfer'
+                                )}
+                            </p>
                         </div>
                         <div className='min-w-0 sm:block hidden'>
                             {Ben.country !== null ? (
@@ -168,14 +181,14 @@ const BeneficiaryInfo = () => {
                             )}
                         </div>
                         <div className='min-w-0 md:block hidden'>
-                            {Ben.address !== null ? (
-                                <p className='truncate'>{Ben.address.streetLine1}</p>
+                            {Ben.wallet_address !== null ? (
+                                <p className='truncate'>{Ben.wallet_address}</p>
                             ) : (
                                 <p>—</p>
                             )}
                         </div>
                         <div className='min-w-0 sp:flex hidden justify-end items-center gap-5 relative'>
-                            {Ben.AccountNumber !== null ? (
+                            {Ben.account_number !== null ? (
                                 <p className='truncate'>{Ben.account_number}</p>
                             ) : (
                                 <p>—</p>
@@ -223,7 +236,7 @@ const BeneficiaryInfo = () => {
                         </div>
                     </div>
                 })}
-                <p className='text-[#78757A] mt-4'>{beneficiaries.length} Beneficiary{beneficiaries.length > 1 ? 's' : ''}</p>
+                <p className='text-[#78757A] mt-4'>{filteredBeneficiaries.length} {filteredBeneficiaries.length > 1 ? 'Beneficiaries' : 'Beneficiary'}</p>
             </div>
         </div>
     )

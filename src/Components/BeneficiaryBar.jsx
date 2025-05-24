@@ -5,7 +5,6 @@ import user from '../Components/Images/user.png';
 import { Context } from '../Context/Context'
 import Select from 'react-select';
 import Bank from '../Components/Images/bank.png';
-import Search from '../Components/Images/search.png'
 // import SouthAfrica from '../Components/Images/SouthAfrica.png';
 // import UK from '../Components/Images/UK.png';
 // import Mexico from '../Components/Images/Mexico.png';
@@ -21,6 +20,7 @@ const BeneficiaryBar = () => {
     const [cities, setCities] = useState([]);
 
     const [selectedCountry, setSelectedCountry] = useState("");
+    const [selectedCountryCode, setSelectedCountryCode] = useState("");
     const [selectedState, setSelectedState] = useState("");
     const [selectedCity, setSelectedCity] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,6 +32,7 @@ const BeneficiaryBar = () => {
         routing_number: "",
         full_name: "",
         countryCode: '',
+        country: '',
         stateOrProvince: '',
         postalCode: '',
         streetLine1: '',
@@ -48,13 +49,6 @@ const BeneficiaryBar = () => {
     })
 
     const handleBankChange = (e) => {
-        setFormData(prev => ({
-            ...prev,
-            [e.target.name]: e.target.value
-        }))
-    }
-
-    const handleChange = (e) => {
         setFormData(prev => ({
             ...prev,
             [e.target.name]: e.target.value
@@ -84,6 +78,7 @@ const BeneficiaryBar = () => {
                 swift_code: formData.swift_code,
                 routing_number: formData.routing_number,
                 full_name: formData.full_name,
+                country: formData.country,
                 address: {
                     countryCode: formData.countryCode,
                     stateOrProvince: formData.stateOrProvince,
@@ -159,33 +154,32 @@ const BeneficiaryBar = () => {
         }
     }
 
-    const bankOptions = [
-        { label: "Select Bank", value: "", isDisabled: true },
-        { label: "Sterling Bank PLC", value: "Sterling Bank PLC" },
-        { label: "Keystone Bank PLC", value: "Keystone Bank PLC" },
-        { label: "First City Monument Bank PLC", value: "First City Monument Bank PLC" },
-        { label: "United Bank For Africa PLC", value: "United Bank For Africa PLC" },
-        { label: "Jaiz Bank", value: "Jaiz Bank" },
-        { label: "Fidelity Bank PLC", value: "Fidelity Bank PLC" },
-        { label: "Polaris Bank PLC", value: "Polaris Bank PLC" },
-        { label: "CITI Bank", value: "CITI Bank" },
-        { label: "Ecobank Nigeria PLC", value: "Ecobank Nigeria PLC" },
-        { label: "Unity Bank PLC", value: "Unity Bank PLC" },
-        { label: "Stanbic IBTC Bank PLC", value: "Stanbic IBTC Bank PLC" },
-        { label: "Access Bank PLC", value: "Access Bank PLC" },
-        { label: "Zenith International Bank PLC", value: "Zenith International Bank PLC" },
-        { label: "First Bank Of Nigeria PLC", value: "First Bank Of Nigeria PLC" },
-        { label: "Wema Bank PLC", value: "Wema Bank PLC" },
-        { label: "Union Bank Of Nigeria PLC", value: "Union Bank Of Nigeria PLC" },
-        { label: "Heritage Bank PLC", value: "Heritage Bank PLC" },
-        { label: "Standard Chartered Bank PLC", value: "Standard Chartered Bank PLC" },
-        { label: "GT Bank", value: "GT Bank" },
-        { label: "Suntrust Bank", value: "Suntrust Bank" },
-        { label: "Providus Bank", value: "Providus Bank" },
-        { label: "Afribank Nigeria Plc", value: "Afribank Nigeria Plc" },
-        { label: "Enterprise Bank Limited", value: "Enterprise Bank Limited" },
-
-    ];
+    // const bankOptions = [
+    //     { label: "Select Bank", value: "", isDisabled: true },
+    //     { label: "Sterling Bank PLC", value: "Sterling Bank PLC" },
+    //     { label: "Keystone Bank PLC", value: "Keystone Bank PLC" },
+    //     { label: "First City Monument Bank PLC", value: "First City Monument Bank PLC" },
+    //     { label: "United Bank For Africa PLC", value: "United Bank For Africa PLC" },
+    //     { label: "Jaiz Bank", value: "Jaiz Bank" },
+    //     { label: "Fidelity Bank PLC", value: "Fidelity Bank PLC" },
+    //     { label: "Polaris Bank PLC", value: "Polaris Bank PLC" },
+    //     { label: "CITI Bank", value: "CITI Bank" },
+    //     { label: "Ecobank Nigeria PLC", value: "Ecobank Nigeria PLC" },
+    //     { label: "Unity Bank PLC", value: "Unity Bank PLC" },
+    //     { label: "Stanbic IBTC Bank PLC", value: "Stanbic IBTC Bank PLC" },
+    //     { label: "Access Bank PLC", value: "Access Bank PLC" },
+    //     { label: "Zenith International Bank PLC", value: "Zenith International Bank PLC" },
+    //     { label: "First Bank Of Nigeria PLC", value: "First Bank Of Nigeria PLC" },
+    //     { label: "Wema Bank PLC", value: "Wema Bank PLC" },
+    //     { label: "Union Bank Of Nigeria PLC", value: "Union Bank Of Nigeria PLC" },
+    //     { label: "Heritage Bank PLC", value: "Heritage Bank PLC" },
+    //     { label: "Standard Chartered Bank PLC", value: "Standard Chartered Bank PLC" },
+    //     { label: "GT Bank", value: "GT Bank" },
+    //     { label: "Suntrust Bank", value: "Suntrust Bank" },
+    //     { label: "Providus Bank", value: "Providus Bank" },
+    //     { label: "Afribank Nigeria Plc", value: "Afribank Nigeria Plc" },
+    //     { label: "Enterprise Bank Limited", value: "Enterprise Bank Limited" },
+    // ];
 
     const cryptocurrencyOptions = [
         { label: "Cryptocurrency Type", value: "", isDisabled: true },
@@ -220,8 +214,8 @@ const BeneficiaryBar = () => {
         setCountries(allCountries);
     }, []);
 
-    const handleCountryChange = (option) => {
-        setSelectedCountry(option);
+    const handleCountryCodeChange = (option) => {
+        setSelectedCountryCode(option);
         setFormData(prev => ({ ...prev, countryCode: option.values }));
 
         const fetchedStates = State.getStatesOfCountry(option.values);
@@ -232,11 +226,16 @@ const BeneficiaryBar = () => {
         setFormData(prev => ({ ...prev, stateOrProvince: '', city: '' }));
     };
 
+    const handleCountryChange = (option) => {
+        setSelectedCountry(option);
+        setFormData(prev => ({ ...prev, country: option.values }));
+    };
+
     const handleStateChange = (option) => {
         setSelectedState(option);
         setFormData(prev => ({ ...prev, stateOrProvince: option.label }));
 
-        const fetchedCities = City.getCitiesOfState(selectedCountry.values, option.value);
+        const fetchedCities = City.getCitiesOfState(selectedCountryCode.values, option.value);
         setCities(fetchedCities);
         setSelectedCity(null);
         setFormData(prev => ({ ...prev, city: '' }));
@@ -247,7 +246,7 @@ const BeneficiaryBar = () => {
         setFormData(prev => ({ ...prev, city: option.value }));
     };
 
-    const countryOptions = countries.map((c) => ({
+    const countryCodeOptions = countries.map((c) => ({
         label: (
             <div className="flex items-center gap-2">
                 <img
@@ -260,6 +259,22 @@ const BeneficiaryBar = () => {
         ),
         value: c.isoCode,
         values: c.isoCode,
+        raw: c,
+    }));
+
+    const countryOptions = countries.map((c) => ({
+        label: (
+            <div className="flex items-center gap-2">
+                <img
+                    src={`https://flagcdn.com/w40/${c.isoCode.toLowerCase()}.png`}
+                    alt={c.name}
+                    className="w-5 h-4"
+                />
+                {c.name}
+            </div>
+        ),
+        value: c.name,
+        values: c.name,
         raw: c,
     }));
 
@@ -305,56 +320,56 @@ const BeneficiaryBar = () => {
             cursor: 'pointer',
         }),
     };
-    const customStyles2 = {
-        indicatorSeparator: () => ({
-            display: 'none',
-        }),
-        control: (base) => ({
-            ...base,
-            paddingTop: '3px',
-            paddingBottom: '3px',
-            paddingLeft: '37px',
-            paddingRight: '7px',
-            borderRadius: '6px',
-            boxShadow: 'none',
-            borderWidth: '1.5px',
-            color: 'rgb(0, 0, 0, 0.6)'
-        }),
-        singleValue: (base) => ({
-            ...base,
-            color: 'rgba(0, 0, 0, 0.6)',
-        }),
-        menu: (base) => ({
-            ...base,
-            zIndex: 999,
-        }),
-        option: (base, state) => ({
-            ...base,
-            backgroundColor: state.isFocused ? '#4e22a0' : 'white',
-            color: state.isFocused ? 'white' : 'rgb(0, 0, 0, 0.6)',
-            padding: 10,
-            cursor: 'pointer',
-        }),
-    };
+    // const customStyles2 = {
+    //     indicatorSeparator: () => ({
+    //         display: 'none',
+    //     }),
+    //     control: (base) => ({
+    //         ...base,
+    //         paddingTop: '3px',
+    //         paddingBottom: '3px',
+    //         paddingLeft: '37px',
+    //         paddingRight: '7px',
+    //         borderRadius: '6px',
+    //         boxShadow: 'none',
+    //         borderWidth: '1.5px',
+    //         color: 'rgb(0, 0, 0, 0.6)'
+    //     }),
+    //     singleValue: (base) => ({
+    //         ...base,
+    //         color: 'rgba(0, 0, 0, 0.6)',
+    //     }),
+    //     menu: (base) => ({
+    //         ...base,
+    //         zIndex: 999,
+    //     }),
+    //     option: (base, state) => ({
+    //         ...base,
+    //         backgroundColor: state.isFocused ? '#4e22a0' : 'white',
+    //         color: state.isFocused ? 'white' : 'rgb(0, 0, 0, 0.6)',
+    //         padding: 10,
+    //         cursor: 'pointer',
+    //     }),
+    // };
 
-    const customComponents = {
-        DropdownIndicator: () => null,
-    };
+    // const customComponents = {
+    //     DropdownIndicator: () => null,
+    // };
 
-    const [banks, setBanks] = useState(bankOptions[0])
+    // const [banks, setBanks] = useState(bankOptions[0])
     const [bankAcctType, setBankAcctType] = useState(bankAcctTypeOptions[0])
     // const [countries, setCountries] = useState(countryOptions[0])
     const [crypto, setCrypto] = useState(cryptocurrencyOptions[0])
     const [networkType, setNetworkType] = useState(networkOptions[0])
     const [acctType, setAcctType] = useState(acctTypeOptions[0])
 
-    const handleBanks = (Option) => {
-        setBanks(Option)
-        setFormData(prev => ({
-            ...prev,
-            bank_name: Option.value
-        }))
-    }
+    // const handleBanks = (Option) => {
+    //     setBanks(Option)
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         bank_name: Option.value
+    //     }))
+    // }
 
     const handleBankAcctType = (Option) => {
         setBankAcctType(Option)
@@ -449,16 +464,32 @@ const BeneficiaryBar = () => {
                         <div className='mt-5'>
                             <label htmlFor="fullName">Bank name</label>
                             <div className='flex items-center mt-2 relative'>
-                                <Select
-                                    options={bankOptions}
-                                    styles={customStyles2}
-                                    onChange={handleBanks}
-                                    value={banks}
-                                    isSearchable={true}
-                                    components={customComponents}
-                                    className='rounded-m w-full outline-none text-black/60'
+                                <input
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[35px] rounded-md'
+                                    type="text"
+                                    name="bank_name"
+                                    value={formData.bank_name || ''}
+                                    onChange={handleBankChange}
+                                    id=""
+                                    required
+                                    placeholder='Enter your bank name'
                                 />
                                 <img className='absolute ml-3' src={Bank} alt="" />
+                            </div>
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">Country</label>
+                            <div className='flex items-center mt-2'>
+                                <Select
+                                    styles={customStyles}
+                                    options={countryOptions}
+                                    onChange={handleCountryChange}
+                                    placeholder="Select Country Code"
+                                    value={selectedCountry}
+                                    className="w-full"
+                                    required
+                                    menuPlacement="auto"
+                                />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -509,15 +540,14 @@ const BeneficiaryBar = () => {
                             <div className='flex items-center mt-2'>
                                 <Select
                                     styles={customStyles}
-                                    options={countryOptions}
-                                    onChange={handleCountryChange}
+                                    options={countryCodeOptions}
+                                    onChange={handleCountryCodeChange}
                                     placeholder="Select Country Code"
-                                    value={selectedCountry}
+                                    value={selectedCountryCode}
                                     className="w-full"
                                     required
                                     menuPlacement="auto"
                                 />
-                                <img className='ml-[-29px] z-20' src={Search} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -533,7 +563,6 @@ const BeneficiaryBar = () => {
                                     menuPlacement="auto"
                                     required
                                 />
-                                <img className='ml-[-29px] z-20' src={Search} alt="" />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -556,7 +585,7 @@ const BeneficiaryBar = () => {
                                 type="text"
                                 name="streetLine1"
                                 value={formData.streetLine1}
-                                onChange={handleChange}
+                                onChange={handleBankChange}
                                 required
                                 placeholder='564866'
                             />
@@ -568,7 +597,7 @@ const BeneficiaryBar = () => {
                                 type="text"
                                 name="streetLine2"
                                 value={formData.streetLine2}
-                                onChange={handleChange}
+                                onChange={handleBankChange}
                                 id=""
                                 required
                                 placeholder='564866'
@@ -581,7 +610,7 @@ const BeneficiaryBar = () => {
                                 type="number"
                                 name="postalCode"
                                 value={formData.postalCode}
-                                onChange={handleChange}
+                                onChange={handleBankChange}
                                 id=""
                                 placeholder='564866'
                                 required

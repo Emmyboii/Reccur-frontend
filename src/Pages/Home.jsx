@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import { Context } from '../Context/Context'
 import ConfirmConversion from '../Components/ConfirmConversion'
@@ -7,7 +7,7 @@ import ViewDetailsBar from '../Components/ViewDetailsBar';
 const CreateAcct = React.lazy(() => import('../Components/CreateAcct'));
 const Overview = React.lazy(() => import('../Components/Overview'));
 
-const Home = () => {
+const Home = ({ loading, acct }) => {
 
     const navigate = useNavigate();
 
@@ -20,43 +20,6 @@ const Home = () => {
         overViewTransactionDetails
     } = useContext(Context)
 
-    const [acct, setAcct] = useState()
-    const [loading, setLoading] = useState(true);
-
-    const fetchAccount = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/account`, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: `Token ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || 'Failed to fetch account');
-            }
-            return data;
-        } catch (error) {
-            console.error('Error fetching account:', error.message);
-            return null;
-        }
-    };
-    useEffect(() => {
-        const getAccount = async () => {
-            const data = await fetchAccount();
-            if (data) {
-                setAcct(data.length);
-            }
-            setLoading(false);
-        };
-
-        getAccount();
-    }, []);
 
     useEffect(() => {
         if (!loading) {

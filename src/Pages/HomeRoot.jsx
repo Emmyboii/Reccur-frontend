@@ -56,13 +56,14 @@ import solanaLogoMark from '../Components/Images/solanaLogoMark 1.svg';
 import { RiArrowRightSLine } from "react-icons/ri";
 import { BiDollar } from "react-icons/bi";
 import { LuGem } from "react-icons/lu";
-import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { FaArrowUp, FaArrowDown, FaTimes } from "react-icons/fa";
+import { MdMenu } from 'react-icons/md';
 
 const CustomPrevArrow = (props) => {
   const { onClick } = props;
   return (
     <img
-      className='cursor-pointer absolute size-10 top-[-38.5%] right-[60px] z-10'
+      className='cursor-pointer absolute size-10 mf:top-[-38.5%] md:top-[-25%] top-[-38%] right-[60px] z-10'
       src={left}
       alt="Previous"
       onClick={onClick}
@@ -74,7 +75,7 @@ const CustomNextArrow = (props) => {
   const { onClick } = props;
   return (
     <img
-      className='cursor-pointer absolute size-10 top-[-38.5%] right-[0px] z-10'
+      className='cursor-pointer absolute size-10 mf:top-[-38.5%] md:top-[-25%] top-[-38%] right-[0px] z-10'
       src={right}
       alt="Next"
       onClick={onClick}
@@ -84,6 +85,7 @@ const CustomNextArrow = (props) => {
 
 const HomeRoot = () => {
 
+  const [openMenu, setOpenMenu] = useState(false)
   const [faq, setFaq] = useState(false)
   const [faq2, setFaq2] = useState(false)
   const [faq3, setFaq3] = useState(false)
@@ -118,7 +120,7 @@ const HomeRoot = () => {
     infinite: false,
     speed: 2000,
     slidesToShow: 3.5,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     autoplaySpeed: 3000,
     waitForAnimate: false,
     pauseOnHover: false,
@@ -128,96 +130,167 @@ const HomeRoot = () => {
     arrows: true,
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3.2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 950,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 820,
+        settings: {
+          slidesToShow: 2.6,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 650,
+        settings: {
+          slidesToShow: 2.2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 550,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+    ]
   };
 
   return (
     <div>
-      <div className='relative m-10'>
-        <img className='rounded-[20px] h-[700px] w-full' src={HomeFrame} alt="" />
-        <div className='absolute w-full top-0 text-white px-10 py-5'>
-          <div className='flex justify-between items-center'>
-            <a href="/">
-              <div className='flex gap-2 items-center'>
-                <img src={Logo} alt="" />
-                <p className='text-xl font-medium'>reccur</p>
+      <div className='relative sd:m-10'>
+        <img className='sd:rounded-[20px] rounded-b-[20px] h-[700px] w-full' src={HomeFrame} alt="" />
+        <div className='absolute w-full top-0 text-white sd:px-7 px-4 py-5'>
+          <div className='relative'>
+            <div className='flex justify-between items-center'>
+              <a href="/">
+                <div className='flex gap-2 items-center'>
+                  <img src={Logo} alt="" />
+                  <p className='text-xl font-medium'>reccur</p>
+                </div>
+              </a>
+              <div className='mc:flex hidden gap-8 ml-24'>
+                <a href="/steps">
+                  <p>How it Works</p>
+                </a>
+                <a href="/about">
+                  <p>About</p>
+                </a>
+                <a href="/pricing">
+                  <p>Pricing</p>
+                </a>
+                <a href="/support">
+                  <p>Support</p>
+                </a>
               </div>
-            </a>
-            <div className='flex gap-8 ml-24'>
-              <a href="/steps">
-                <p>How it Works</p>
-              </a>
-              <a href="/about">
-                <p>About</p>
-              </a>
-              <a href="/pricing">
-                <p>Pricing</p>
-              </a>
-              <a href="/support">
-                <p>Support</p>
-              </a>
+              <div className='mc:flex hidden'>
+                <a href="/login">
+                  <button className='py-3 px-5 text-white'>Log in</button>
+                </a>
+                <a href="/signup">
+                  <button className='bg-[#531CB3] text-white py-3 px-5 rounded-[10px]'>
+                    Get started
+                  </button>
+                </a>
+              </div>
+              <MdMenu onClick={() => setOpenMenu(!openMenu)} className='mc:hidden cursor-pointer text-[25px]' />
             </div>
-            <div className='flex gap-3'>
-              <a href="/login">
-                <button className='py-3 px-5 text-white'>Log in</button>
-              </a>
-              <a href="/signup">
-                <button className='bg-[#531CB3] text-white py-3 px-5 rounded-[10px]'>
-                  Get started
+            <div className='flex justify-center items-center sd:gap-6 sp:gap-3 gap-1 mt-[100px]'>
+              <img className='sh:size-14 size-12' src={USD} alt="" />
+              <img src={arrow} alt="" />
+              <img className='sh:size-14 size-12' src={BankAcct} alt="" />
+              <img src={plus} alt="" />
+              <img className='sh:size-14 size-12' src={USDC} alt="" />
+              <img src={arrow} alt="" />
+              <img className='sh:size-14 size-12' src={Curerncy} alt="" />
+            </div>
+            <div className='flex flex-col items-center mt-10 gap-7 text-center'>
+              <h1 className='sd:text-[36px] sp:text-[32px] text-[28px] font-normal leading-[46px]'>Move your money freely <br className='sd:block hidden' /> across the globe.</h1>
+              <p className='text-base font-normal text-[#E8E1F5]'>Send, receive, convert, and manage money globally. Whether you’re earning in <br className='md:block hidden' /> crypto, freelancing worldwide, or just living globally.</p>
+              <div className='flex gap-3'>
+                <button className='bg-[#302F33] border-[#525154] border text-white flex gap-2 items-center justify-center py-2 px-[14px] rounded-lg'>
+                  View demo
                 </button>
-              </a>
+                <a href="/signup">
+                  <button className='bg-[#531CB3] text-white flex gap-2 items-center justify-center py-2 px-[14px] rounded-lg'>
+                    Get started
+                    <RiArrowRightSLine className='size-7' />
+                  </button>
+                </a>
+              </div>
             </div>
-          </div>
-          <div className='flex justify-center items-center gap-6 mt-[100px]'>
-            <img className='size-14' src={USD} alt="" />
-            <img src={arrow} alt="" />
-            <img className='size-14' src={BankAcct} alt="" />
-            <img src={plus} alt="" />
-            <img className='size-14' src={USDC} alt="" />
-            <img src={arrow} alt="" />
-            <img className='size-14' src={Curerncy} alt="" />
-          </div>
-          <div className='flex flex-col items-center mt-10 gap-7 text-center'>
-            <h1 className='text-[36px] font-normal leading-[50px]'>Move your money freely <br /> across the globe.</h1>
-            <p className='text-base font-normal text-[#E8E1F5]'>Send, receive, convert, and manage money globally. Whether you’re earning in <br /> crypto, freelancing worldwide, or just living globally.</p>
-            <div className='flex gap-3'>
-              <button className='bg-[#302F33] border-[#525154] border text-white flex gap-2 items-center justify-center py-2 px-[14px] rounded-lg'>
-                View demo
-              </button>
-              <a href="/signup">
-                <button className='bg-[#531CB3] text-white flex gap-2 items-center justify-center py-2 px-[14px] rounded-lg'>
-                  Get started
-                  <RiArrowRightSLine className='size-7' />
-                </button>
-              </a>
+            <div className='text-[14px] font-normal text-center text-[#E8E1F5] justify-center mt-16 flex sh:flex-nowrap flex-wrap gap-8'>
+              <div className='flex gap-2 items-center'>
+                <img src={rocket} alt="" />
+                <p>5-min setup</p>
+              </div>
+              <div className='flex gap-2 items-center'>
+                <img src={house} alt="" />
+                <p>Real accounts</p>
+              </div>
+              <div className='flex gap-2 items-center'>
+                <img src={world} alt="" />
+                <p>Use anywhere</p>
+              </div>
             </div>
-          </div>
-          <div className='text-[14px] font-normal text-center text-[#E8E1F5] justify-center mt-16 flex gap-8'>
-            <div className='flex gap-2 items-center'>
-              <img src={rocket} alt="" />
-              <p>5-min setup</p>
-            </div>
-            <div className='flex gap-2 items-center'>
-              <img src={house} alt="" />
-              <p>Real accounts</p>
-            </div>
-            <div className='flex gap-2 items-center'>
-              <img src={world} alt="" />
-              <p>Use anywhere</p>
+
+            <div className={`text-white absolute top-[-20px] text-center rounded-tr-[20px] rounded-br-[20px] w-[200px] bg-[#531CB3] transition-all duration-500 ${openMenu ? 'right-[-28.5px]' : 'right-[-100%] hidden'}`}>
+              <div className='flex flex-col relative'>
+                <FaTimes onClick={() => setOpenMenu(!openMenu)} className='right-2 top-2 text-[20px] cursor-pointer absolute' />
+                <a href="/steps" className='py-[46px]'>
+                  <p>How it Works</p>
+                </a>
+                <hr />
+                <a href="/about" className='py-[46px]'>
+                  <p>About</p>
+                </a>
+                <hr />
+                <a href="/pricing" className='py-[46px]'>
+                  <p>Pricing</p>
+                </a>
+                <hr />
+                <a href="/support" className='py-[46px]'>
+                  <p>Support</p>
+                </a>
+                <hr />
+                <a href="/login" className='py-[46px]'>
+                  <button>Log in</button>
+                </a>
+                <hr />
+                <a href="/signup" className='bg-[#531CB3 rounded-[10px] py-[46px]'>
+                  <button >
+                    Get started
+                  </button>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className='m-10 py-[120px] px-5 flex flex-col gap-16'>
+      <div className='sd:m-10 py-[120px] px-5 flex flex-col gap-16'>
         <div className='flex justify-between'>
           <div>
             <p className='text-xs font-semibold uppercase'>for the Crypto Fam</p>
-            <p className='text-[35px] font-thin leading-6 mt-6'>Already living that crypto life?</p>
+            <p className='text-[35px] font-thin mc:leading-6 mt-6'>Already living that crypto life?</p>
             <p className='text-[35px] font-semibold'>This one’s for you.</p>
           </div>
           <div className='text-[#78757A] text-[11px] font-semibold flex gap-5'>
-            <p className='uppercase'>For the Digital Hustlers</p>
-            <p className='uppercase'>For the Global Squad</p>
+            <p className='uppercase mc:block hidden'>For the Digital Hustlers</p>
+            <p className='uppercase mc:block hidden'>For the Global Squad</p>
           </div>
         </div>
         <div className='flex flex-wrap gap-4 justify-center'>
@@ -280,9 +353,9 @@ const HomeRoot = () => {
                     <img className='mf:w-full w-[25%]' src={Kusama} alt="" />
                   </div>
                   <div className='flex items-center justify-center gap-5'>
-                    <img className='mf:w-full w-[25%]' src={Frame2} alt="" />
-                    <img className='mf:w-full w-[17%]' src={Logo_base} alt="" />
-                    <img className='mf:w-full w-[25%]' src={Ampleforth} alt="" />
+                    <img className='w-[25%]' src={Frame2} alt="" />
+                    <img className='w-[17%]' src={Logo_base} alt="" />
+                    <img className='w-[25%]' src={Ampleforth} alt="" />
                   </div>
                   <div className='flex justify-center'>
                     <img className='mf:w-full w-[25%]' src={Coinbase} alt="" />
@@ -309,74 +382,76 @@ const HomeRoot = () => {
         </div>
       </div>
 
-      <div className='bg-[#FEEDED] py-[100px] px-16 gap-16 flex flex-col'>
+      <div className='bg-[#FEEDED] py-[100px] md:px-16 px-5 gap-16 flex flex-col'>
         <div className='flex justify-between'>
           <div>
             <p className='text-xs font-semibold uppercase text-[#DC2626]'>For the Digital Hustlers</p>
-            <p className='text-[35px] font-thin leading-6 mt-6 text-[#302F33]'>Making money online?</p>
+            <p className='text-[35px] font-thin mc:leading-6 mt-6 text-[#302F33]'>Making money online?</p>
             <p className='text-[35px] font-semibold text-[#DC2626]'>Make getting paid easier.</p>
           </div>
           <div className='text-[#78757A] text-[11px] font-semibold flex gap-5'>
-            <p className='uppercase'>For the Global Squad</p>
-            <p className='uppercase'>for the Crypto Fam</p>
+            <p className='uppercase mc:block hidden'>For the Global Squad</p>
+            <p className='uppercase mc:block hidden'>for the Crypto Fam</p>
           </div>
         </div>
         <div className='flex gap-5 justify-center flex-wrap'>
-          <img src={a} className='lg:w-[30%] sa:w-[40%] w-full' alt="" />
-          <img src={b} className='lg:w-[30%] sa:w-[40%] w-full' alt="" />
-          <img src={c} className='lg:w-[30%] sa:w-[40%] w-full' alt="" />
+          <img src={a} className='lg:w-[30%] md:w-[40%] w-full' alt="" />
+          <img src={b} className='lg:w-[30%] md:w-[40%] w-full' alt="" />
+          <img src={c} className='lg:w-[30%] md:w-[40%] w-full' alt="" />
         </div>
       </div>
 
-      <div className='bg-[#E8E1F5] py-[100px] px-16 gap-16 flex flex-col'>
+      <div className='bg-[#E8E1F5] py-[100px] md:px-16 px-5 gap-16 flex flex-col'>
         <div className='flex justify-between'>
           <div>
             <p className='text-xs font-semibold uppercase text-[#431594]'>For the Global Squad</p>
-            <p className='text-[35px] font-thin leading-6 mt-6 text-[#302F33]'>Getting money from abroad?</p>
+            <p className='text-[35px] font-thin mc:leading-6 mt-6 text-[#302F33]'>Getting money from abroad?</p>
             <p className='text-[35px] font-semibold text-[#431594]'>Skip the bank fees.</p>
           </div>
           <div className='text-[#78757A] text-[11px] font-semibold flex gap-5'>
-            <p className='uppercase'>for the Crypto Fam</p>
-            <p className='uppercase'>For the Digital Hustlers</p>
+            <p className='uppercase mc:block hidden'>for the Crypto Fam</p>
+            <p className='uppercase mc:block hidden'>For the Digital Hustlers</p>
           </div>
         </div>
         <div className='flex gap-5 justify-center flex-wrap'>
-          <img src={d} className='lg:w-[30%] sa:w-[40%] w-full' alt="" />
-          <img src={e} className='lg:w-[30%] sa:w-[40%] w-full' alt="" />
-          <img src={f} className='lg:w-[30%] sa:w-[40%] w-full' alt="" />
+          <img src={d} className='lg:w-[30%] md:w-[40%] w-full' alt="" />
+          <img src={e} className='lg:w-[30%] md:w-[40%] w-full' alt="" />
+          <img src={f} className='lg:w-[30%] md:w-[40%] w-full' alt="" />
         </div>
       </div>
 
-      <div className='py-24 px-10'>
-        <div className='flex gap-[300px] px-10 pb-20'>
-          <div>
-            <h1 className='text-[#1D1C1F] font-semibold text-[30px]'>How it actually works</h1>
-            <p className='text-[#525154] font-normal text-[16px] mt-3'>Your guide to getting paid globally 🌍</p>
+      <div className='py-24 sm:px-10'>
+        <div className='flex justify-between mf:flex-row flex-col gap-10 mf:gap-0 sa:px-10 px-5 pb-20'>
+          <div className='sa:flex mf:block justify-between items-start'>
+            <div>
+              <h1 className='text-[#1D1C1F] font-semibold text-[30px]'>How it actually works</h1>
+              <p className='text-[#525154] font-normal text-[16px] mt-3'>Your guide to getting paid globally 🌍</p>
+            </div>
             <a href="/">
-              <button className='bg-[#531CB3] mt-7 text-white flex gap-2 items-center justify-center py-2 px-[14px] rounded-lg'>
+              <button className='bg-[#531CB3] mf:mt-7 sa:mt-0 mt-7 text-white flex gap-2 items-center justify-center py-2 px-[14px] rounded-lg'>
                 Learn more
                 <RiArrowRightSLine className='size-7' />
               </button>
             </a>
           </div>
-          <div className='flex flex-col gap-16 relative mx-auto'>
-            <img src={hr} className='absolute top-[50px] left-5' alt="" />
-            <img src={hr} className='absolute top-[160px] left-5' alt="" />
-            <div className='flex items-start gap-8'>
+          <div className='flex flex-col gap-16 relative'>
+            <img src={hr} className='absolute sa:top-[18%] top-[16%] left-5' alt="" />
+            <img src={hr} className='absolute sa:top-[60%] sk:top-[58%] top-[54%] left-5' alt="" />
+            <div className='flex items-start sa:gap-8 gap-4'>
               <img src={person} alt="" />
               <div>
                 <p className='text-[18px] font-medium text-[#302F33]'>Quick sign up</p>
                 <p className='text-[14px] font-normal text-[#78757A]'>Basic ID verification. Done in 5.</p>
               </div>
             </div>
-            <div className='flex items-start gap-8'>
+            <div className='flex items-start sa:gap-8 gap-4'>
               <img src={bank} alt="" />
               <div>
-                <p className='text-[18px] font-medium text-[#302F33]'>Open your next account in a tap</p>
+                <p className='sa:text-[18px] text-[17px] font-medium text-[#302F33]'>Open your next account in a tap</p>
                 <p className='text-[14px] font-normal text-[#78757A]'>Select from multiple currencies, start receiving or sending money!</p>
               </div>
             </div>
-            <div className='flex items-start gap-8'>
+            <div className='flex items-start sa:gap-8 gap-4'>
               <img src={currency} alt="" />
               <div>
                 <p className='text-[18px] font-medium text-[#302F33]'>Money hits different</p>
@@ -389,25 +464,25 @@ const HomeRoot = () => {
         <div className='pt-20 px-8'>
           <div>
             <p className='text-xs font-semibold uppercase text-[#431594]'>The reccur advantage</p>
-            <p className='text-[35px] font-semibold leading-6 mt-6 text-[#302F33]'>Why Reccur though?</p>
+            <p className='sp:text-[35px] text-[29px] font-semibold sp:leading-6 mt-6 text-[#302F33]'>Why Reccur though?</p>
           </div>
-          <div className='flex justify-between gap-5 mt-20'>
-            <div className='flex flex-col gap-8'>
+          <div className='flex flex-wrap mp:justify-between gap-5 mt-20'>
+            <div className='flex flex-col sh:gap-8 gap-4 mp:w-[400px] sh:w-[48%]'>
               <BiDollar className='size-5' />
               <p className='text-[18px] font-normal text-[#302F33]'>Bill in USD, Withdraw in NGN.</p>
               <p className='text-[15px] font-normal text-[#525154]'>We help you get paid globally and spend locally. No stress or middlemen!</p>
             </div>
-            <div className='flex flex-col items-start gap-8'>
+            <div className='flex flex-col items-start sh:gap-8 gap-4 mp:w-[400px] sh:w-[48%]'>
               <img src={world2} className='size-5' alt="" />
               <p className='text-[18px] font-normal text-[#302F33]'>Work worldwide, bank locally.</p>
               <p className='text-[15px] font-normal text-[#525154]'>Open virtual accounts in the currencies you earn in, and send money home instantly.</p>
             </div>
-            <div className='flex flex-col gap-8'>
+            <div className='flex flex-col sh:gap-8 gap-4 mp:w-[400px] sh:w-[48%]'>
               <LuGem className='size-5' />
               <p className='text-[18px] font-normal text-[#302F33]'>All your money, one place.</p>
               <p className='text-[15px] font-normal text-[#525154]'>Whether you’re invoicing, converting, or withdrawing, Worry less, we handle the flow.</p>
             </div>
-            <div className='flex flex-col items-start gap-8'>
+            <div className='flex flex-col items-start sh:gap-8 gap-4 mp:w-[400px] sh:w-[48%]'>
               <img src={img} className='size-5' alt="" />
               <p className='text-[18px] font-normal text-[#302F33]'>Convert in real time.</p>
               <p className='text-[15px] font-normal text-[#525154]'>Get transparent rates and convert instantly between currencies—on your terms.</p>
@@ -416,10 +491,10 @@ const HomeRoot = () => {
         </div>
       </div>
 
-      <div className='py-24 px-10 bg-[#431594] text-white text-center flex flex-col gap-2'>
+      <div className='py-24 sk:px-10 px-5 bg-[#431594] text-white text-center flex flex-col gap-2'>
         <p className='text-[32px] font-semibold'>Real talk FAQ</p>
         <p className='text-[#E8E1F5] font-normal'>Learn more at our Support page or send an email to <a className='underline' href="/" target="_blank" rel="noopener noreferrer">help@reccur.co.</a></p>
-        <div className='flex flex-col gap-3 mt-16 w-[720px] mx-auto text-start'>
+        <div className='flex flex-col gap-3 mt-16 max-w-[720px] w-full mx-auto text-start'>
           <div
             onClick={handleFaq1}
             className={`flex cursor-pointer justify-between items-start rounded-[16px] p-8 ${faq && 'bg-[#531CB3]'}`}
@@ -464,61 +539,101 @@ const HomeRoot = () => {
         </div>
       </div>
 
-      <div className='py-[100px] px-10 gap-16 flex flex-col'>
+      <div className='py-[100px] sh:px-10 gap-16 flex flex-col'>
         <div className='px-10'>
           <div className='flex justify-between items-end'>
             <div>
               <p className='text-xs font-semibold uppercase text-[#D97706]'>power user features</p>
-              <p className='text-[35px] font-thin leading-6 mt-6 text-[#302F33]'>For the ones who want extra,</p>
+              <p className='text-[35px] font-thin leading-10 mt-6 text-[#302F33]'>For the ones who want extra,</p>
               <p className='text-[35px] font-semibold text-[#D97706]'>here’s what we have coming up soon</p>
             </div>
           </div>
-          <Slider {...settings} className='mt-16'>
-            <div className='flex flex-col gap-5 p-10 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+          <div className='mt-16 sd:block hidden'>
+            <Slider {...settings}>
+              <div className='flex flex-col gap-5 xl:p-10 p-5 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+                <img src={orangedollar} alt="" />
+                <p className='sm:text-[18px] text-[16px] text-[#302F33] mt-5 font-normal'>Direct USDC settlement</p>
+                <p className='text-[15px] text-[#525154] mt-5 font-normal'>Skip the jumping through multiple apps to convert your money to crypto, just receive directly to your wallet.</p>
+              </div>
+              <div className='flex flex-col gap-5 xl:p-10 p-5 px-4 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+                <div className='flex justify-between items-center w-full'>
+                  <img src={orangenote} alt="" />
+                  <p className='bg-[#FEEDB8] text-[#D97706] py-1 px-[6px] rounded-[8px]'>Coming soon</p>
+                </div>
+                <p className='sm:text-[17.2px] text-[16px] text-[#302F33] mt-3 font-normal'>Smart contract compatible</p>
+                <p className='sh:text-[15px] text-[14px] text-[#525154] mt-5 font-normal'>We’re building a future where you will be able to move your money out in USDC, ETH and other smart contract chains.</p>
+              </div>
+              <div className='flex flex-col gap-5 xl:p-10 p-5 px-4 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+                <div className='flex justify-between items-center w-full'>
+                  <img src={orangecircles} alt="" />
+                  <p className='bg-[#FEEDB8] text-[#D97706] py-1 px-[6px] rounded-[8px]'>Coming soon</p>
+                </div>
+                <p className='sm:text-[18px] text-[16px] text-[#302F33] mt-3 font-normal'>Multi-chain support</p>
+                <p className='sh:text-[14.5px] text-[14px] text-[#525154] mt-5 font-normal'>Very soon you will not have to worry about the chain because you can jump between chains without thinking, for free</p>
+              </div>
+              <div className='flex flex-col gap-5 xl:p-10 p-5 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+                <div className='flex justify-between items-center w-full'>
+                  <img src={orangewallet} alt="" />
+                </div>
+                <p className='sm:text-[17px] text-[16px] xl:text-[18px] text-[#302F33] mt-5 font-normal'>Custom wallet integration</p>
+                <p className='sh:text-[14.5px] text-[14px] text-[#525154] mt-5 font-normal'>With Reccur you’re given a wallet at the same time you can withdraw it out to any Base wallet of your choice.</p>
+              </div>
+              <div className='flex flex-col gap-5 xl:p-10 py-5 px-[14px] rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+                <div className='flex justify-between items-center w-full'>
+                  <img src={orangepuzzle} alt="" />
+                  <p className='bg-[#FEEDB8] text-[#D97706] py-1 px-[6px] rounded-[8px]'>Coming soon</p>
+                </div>
+                <p className='sm:text-[18px] text-[16px] text-[#302F33] mt-3 font-normal'>API access</p>
+                <p className='sh:text-[14px] text-[14px] text-[#525154] mt-5 font-normal'>If you’re a develop and you’d like to offer your users this feature, we’ve got you in mind and very soon you will be able to.</p>
+              </div>
+            </Slider>
+          </div>
+          <div className='sd:hidden flex flex-col gap-5 mt-5'>
+            <div className='flex flex-col gap-5 xl:p-10 p-5 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
               <img src={orangedollar} alt="" />
-              <p className='text-[18px] text-[#302F33] mt-5 font-normal'>Direct USDC settlement</p>
+              <p className='sm:text-[18px] text-[16px] text-[#302F33] mt-5 font-normal'>Direct USDC settlement</p>
               <p className='text-[15px] text-[#525154] mt-5 font-normal'>Skip the jumping through multiple apps to convert your money to crypto, just receive directly to your wallet.</p>
             </div>
-            <div className='flex flex-col gap-5 p-10 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+            <div className='flex flex-col gap-5 xl:p-10 p-5 px-4 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
               <div className='flex justify-between items-center w-full'>
                 <img src={orangenote} alt="" />
                 <p className='bg-[#FEEDB8] text-[#D97706] py-1 px-[6px] rounded-[8px]'>Coming soon</p>
               </div>
-              <p className='text-[18px] text-[#302F33] mt-3 font-normal'>Smart contract compatible</p>
-              <p className='text-[15px] text-[#525154] mt-5 font-normal'>We’re building a future where you will be able to move your money out in USDC, ETH and other smart contract chains.</p>
+              <p className='sm:text-[17.2px] text-[16px] text-[#302F33] mt-3 font-normal'>Smart contract compatible</p>
+              <p className='sh:text-[15px] text-[14px] text-[#525154] mt-5 font-normal'>We’re building a future where you will be able to move your money out in USDC, ETH and other smart contract chains.</p>
             </div>
-            <div className='flex flex-col gap-5 p-10 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+            <div className='flex flex-col gap-5 xl:p-10 p-5 px-4 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
               <div className='flex justify-between items-center w-full'>
                 <img src={orangecircles} alt="" />
                 <p className='bg-[#FEEDB8] text-[#D97706] py-1 px-[6px] rounded-[8px]'>Coming soon</p>
               </div>
-              <p className='text-[18px] text-[#302F33] mt-3 font-normal'>Multi-chain support</p>
-              <p className='text-[15px] text-[#525154] mt-5 font-normal'>Very soon you will not have to worry about the chain because you can jump between chains without thinking, for free</p>
+              <p className='sm:text-[18px] text-[16px] text-[#302F33] mt-3 font-normal'>Multi-chain support</p>
+              <p className='sh:text-[14.5px] text-[14px] text-[#525154] mt-5 font-normal'>Very soon you will not have to worry about the chain because you can jump between chains without thinking, for free</p>
             </div>
-            <div className='flex flex-col gap-5 p-10 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+            <div className='flex flex-col gap-5 xl:p-10 p-5 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
               <div className='flex justify-between items-center w-full'>
                 <img src={orangewallet} alt="" />
               </div>
-              <p className='text-[18px] text-[#302F33] mt-5 font-normal'>Custom wallet integration</p>
-              <p className='text-[15px] text-[#525154] mt-5 font-normal'>With Reccur you’re given a wallet at the same time you can withdraw it out to any Base wallet of your choice.</p>
+              <p className='sm:text-[17px] text-[16px] xl:text-[18px] text-[#302F33] mt-5 font-normal'>Custom wallet integration</p>
+              <p className='sh:text-[14.5px] text-[14px] text-[#525154] mt-5 font-normal'>With Reccur you’re given a wallet at the same time you can withdraw it out to any Base wallet of your choice.</p>
             </div>
-            <div className='flex flex-col gap-5 p-10 rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
+            <div className='flex flex-col gap-5 xl:p-10 py-5 px-[14px] rounded-[24px] border-[1.3px] border-[#E6E4EB] items-start'>
               <div className='flex justify-between items-center w-full'>
                 <img src={orangepuzzle} alt="" />
                 <p className='bg-[#FEEDB8] text-[#D97706] py-1 px-[6px] rounded-[8px]'>Coming soon</p>
               </div>
-              <p className='text-[18px] text-[#302F33] mt-3 font-normal'>API access</p>
-              <p className='text-[15px] text-[#525154] mt-5 font-normal'>If you’re a develop and you’d like to offer your users this feature, we’ve got you in mind and very soon you will be able to.</p>
+              <p className='sm:text-[18px] text-[16px] text-[#302F33] mt-3 font-normal'>API access</p>
+              <p className='sh:text-[14px] text-[14px] text-[#525154] mt-5 font-normal'>If you’re a develop and you’d like to offer your users this feature, we’ve got you in mind and very soon you will be able to.</p>
             </div>
-          </Slider>
+          </div>
         </div>
       </div>
 
       <div className='relative'>
-        <img src={FooterFrame} className='w-full h-[1200px]' alt="" />
+        <img src={FooterFrame} className='w-full mk:h-[1200px] mh:h-[1300px] sh:h-[1450px] sp:h-[1350px] sb:h-[1450px] h-[1500px]' alt="" />
         <div className='absolute w-full text-white top-24'>
-          <div className='w-[400px] text-center flex flex-col items-center mx-auto'>
-            <p className='text-[35px] font-bold'>Ready to level up your money game?</p>
+          <div className='sp:w-[400px] text-center flex flex-col items-center mx-auto'>
+            <p className='sp:text-[35px] text-[30px] text-wrap font-bold'>Ready to level up your money game?</p>
             <p className='text-[16px] text-[#D2D0D6]'>5 minutes to setup. No hidden fees. No crypto knowledge needed.</p>
             <a href="/signup">
               <button className='bg-[#531CB3] mx-auto mt-10 text-white flex gap-3 items-center justify-center py-3 px-5 rounded-lg'>
@@ -527,14 +642,14 @@ const HomeRoot = () => {
               </button>
             </a>
           </div>
-          <hr className='text-[#525154] mt-20 mx-10' />
-          <div className='px-20 pt-20 grid grid-cols-3 gap-[120px]'>
+          <hr className='opacity-20 mt-20 sh:mx-10 mx-6' />
+          <div className='sh:px-20 px-6 pt-20 mk:grid flex flex-col grid-cols-3 mk:gap-[120px] gap-10'>
             <div className='text-[#B5B3BA] text-[16px] font-normal'>
               <img src={Logo} alt="" />
               <p className='mt-3'>Reccur is doing X, Y and Z. The idea is that we are all going to make and if we are not making it, then that would be for sure a shame.</p>
               <p className='mt-3'>© Grey Inc. 2024.</p>
             </div>
-            <div className='col-span-2 grid grid-cols-4'>
+            <div className='col-span-2 sp:grid mh:grid-cols-4 sp:grid-cols-3 flex flex-wrap justify-between mh:gap-0 gap-5'>
               <div className='flex flex-col gap-5'>
                 <p className='text-[12px] uppercase font-semibold'>Lifestyle</p>
                 <p className='text-[16px] text-[#E6E4EB] font-normal'>Crypto fam</p>
@@ -563,9 +678,9 @@ const HomeRoot = () => {
               </div>
             </div>
           </div>
-          <hr className='text-[#525154] mt-20 mx-10' />
-          <p className='p-20 text-[16px] text-[#F3F0F7] font-normal'>This is some important spill about how we are delivering Reccur. This is normally included on websites that have a little more explaining to do or provide additional context for the services that they provide. </p>
-          <p className='text-[145px] text-center bg-gradient-to-b from-white/30 to-black/80 bg-clip-text text-transparent font-bold'>try reccur today!</p>
+          <hr className='opacity-20 mt-20 sh:mx-10 mx-6' />
+          <p className='sh:p-20 p-6 text-[16px] text-[#F3F0F7] font-normal'>This is some important spill about how we are delivering Reccur. This is normally included on websites that have a little more explaining to do or provide additional context for the services that they provide. </p>
+          <p className='xl:text-[145px] mk:text-[105px] md:text-[90px] sh:text-[70px] sa:text-[60px] sk:text-[50px] sr:text-[40px] text-[33px] text-center bg-gradient-to-b from-white/30 to-black/80 bg-clip-text text-transparent font-bold'>try reccur today!</p>
         </div>
       </div>
     </div>

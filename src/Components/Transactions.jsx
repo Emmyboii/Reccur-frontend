@@ -224,6 +224,58 @@ const Transactions = () => {
         setSelectedOutflow(selectedOption);
     }
 
+    const filteredTransaction = TransactionType === 'all'
+        ? transaction.filter(transact => {
+            const formattedDate = new Date(transact.date_created).toLocaleDateString("en-GB", {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+            }).toLowerCase();
+            return (
+                formattedDate.includes(searchQuery.toLowerCase()) ||
+                (transact.type?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                (transact.amount?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                (transact.payment.beneficiary.full_name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                (transact.currency?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                (transact.payment.status?.toLowerCase() || '').includes(searchQuery.toLowerCase())
+            )
+        })
+        : transaction.filter(transact => {
+            const formattedDate = new Date(transact.date_created).toLocaleDateString("en-GB", {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+            }).toLowerCase();
+            if (TransactionType === 'ngn') {
+                return (
+                    transact.payment.account_type === 'fiat' && (
+                        formattedDate.includes(searchQuery.toLowerCase()) ||
+                        (transact.type?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                        (transact.amount?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                        (transact.payment.beneficiary.full_name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                        (transact.currency?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                        (transact.payment.status?.toLowerCase() || '').includes(searchQuery.toLowerCase())
+                    )
+                );
+            } else if (TransactionType === 'usd') {
+                const formattedDate = new Date(transact.date_created).toLocaleDateString("en-GB", {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                }).toLowerCase();
+                return (
+                    ['USDT', 'SOL', 'BTC', 'USDC', 'BNB', 'ETH'].includes(transact.payment.cryptocurrency_type) && (
+                        formattedDate.includes(searchQuery.toLowerCase()) ||
+                        (transact.type?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                        (transact.amount?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                        (transact.payment.beneficiary.full_name?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                        (transact.currency?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
+                        (transact.payment.status?.toLowerCase() || '').includes(searchQuery.toLowerCase())
+                    ));
+            }
+            return true;
+        });
+
     return (
         <div>
             <div
@@ -333,7 +385,7 @@ const Transactions = () => {
                     <div className='relative'>
                         <input
                             type="text"
-                            placeholder="Search invoices by number, items, clients or amount"
+                            placeholder="Search transaction by date, type, currency, sender, status or amount"
                             value={searchQuery}
                             onChange={(e) => handleSearch(e.target.value)}
                             className="px-4 py-2 border-none outline-none border-gray-300 w-full placeholder:text-[#667085] ml-5 rounded-md"
@@ -367,18 +419,7 @@ const Transactions = () => {
                             </div>
                         </div>
 
-                        {transaction.filter(transact => {
-                            const formattedDate = new Date(transact.date_created).toLocaleDateString("en-GB", {
-                                day: '2-digit',
-                                month: 'short',
-                                year: 'numeric',
-                            }).toLowerCase();
-                            return (
-                                formattedDate.includes(searchQuery.toLowerCase()) ||
-                                (transact.Type?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-                                (transact.Recipient?.toLowerCase() || '').includes(searchQuery.toLowerCase())
-                            );
-                        }).map((transact, index) => (
+                        {filteredTransaction.map((transact, index) => (
                             <div key={index} className='sp:grid md:grid-cols-9 sm:grid-cols-8 sp:grid-cols-7 flex justify-between gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
 
                                 <div className='min-w-0 block col-span-2'>
@@ -442,7 +483,7 @@ const Transactions = () => {
                             </div>
                         ))}
                         <div className='my-4 text-[#344054]'>
-                            {transaction.length} items
+                            {filteredTransaction.length} {filteredTransaction.length > 1 ? 'items' : 'item'}
                         </div>
                     </div>
                 </div>

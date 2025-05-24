@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import { Context } from '../Context/Context';
 import Search from '../Components/Images/search.png'
 import Bell from '../Components/Images/bell.png'
@@ -9,7 +9,7 @@ import ViewDetailsBar from './ViewDetailsBar';
 import EditProfileBar from './EditProfileBar';
 import DeleteProfile from './DeleteProfile';
 
-const AddBeneficiary = () => {
+const AddBeneficiary = ({ beneficiaries }) => {
 
     const {
         handleBeneficiaryBar,
@@ -20,42 +20,6 @@ const AddBeneficiary = () => {
         handleProfileEdit
     } = useContext(Context)
 
-    const [beneficiaries, setBeneficiaries] = useState([])
-
-    const fetchBeneficiary = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary`, {
-                method: 'GET',
-                headers: {
-                    Accept: 'application/json',
-                    Authorization: `Token ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(data.message || 'Failed to fetch beneficiary');
-            }
-
-            return data;
-        } catch (error) {
-            console.error('Error fetching beneficiary:', error.message);
-            return null;
-        }
-    };
-    useEffect(() => {
-        const getBeneficiaries = async () => {
-            const data = await fetchBeneficiary();
-            if (data) {
-                setBeneficiaries(data);
-            }
-        };
-
-        getBeneficiaries();
-    }, []);
 
     return (
         <div>
@@ -88,7 +52,7 @@ const AddBeneficiary = () => {
             </div>
             <BeneficiaryBar />
             <div className={beneficiaries.length > 0 ? 'block' : 'hidden'}>
-                <BeneficiaryInfo />
+                <BeneficiaryInfo beneficiaries={beneficiaries} />
                 <ViewDetailsBar />
                 <EditProfileBar />
                 <DeleteProfile />

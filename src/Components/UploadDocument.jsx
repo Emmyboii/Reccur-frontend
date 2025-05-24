@@ -66,7 +66,7 @@ const UploadDocument = () => {
     const KYC_Data = JSON.parse(localStorage.getItem('KYC-Data'))
     setFormData(KYC_Data)
     console.log(forms);
-  }, [])
+  }, [forms])
 
   const VerifyDocument = async (e) => {
     e.preventDefault()

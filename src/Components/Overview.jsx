@@ -20,6 +20,43 @@ import Increase from '../Components/Images/Increase.png'
 import ViewTransactionDetailsBar from './ViewTransactionDetailsBar';
 import CreateAcctBar from './CreateAcctBar';
 
+function filterPaymentsByDate(payments, filterType) {
+    const now = new Date();
+
+    return payments.filter(payment => {
+        const paymentDate = new Date(payment.date_created);
+
+        switch (filterType) {
+            case 'lastWeek': {
+                const oneWeekAgo = new Date(now);
+                oneWeekAgo.setDate(now.getDate() - 7);
+                return paymentDate >= oneWeekAgo && paymentDate <= now;
+            }
+            case '3daysAgo': {
+                const threeDaysAgo = new Date(now);
+                threeDaysAgo.setDate(now.getDate() - 3);
+                return paymentDate >= threeDaysAgo && paymentDate <= now;
+            }
+            case '5daysAgo': {
+                const fiveDaysAgo = new Date(now);
+                fiveDaysAgo.setDate(now.getDate() - 5);
+                return paymentDate >= fiveDaysAgo && paymentDate <= now;
+            }
+            case 'lastMonth': {
+                const startOfThisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+                const startOfLastMonth = new Date(startOfThisMonth);
+                startOfLastMonth.setMonth(startOfThisMonth.getMonth() - 1);
+                const endOfLastMonth = new Date(startOfThisMonth);
+                endOfLastMonth.setDate(0); // last day of previous month
+                return paymentDate >= startOfLastMonth && paymentDate <= endOfLastMonth;
+            }
+            default:
+                return false;
+        }
+    });
+}
+
+
 const Overview = ({ acct }) => {
 
     const {
@@ -50,7 +87,42 @@ const Overview = ({ acct }) => {
         viewDetails
     } = useContext(Context)
 
+    const userAcct = localStorage.getItem('UserAcct')
+
+    const handleCreateAcct = () => {
+        if (userAcct < 2) {
+            handleAcctBar()
+        } else {
+            alert("You can't create more than 2 accounts")
+            return null
+        }
+    }
+
+    const option1 = [
+        {
+            value: '',
+            label: (
+                <p className='text-[14px]'>This week</p>
+            )
+        }
+    ]
+    const option2 = [
+        { value: 'lastWeek', label: <p className='text-[14px]'>Last week</p> },
+        { value: '3daysAgo', label: <p className='text-[14px]'>3 days ago</p> },
+        { value: '5daysAgo', label: <p className='text-[14px]'>5 days ago</p> },
+        { value: 'lastMonth', label: <p className='text-[14px]'>Last month</p> }
+    ];
+
     const [transaction, setTransaction] = useState([])
+    const [sent, setSent] = useState([])
+    const [filteredPayments, setFilteredPayments] = useState([])
+    const [selectedMoneyRecieved, setSelectedMoneyRecieved] = useState(null);
+    const [selectedMoneySent, setSelectedMoneySent] = useState(option2[0]);
+
+    const roundUp = (value, decimals = 2) => {
+        const factor = Math.pow(10, decimals);
+        return Math.ceil(value * factor) / factor;
+    };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -194,20 +266,25 @@ const Overview = ({ acct }) => {
                     Authorization: `Token ${token}`,
                 },
             });
-            const data = await res.json();
-            setAccounts(data);
 
-            if (data.length > 0) {
+            const data = await res.json();
+
+            // Filter for USD account only
+            const usdAccount = data.find(account => account.currency === 'USD');
+
+            setAccounts(usdAccount ? [usdAccount] : []);
+
+            if (usdAccount) {
                 setSelectedCurrency({
-                    value: data[0].currency,
+                    value: usdAccount.currency,
                     label: (
                         <div className="flex items-center gap-2">
                             <img
-                                src={currencyLogos[data[0].currency]}
-                                alt={data[0].currency}
+                                src={currencyLogos[usdAccount.currency]}
+                                alt={usdAccount.currency}
                                 className="w-[20px] h-4"
                             />
-                            <span>{data[0].currency}</span>
+                            <span>{usdAccount.currency}</span>
                         </div>
                     ),
                 });
@@ -217,42 +294,73 @@ const Overview = ({ acct }) => {
         fetchAccount();
     }, [currencyLogos]);
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
 
-    const handleCurrencyChange = (selectedOption) => {
-        setSelectedCurrency(selectedOption);
-        if (selectedOption.value === 'USD') {
+        const fetchTransactions = async () => {
+            const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/payments`, {
+                headers: {
+                    Authorization: `Token ${token}`,
+                },
+            });
+
+            const data = await res.json();
+
+            const amounts = data.map(txn => parseFloat(txn.amount));
+
+            const total = amounts.reduce((sum, val) => sum + val, 0);
+            setSent(total);
+        };
+
+        fetchTransactions();
+    }, []);
+
+    useEffect(() => {
+        async function fetchPayments() {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/payments`, {
+                    headers: {
+                        Authorization: `Token ${token}`,
+                    },
+                });
+                if (!response.ok) throw new Error('Network response was not ok');
+                const data = await response.json();
+                setSent(Array.isArray(data) ? data : []);
+            } catch (error) {
+                console.error('Error fetching payments:', error);
+            }
+        }
+
+        fetchPayments();
+    }, []);
+
+    useEffect(() => {
+        if (selectedMoneySent && Array.isArray(sent)) {
+            const filtered = filterPaymentsByDate(sent, selectedMoneySent.value);
+            setFilteredPayments(filtered);
+        } else {
+            setFilteredPayments([]);
+        }
+    }, [selectedMoneySent, sent]);
+
+    useEffect(() => {
+        if (selectedCurrency?.value === 'USD') {
             setOutput("USD");
-        } else if (selectedOption.value === 'EUR') {
+        } else if (selectedCurrency?.value === 'EUR') {
             setOutput("EUR");
         } else {
             setOutput("");
         }
-    };
+    }, [selectedCurrency]);
 
     const [searchQuery, setSearchQuery] = useState('');
     const handleSearch = (query) => {
         setSearchQuery(query);
     };
 
-    const option1 = [
-        {
-            value: '',
-            label: (
-                <p className='text-[14px]'>This week</p>
-            )
-        }
-    ]
-    const option2 = [
-        {
-            value: '',
-            label: (
-                <p className='text-[14px]'>This week</p>
-            )
-        }
-    ]
-
     const currencyOptions = accounts.map((account) => ({
-        value: account.currency,
+        value: account.currency, // string
         label: (
             <div className="flex items-center gap-2">
                 <img
@@ -295,8 +403,7 @@ const Overview = ({ acct }) => {
         }),
     }
 
-    const [selectedMoneyRecieved, setSelectedMoneyRecieved] = useState(option1[0]);
-    const [selectedMoneySent, setSelectedMoneySent] = useState(option2[0]);
+
 
     const handleChange2 = (selectedOption) => {
         setSelectedMoneyRecieved(selectedOption);
@@ -304,6 +411,28 @@ const Overview = ({ acct }) => {
     const handleChange3 = (selectedOption) => {
         setSelectedMoneySent(selectedOption);
     }
+
+    const filteredTransactions = searchQuery
+        ? transaction.filter(transact => {
+            const formattedDate = new Date(transact.date_created).toLocaleDateString("en-GB", {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+            }).toLowerCase();
+
+            const query = searchQuery.toLowerCase();
+
+            return (
+                formattedDate.includes(query) ||
+                (transact.type?.toLowerCase() || '').includes(query) ||
+                (transact.amount?.toString().toLowerCase() || '').includes(query) ||
+                (transact.payment?.beneficiary?.full_name?.toLowerCase() || '').includes(query) ||
+                (transact.currency?.toLowerCase() || '').includes(query) ||
+                (transact.payment?.status?.toLowerCase() || '').includes(query)
+            );
+        })
+        : transaction;  // return all if no search query
+
 
     return (
         <div>
@@ -320,19 +449,19 @@ const Overview = ({ acct }) => {
                     <img className='lg:block hidden cursor-pointer' src={Search} alt="" />
                     <img className='lg:block hidden cursor-pointer' src={Bell} alt="" />
                     <img
-                        onClick={handleAcctBar}
+                        onClick={handleCreateAcct}
                         className='sp:w-8 w-[30px] cursor-pointer' src={Add} alt=""
                     />
                 </div>
             </div>
             <div className='flex justify-between items-center md:px-10 px-4 py-2'>
                 <p className='font-medium text-[18px]'>Overview</p>
-                <button
+                {/* <button
                     onClick={handleLiveRates}
                     className='py-[10px] px-4 border text-[14px] border-black/30 rounded-lg'
                 >
                     Live rates
-                </button>
+                </button> */}
             </div>
             <div className='md:px-10 px-4 pt-4 flex md:flex-row flex-col md:gap-0 gap-7'>
                 <div className='w-full md:border-r-2 md:pr-4 border-black/50'>
@@ -340,21 +469,34 @@ const Overview = ({ acct }) => {
                         <p className='flex items-center gap-1 text-[14px] text-[#78757A]'>
                             Total balance <img src={Warn} alt="" />
                         </p>
-                        <Select
+                        {/* <Select
                             styles={customStyles}
                             options={currencyOptions}
                             onChange={handleCurrencyChange}
                             value={selectedCurrency}
                             isSearchable={false}
-                        />
+                        /> */}
+                        <div className="relative w-[100px]">
+                            <input
+                                type="text"
+                                value={selectedCurrency?.value || ''}
+                                readOnly
+                                className="pl-8 pr-2 py-2 border-[1.5px] text-center rounded-[10px] w-full"
+                            />
+                            <img
+                                src={currencyLogos[selectedCurrency?.value]}
+                                alt={selectedCurrency?.value}
+                                className="w-[20px] h-4 absolute left-3 top-1/2 -translate-y-1/2"
+                            />
+                        </div>
                     </div>
                     <div>
                         <p className="text-[36px] font-semibold">
                             {selectedCurrency && selectedAccount && (
                                 <>
                                     {selectedCurrency.value === 'USD' && '$'}
-                                    {selectedCurrency.value === 'EUR' && '€'}
-                                    {balance.balance}
+                                    {/* {selectedCurrency.value === 'EUR' && '€'} */}
+                                    {roundUp(balance.balance, 0)}
                                 </>
                             )}
                         </p>
@@ -415,7 +557,16 @@ const Overview = ({ acct }) => {
                         />
                     </div>
                     <div>
-                        <p className='text-[36px] font-semibold'>$0</p>
+                        <div className='text-[36px] flex font-semibold'>
+                            {selectedCurrency?.value === 'USD' && '$'}
+                            {filteredPayments.length === 0 ? (
+                                <p>0</p>
+                            ) : (
+                                <>
+                                    {filteredPayments.reduce((sum, p) => sum + Number(p.amount), 0)}
+                                </>
+                            )}
+                        </div>
                         <img className='md:w-full w-[70%] xl:w-[50%]' src={RedLine} alt="" />
                     </div>
                 </div>
@@ -430,9 +581,9 @@ const Overview = ({ acct }) => {
                             onClick={acct = 0 ? handleAcctBar : null}
                         >
                             {acct > 0 ? (
-                                <FaCheckCircle className='mt-1 text-[#542d9d]' />
-                            ) : (
                                 <FaRegCircle className='mt-1 text-black/50' />
+                            ) : (
+                                <FaCheckCircle className='mt-1 text-[#542d9d]' />
                             )}
                             <p>Create your first bank account</p>
                         </div>
@@ -547,18 +698,7 @@ const Overview = ({ acct }) => {
                             </div>
                         </div>
 
-                        {transaction.filter(transact => {
-                            const formattedDate = new Date(transact.date_created).toLocaleDateString("en-GB", {
-                                day: '2-digit',
-                                month: 'short',
-                                year: 'numeric',
-                            }).toLowerCase();
-                            return (
-                                formattedDate.includes(searchQuery.toLowerCase()) ||
-                                (transact.Type?.toLowerCase() || '').includes(searchQuery.toLowerCase()) ||
-                                (transact.Recipient?.toLowerCase() || '').includes(searchQuery.toLowerCase())
-                            );
-                        }).map((transact, index) => (
+                        {filteredTransactions.map((transact, index) => (
                             <div key={index} className='sp:grid md:grid-cols-9 sm:grid-cols-8 sp:grid-cols-7 flex justify-between gap-5 border-b border-black/10 py-[14px] px-4 text-[14px] text-[#344054] text-left items-center'>
 
                                 <div className='min-w-0 block col-span-2'>
@@ -622,16 +762,18 @@ const Overview = ({ acct }) => {
                             </div>
                         ))}
                         <div className='my-4 text-[#344054]'>
-                            {transaction.length} items
+                            {filteredTransactions.length} {filteredTransactions.length > 1 ? 'items' : 'item'}
+
                         </div>
                     </div>
                 </div>
             </div>
             <AcctDetailsBar
                 selectedCurrency={selectedCurrency}
-                handleCurrencyChange={handleCurrencyChange}
                 currencyOptions={currencyOptions}
                 output={output}
+                roundUp={roundUp}
+                currencyLogos={currencyLogos}
                 selectedAccount={selectedAccount}
                 balance={balance}
             />

@@ -26,13 +26,17 @@ function App() {
   const location = useLocation();
 
   const CreatedKyc = localStorage.getItem('KYCcreated')
+  const acct = localStorage.getItem('UserAcct')
+  const beneficiaries = JSON.parse(localStorage.getItem('BeneficiaryAcct'))
   const [kyc, setKyc] = useState(() => CreatedKyc || null)
-
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchKyc = async () => {
       try {
         const token = localStorage.getItem('token');
+        if (!token) return
+
         const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/kyc/`, {
           method: 'GET',
           headers: {
@@ -61,6 +65,85 @@ function App() {
       fetchKyc();
     }
   }, [CreatedKyc])
+
+  const fetchAccount = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/account`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Token ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to fetch account');
+      }
+      return data.length;
+    } catch (error) {
+      console.error('Error fetching account:', error.message);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const getAccount = async () => {
+      const storedAcct = localStorage.getItem('UserAcct');
+      if (!storedAcct) {
+        const data = await fetchAccount();
+        if (data) {
+          localStorage.setItem('UserAcct', JSON.stringify(data));
+        }
+      }
+      setLoading(false);
+    };
+
+    getAccount();
+  }, []);
+
+
+  const fetchBeneficiary = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary`, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: `Token ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to fetch beneficiary');
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error fetching beneficiary:', error.message);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const getBeneficiaries = async () => {
+      const storedBeneficiary = localStorage.getItem('BeneficiaryAcct');
+      if (!storedBeneficiary) {
+        const data = await fetchBeneficiary();
+        if (data) {
+          localStorage.setItem('BeneficiaryAcct', JSON.stringify(data))
+        }
+      }
+    };
+
+    getBeneficiaries();
+  }, [beneficiaries]);
 
   useEffect(() => {
     const timestamp = localStorage.getItem('tokenTimestamp');
@@ -112,7 +195,7 @@ function App() {
                 path="/home/*"
                 element={
                   <ProtectedRoute kyc={kyc} verified={CreatedKyc}>
-                    <Home />
+                    <Home loading={loading} acct={acct} />
                   </ProtectedRoute>
                 }
               />
@@ -120,7 +203,7 @@ function App() {
                 path="/beneficiaries/*"
                 element={
                   <ProtectedRoute kyc={kyc} verified={CreatedKyc}>
-                    <Beneficiary />
+                    <Beneficiary beneficiaries={beneficiaries} />
                   </ProtectedRoute>
                 }
               />
@@ -166,12 +249,26 @@ function App() {
                 </PublicRoute>
               }
             />
-            <Route path="/forgotpassword" element={<ForgotPassword />} />
-            <Route path="/updatepassword" element={<UpdatePassword />} />
+            <Route
+              path="/forgotpassword"
+              element={
+                <PublicRoute>
+                  <ForgotPassword />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/updatepassword"
+              element={
+                <PublicRoute>
+                  <UpdatePassword />
+                </PublicRoute>
+              }
+            />
           </Routes>
         </Suspense>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
 

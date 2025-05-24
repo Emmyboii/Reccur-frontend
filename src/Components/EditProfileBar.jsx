@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import close from '../Components/Images/x-close.png';
 import user from '../Components/Images/user.png';
 import { Context } from '../Context/Context'
-import Select from 'react-select';
+import Select from 'react-select'; import { Country, State, City } from "country-state-city";
+
 import Bank from '../Components/Images/bank.png';
 // import SouthAfrica from '../Components/Images/SouthAfrica.png';
 // import UK from '../Components/Images/UK.png';
@@ -15,6 +16,13 @@ const EditProfileBar = () => {
     const { handleProfileEdit, profileEdit } = useContext(Context)
     const [method, setMethod] = useState('bank')
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [countries, setCountries] = useState([]);
+    const [states, setStates] = useState([]);
+    const [cities, setCities] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState("");
+    const [selectedCountryCode, setSelectedCountryCode] = useState("");
+    const [selectedState, setSelectedState] = useState("");
+    const [selectedCity, setSelectedCity] = useState("");
 
     const [formData, setFormData] = useState({
         bank_name: "",
@@ -23,7 +31,13 @@ const EditProfileBar = () => {
         swift_code: "",
         routing_number: "",
         full_name: "",
-        address: "",
+        countryCode: '',
+        country: '',
+        stateOrProvince: '',
+        postalCode: '',
+        streetLine1: '',
+        streetLine2: '',
+        city: '',
     })
 
     const [formDataCrypto, setFormDataCrypto] = useState({
@@ -65,8 +79,20 @@ const EditProfileBar = () => {
                 swift_code: data.swift_code,
                 routing_number: data.routing_number,
                 full_name: data.full_name,
-                address: data.address,
+                country: data.country,
+                countryCode: data.address.countryCode,
+                stateOrProvince: data.address.stateOrProvince,
+                postalCode: data.address.postalCode,
+                streetLine1: data.address.streetLine1,
+                streetLine2: data.address.streetLine2,
+                city: data.address.city,
             }));
+            if (data.account_type === 'crypto') {
+                setMethod('crypto')
+            } else {
+                setMethod('bank')
+
+            }
         };
 
         fetchBeneficiaries();
@@ -95,6 +121,24 @@ const EditProfileBar = () => {
             const token = localStorage.getItem('token')
             const BeneficairyID = localStorage.getItem('BeneficairyID');
 
+            const payload = {
+                bank_name: formData.bank_name,
+                bank_account_type: formData.bank_account_type,
+                account_number: formData.account_number,
+                swift_code: formData.swift_code,
+                routing_number: formData.routing_number,
+                full_name: formData.full_name,
+                country: formData.country,
+                address: {
+                    countryCode: formData.countryCode,
+                    stateOrProvince: formData.stateOrProvince,
+                    postalCode: formData.postalCode,
+                    streetLine1: formData.streetLine1,
+                    streetLine2: formData.streetLine2,
+                    city: formData.city,
+                },
+            };
+
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/beneficiary/${BeneficairyID}`, {
                 method: 'PUT',
                 headers: {
@@ -102,7 +146,7 @@ const EditProfileBar = () => {
                     Authorization: `Token ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(payload)
             })
 
             const data = await response.json();
@@ -203,32 +247,39 @@ const EditProfileBar = () => {
     //     },
     // ];
 
-    const bankOptions = [
-        { label: "Select Bank", value: "", isDisabled: true },
-        { label: "Sterling Bank PLC", value: "sterling-bank-plc" },
-        { label: "Keystone Bank PLC", value: "keystone-bank-plc" },
-        { label: "First City Monument Bank PLC", value: "first-city-monument-bank-plc" },
-        { label: "United Bank For Africa PLC", value: "united-bank-for-africa-plc" },
-        { label: "Jaiz Bank", value: "jaiz-bank" },
-        { label: "Fidelity Bank PLC", value: "fidelity-bank-plc" },
-        { label: "Polaris Bank PLC", value: "polaris-bank-plc" },
-        { label: "CITI Bank", value: "citi-bank" },
-        { label: "Ecobank Nigeria PLC", value: "ecobank-nigeria-plc" },
-        { label: "Unity Bank PLC", value: "unity-bank-plc" },
-        { label: "Stanbic IBTC Bank PLC", value: "stanbic-ibtc-bank-plc" },
-        { label: "Access Bank PLC", value: "access-bank-plc" },
-        { label: "Zenith International Bank PLC", value: "zenith-international-bank-plc" },
-        { label: "First Bank Of Nigeria PLC", value: "first-bank-of-nigeria-plc" },
-        { label: "Wema Bank PLC", value: "wema-bank-plc" },
-        { label: "Union Bank Of Nigeria PLC", value: "union-bank-of-nigeria-plc" },
-        { label: "Heritage Bank PLC", value: "heritage-bank-plc" },
-        { label: "Standard Chartered Bank PLC", value: "standard-chartered-bank-plc" },
-        { label: "GT Bank", value: "gt-bank" },
-        { label: "Suntrust Bank", value: "suntrust-bank" },
-        { label: "Providus Bank", value: "providus-bank" },
-        { label: "Afribank Nigeria Plc", value: "afribank-nigeria-plc" },
-        { label: "Enterprise Bank Limited", value: "enterprise-bank-limited" },
-    ];
+    const handleChange = (e) => {
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }))
+    }
+
+    // const bankOptions = [
+    //     { label: "Select Bank", value: "", isDisabled: true },
+    //     { label: "Sterling Bank PLC", value: "sterling-bank-plc" },
+    //     { label: "Keystone Bank PLC", value: "keystone-bank-plc" },
+    //     { label: "First City Monument Bank PLC", value: "first-city-monument-bank-plc" },
+    //     { label: "United Bank For Africa PLC", value: "united-bank-for-africa-plc" },
+    //     { label: "Jaiz Bank", value: "jaiz-bank" },
+    //     { label: "Fidelity Bank PLC", value: "fidelity-bank-plc" },
+    //     { label: "Polaris Bank PLC", value: "polaris-bank-plc" },
+    //     { label: "CITI Bank", value: "citi-bank" },
+    //     { label: "Ecobank Nigeria PLC", value: "ecobank-nigeria-plc" },
+    //     { label: "Unity Bank PLC", value: "unity-bank-plc" },
+    //     { label: "Stanbic IBTC Bank PLC", value: "stanbic-ibtc-bank-plc" },
+    //     { label: "Access Bank PLC", value: "access-bank-plc" },
+    //     { label: "Zenith International Bank PLC", value: "zenith-international-bank-plc" },
+    //     { label: "First Bank Of Nigeria PLC", value: "first-bank-of-nigeria-plc" },
+    //     { label: "Wema Bank PLC", value: "wema-bank-plc" },
+    //     { label: "Union Bank Of Nigeria PLC", value: "union-bank-of-nigeria-plc" },
+    //     { label: "Heritage Bank PLC", value: "heritage-bank-plc" },
+    //     { label: "Standard Chartered Bank PLC", value: "standard-chartered-bank-plc" },
+    //     { label: "GT Bank", value: "gt-bank" },
+    //     { label: "Suntrust Bank", value: "suntrust-bank" },
+    //     { label: "Providus Bank", value: "providus-bank" },
+    //     { label: "Afribank Nigeria Plc", value: "afribank-nigeria-plc" },
+    //     { label: "Enterprise Bank Limited", value: "enterprise-bank-limited" },
+    // ];
 
     const cryptocurrencyOptions = [
         { label: "Cryptocurrency Type", value: "", isDisabled: true },
@@ -258,6 +309,85 @@ const EditProfileBar = () => {
         { label: "Checking", value: "CHECKING" },
     ];
 
+    useEffect(() => {
+        const allCountries = Country.getAllCountries();
+        setCountries(allCountries);
+    }, []);
+
+    const handleCountryCodeChange = (option) => {
+        setSelectedCountryCode(option);
+        setFormData(prev => ({ ...prev, countryCode: option.values }));
+
+        const fetchedStates = State.getStatesOfCountry(option.values);
+        setStates(fetchedStates);
+        setSelectedState(null);
+        setCities([]);
+        setSelectedCity(null);
+        setFormData(prev => ({ ...prev, stateOrProvince: '', city: '' }));
+    };
+
+    const handleCountryChange = (option) => {
+        setSelectedCountry(option);
+        setFormData(prev => ({ ...prev, country: option.values }));
+    };
+
+    const handleStateChange = (option) => {
+        setSelectedState(option);
+        setFormData(prev => ({ ...prev, stateOrProvince: option.label }));
+
+        const fetchedCities = City.getCitiesOfState(selectedCountryCode.values, option.value);
+        setCities(fetchedCities);
+        setSelectedCity(null);
+        setFormData(prev => ({ ...prev, city: '' }));
+    };
+
+    const handleCityChange = (option) => {
+        setSelectedCity(option);
+        setFormData(prev => ({ ...prev, city: option.value }));
+    };
+
+    const countryCodeOptions = countries.map((c) => ({
+        label: (
+            <div className="flex items-center gap-2">
+                <img
+                    src={`https://flagcdn.com/w40/${c.isoCode.toLowerCase()}.png`}
+                    alt={c.name}
+                    className="w-5 h-4"
+                />
+                {c.isoCode}
+            </div>
+        ),
+        value: c.isoCode,
+        values: c.isoCode,
+        raw: c,
+    }));
+
+    const countryOptions = countries.map((c) => ({
+        label: (
+            <div className="flex items-center gap-2">
+                <img
+                    src={`https://flagcdn.com/w40/${c.isoCode.toLowerCase()}.png`}
+                    alt={c.name}
+                    className="w-5 h-4"
+                />
+                {c.name}
+            </div>
+        ),
+        value: c.name,
+        values: c.name,
+        raw: c,
+    }));
+
+    const stateOptions = states.map((s) => ({
+        label: s.name,
+        value: s.isoCode,
+        raw: s,
+    }));
+
+    const cityOptions = cities.map((c) => ({
+        label: c.name,
+        value: c.name,
+    }));
 
     const customStyles = {
         indicatorSeparator: () => ({
@@ -290,56 +420,56 @@ const EditProfileBar = () => {
             cursor: 'pointer',
         }),
     };
-    const customStyles2 = {
-        indicatorSeparator: () => ({
-            display: 'none',
-        }),
-        control: (base) => ({
-            ...base,
-            paddingTop: '3px',
-            paddingBottom: '3px',
-            paddingLeft: '37px',
-            paddingRight: '7px',
-            borderRadius: '6px',
-            boxShadow: 'none',
-            borderWidth: '1.5px',
-            color: 'rgb(0, 0, 0, 0.6)'
-        }),
-        singleValue: (base) => ({
-            ...base,
-            color: 'rgba(0, 0, 0, 0.6)',
-        }),
-        menu: (base) => ({
-            ...base,
-            zIndex: 999,
-        }),
-        option: (base, state) => ({
-            ...base,
-            backgroundColor: state.isFocused ? '#4e22a0' : 'white',
-            color: state.isFocused ? 'white' : 'rgb(0, 0, 0, 0.6)',
-            padding: 10,
-            cursor: 'pointer',
-        }),
-    };
+    // const customStyles2 = {
+    //     indicatorSeparator: () => ({
+    //         display: 'none',
+    //     }),
+    //     control: (base) => ({
+    //         ...base,
+    //         paddingTop: '3px',
+    //         paddingBottom: '3px',
+    //         paddingLeft: '37px',
+    //         paddingRight: '7px',
+    //         borderRadius: '6px',
+    //         boxShadow: 'none',
+    //         borderWidth: '1.5px',
+    //         color: 'rgb(0, 0, 0, 0.6)'
+    //     }),
+    //     singleValue: (base) => ({
+    //         ...base,
+    //         color: 'rgba(0, 0, 0, 0.6)',
+    //     }),
+    //     menu: (base) => ({
+    //         ...base,
+    //         zIndex: 999,
+    //     }),
+    //     option: (base, state) => ({
+    //         ...base,
+    //         backgroundColor: state.isFocused ? '#4e22a0' : 'white',
+    //         color: state.isFocused ? 'white' : 'rgb(0, 0, 0, 0.6)',
+    //         padding: 10,
+    //         cursor: 'pointer',
+    //     }),
+    // };
 
-    const customComponents = {
-        DropdownIndicator: () => null,
-    };
+    // const customComponents = {
+    //     DropdownIndicator: () => null,
+    // };
 
-    const [banks, setBanks] = useState(bankOptions[0])
+    // const [banks, setBanks] = useState(bankOptions[0])
     const [bankAcctType, setBankAcctType] = useState(bankAcctTypeOptions[0])
     // const [countries, setCountries] = useState(countryOptions[0])
     const [crypto, setCrypto] = useState(cryptocurrencyOptions[0])
     const [networkType, setNetworkType] = useState(networkOptions[0])
     const [acctType, setacctType] = useState(acctTypeOptions[0])
 
-    const handleBanks = (Option) => {
-        setBanks(Option)
-        setFormData(prev => ({
-            ...prev,
-            bank_name: Option.value
-        }))
-    }
+    // const handleBanks = (Option) => {
+    //     setBanks(Option)
+    //     setFormData(prev => ({
+    //         ...prev,
+    //         bank_name: Option.value
+    //     }))
+    // }
 
     const handleBankAcctType = (Option) => {
         setBankAcctType(Option)
@@ -408,39 +538,15 @@ const EditProfileBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[35px] rounded-md'
                                     type="text"
                                     name="full_name"
-                                    value={formData.full_name || ""}
+                                    value={formData.full_name || ''}
                                     onChange={handleBankChange}
+                                    id=""
                                     required
                                     placeholder='Beneficiary’s full name'
                                 />
                                 <img className='absolute ml-3' src={user} alt="" />
                             </div>
                         </div>
-                        {/* <div className='mt-5'>
-                            <label htmlFor="code">Beneficiary's Country</label>
-                            <div className='mt-1'>
-                                <Select
-                                    styles={customStyles}
-                                    options={countryOptions}
-                                    getOptionLabel={(e) => (
-                                        <div className="flex items-center gap-2 text-black/50">
-                                            {e.icon && (
-                                                <img
-                                                    src={e.icon}
-                                                    alt={e.label}
-                                                    className="w-[20px] h-[15px] rounded-[2px]"
-                                                />
-                                            )}
-                                            <span>{e.label}</span>
-                                        </div>
-                                    )}
-                                    value={countries}
-                                    onChange={handleCountries}
-                                    isSearchable={false}
-                                    className='rounded-m w-full outline-none'
-                                />
-                            </div>
-                        </div> */}
                         <div className='mt-5'>
                             <label htmlFor="fullName">Beneficiary's account number</label>
                             <div className='flex items-center mt-2'>
@@ -459,16 +565,32 @@ const EditProfileBar = () => {
                         <div className='mt-5'>
                             <label htmlFor="fullName">Bank name</label>
                             <div className='flex items-center mt-2 relative'>
-                                <Select
-                                    options={bankOptions}
-                                    styles={customStyles2}
-                                    onChange={handleBanks}
-                                    value={banks}
-                                    isSearchable={true}
-                                    components={customComponents}
-                                    className='rounded-m w-full outline-none text-black/60'
+                                <input
+                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full pl-[35px] rounded-md'
+                                    type="text"
+                                    name="bank_name"
+                                    value={formData.bank_name || ''}
+                                    onChange={handleBankChange}
+                                    id=""
+                                    required
+                                    placeholder='Enter your bank name'
                                 />
                                 <img className='absolute ml-3' src={Bank} alt="" />
+                            </div>
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">Country</label>
+                            <div className='flex items-center mt-2'>
+                                <Select
+                                    styles={customStyles}
+                                    options={countryOptions}
+                                    onChange={handleCountryChange}
+                                    placeholder="Select Country Code"
+                                    value={selectedCountry}
+                                    className="w-full"
+                                    required
+                                    menuPlacement="auto"
+                                />
                             </div>
                         </div>
                         <div className='mt-5'>
@@ -491,7 +613,7 @@ const EditProfileBar = () => {
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
                                     type="number"
                                     name="routing_number"
-                                    value={formData.routing_number || ""}
+                                    value={formData.routing_number || ''}
                                     onChange={handleBankChange}
                                     id=""
                                     required
@@ -504,9 +626,9 @@ const EditProfileBar = () => {
                             <div className='flex items-center mt-2'>
                                 <input
                                     className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
-                                    type="number"
+                                    type="text"
                                     name="swift_code"
-                                    value={formData.swift_code || ""}
+                                    value={formData.swift_code || ''}
                                     onChange={handleBankChange}
                                     id=""
                                     required
@@ -515,19 +637,85 @@ const EditProfileBar = () => {
                             </div>
                         </div>
                         <div className='mt-5'>
-                            <label htmlFor="fullName">Address</label>
+                            <label htmlFor="code">Country Code</label>
                             <div className='flex items-center mt-2'>
-                                <input
-                                    className='border-[1.5px] border-black/20 outline-none py-[10px] w-full px-[14px] rounded-md'
-                                    type="text"
-                                    name="address"
-                                    value={formData.address || ''}
-                                    onChange={handleBankChange}
-                                    id=""
+                                <Select
+                                    styles={customStyles}
+                                    options={countryCodeOptions}
+                                    onChange={handleCountryCodeChange}
+                                    placeholder="Select Country Code"
+                                    value={selectedCountryCode}
+                                    className="w-full"
                                     required
-                                    placeholder='Enter your address'
+                                    menuPlacement="auto"
                                 />
                             </div>
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">State / Province</label>
+                            <div className='flex items-center mt-2'>
+                                <Select
+                                    styles={customStyles}
+                                    options={stateOptions}
+                                    onChange={handleStateChange}
+                                    placeholder="Select State"
+                                    value={selectedState}
+                                    className="w-full"
+                                    menuPlacement="auto"
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">City</label>
+                            <Select
+                                styles={customStyles}
+                                options={cityOptions}
+                                onChange={handleCityChange}
+                                placeholder="Select City"
+                                value={selectedCity}
+                                className="w-full mt-2"
+                                menuPlacement="auto"
+                                required
+                            />
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">Street Line 1</label>
+                            <input
+                                className='border-[1.5px] mt-2 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
+                                type="text"
+                                name="streetLine1"
+                                value={formData.streetLine1}
+                                onChange={handleChange}
+                                required
+                                placeholder='564866'
+                            />
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">Street Line 2</label>
+                            <input
+                                className='border-[1.5px] mt-2 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
+                                type="text"
+                                name="streetLine2"
+                                value={formData.streetLine2}
+                                onChange={handleChange}
+                                id=""
+                                required
+                                placeholder='564866'
+                            />
+                        </div>
+                        <div className='mt-5'>
+                            <label htmlFor="code">Zip / postal code</label>
+                            <input
+                                className='border-[1.5px] mt-2 border-black/20 rounded-md w-full py-[10px] px-[14px] outline-none'
+                                type="number"
+                                name="postalCode"
+                                value={formData.postalCode}
+                                onChange={handleChange}
+                                id=""
+                                placeholder='564866'
+                                required
+                            />
                         </div>
                         <div className='flex gap-4 mt-10'>
                             <button
@@ -588,7 +776,7 @@ const EditProfileBar = () => {
                             <label className='text-black/50' htmlFor="fullName">Wallet address</label>
                             <div className='flex items-center mt-2'>
                                 <input
-                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 text-black/60 outline-none py-[10px] w-full pl-[14px] rounded-md'
+                                    className='border-[1.5px] placeholder:text-black/60 border-black/20 outline-none py-[10px] w-full pl-[14px] rounded-md'
                                     type="text"
                                     name="wallet_address"
                                     value={formDataCrypto.wallet_address || ''}

@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import AddBeneficiaries from '../Components/AddBeneficiary';
 import { Context } from '../Context/Context';
 
-const Beneficiary = () => {
+const Beneficiary = ({beneficiaries}) => {
 
     const {
         viewDetails,
@@ -23,7 +23,7 @@ const Beneficiary = () => {
         };
     }, [viewDetails, profileEdit, deleteProfile, beneficiaryBar])
 
-    return <AddBeneficiaries />;
+    return <AddBeneficiaries beneficiaries={beneficiaries} />;
 }
 
 export default Beneficiary
